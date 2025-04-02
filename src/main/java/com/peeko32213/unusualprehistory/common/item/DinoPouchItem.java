@@ -21,7 +21,7 @@ public class DinoPouchItem extends Item  {
     @Override
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if (pInteractionTarget instanceof MegatheriumEntity entityBabyMegatherium && entityBabyMegatherium.isBaby() && !pPlayer.level().isClientSide) {
-            ItemStack slotPouch = UPItems.SLOTH_POUCH_ARMOR.get().getDefaultInstance();
+            ItemStack slotPouch = UPItems.SLOTH_POUCH.get().getDefaultInstance();
             CompoundTag tag = slotPouch.getTag();
             Level level = pPlayer.level();
             tag.put("megatherium", entityBabyMegatherium.serializeNBT());
@@ -31,7 +31,7 @@ public class DinoPouchItem extends Item  {
             slotPouch.setTag(tag);
             entityBabyMegatherium.discard();
             ItemStack itemstack2 = ItemUtils.createFilledResult(pStack, pPlayer,slotPouch);
-            if(itemstack2.getItem().getDefaultInstance().is(UPItems.SLOTH_POUCH_ARMOR.get())){
+            if(itemstack2.getItem().getDefaultInstance().is(UPItems.SLOTH_POUCH.get())){
                 boolean canPlace = pPlayer.getInventory().add(itemstack2);
             }
             return InteractionResult.sidedSuccess(level.isClientSide());

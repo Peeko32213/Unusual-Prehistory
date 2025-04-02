@@ -15,14 +15,17 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -34,10 +37,17 @@ public class UPLanguageGenerator extends LanguageProvider {
     @Override
     protected void addTranslations(){
 
+        // Creative tab
+        addTabName(UPTabs.UP_TAB.get(), "Unusual Prehistory");
+
         // Blocks
         UPBlocks.AUTO_TRANSLATE.forEach(this::forBlock);
 
+        // Items
+        UPItems.AUTO_TRANSLATE.forEach(this::forItem);
+
         // Untranslated blocks
+
         addBlock(UPBlocks.DRYO_LOG, "Dryophyllum Log");
         addBlock(UPBlocks.STRIPPED_DRYO_LOG, "Stripped Dryophyllum Log");
         addBlock(UPBlocks.DRYO_WOOD, "Dryophyllum Wood");
@@ -80,125 +90,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PETRIFIED_PRESSURE_PLATE, "Petrified Pressure Plate");
         addBlock(UPBlocks.PETRIFIED_BUTTON, "Petrified Button");
 
-        // Items
-
-        // Untranslated items
-        addItem(UPItems.DRYO_BOAT.getFirst(), "Dryophyllum Boat");
-        addItem(UPItems.DRYO_BOAT.getSecond(), "Dryophyllum Chest Boat");
-        addItem(UPItems.FOXII_BOAT.getFirst(), "Foxii Boat");
-        addItem(UPItems.FOXII_BOAT.getSecond(), "Foxii Chest Boat");
-        addItem(UPItems.GINKGO_BOAT.getFirst(), "Ginkgo Boat");
-        addItem(UPItems.GINKGO_BOAT.getSecond(), "Ginkgo Chest Boat");
-
-        //TABS
-        addTabName(UPTabs.UP_TAB.get(), "Unusual Prehistory");
-
-        //MISC
-        addItem(UPItems.ENCYLOPEDIA, "Encyclopedia of Prehistory");
-        addItem(UPItems.ADORNED_STAFF, "Adorned Staff");
-        addItem(UPItems.ORGANIC_OOZE, "Organic Ooze");
-        addItem(UPItems.DINO_POUCH, "Empty Pouch");
-        addItem(UPItems.OPALESCENT_PEARL, "Opalescent Pearl");
-        addItem(UPItems.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
-
-        addItem(UPItems.ZULOGAE_DISC, "Music Disc");
-        addItem(UPItems.ENCASED_DISC, "Music Disc");
-        addItem(UPItems.OPALESENCE_DISC, "Music Disc");
-
-        addItem(UPItems.ANIMAL_DNA_BOTTLES, "Flask of Prehistoric Animal DNA");
-        addItem(UPItems.PLANT_DNA_BOTTLES, "Flask of Prehistoric Plant DNA");
-
         addBlock(UPBlocks.FOSSIL_ORES, "Fossils");
-
-        //TOOLS
-        addItem(UPItems.WARPICK, "War Pick");
-        addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
-        addItem(UPItems.CROCARINA, "Crocorina");
-        addItem(UPItems.HANDMADE_SPEAR, "Handmade Spear");
-        addItem(UPItems.HANDMADE_BATTLEAXE, "Handmade Battle Axe");
-        addItem(UPItems.HANDMADE_CLUB, "Handmade Club");
-
-        //FOSSILS
-        addItem(UPItems.SHELL_SHARD, "Shell Shard");
-        addItem(UPItems.PALEO_FOSSIL, "Paleozoic Fossil");
-        addItem(UPItems.MEZO_FOSSIL, "Mesozoic Fossil");
-        addItem(UPItems.PLANT_FOSSIL, "Plant Fossil");
-        addItem(UPItems.AMBER_FOSSIL, "Amber Fossil");
-        addItem(UPItems.AMBER, "Amber");
-        addItem(UPItems.FROZEN_FOSSIL, "Frozen Meat");
-        addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
-        addItem(UPItems.OPAL, "Opal");
-        addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
-        addItem(UPItems.FIRE_OPAL, "Fire Opal");
-        addItem(UPItems.FIRE_OPAL_FOSSIL, "Fire Opal Fossil");
-        addItem(UPItems.BOULDER_OPAL, "Boulder Opal");
-        addItem(UPItems.BOULDER_OPAL_FOSSIL, "Boulder Opal Fossil");
-        addItem(UPItems.BLACK_OPAL, "Black Opal");
-        addItem(UPItems.BLACK_OPAL_FOSSIL, "Black Opal Fossil");
-
-        //EMBRYOS
-        addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
-        addItem(UPItems.MAMMOTH_EMBRYO, "Mammoth Embryo");
-        addItem(UPItems.MEGATH_EMBRYO, "Megatherium Embryo");
-        addItem(UPItems.GIGANTO_EMBRYO, "Gigantopithecus Embryo");
-        addItem(UPItems.PARACER_EMBRYO, "Paraceratherium Embryo");
-        addItem(UPItems.PALAEO_EMBRYO, "Palaeolophis Embryo");
-        addItem(UPItems.OTAROCYON_EMBRYO, "Otarocyon Embryo");
-        addItem(UPItems.UNICORN_EMBRYO, "Unicorn Embryo");
-
-        //DINO DROPS
-        addItem(UPItems.TYRANNO_SCALE, "Tyrannosaurus Scale");
-        addItem(UPItems.MAJUNGA_SCUTE, "Majungasaurus Scute");
-        addItem(UPItems.VELOCI_FEATHERS, "Velociraptor Feathers");
-        addItem(UPItems.TYRANNO_TOOTH, "Tyrannosaurus Tooth");
-        addItem(UPItems.TRIKE_HORN, "Triceratops Horn");
-        addItem(UPItems.BEELZ_SALIVA, "Beelzebufo Saliva");
-        addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
-        addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
-        addItem(UPItems.SMILO_FUR, "Smilodon Fur");
-        addItem(UPItems.PALAEO_SKIN, "Shed Palaeolophis Skin");
-        addItem(UPItems.PSITTACOSAURUS_QUILL, "Psittacosaurus Quill");
-        addItem(UPItems.AMBER_IDOL, "Amber Idol");
-        addItem(UPItems.YIXIAN_RAMPAGE_BOTTLE, "Bottle of Yixian Rampage");
-        addItem(UPItems.DORMANT_RAMPAGE_BOTTLE, "Bottle of Dormant Yixian Rampage");
-        addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
-        addItem(UPItems.PSITTACCO_ARROW, "Psittacosaurus Arrow");
-
-        //FOODS
-        addItem(UPItems.GROG, "Bottle of Grog");
-        addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
-        addItem(UPItems.RAW_COTY, "Raw Cotylorhynchus");
-        addItem(UPItems.COOKED_COTY, "Cooked Cotylorhynchus");
-        addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
-        addItem(UPItems.COOKED_SCAU, "Cooked Scaumenacia");
-        addItem(UPItems.GOLDEN_SCAU, "Golden Scaumenacia");
-        addItem(UPItems.GINKGO_FRUIT, "Ginkgo Fruit");
-        addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
-        addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
-        addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
-        addItem(UPItems.RED_FRUIT, "Exotic Fruit");
-        addItem(UPItems.WHITE_FRUIT, "Luxurious Fruit");
-        addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");
-        addItem(UPItems.BLUE_FRUIT, "Salubrious Fruit");
-        addItem(UPItems.DEFROSTED_FROZEN_FOSSIL, "Defrosted Fossil");
-        addItem(UPItems.DRYO_NUTS, "Dryophyllum Nuts");
-        addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
-        addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
-        addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
-        addItem(UPItems.LEEDS_CAVIAR, "Leedsichthys Caviar");
-
-        //SCRAPS
-        addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
-        addItem(UPItems.WHITE_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
-        addItem(UPItems.YELLOW_FRUIT_SCRAPS, "Redolent Fruit Scraps");
-        addItem(UPItems.BLUE_FRUIT_SCRAPS, "Salubrious Fruit Scraps");
-
-        // Buckets
-        addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
-        addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
-        addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
-        addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
-        addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
 
         // Block Eggs
         addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
@@ -213,12 +105,77 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.OPHIDION_EGGS, "Ophiodon Eggs");
         addBlock(UPBlocks.TARTUO_EGGS, "Tartuosteus Eggs");
 
+        // Tar
+        addBlock(UPBlocks.TAR, "Tar Block");
+        addBlock(UPBlocks.SPLATTERED_TAR, "Splattered Tar");
+
+        addBlock(UPBlocks.STONE_FOSSIL, "Stone Fossil");
+        addBlock(UPBlocks.DEEPSLATE_FOSSIL, "Deepslate Fossil");
+        addBlock(UPBlocks.PLANT_FOSSIL, "Stone Plant Fossil");
+        addBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL, "Deepslate Plant Fossil");
+        addBlock(UPBlocks.STONE_TAR_FOSSIL, "Stone Tar Fossil");
+        addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil");
+        addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Amber Ore");
+        addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Ore");
+        addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil");
+        addBlock(UPBlocks.PERMAFROST, "Permafrost");
+        addBlock(UPBlocks.ANALYZER, "Analyzer");
+        addBlock(UPBlocks.CULTIVATOR, "Cultivator");
+        addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
+        addBlock(UPBlocks.AMBER_GLASS, "Amber Glass");
+        addBlock(UPBlocks.AMBER_GLASS_PANE, "Amber Glass Pane");
+        addBlock(UPBlocks.REX_HEAD, "Tyrannosaurus Head Mount");
+        addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
+        addBlock(UPBlocks.REX_BOOMBOX, "Tyrannosaurus Boombox");
+        addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
+        addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
+        addBlock(UPBlocks.FIRE_OPAL_BLOCK, "Fire Opal Block");
+        addBlock(UPBlocks.BOULDER_OPAL_BLOCK, "Boulder Opal Block");
+        addBlock(UPBlocks.BLACK_OPAL_BLOCK, "Black Opal Block");
+        addBlock(UPBlocks.INCUBATOR, "Incubator");
+        addBlock(UPBlocks.ASPHALT, "Asphalt");
+        addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");
+        addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
+
+        // Untranslated items
+
+        addItem(UPItems.DRYO_BOAT.getFirst(), "Dryophyllum Boat");
+        addItem(UPItems.DRYO_BOAT.getSecond(), "Dryophyllum Chest Boat");
+        addItem(UPItems.FOXII_BOAT.getFirst(), "Foxii Boat");
+        addItem(UPItems.FOXII_BOAT.getSecond(), "Foxii Chest Boat");
+        addItem(UPItems.GINKGO_BOAT.getFirst(), "Ginkgo Boat");
+        addItem(UPItems.GINKGO_BOAT.getSecond(), "Ginkgo Chest Boat");
+
+        addItem(UPItems.ZULOGAE_DISC, "Music Disc");
+        addItem(UPItems.ENCASED_DISC, "Music Disc");
+        addItem(UPItems.OPALESENCE_DISC, "Music Disc");
+
+        addItem(UPItems.ANIMAL_DNA_BOTTLES, "Flask of Prehistoric Animal DNA");
+        addItem(UPItems.PLANT_DNA_BOTTLES, "Flask of Prehistoric Plant DNA");
+
+        addItem(UPItems.YIXIAN_RAMPAGE_BOTTLE, "Bottle of Yixian Rampage");
+        addItem(UPItems.DORMANT_RAMPAGE_BOTTLE, "Bottle of Dormant Yixian Rampage");
+        addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
+
+        // Foods
+        addItem(UPItems.GROG, "Bottle of Grog");
+        addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
+        addItem(UPItems.RAW_COTY, "Raw Cotylorhynchus");
+        addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
+        addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
+
+        // Buckets
+        addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
+        addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
+        addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
+        addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
+        addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
+
         // Entity Eggs
         addPrehistoricEgg(UPEntities.COTY, "Cotylorhynchus Egg");
         addPrehistoricEgg(UPEntities.EDAPHOSAURUS, "Edaphosaurus Egg");
         addPrehistoricEgg(UPEntities.ESTEMMENOSUCHUS, "Estemmenosuchus Egg");
         addPrehistoricEgg(UPEntities.HYNERPETON, "Hynerpeton Egg");
-
         addPrehistoricEgg(UPEntities.ANTARCO, "Antarctopelta Egg");
         addPrehistoricEgg(UPEntities.ANURO, "Anurognathus Egg");
         addPrehistoricEgg(UPEntities.ARCHELON, "Archelon Egg");
@@ -241,109 +198,24 @@ public class UPLanguageGenerator extends LanguageProvider {
         addPrehistoricEgg(UPEntities.TYRANNOSAURUS, "Tyrannosaurus Egg");
         addPrehistoricEgg(UPEntities.ULUG, "Ulughbegsaurus Egg");
         addPrehistoricEgg(UPEntities.VELOCIRAPTOR, "Velociraptor Egg");
-
         addPrehistoricEgg(UPEntities.BARINASUCHUS, "Barinasuchus Egg");
         addPrehistoricEgg(UPEntities.MEGALANIA, "Megalania Egg");
         addPrehistoricEgg(UPEntities.PSILOPTERUS, "Psilopterus Egg");
         addPrehistoricEgg(UPEntities.TALPANAS, "Talpanas Egg");
 
-        // Spawn eggs
-        addItem(UPItems.AMMON_SPAWN_EGG, "Ammonite Spawn Egg");
-        addItem(UPItems.STETHA_SPAWN_EGG, "Stethacanthus Spawn Egg");
-        addItem(UPItems.DUNK_SPAWN_EGG, "Dunkleosteus Spawn Egg");
-        addItem(UPItems.MAJUNGA_SPAWN_EGG, "Majungasaurus Spawn Egg");
-        addItem(UPItems.ANURO_SPAWN_EGG, "Anurognathus Spawn Egg");
-        addItem(UPItems.BEELZ_SPAWN_EGG, "Beelzebufo Spawn Egg");
-        addItem(UPItems.BEELZ_TADPOLE_SPAWN_EGG, "Beelzebufo Tadpole Spawn Egg");
-        addItem(UPItems.COTY_SPAWN_EGG, "Cotylorhynchus Spawn Egg");
-        addItem(UPItems.SCAU_SPAWN_EGG, "Scaumenacia Spawn Egg");
-        addItem(UPItems.BRACHI_SPAWN_EGG, "Brachiosaurus Spawn Egg");
-        addItem(UPItems.TYRANNOSAURUS_SPAWN_EGG, "Tyrannosaurus Spawn Egg");
-        addItem(UPItems.VELOCIRAPTOR_SPAWN_EGG, "Velociraptor Spawn Egg");
-        addItem(UPItems.TRICERATOPS_SPAWN_EGG, "Triceratops Spawn Egg");
-        addItem(UPItems.PACHY_SPAWN_EGG, "Pachycephalosaurus Spawn Egg");
-        addItem(UPItems.ENCRUSTED_SPAWN_EGG, "Encrusted Spawn Egg");
-        addItem(UPItems.ERYON_SPAWN_EGG, "Eryon Spawn Egg");
-        addItem(UPItems.AUSTRO_SPAWN_EGG, "Austroraptor Spawn Egg");
-        addItem(UPItems.ANTARCO_SPAWN_EGG, "Antarctopelta Spawn Egg");
-        addItem(UPItems.ULUG_SPAWN_EGG, "Ulughbegsaurus Spawn Egg");
-        addItem(UPItems.KENTRO_SPAWN_EGG, "Kentrosaurus Spawn Egg");
-        addItem(UPItems.HWACHA_SPAWN_EGG, "Hwachavenator Spawn Egg");
-        addItem(UPItems.TALPANAS_SPAWN_EGG, "Talpanas Spawn Egg");
-        addItem(UPItems.GIGANTO_SPAWN_EGG, "Gigantopithecus Spawn Egg");
-        addItem(UPItems.BARINA_SPAWN_EGG, "Barinasuchus Spawn Egg");
-        addItem(UPItems.MEGATH_SPAWN_EGG, "Megatherium Spawn Egg");
-        addItem(UPItems.SMILO_SPAWN_EGG, "Smilodon Spawn Egg");
-        addItem(UPItems.PARACER_SPAWN_EGG, "Paraceratherium Spawn Egg");
-        addItem(UPItems.MAMMOTH_SPAWN_EGG, "Mammoth Spawn Egg");
-        addItem(UPItems.MEGALANIA_SPAWN_EGG, "Megalania Spawn Egg");
-        addItem(UPItems.PALAEOPHIS_SPAWN_EGG, "Palaeolophis Spawn Egg");
-        addItem(UPItems.PALAEOPHIS_HATCHLING_SPAWN_EGG, "Palaeolophis Hatchling Spawn Egg");
-        addItem(UPItems.SLUDGE_SPAWN_EGG, "Sludge Spawn Egg");
-        addItem(UPItems.KIMMER_SPAWN_EGG, "Kimmeridgebrachypteraeschnidium Spawn Egg");
-        addItem(UPItems.DIPLOCAULUS_SPAWN_EGG, "Diplocaulus Spawn Egg");
-        addItem(UPItems.HYNERIA_SPAWN_EGG, "Hyneria Spawn Egg");
-        addItem(UPItems.OPHIODON_SPAWN_EGG, "Ophiodon Ozymandias Spawn Egg");
-        addItem(UPItems.PROTOSPHYRAENA_SPAWN_EGG, "Protosphyraena Spawn Egg");
-        addItem(UPItems.BALAUR_SPAWN_EGG, "Balaur Spawn Egg");
-        addItem(UPItems.OTAROCYON_SPAWN_EGG, "Otarocyon Spawn Egg");
-        addItem(UPItems.LEEDS_SPAWN_EGG, "Leedsichthys Spawn Egg");
-        addItem(UPItems.ARCHELON_SPAWN_EGG, "Archelon Spawn Egg");
-        addItem(UPItems.TARTUOSTEUS_SPAWN_EGG, "Tartuosteus Spawn Egg");
-        addItem(UPItems.HYNERPETON_SPAWN_EGG, "Hynerpeton Spawn Egg");
-        addItem(UPItems.JAWLESS_FISH_SPAWN_EGG, "Jawless Fish Spawn Egg");
-        addItem(UPItems.PSITTACO_SPAWN_EGG, "Psittacosaurus Spawn Egg");
-        addItem(UPItems.KAPROSUCUHS_SPAWN_EGG, "Kaprosuchus Spawn Egg");
-        addItem(UPItems.LONGISQUAMA_SPAWN_EGG, "Longisquama Spawn Egg");
-        addItem(UPItems.PTERODAUSTRO_SPAWN_EGG, "Pteradaustro Spawn Egg");
-        addItem(UPItems.TANY_SPAWN_EGG, "Tanystropheus Spawn Egg");
-        addItem(UPItems.PSILOPTERUS_SPAWN_EGG, "Psilopterus Spawn Egg");
-        addItem(UPItems.XIPH_SPAWN_EGG, "Xiphactinus Spawn Egg");
-        addItem(UPItems.OVIRAPTOR_SPAWN_EGG, "Oviraptor Spawn Egg");
-        addItem(UPItems.ESTEMMENOSUCHUS_SPAWN_EGG, "Estemmenosuchus Spawn Egg");
-        addItem(UPItems.PTERYGOTUS_SPAWN_EGG, "Pterygotus Spawn Egg");
-        addItem(UPItems.GLOBIDENS_SPAWN_EGG, "Globidens Spawn Egg");
-        addItem(UPItems.EDAPHOSAURUS_SPAWN_EGG, "Edaphosaurus Spawn Egg");
-        addItem(UPItems.TELECREX_SPAWN_EGG, "Telecrex Spawn Egg");
-        addItem(UPItems.MEGALAMPRIS_SPAWN_EGG, "Megalampris Spawn Egg");
-        addItem(UPItems.GUANLINGSAURUS_SPAWN_EGG, "Guanlingsaurus Spawn Egg");
-        addItem(UPItems.NYCTORAPTOR_SPAWN_EGG, "Nyctoraptor Spawn Egg");
-        addItem(UPItems.CORONODON_SPAWN_EGG, "Coronodon Spawn Egg");
-        addItem(UPItems.PANACANTHOCARIS_SPAWN_EGG, "Panacanthocaris Spawn Egg");
-        addItem(UPItems.PROSCINETES_SPAWN_EGG, "Proscinetes Spawn Egg");
-        addItem(UPItems.SCHLUMBERGERITES_SPAWN_EGG, "Schlumbergerites Spawn Egg");
-        addItem(UPItems.TITANONARKE_SPAWN_EGG, "Titanonarke Spawn Egg");
-
-        // Eggs
-        addItem(UPItems.TELECREX_EGG, "Telecrex Egg");
-
-        //TAR
-        addBlock(UPBlocks.TAR, "Tar Block");
-        addBlock(UPBlocks.SPLATTERED_TAR, "Splattered Tar");
-        addItem(UPItems.TAR_BUCKET, "Tar Bucket");
-
-        //ONE PIECE ARMORS
-        addItem(UPItems.MAJUNGA_HELMET, "Majungasaurus Helmet");
-        addItem(UPItems.AUSTRO_BOOTS, "Austroraptor Boots");
+        // Tyrant's crown
         addItem(UPItems.TYRANTS_CROWN, "Tyrant's Crown");
-        addItem(UPItems.SLOTH_POUCH_ARMOR, "Sloth Pouch");
 
-        //SHEDSCALE ARMOR
+        // Shedscale armor
         addItem(UPItems.SHEDSCALE_HELMET, "Shedscale Wraps");
         addItem(UPItems.SHEDSCALE_CHESTPLATE, "Shedscale Tunic");
         addItem(UPItems.SHEDSCALE_LEGGINGS, "Shedscale Leggings");
         addItem(UPItems.SHEDSCALE_BOOTS, "Shedscale Boots");
 
-        //SHIELDS
+        // Shields
         addItem(UPItems.VELOCI_SHIELD, "Veloci-Shield");
-        addItem(UPItems.TRIKE_SHIELD, "Triceratops Shield");
 
-        // Skeletons
-        addItem(UPItems.TRIKE_SKELETON, "Triceratops Skeleton");
-        addItem(UPItems.TYRANNO_SKELETON, "Tyrannosaurus Skeleton");
-        addItem(UPItems.UNICORN_SKELETON, "Unicorn Skeleton");
-
-        //FLASKS
+        // Bottles
         addItem(UPItems.CAPTURED_KIMMER_BOTTLE, "Bottle of Kimmeridgebrachypteraeschnidium");
         addItem(UPItems.STETHA_DNA, "Bottle of Stethacanthus DNA");
         addItem(UPItems.DUNK_DNA, "Bottle of Dunkleosteus DNA");
@@ -421,9 +293,9 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.PANACANTHOCARIS_DNA, "Bottle of Panacanthocaris DNA");
         addItem(UPItems.PROSCINETES_DNA, "Bottle of Proscinetes DNA");
         addItem(UPItems.CORONODON_DNA, "Bottle of Coronodon DNA");
-        addItem(UPItems.SCHLUMBERGERITES_DNA, "Bottle of Schlumbergerites DNA");
+        addDNAItem(UPItems.SCHLUMBERGERITES_DNA.get());
 
-        //CORALS
+        // Corals
         addItem(UPItems.CLATHRODICTYON_FAN, "Clathrodictyon Coral Fan");
         addItem(UPItems.DEAD_CLATHRODICTYON_FAN, "Dead Clathrodictyon Coral Fan");
         addBlock(UPBlocks.DEAD_CLATHRODICTYON, "Dead Clathrodictyon Coral");
@@ -431,35 +303,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.CLATHRODICTYON, "Clathrodictyon Coral");
         addBlock(UPBlocks.CLATHRODICTYON_BLOCK, "Clathrodictyon Coral Block");
         addBlock(UPBlocks.ANOSTYLOSTROMA_BLOCK, "Anostylostroma Coral Block");
-
-        //BLOCKS
-        addBlock(UPBlocks.STONE_FOSSIL, "Stone Fossil");
-        addBlock(UPBlocks.DEEPSLATE_FOSSIL, "Deepslate Fossil");
-        addBlock(UPBlocks.PLANT_FOSSIL, "Stone Plant Fossil");
-        addBlock(UPBlocks.DEEPSLATE_PLANT_FOSSIL, "Deepslate Plant Fossil");
-        addBlock(UPBlocks.STONE_TAR_FOSSIL, "Stone Tar Fossil");
-        addBlock(UPBlocks.DEEPSLATE_TAR_FOSSIL, "Deepslate Tar Fossil");
-        addBlock(UPBlocks.STONE_AMBER_FOSSIL, "Amber Ore");
-        addBlock(UPBlocks.DEEPSLATE_AMBER_FOSSIL, "Deepslate Amber Ore");
-        addBlock(UPBlocks.PERMAFROST_FOSSIL, "Permafrost Fossil");
-        addBlock(UPBlocks.PERMAFROST, "Permafrost");
-        addBlock(UPBlocks.ANALYZER, "Analyzer");
-        addBlock(UPBlocks.CULTIVATOR, "Cultivator");
-        addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
-        addBlock(UPBlocks.AMBER_GLASS, "Amber Glass");
-        addBlock(UPBlocks.AMBER_GLASS_PANE, "Amber Glass Pane");
-        addBlock(UPBlocks.REX_HEAD, "Tyrannosaurus Head Mount");
-        addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
-        addBlock(UPBlocks.REX_BOOMBOX, "Tyrannosaurus Boombox");
-        addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
-        addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
-        addBlock(UPBlocks.FIRE_OPAL_BLOCK, "Fire Opal Block");
-        addBlock(UPBlocks.BOULDER_OPAL_BLOCK, "Boulder Opal Block");
-        addBlock(UPBlocks.BLACK_OPAL_BLOCK, "Black Opal Block");
-        addBlock(UPBlocks.INCUBATOR, "Incubator");
-        addBlock(UPBlocks.ASPHALT, "Asphalt");
-        addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");
-        addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
 
         //PLANTS
         addBlock(UPBlocks.HORSETAIL, "Horsetail");
@@ -494,86 +337,99 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.HWACHA_FOSSIL, "Hwachavenator Fossil");
 
         // Entities
-        addEntityType(UPEntities.TRIKE_SKELETON, "Triceratops Skeleton");
-        addEntityType(UPEntities.TYRANNO_SKELETON, "Tyrannosaurus Skeleton");
+
+        // Skeletons
+        forEntity(UPEntities.TRIKE_SKELETON);
+        forEntity(UPEntities.TYRANNO_SKELETON);
+        forEntity(UPEntities.UNICORN_SKELETON);
+
+        // Paleo mobs
+        forEntity(UPEntities.DIPLOCAULUS);
+        forEntity(UPEntities.EDAPHOSAURUS);
+        forEntity(UPEntities.ESTEMMENOSUCHUS);
+        forEntity(UPEntities.HYNERIA);
+        forEntity(UPEntities.HYNERPETON);
+        forEntity(UPEntities.JAWLESS_FISH);
+        forEntity(UPEntities.PTERYGOTUS);
+        forEntity(UPEntities.TARTUOSTEUS);
+
+        // Meso mobs
+        forEntity(UPEntities.ARCHELON);
+        forEntity(UPEntities.BALAUR);
+        forEntity(UPEntities.GUANLINGSAURUS);
+        forEntity(UPEntities.KAPROSUCHUS);
+        forEntity(UPEntities.KIMMER);
+        forEntity(UPEntities.LEEDSICHTHYS);
+        forEntity(UPEntities.LONGISQUAMA);
+        forEntity(UPEntities.NYCTORAPTOR);
+        forEntity(UPEntities.OVIRAPTOR);
+        forEntity(UPEntities.PROTOSPHYRAENA);
+        forEntity(UPEntities.PSITTACO);
+        forEntity(UPEntities.PTERODAUSTRO);
+        forEntity(UPEntities.TANY);
+        forEntity(UPEntities.XIPH);
+
+        // Ceno mobs
+        forEntity(UPEntities.MEGALAMPRIS);
+        forEntity(UPEntities.OPHIODON);
+        forEntity(UPEntities.OTAROCYON);
+        forEntity(UPEntities.PSILOPTERUS);
+        forEntity(UPEntities.TELECREX);
+        forEntity(UPEntities.TITANONARKE);
+        forEntity(UPEntities.UNICORN);
+
+        // Monsters
+        forEntity(UPEntities.ENCRUSTED);
+        forEntity(UPEntities.SLUDGE);
+
+        // Projectiles
+        forEntity(UPEntities.OPALESCENT_PEARL);
+        forEntity(UPEntities.OPALESCENT_SHURIKEN);
+
+        // Entities with the wrong ids (curses upon you Peeko!)
 
         // Paleo mobs
         addEntityType(UPEntities.AMMON, "Ammonite");
         addEntityType(UPEntities.COTY, "Cotylorhynchus");
-        addEntityType(UPEntities.DIPLOCAULUS, "Diplocaulus");
         addEntityType(UPEntities.DUNK, "Dunkleosteus");
-        addEntityType(UPEntities.EDAPHOSAURUS, "Edaphosaurus");
-        addEntityType(UPEntities.ESTEMMENOSUCHUS, "Estemmenosuchus");
-        addEntityType(UPEntities.HYNERIA, "Hyneria");
-        addEntityType(UPEntities.HYNERPETON, "Hynerpeton");
-        addEntityType(UPEntities.JAWLESS_FISH, "Jawless Fish");
-        addEntityType(UPEntities.PTERYGOTUS, "Pterygotus");
         addEntityType(UPEntities.SCAU, "Scaumenacia");
         addEntityType(UPEntities.STETHACANTHUS, "Stethacanthus");
-        addEntityType(UPEntities.TARTUOSTEUS, "Tartuosteus");
 
         // Meso mobs
         addEntityType(UPEntities.ANTARCO, "Antarctopelta");
         addEntityType(UPEntities.ANURO, "Anurognathus");
-        addEntityType(UPEntities.ARCHELON, "Archelon");
         addEntityType(UPEntities.AUSTRO, "Austroraptor");
-        addEntityType(UPEntities.BALAUR, "Balaur");
         addEntityType(UPEntities.BEELZ, "Beelzebufo");
         addEntityType(UPEntities.BEELZE_TADPOLE, "Beelzebufo Tadpole");
         addEntityType(UPEntities.BRACHI, "Brachiosaurus");
         addEntityType(UPEntities.ERYON, "Eryon");
-        addEntityType(UPEntities.GUANLINGSAURUS, "Guanlingsaurus");
         addEntityType(UPEntities.HWACHA, "Hwachavenator");
-        addEntityType(UPEntities.KAPROSUCHUS, "Kaprosuchus");
         addEntityType(UPEntities.KENTRO, "Kentrosaurus");
-        addEntityType(UPEntities.KIMMER, "Kimmeridgebrachypteraeschnidium");
-        addEntityType(UPEntities.LEEDSICHTHYS, "Leedsichthys");
-        addEntityType(UPEntities.LONGISQUAMA, "Longisquama");
         addEntityType(UPEntities.MAJUNGA, "Majungasaurus");
-        addEntityType(UPEntities.NYCTORAPTOR, "Nyctoraptor");
-        addEntityType(UPEntities.OVIRAPTOR, "Oviraptor");
         addEntityType(UPEntities.PACHY, "Pachycephalosaurus");
-        addEntityType(UPEntities.PROTOSPHYRAENA, "Protosphyraena");
-        addEntityType(UPEntities.PSITTACO, "Psittacosaurus");
-        addEntityType(UPEntities.PTERODAUSTRO, "Pterodaustro");
-        addEntityType(UPEntities.TANY, "Tanystropheus");
         addEntityType(UPEntities.TRICERATOPS, "Triceratops");
         addEntityType(UPEntities.TYRANNOSAURUS, "Tyrannosaurus");
         addEntityType(UPEntities.ULUG, "Ulughbegsaurus");
         addEntityType(UPEntities.VELOCIRAPTOR, "Velociraptor");
-        addEntityType(UPEntities.XIPH, "Xiphactinus");
 
         // Ceno mobs
         addEntityType(UPEntities.BARINASUCHUS, "Barinasuchus");
         addEntityType(UPEntities.GIGANTOPITHICUS, "Gigantopithecus");
         addEntityType(UPEntities.MAMMOTH, "Mammoth");
-        addEntityType(UPEntities.MEGALAMPRIS, "Megalampris");
         addEntityType(UPEntities.MEGALANIA, "Megalania");
         addEntityType(UPEntities.MEGATHERIUM, "Megatherium");
-        addEntityType(UPEntities.OPHIODON, "Ophiodon Ozymandias");
-        addEntityType(UPEntities.OTAROCYON, "Otarocyon");
         addEntityType(UPEntities.PALAEOPHIS, "Palaeolophis");
         addEntityType(UPEntities.PALAEOPHIS_PART, "Palaeophis Body");
         addEntityType(UPEntities.BABY_PALAEO, "Palaeolophis Hatchling");
         addEntityType(UPEntities.PARACERATHERIUM, "Paraceratherium");
-        addEntityType(UPEntities.PSILOPTERUS, "Psilopterus");
         addEntityType(UPEntities.SMILODON, "Smilodon");
         addEntityType(UPEntities.TALPANAS, "Talpanas");
-        addEntityType(UPEntities.TELECREX, "Telecrex");
-        addEntityType(UPEntities.TITANONARKE, "Titanonarke");
-        addEntityType(UPEntities.UNICORN, "Unicorn");
-
-        // Misc mobs
-        addEntityType(UPEntities.ENCRUSTED, "Encrusted");
-        addEntityType(UPEntities.SLUDGE, "Sludge");
 
         // Non-living mobs
         addEntityType(UPEntities.AMBER_SHOT, "Amber Shot");
         addEntityType(UPEntities.HWACHA_SPIKE, "Hwachavenator Pin");
         addEntityType(UPEntities.ICEBERG_MAMMOTH, "Frozen Mammoth");
         addEntityType(UPEntities.ICEBERG_SMILODON, "Frozen Smilodon");
-        addEntityType(UPEntities.OPALESCENT_PEARL, "Opalescent Pearl");
-        addEntityType(UPEntities.OPALESCENT_SHURIKEN, "Opalescent Shuriken");
 
         //SOUNDS
         addSound(UPSounds.BEELZE_IDLE, "Beelzebufo croaks");
@@ -1054,7 +910,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
         add("unusualprehistory.encyclopedia.fossils", "Fossils");
 
-        //EFFECTS
+        // Effects
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
@@ -1063,7 +919,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.YIXIAN_RAMPAGE, "Yixian Rampage");
         addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
 
-        //BLOCK ENTITY TRANSLATABLE
+        // Block entities
         addBETranslatable("analyzer", "                            Analyzer");
         addBETranslatable("analyzer_jei", "Analyzer");
         addBETranslatable("dna_fridge", "DNA Fridge");
@@ -1091,8 +947,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_egg", name);
     }
 
-    public void addDinoSpawnEgg(Supplier<? extends EntityType<?>> dino, String name) {
-        add("item.unusualprehistory." + dino.get().getDescriptionId().replace("entity.unusualprehistory.", "") + "_spawn_egg", name + " Spawn Egg");
+    private void addDNAItem(Item... items) {
+        List.of(items).forEach((item -> this.add(item, "Bottle of " + format(ForgeRegistries.ITEMS.getKey(item)).replace(" Bottle", ""))));
     }
 
     public void addSound(Supplier<? extends SoundEvent> key, String name){
@@ -1130,5 +986,17 @@ public class UPLanguageGenerator extends LanguageProvider {
 
     protected void forBlock(Supplier<? extends Block> block) {
         addBlock(block, UPTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath()));
+    }
+
+    protected void forItem(Supplier<? extends Item> item) {
+        addItem(item, UPTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get())).getPath()));
+    }
+
+    protected void forEntity(Supplier<? extends EntityType<?>> entity) {
+        addEntityType(entity, UPTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
+    }
+
+    private String format(ResourceLocation registryName) {
+        return WordUtils.capitalizeFully(registryName.getPath().replace("_", " "));
     }
 }

@@ -272,7 +272,7 @@ public class UPItemModelGenerator extends ItemModelProvider {
         singleTex(UPItems.COOKED_SCAU);
         singleTex(UPItems.GOLDEN_SCAU);
         singleTex(UPItems.PALAEO_SKIN);
-        singleTex(UPItems.DINO_POUCH);
+        singleTex(UPItems.POUCH);
         singleTex(UPItems.OPALESCENT_PEARL);
         singleTex(UPItems.ZULOGAE_DISC);
         singleTex(UPItems.ENCASED_DISC);

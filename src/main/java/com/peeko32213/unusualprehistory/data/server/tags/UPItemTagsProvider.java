@@ -273,6 +273,7 @@ public class UPItemTagsProvider extends ItemTagsProvider {
         tag(UPItemTags.HIDDEN_ITEMS)
                 .add(UPItems.UNICORN_SKELETON.get())
                 .add(UPItems.UNICORN_EMBRYO.get())
+                .add(UPItems.UNICORN_SPAWN_EGG.get())
                 .add(UPBlocks.FOSSIL_ORES.get().asItem())
                 .add(UPItems.PLANT_DNA_BOTTLES.get())
                 .add(UPItems.ANIMAL_DNA_BOTTLES.get())

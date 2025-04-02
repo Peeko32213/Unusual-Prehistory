@@ -78,7 +78,7 @@ public class SlothPouchItem extends ArmorItem implements GeoItem {
                 babyMegatherium.setUUID(UUID.randomUUID());
                 pLevel.addFreshEntity(babyMegatherium);
             }
-            ItemStack itemStack1 = UPItems.DINO_POUCH.get().getDefaultInstance();
+            ItemStack itemStack1 = UPItems.POUCH.get().getDefaultInstance();
             ItemStack itemstack2 = ItemUtils.createFilledResult(stack, pPlayer, itemStack1);
             return InteractionResultHolder.sidedSuccess(itemstack2, pLevel.isClientSide());
         } else if(!pPlayer.isShiftKeyDown()){

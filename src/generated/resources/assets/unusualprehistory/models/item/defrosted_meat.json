@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/raw_ginkgo_seeds"
+    "layer0": "unusualprehistory:item/fossils/defrosted_meat"
   }
 }

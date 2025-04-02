@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "unusualprehistory:item/palaeophis_skin"
+    "layer0": "unusualprehistory:item/shed_palaeophis_skin"
   }
 }

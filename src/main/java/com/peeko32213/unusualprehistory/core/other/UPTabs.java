@@ -178,8 +178,8 @@ public class UPTabs {
                     entries.accept(UPItems.SHEDSCALE_BOOTS.get());
                     entries.accept(UPItems.MAJUNGA_HELMET.get());
                     entries.accept(UPItems.TYRANTS_CROWN.get());
-                    entries.accept(UPItems.DINO_POUCH.get());
-                    entries.accept(UPItems.SLOTH_POUCH_ARMOR.get());
+                    entries.accept(UPItems.POUCH.get());
+                    entries.accept(UPItems.SLOTH_POUCH.get());
                     entries.accept(UPItems.AUSTRO_BOOTS.get());
                     entries.accept(UPItems.VELOCI_SHIELD.get());
                     entries.accept(UPItems.TRIKE_SHIELD.get());
