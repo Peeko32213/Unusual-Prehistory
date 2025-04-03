@@ -125,16 +125,9 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.ANALYZER, "Analyzer");
         addBlock(UPBlocks.CULTIVATOR, "Cultivator");
         addBlock(UPBlocks.DNA_FRIDGE, "DNA Fridge");
-        addBlock(UPBlocks.AMBER_GLASS, "Amber Glass");
-        addBlock(UPBlocks.AMBER_GLASS_PANE, "Amber Glass Pane");
         addBlock(UPBlocks.REX_HEAD, "Tyrannosaurus Head Mount");
         addBlock(UPBlocks.AMMONITE_SHELL, "Ammonite Shell");
         addBlock(UPBlocks.REX_BOOMBOX, "Tyrannosaurus Boombox");
-        addBlock(UPBlocks.AMBER_BLOCK, "Amber Block");
-        addBlock(UPBlocks.OPAL_BLOCK, "Opal Block");
-        addBlock(UPBlocks.FIRE_OPAL_BLOCK, "Fire Opal Block");
-        addBlock(UPBlocks.BOULDER_OPAL_BLOCK, "Boulder Opal Block");
-        addBlock(UPBlocks.BLACK_OPAL_BLOCK, "Black Opal Block");
         addBlock(UPBlocks.INCUBATOR, "Incubator");
         addBlock(UPBlocks.ASPHALT, "Asphalt");
         addBlock(UPBlocks.GOLD_ENGRAVED_ASPHALT, "Gold Engraved Asphalt");

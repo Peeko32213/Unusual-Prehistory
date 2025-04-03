@@ -145,8 +145,13 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.LOGS_THAT_BURN).add(
                 DRYO_LOG.get(), DRYO_WOOD.get(), STRIPPED_DRYO_LOG.get(), STRIPPED_DRYO_WOOD.get(),
                 FOXII_LOG.get(), FOXII_WOOD.get(), STRIPPED_FOXII_LOG.get(), STRIPPED_FOXII_WOOD.get(),
-                GINKGO_LOG.get(), GINKGO_WOOD.get(), STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get(),
-                ZULOAGAE_BLOCK.get(), STRIPPED_ZULOAGAE_BLOCK.get()
+                GINKGO_LOG.get(), GINKGO_WOOD.get(), STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get()
+        );
+
+        this.tag(BlockTags.OVERWORLD_NATURAL_LOGS).add(
+                DRYO_LOG.get(),
+                FOXII_LOG.get(),
+                GINKGO_LOG.get()
         );
 
         this.tag(BlockTags.PLANKS).add(
@@ -308,6 +313,11 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
         );
 
         // UP Tags
+        this.tag(UPBlockTags.DRYO_LOGS).add(DRYO_LOG.get(), DRYO_WOOD.get(), STRIPPED_DRYO_LOG.get(), STRIPPED_DRYO_WOOD.get());
+        this.tag(UPBlockTags.FOXII_LOGS).add(FOXII_LOG.get(), FOXII_WOOD.get(), STRIPPED_FOXII_LOG.get(), STRIPPED_FOXII_WOOD.get());
+        this.tag(UPBlockTags.GINKGO_LOGS).add(GINKGO_LOG.get(), GINKGO_WOOD.get(), STRIPPED_GINKGO_LOG.get(), STRIPPED_GINKGO_WOOD.get());
+        this.tag(UPBlockTags.PETRIFIED_LOGS).add(PETRIFIED_LOG.get(), PETRIFIED_WOOD.get(), STRIPPED_PETRIFIED_LOG.get(), STRIPPED_PETRIFIED_WOOD.get());
+
         this.tag(UPBlockTags.ZULOAGAE_PLANTABLE_ON)
                 .addTag(BlockTags.SAND)
                 .addTag(BlockTags.DIRT)

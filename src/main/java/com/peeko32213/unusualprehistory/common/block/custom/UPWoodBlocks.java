@@ -58,13 +58,6 @@ public class UPWoodBlocks extends RotatedPillarBlock {
                 return UPBlocks.STRIPPED_FOXII_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
 
-            if(state.is(UPBlocks.DRYO_LOG.get())) {
-                return UPBlocks.STRIPPED_DRYO_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-            }
-            if(state.is(UPBlocks.DRYO_WOOD.get())) {
-                return UPBlocks.STRIPPED_DRYO_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-            }
-
             if(state.is(UPBlocks.ZULOAGAE_BLOCK.get())) {
                 return UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }

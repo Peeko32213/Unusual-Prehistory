@@ -13,7 +13,6 @@
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.WaterMoveController;
  import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
- import com.peeko32213.unusualprehistory.core.registry.UPSounds;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.server.level.ServerLevel;
@@ -37,9 +36,6 @@
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
- import software.bernie.geckolib.animatable.GeoEntity;
- import software.bernie.geckolib.core.animatable.GeoAnimatable;
- import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.RawAnimation;
@@ -47,7 +43,7 @@
 
  import java.util.List;
 
- public class PterygotusEntity extends PrehistoricEntity implements ISemiAquatic, GeoEntity, GeoAnimatable {
+ public class PterygotusEntity extends PrehistoricEntity implements ISemiAquatic {
 
      private static final RawAnimation PTERY_IDLE = RawAnimation.begin().thenLoop("animation.pterygotus.idle");
      private static final RawAnimation PTERY_WALK = RawAnimation.begin().thenLoop("animation.pterygotus.walk");
@@ -171,19 +167,19 @@
      }
 
      protected SoundEvent getAmbientSound() {
-         return UPSounds.DIPLO_IDLE.get();
+         return SoundEvents.SPIDER_AMBIENT;
      }
 
      protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
-         return UPSounds.DIPLO_HURT.get();
+         return SoundEvents.SPIDER_HURT;
      }
 
      protected SoundEvent getDeathSound() {
-         return UPSounds.DIPLO_DEATH.get();
+         return SoundEvents.SPIDER_DEATH;
      }
 
      protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
-         this.playSound(SoundEvents.FROG_STEP, 0.1F, 1.5F);
+         this.playSound(SoundEvents.SPIDER_STEP, 0.1F, 0.8F);
      }
 
      @Override
@@ -268,11 +264,6 @@
      @Override
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
          controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-     }
-
-     @Override
-     public AnimatableInstanceCache getAnimatableInstanceCache() {
-         return null;
      }
 
      @Override

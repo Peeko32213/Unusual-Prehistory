@@ -7,6 +7,11 @@ import net.minecraft.world.level.block.Block;
 
 public class UPBlockTags {
 
+    public static final TagKey<Block> DRYO_LOGS = blockTag("dryophyllum_logs");
+    public static final TagKey<Block> FOXII_LOGS = blockTag("foxii_logs");
+    public static final TagKey<Block> GINKGO_LOGS = blockTag("ginkgo_logs");
+    public static final TagKey<Block> PETRIFIED_LOGS = blockTag("petrified_logs");
+
     public static final TagKey<Block> VELOCI_BUTTONS = blockTag("velociraptor_buttons");
 
     public static final TagKey<Block> CLUB_WHITELIST_BLOCKS = blockTag("club_whitelist_blocks");
