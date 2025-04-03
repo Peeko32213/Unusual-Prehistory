@@ -16,6 +16,7 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
     public int amberProtection = 0;
     public int playerVaccinationTime = 0;
     public int playersRabiesHadTime = 0;
+    public int playerTarbloodPrionTime = 0;
 
     @Override
     public CompoundTag serializeNBT() {
@@ -24,6 +25,7 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
         nbt.putInt("amberProtection", this.amberProtection);
         nbt.putInt("playerVaccinationTime", this.playerVaccinationTime);
         nbt.putInt("playersRabiesHadTime", this.playersRabiesHadTime);
+        nbt.putInt("playerTarbloodPrionTime", this.playerTarbloodPrionTime);
 
         return nbt;
     }
@@ -34,6 +36,7 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
         this.amberProtection = nbt.getInt("amberProtection");
         this.playerVaccinationTime = nbt.getInt("playerVaccinationTime");
         this.playersRabiesHadTime = nbt.getInt("playersRabiesHadTime");
+        this.playerTarbloodPrionTime = nbt.getInt("playerTarbloodPrionTime");
     }
 
 
@@ -45,6 +48,7 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
                     newStore.amberProtection = oldStore.amberProtection;
                     newStore.playerVaccinationTime = oldStore.playerVaccinationTime;
                     newStore.playersRabiesHadTime = oldStore.playersRabiesHadTime;
+                    newStore.playerTarbloodPrionTime = oldStore.playerTarbloodPrionTime;
                 });
             });
         }

@@ -11,7 +11,7 @@ import net.minecraft.world.phys.Vec3;
 public class IKSolver {
     public double prevYHeadRot = 0;
     public double deltaYHeadRot = 0;
-    public double prevNode0Yaw = 0;
+    public boolean prevHasFlipped = false;
 
     private final LivingEntity entity;
     private final int nodeCount;
@@ -100,18 +100,20 @@ public class IKSolver {
      * Fully update the IK angles and re-calculate the rotated positions.
      */
     public void calculateTailAngles(LivingEntity entity) {
-        if (true) {
+        if (entity.level().isClientSide()) {
             //this sounds stupid, it's a placeholder
 
 
             boolean flip = false;
 
-            if (isSuspectedCompletedRotation((float) (prevYHeadRot*Mth.DEG_TO_RAD)) || isSuspectedCompletedRotation(entity.getYHeadRot()*Mth.DEG_TO_RAD)) {
-                System.out.println("flippe");
+            if ((prevYHeadRot < 90 && entity.getYHeadRot() >= 90) || (prevYHeadRot > 90 && entity.getYHeadRot() <= 90)) {
+                //System.out.println("flippe");
                 flip = true;
+                //this.prevHasFlipped ^= true;
             }
-            System.out.println(prevYHeadRot);
-            System.out.println(entity.getYHeadRot());
+
+            //System.out.println(prevYHeadRot);
+            //System.out.println(entity.getYHeadRot());
 
             deltaYHeadRot = prevYHeadRot - entity.getYHeadRot();
             prevYHeadRot = entity.getYHeadRot();
@@ -124,33 +126,36 @@ public class IKSolver {
 
 
             double entityDir = ((double) MathHelpers.angleTo(entity.position(), torsoBack).y);
-            System.out.println(entityDir);
+            //System.out.println(entityDir);
             //heading angle of the entity
             //51 = facing 51 degrees to the west of south
 
             double node0Angle = ((double) MathHelpers.angleTo(torsoBack, nodes[0]).y);
-            System.out.println(node0Angle);
+            //System.out.println(node0Angle);
             //heading angle of the tail segment(from back to front, which direction it's pointing)
             //51 = facing 51 degrees to the west of south(first variable is the front)
 
             double relativeAngle = (entityDir - node0Angle);
-            System.out.println(relativeAngle);
+            //System.out.println(relativeAngle);
             //angle of the tail relative to the body(how much it's bent)
             //57 = bent to the right by 57 degrees
 
             double constrainedAngle = (MathHelpers.constrainAngle(relativeAngle, stiffness));
-            System.out.println(constrainedAngle);
+            //System.out.println(constrainedAngle);
             //constrain the amount of bend
 
             double node0AngleReal = (constrainedAngle - entityDir);
-            if (flip == true) {
-                node0AngleReal = node0Angle;
-            }
-            System.out.println(node0AngleReal);
-            prevNode0Yaw = node0Angle;
+            //System.out.println(node0AngleReal);
             //get the angle relative to the world the tail will have after it has been bent
             //this should correspond to node0Angle but negative
 
+            if (flip == true) {
+                //node0AngleReal = (Math.abs(entityDir + constrainedAngle) - 360);
+                //System.out.println("const");
+                //System.out.println(node0AngleReal);
+            } else {
+                //System.out.println("rotat");
+            }
             nodes[0] = MathHelpers.rotateAroundCenter3dDeg(torsoBack, torsoBack.subtract(0, 0, nodeDist), (float) node0AngleReal, -MathHelpers.angleTo(torsoBack, nodes[0]).x);
             //rotate the node according to node0AngleReal
 
@@ -179,6 +184,12 @@ public class IKSolver {
             //get the angle relative to the world the tail will have after it has been bent
             //this should correspond to node0Angle but negative
 
+            if (flip == true) {
+                //node1AngleReal = (Math.abs(node0Dir + constrainedAngle1) - 360);
+                //System.out.println("const");
+            } else {
+                //System.out.println("rotat");
+            }
             nodes[1] = MathHelpers.rotateAroundCenter3dDeg(nodes[0], nodes[0].subtract(0, 0, nodeDist), (float) node1AngleReal, -MathHelpers.angleTo(nodes[0], nodes[1]).x);
             //rotate the node according to node0AngleReal
 
@@ -210,19 +221,24 @@ public class IKSolver {
                 //get the angle relative to the world the tail will have after it has been bent
                 //this should correspond to node0Angle but negative
 
+                if (flip == true) {
+                    //nodeiAngleReal = (Math.abs(prevNodeDir + constrainediAngle) - 360);
+                    //System.out.println("const");
+
+                } else {
+                    //System.out.println("rotat");
+                }
                 nodes[i] = MathHelpers.rotateAroundCenter3dDeg(nodes[i - 1], nodes[i - 1].subtract(0, 0, nodeDist), (float) nodeiAngleReal, -MathHelpers.angleTo(nodes[i - 1], nodes[i]).x);
-
-
             }
 
-            System.out.println("-------------------------");
+            //System.out.println("-------------------------");
             //everything above takes in and outputs degrees
 
 
             // Update Geckolib - usable bone angles for each node.
             tailYaws[0] = Math.toRadians(MathHelpers.angleTo(entity.position(), torsoBack).y - MathHelpers.angleTo(torsoBack, nodes[0]).y);
-            System.out.println(tailYaws[0] * Mth.RAD_TO_DEG);
-            System.out.println("---------------------------------------------------------------------------------------------");
+            //System.out.println(tailYaws[0] * Mth.RAD_TO_DEG);
+            //System.out.println("---------------------------------------------------------------------------------------------");
             tailYaws[1] = Math.toRadians(MathHelpers.angleTo(torsoBack, nodes[0]).y - MathHelpers.angleTo(nodes[0], nodes[1]).y);
 
             for (int i = 2; i < nodes.length; i++) {
@@ -284,12 +300,14 @@ public class IKSolver {
     public void visualizeNodes(Level level) {
         if (!level.isClientSide()) {
             ServerLevel L = (ServerLevel) level;
-            //L.sendParticles(ParticleTypes.BUBBLE, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //L.sendParticles(ParticleTypes.BUBBLE_POP, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            L.sendParticles(ParticleTypes.BUBBLE, (torsoFront.x), (torsoFront.y + 2), (torsoFront.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            L.sendParticles(ParticleTypes.BUBBLE_POP, (torsoBack.x), (torsoBack.y + 2), (torsoBack.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
-            L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            for (int i = 1; i < nodeCount; i++) {
-                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }
+            //L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //for (int i = 1; i < nodeCount; i++) {
+            //    L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //}
         }
     }
 

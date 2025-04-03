@@ -11,6 +11,7 @@ import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
 import com.peeko32213.unusualprehistory.common.effect.RampageEffect;
 import com.peeko32213.unusualprehistory.common.effect.RampageRemedyEffect;
+import com.peeko32213.unusualprehistory.common.effect.TarbloodPrionEffect;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.DunkleosteusEntity;
@@ -36,7 +37,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -46,19 +49,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ServerEvents {
@@ -324,9 +322,79 @@ public class ServerEvents {
     //}
 
     @SubscribeEvent
+    public void tossPrionItem(ItemTossEvent event) {
+        if (event.getPlayer().hasEffect(UPEffects.TARBLOOD_PRION.get())) {
+            ItemEntity fucker = event.getEntity();
+            ItemStack fuckerStack = fucker.getItem();
+            CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
+
+            if (!itemTags.contains("ItemInfectious")) {
+                itemTags.putBoolean("ItemInfectious", true);
+            }
+
+            fuckerStack.setTag(itemTags);
+        }
+    }
+
+    @SubscribeEvent
+    public void dropPrionItem(LivingDropsEvent event) {
+        if (event.getEntity().hasEffect(UPEffects.TARBLOOD_PRION.get())) {
+
+            Iterator<ItemEntity> iter = event.getDrops().iterator();
+
+            while(iter.hasNext()) {
+                ItemEntity fucker = iter.next();
+                ItemStack fuckerStack = fucker.getItem();
+                CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
+
+                if (!itemTags.contains("ItemInfectious")) {
+                    itemTags.putBoolean("ItemInfectious", true);
+                    //give the item an infectious tag
+                }
+
+                fuckerStack.setTag(itemTags);
+            }
+
+
+        }
+    }
+
+    @SubscribeEvent
+    public void pickupPrionItem(EntityItemPickupEvent event) {
+        //infects entity when they pick up an item with the prion
+
+        ItemEntity fucker = event.getItem();
+        ItemStack fuckerStack = fucker.getItem();
+        CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
+
+        if (itemTags.contains("ItemInfectious")) {
+            event.getEntity().addEffect(new MobEffectInstance(UPEffects.TARBLOOD_PRION.get(), -1));
+            //give the item an infectious tag
+        }
+    }
+
+    @SubscribeEvent
+    public void pickupPrionItemPlayer(PlayerEvent.ItemPickupEvent event) {
+        //infects player when they pick up an item with the prion
+
+        ItemEntity fucker = event.getOriginalEntity();
+        ItemStack fuckerStack = fucker.getItem();
+        CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
+
+        if (itemTags.contains("ItemInfectious")) {
+            event.getEntity().addEffect(new MobEffectInstance(UPEffects.TARBLOOD_PRION.get(), -1));
+            //give the item an infectious tag
+        }
+    }
+
+    @SubscribeEvent
     public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
         if (event.getEffect() instanceof RampageEffect && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
             //rabies can't be milked away unless you are vaccinated
+            event.setCanceled(true);
+        }
+        if (event.getEffect() instanceof TarbloodPrionEffect) {
+            //prion diseases are permanent
             event.setCanceled(true);
         }
 
@@ -334,10 +402,11 @@ public class ServerEvents {
 
             if(event.getEntity() instanceof ServerPlayer serverPlayer){
                 serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
+                    System.out.println("rabiesvacc");
 
                     if (serverPlayer.hasEffect(UPEffects.RABIES_VACCINE.get())) {
                         capability.playerVaccinationTime = 0;
-                        System.out.println(capability.playerVaccinationTime);
+                        //System.out.println(capability.playerVaccinationTime);
                     }
                     //set vac time to 0 if the player has no vacc effect
 

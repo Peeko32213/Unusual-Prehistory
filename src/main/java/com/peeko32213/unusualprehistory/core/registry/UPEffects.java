@@ -20,4 +20,6 @@ public class UPEffects {
     public static final RegistryObject<MobEffect> YIXIAN_RAMPAGE = EFFECT_DEF_REG.register("yixian_rampage", RampageEffect::new);
     public static final RegistryObject<MobEffect> RABIES_VACCINE = EFFECT_DEF_REG.register("rabies_vaccine", RampageRemedyEffect::new);
 
+    public static final RegistryObject<MobEffect> TARBLOOD_PRION = EFFECT_DEF_REG.register("tarblood_prion", TarbloodPrionEffect::new);
+
 }

@@ -160,6 +160,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.AMBER_IDOL, "Amber Idol");
         addItem(UPItems.YIXIAN_RAMPAGE_BOTTLE, "Bottle of Yixian Rampage");
         addItem(UPItems.DORMANT_RAMPAGE_BOTTLE, "Bottle of Dormant Yixian Rampage");
+        addItem(UPItems.TARBLOOD_PRION_NEEDLE, "Tarblood Prion Needle");
         addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
         addItem(UPItems.PSITTACCO_ARROW, "Psittacosaurus Arrow");
 
@@ -1050,6 +1051,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
         addEffect(UPEffects.YIXIAN_RAMPAGE, "Yixian Rampage");
         addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
+        addEffect(UPEffects.TARBLOOD_PRION, "Tarblood Prion");
 
         //BLOCK ENTITY TRANSLATABLE
         addBETranslatable("analyzer", "                            Analyzer");

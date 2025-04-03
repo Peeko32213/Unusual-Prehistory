@@ -23,6 +23,12 @@ public final class UPCapabilities {
     public static final Capability<UPAnimalCapability> ANIMAL_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
 
+    public static final Capability<UPEntityCapability> ENTITY_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    });
+
+    public static final Capability<UPItemCapability> ITEM_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    });
+
     public static void setupCapabilities() {
         IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
         modbus.addListener(UPCapabilities::registerCapabilities);
@@ -35,5 +41,7 @@ public final class UPCapabilities {
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(UPPlayerCapability.class);
         event.register(UPAnimalCapability.class);
+        event.register(UPEntityCapability.class);
+        event.register(UPItemCapability.class);
     }
 }

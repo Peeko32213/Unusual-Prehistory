@@ -4,6 +4,7 @@ package com.peeko32213.unusualprehistory;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaterniond;
 
 public class MathHelpers {
 
@@ -27,6 +28,11 @@ public class MathHelpers {
     public static double constrainAngle(double angle, double constraint) {
         //System.out.println("ang");
         //System.out.println(angle);
+
+        if (angle < 0){
+            angle = (360 - (angle % 360));
+        }
+
         if (angle < 0 && angle < -constraint) {
             //System.out.println("yea");
             return -constraint;
@@ -39,14 +45,15 @@ public class MathHelpers {
         return angle;
     }
 
-    public static double makeAlwaysPositive(Double angleInDegs) {
+    public static double processConstraint(double constrainedAngle, double prevDir) {
 
-        if (angleInDegs < 0) {
-            //check if the angle is negative
-            return 360 + angleInDegs;
+        if (constrainedAngle < 0) {
+            System.out.println("guh");
+            return (constrainedAngle - prevDir);
+            // modify this part
         }
 
-        return angleInDegs;
+        return (constrainedAngle - prevDir);
     }
 
 

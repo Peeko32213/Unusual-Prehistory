@@ -5,10 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.item.*;
 import com.peeko32213.unusualprehistory.common.item.armor.*;
 import com.peeko32213.unusualprehistory.common.item.armor.material.UPArmorMaterial;
-import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentPearlItem;
-import com.peeko32213.unusualprehistory.common.item.projectile.OpalescentShurikenItem;
-import com.peeko32213.unusualprehistory.common.item.projectile.PsittaccoArrow;
-import com.peeko32213.unusualprehistory.common.item.projectile.RabiesFlaskItem;
+import com.peeko32213.unusualprehistory.common.item.projectile.*;
 import com.peeko32213.unusualprehistory.common.item.tool.*;
 import com.peeko32213.unusualprehistory.core.other.tags.UPInstrumentTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -353,6 +350,8 @@ public class UPItems {
 
     public static final RegistryObject<Item> YIXIAN_RAMPAGE_BOTTLE = ITEMS.register("yixian_rampage_bottle", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16), true, false));
     public static final RegistryObject<Item> DORMANT_RAMPAGE_BOTTLE = ITEMS.register("dormant_rampage_bottle", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> TARBLOOD_PRION_NEEDLE = ITEMS.register("tarblood_prion_needle", () -> new TarbloodPrionNeedleItem(new Item.Properties()));
 
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 

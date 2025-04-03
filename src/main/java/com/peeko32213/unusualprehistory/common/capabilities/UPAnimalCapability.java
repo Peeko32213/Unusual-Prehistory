@@ -24,6 +24,7 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
     private int timer = 0;
     public int entityVaccinationTime = 0;
     public int entityRabiesHadTime = 0;
+    public int animalTarbloodPrionTime = 0;
 
     private static final String BASE_EMBRYO = "";
     private static final int RESET_TIMER = 0;
@@ -36,6 +37,7 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
         nbt.putInt("timer", this.timer);
         nbt.putInt("entityVaccinationTime", this.entityVaccinationTime);
         nbt.putInt("entityRabiesHadTime", this.entityRabiesHadTime);
+        nbt.putInt("animalTarbloodPrionTime", this.animalTarbloodPrionTime);
 
         return nbt;
     }
@@ -46,6 +48,7 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
         this.timer = nbt.getInt("timer");
         this.entityVaccinationTime = nbt.getInt("entityVaccinationTime");
         this.entityRabiesHadTime = nbt.getInt("entityRabiesHadTime");
+        this.animalTarbloodPrionTime = nbt.getInt("animalTarbloodPrionTime");
     }
 
     public static void tickAnimal(LivingEvent.LivingTickEvent event) {
@@ -57,6 +60,11 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
                 event.getEntity().addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
             }
             //if the entity has rabies time and no vacc time the entity gains rabies(makes it persist through bucket)
+
+            if (capability.animalTarbloodPrionTime > 0 && event.getEntity().hasEffect(UPEffects.TARBLOOD_PRION.get())){
+                capability.animalTarbloodPrionTime = 0;
+            }
+            //removes the prion timer after the disease is cured(by dying)
         });
 
         ServerLevel serverLevel = (ServerLevel) event.getEntity().level();
