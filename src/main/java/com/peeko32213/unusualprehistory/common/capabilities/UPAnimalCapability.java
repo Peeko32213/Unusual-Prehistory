@@ -61,10 +61,11 @@ public class UPAnimalCapability implements INBTSerializable<CompoundTag> {
             }
             //if the entity has rabies time and no vacc time the entity gains rabies(makes it persist through bucket)
 
-            if (capability.animalTarbloodPrionTime > 0 && event.getEntity().hasEffect(UPEffects.TARBLOOD_PRION.get())){
+            if (capability.animalTarbloodPrionTime > 0 && !event.getEntity().hasEffect(UPEffects.TARBLOOD_PRION.get())){
                 capability.animalTarbloodPrionTime = 0;
             }
             //removes the prion timer after the disease is cured(by dying)
+            
         });
 
         ServerLevel serverLevel = (ServerLevel) event.getEntity().level();
