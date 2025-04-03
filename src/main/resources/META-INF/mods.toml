@@ -17,22 +17,29 @@ A Mod that adds a variety of prehistoric creatures and a way to revive them!
 '''
 
 [[dependencies.unusualprehistory]]
-modId="forge"
-mandatory=true
-versionRange="[43,)"
-ordering="NONE"
-side="BOTH"
+	modId="forge"
+	mandatory=true
+	versionRange="[43,)"
+	ordering="NONE"
+	side="BOTH"
 
 [[dependencies.unusualprehistory]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.20,1.21)"
-ordering="NONE"
-side="BOTH"
+	modId="minecraft"
+	mandatory=true
+	versionRange="[1.20,1.21)"
+	ordering="NONE"
+	side="BOTH"
 
-[[dependencies.geckolib]]
-modId="geckolib"
-mandatory=true
-versionRange="[4.2,)"
-ordering="BEFORE"
-side="BOTH"
+[[dependencies.unusualprehistory]]
+	modId="geckolib"
+	mandatory=true
+	versionRange="[4.2,)"
+	ordering="BEFORE"
+	side="BOTH"
+
+[[dependencies.unusualprehistory]]
+    modId = "blueprint"
+    mandatory = true
+    versionRange = "[7.0.0,)"
+    ordering = "BEFORE"
+    side = "BOTH"

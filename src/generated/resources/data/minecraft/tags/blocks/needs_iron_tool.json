@@ -1,22 +1,28 @@
 {
   "values": [
-    "unusualprehistory:deepslate_fossil",
-    "unusualprehistory:stone_fossil",
     "unusualprehistory:analyzer",
     "unusualprehistory:cultivator",
     "unusualprehistory:incubator",
     "unusualprehistory:dna_fridge",
+    "unusualprehistory:deepslate_fossil",
+    "unusualprehistory:stone_fossil",
     "unusualprehistory:stone_tar_fossil",
     "unusualprehistory:deepslate_tar_fossil",
+    "unusualprehistory:stone_amber_ore",
+    "unusualprehistory:deepslate_amber_ore",
     "unusualprehistory:amber_block",
+    "unusualprehistory:amber_button",
+    "unusualprehistory:opal_ore",
+    "unusualprehistory:deepslate_opal_ore",
+    "unusualprehistory:fire_opal_ore",
+    "unusualprehistory:deepslate_fire_opal_ore",
+    "unusualprehistory:boulder_opal_ore",
+    "unusualprehistory:deepslate_boulder_opal_ore",
+    "unusualprehistory:black_opal_ore",
+    "unusualprehistory:deepslate_black_opal_ore",
     "unusualprehistory:opal_block",
     "unusualprehistory:fire_opal_block",
     "unusualprehistory:boulder_opal_block",
-    "unusualprehistory:black_opal_block",
-    "unusualprehistory:zuloagae_door",
-    "unusualprehistory:stone_amber_ore",
-    "unusualprehistory:opal_ore",
-    "unusualprehistory:deepslate_amber_ore",
-    "unusualprehistory:deepslate_opal_ore"
+    "unusualprehistory:black_opal_block"
   ]
 }

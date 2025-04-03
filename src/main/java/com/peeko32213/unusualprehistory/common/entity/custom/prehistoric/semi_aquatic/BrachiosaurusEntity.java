@@ -651,27 +651,6 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
     public void aiStep() {
         super.aiStep();
         //scaleParts();
-
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
-            boolean flag = false;
-            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
-            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPBlockTags.PASSIVE_BRACHI_BREAKABLES)) {
-                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
-                }
-            }
-        }
-        if (this.horizontalCollision && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.isAggressive()) {
-            boolean flag = false;
-            AABB axisalignedbb = this.getBoundingBox().inflate(0.2D);
-            for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(axisalignedbb.minX), Mth.floor(axisalignedbb.minY), Mth.floor(axisalignedbb.minZ), Mth.floor(axisalignedbb.maxX), Mth.floor(axisalignedbb.maxY), Mth.floor(axisalignedbb.maxZ))) {
-                BlockState blockstate = this.level().getBlockState(blockpos);
-                if (blockstate.is(UPBlockTags.ANGRY_BRACHI_BREAKABLES)) {
-                    flag = this.level().destroyBlock(blockpos, true, this) || flag;
-                }
-            }
-        }
     }
 
     @Nullable

@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedData;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
@@ -97,7 +96,6 @@ public class VelociraptorEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> IDLE_5_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_6_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_7_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final SerializableSynchedData<Boolean> VELOCIRAPTOR_BITE = new SerializableSynchedData<>(modPrefix("velociraptor_bite"), VelociraptorEntity.class, EntityDataSerializers.BOOLEAN, false, Object::toString, Boolean::parseBoolean);
 
     // Idle actions
     private static final EntityAction VELOCI_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
@@ -383,19 +381,6 @@ public class VelociraptorEntity extends PrehistoricEntity {
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-//        SerializableRandomMeleeAttackGoal<VelociraptorEntity> goals = new SerializableRandomMeleeAttackGoal<>(this,
-//                WeightedRandomList.create(
-//                new WeightedSerializableMeleeAttackHelper(
-//                    10,
-//                    SerializableRandomMeleeAttackHelper.Builder
-//                    .state(VELOCIRAPTOR_BITE, "velociraptor_bite")
-//                    .playTime(16)
-//                    .meleeEntityAction(
-//                    new MeleeEntityAction(9,1,
-//                    new LargeHitBoxAttackWithTargetCheck(1F, 0.1F, 5.5F, -Math.PI/4, Math.PI/4, false, true))).build())),
-//                    1.75D,false,2.0F);
-//
-//        this.goalSelector.addGoal(1,goals);
     }
 
     @Override
@@ -486,7 +471,6 @@ public class VelociraptorEntity extends PrehistoricEntity {
         this.entityData.define(IDLE_6_AC, false);
         this.entityData.define(IDLE_7_AC, false);
         this.entityData.define(PRESS, false);
-        VELOCIRAPTOR_BITE.defineData(this);
     }
 
     public void setPress(boolean eepy) {

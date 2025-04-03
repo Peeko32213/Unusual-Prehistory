@@ -11,6 +11,7 @@ import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiTreeGrowe
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import com.teamabnormals.blueprint.common.block.LogBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintCeilingHangingSignBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
 import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
@@ -65,10 +66,10 @@ public class UPBlocks {
     public static final RegistryObject<Block> DEEPSLATE_TAR_FOSSIL = registerBlock("deepslate_tar_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     // Opal blocks
-    public static final RegistryObject<Block> OPAL_BLOCK = registerBlock("opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
-    public static final RegistryObject<Block> FIRE_OPAL_BLOCK = registerBlock("fire_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
-    public static final RegistryObject<Block> BOULDER_OPAL_BLOCK = registerBlock("boulder_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
-    public static final RegistryObject<Block> BLACK_OPAL_BLOCK = registerBlock("black_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> OPAL_BLOCK = createBlock("opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> FIRE_OPAL_BLOCK = createBlock("fire_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> BOULDER_OPAL_BLOCK = createBlock("boulder_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> BLACK_OPAL_BLOCK = createBlock("black_opal_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.LAPIS_BLOCK).strength(3.0F, 4.0F).sound(SoundType.AMETHYST)));
 
     // Science doodads
     public static final RegistryObject<Block> ANALYZER = registerBlock("analyzer", () -> new AnalyzerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().requiresCorrectToolForDrops()));
@@ -184,37 +185,37 @@ public class UPBlocks {
     public static final RegistryObject<Block> POTTED_SARACENIA = registerBlockWithoutBlockItem("potted_sarracenia", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.SARACENIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
 
     // Amber blocks
-    public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
-    public static final RegistryObject<Block> AMBER_GLASS = registerBlock("amber_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
-    public static final RegistryObject<Block> AMBER_GLASS_PANE = registerBlock("amber_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
-    public static final RegistryObject<ButtonBlock> AMBER_BUTTON = registerBlock("amber_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON), BlockSetType.STONE, 8, true));
+    public static final RegistryObject<Block> AMBER_BLOCK = createBlock("amber_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
+    public static final RegistryObject<Block> AMBER_GLASS = createBlock("amber_glass", () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Block> AMBER_GLASS_PANE = createBlock("amber_glass_pane", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE).strength(3.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<ButtonBlock> AMBER_BUTTON = createBlock("amber_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON), BlockSetType.STONE, 8, true));
 
     // Dryophyllum
-    // Uses no lang because the item id doesn't use the full name like it should
-    public static final RegistryObject<Block> DRYO_LOG = createBlockNoLang("dryo_log", () -> new UPWoodBlocks(UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> DRYO_WOOD = createBlockNoLang("dryo_wood", () -> new UPWoodBlocks(UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> STRIPPED_DRYO_LOG = createBlockNoLang("stripped_dryo_log", () -> new UPWoodBlocks(UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> STRIPPED_DRYO_WOOD = createBlockNoLang("stripped_dryo_wood", () -> new UPWoodBlocks(UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> DRYO_PLANKS = createBlockNoLang("dryo_planks", () -> new Block(UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> DRYO_STAIRS = createBlockNoLang("dryo_stairs", () -> new StairBlock(() -> DRYO_PLANKS.get().defaultBlockState(), UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> DRYO_SLAB = createBlockNoLang("dryo_slab", () -> new SlabBlock(UPProperties.Blocks.dryo()));
-    public static final RegistryObject<Block> DRYO_FENCE = createBlockNoLang("dryo_fence", () -> new FenceBlock(UPProperties.Blocks.dryo()));
+    // Uses no lang because the block id doesn't use the full name like it should
+    public static final RegistryObject<Block> STRIPPED_DRYO_LOG = createBlockNoLang("stripped_dryo_log", () -> new RotatedPillarBlock(UPProperties.DRYO.log()));
+    public static final RegistryObject<Block> STRIPPED_DRYO_WOOD = createBlockNoLang("stripped_dryo_wood", () -> new RotatedPillarBlock(UPProperties.DRYO.log()));
+    public static final RegistryObject<Block> DRYO_LOG = createBlockNoLang("dryo_log", () -> new LogBlock(STRIPPED_DRYO_LOG, UPProperties.DRYO.log()));
+    public static final RegistryObject<Block> DRYO_WOOD = createBlockNoLang("dryo_wood", () -> new LogBlock(STRIPPED_DRYO_WOOD, UPProperties.DRYO.log()));
+    public static final RegistryObject<Block> DRYO_PLANKS = createBlockNoLang("dryo_planks", () -> new Block(UPProperties.DRYO.planks()));
+    public static final RegistryObject<Block> DRYO_STAIRS = createBlockNoLang("dryo_stairs", () -> new StairBlock(() -> DRYO_PLANKS.get().defaultBlockState(), UPProperties.DRYO.planks()));
+    public static final RegistryObject<Block> DRYO_SLAB = createBlockNoLang("dryo_slab", () -> new SlabBlock(UPProperties.DRYO.planks()));
+    public static final RegistryObject<Block> DRYO_PRESSURE_PLATE = createBlockNoLang("dryo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UPProperties.DRYO.pressurePlate(), UPProperties.DRYO_BLOCK_SET));
+    public static final RegistryObject<Block> DRYO_BUTTON = createBlockNoLang("dryo_button", () -> new ButtonBlock(UPProperties.DRYO.button(), UPProperties.DRYO_BLOCK_SET, 30, true));
 
-    public static final RegistryObject<Block> DRYO_FENCE_GATE = createBlockNoLang("dryo_fence_gate", () -> new FenceGateBlock(UPProperties.Blocks.dryo(), UPBlockSetType.DRYO_WOOD_TYPE.get()));
-    public static final RegistryObject<Block> DRYO_DOOR = createBlockNoLang("dryo_door", () -> new DoorBlock(UPProperties.Blocks.dryo().noOcclusion(), UPBlockSetType.DRYO_BLOCKSET.get()));
-    public static final RegistryObject<Block> DRYO_TRAPDOOR = createBlockNoLang("dryo_trapdoor", () -> new TrapDoorBlock(UPProperties.Blocks.DRYO_TRAPDOOR, UPBlockSetType.DRYO_BLOCKSET.get()));
-    public static final RegistryObject<Block> DRYO_PRESSURE_PLATE = createBlockNoLang("dryo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UPProperties.Blocks.DRYO_PRESSURE_PLATE, UPBlockSetType.DRYO_BLOCKSET.get()));
-    public static final RegistryObject<Block> DRYO_BUTTON = createBlockNoLang("dryo_button", () -> new ButtonBlock(UPProperties.Blocks.DRYO_BUTTON, UPBlockSetType.DRYO_BLOCKSET.get(), 30, true));
+    public static final RegistryObject<Block> DRYO_FENCE = createBlockNoLang("dryo_fence", () -> new FenceBlock(UPProperties.DRYO.planks()));
+    public static final RegistryObject<Block> DRYO_FENCE_GATE = createBlockNoLang("dryo_fence_gate", () -> new FenceGateBlock(UPProperties.DRYO.planks(), UPProperties.DRYO_WOOD_TYPE));
+    public static final RegistryObject<Block> DRYO_DOOR = createBlockNoLang("dryo_door", () -> new DoorBlock(UPProperties.DRYO.door(), UPProperties.DRYO_BLOCK_SET));
+    public static final RegistryObject<Block> DRYO_TRAPDOOR = createBlockNoLang("dryo_trapdoor", () -> new TrapDoorBlock(UPProperties.DRYO.trapdoor(), UPProperties.DRYO_BLOCK_SET));
 
-    public static final Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> DRYO_SIGN = createSignBlock("dryophyllum", UPBlockSetType.DRYO_WOOD_TYPE.get(), UPProperties.Blocks.DRYO_SIGNS);
-    public static final Pair<RegistryObject<BlueprintCeilingHangingSignBlock>, RegistryObject<BlueprintWallHangingSignBlock>> DRYO_HANGING_SIGN = createHangingSignBlock("dryophyllum", UPBlockSetType.DRYO_WOOD_TYPE.get(), UPProperties.Blocks.DRYO_SIGNS);
+    public static final Pair<RegistryObject<BlueprintStandingSignBlock>, RegistryObject<BlueprintWallSignBlock>> DRYO_SIGN = createSignBlock("dryophyllum", UPProperties.DRYO_WOOD_TYPE, UPProperties.DRYO.sign());
+    public static final Pair<RegistryObject<BlueprintCeilingHangingSignBlock>, RegistryObject<BlueprintWallHangingSignBlock>> DRYO_HANGING_SIGN = createHangingSignBlock("dryophyllum", UPProperties.DRYO_WOOD_TYPE, UPProperties.DRYO.hangingSign());
 
-    public static final RegistryObject<Block> DRYO_LEAVES = createBlockNoLang("dryo_leaves", () -> new LeavesBlock(UPProperties.Blocks.DRYO_LEAVES));
-    public static final RegistryObject<Block> DRYO_SAPLING = createBlockNoLang("dryo_sapling", () -> new SaplingBlock(new DryoTreeGrower(), UPProperties.Blocks.DRYO_SAPLING));
+    public static final RegistryObject<Block> DRYO_LEAVES = createBlockNoLang("dryo_leaves", () -> new LeavesBlock(UPProperties.DRYO.leaves()));
+    public static final RegistryObject<Block> DRYO_SAPLING = createBlockNoLang("dryo_sapling", () -> new SaplingBlock(new DryoTreeGrower(), UPProperties.DRYO.sapling()));
     public static final RegistryObject<Block> POTTED_DRYO_SAPLING = createBlockNoItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(null, DRYO_SAPLING, PropertyUtil.flowerPot()));
 
     // Foxii
-    // Uses no lang because the block id is spelled wrong
+    // Uses no lang because the block id doesn't use the full name like it should
     public static final RegistryObject<Block> FOXII_LOG = createBlockNoLang("foxxi_log", () -> new UPWoodBlocks(UPProperties.Blocks.foxii()));
     public static final RegistryObject<Block> FOXII_WOOD = createBlockNoLang("foxxi_wood", () -> new UPWoodBlocks(UPProperties.Blocks.foxii()));
     public static final RegistryObject<Block> STRIPPED_FOXII_LOG = createBlockNoLang("stripped_foxxi_log", () -> new UPWoodBlocks(UPProperties.Blocks.foxii()));

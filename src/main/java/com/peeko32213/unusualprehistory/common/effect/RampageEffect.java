@@ -15,6 +15,8 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -93,5 +95,9 @@ public class RampageEffect extends MobEffect {
 
     public @NotNull String getDescriptionId() {
         return "unusualprehistory.potion.rampage";
+    }
+
+    public List<ItemStack> getCurativeItems() {
+        return List.of();
     }
 }

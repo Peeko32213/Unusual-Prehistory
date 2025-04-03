@@ -15,8 +15,7 @@ public class TelecrexRenderer extends GeoEntityRenderer<TelecrexEntity> {
     }
 
     @Override
-    public void render(TelecrexEntity entity, float entityYaw, float partialTicks, PoseStack poseStack,
-        MultiBufferSource bufferSource, int packedLightIn) {
+    public void render(TelecrexEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
         if(entity.isBaby()) {
             poseStack.scale(0.6F, 0.6F, 0.6F);
         }

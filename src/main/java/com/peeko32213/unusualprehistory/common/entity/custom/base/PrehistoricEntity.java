@@ -1,14 +1,11 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
-import com.peeko32213.unusualprehistory.common.data.entity.synced.SerializableSynchedEntityData;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -16,12 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -199,10 +193,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     @Override
     public void setAction(boolean action) {
         setPerformingAction(action);
-    }
-
-    public boolean isSDataTrue(SerializableSynchedEntityData data) {
-        return data.isEqualToValue(this, true);
     }
 
     // Tame command

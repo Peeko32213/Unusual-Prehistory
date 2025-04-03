@@ -14,9 +14,6 @@ import java.util.function.Supplier;
 
 public class UPBlockSetType {
 
-    public static final Supplier<BlockSetType> DRYO_BLOCKSET = Suppliers.memoize(() -> createBlocksetType("dryophyllum", true, SoundType.WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON));
-    public static final Supplier<WoodType> DRYO_WOOD_TYPE = Suppliers.memoize(() -> createDefaultWoodType(DRYO_BLOCKSET));
-
     public static final Supplier<BlockSetType> FOXII_BLOCKSET = Suppliers.memoize(() -> createBlocksetType("foxii", true, SoundType.WOOD, SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON));
     public static final Supplier<WoodType> FOXII_WOOD_TYPE = Suppliers.memoize(() -> createDefaultWoodType(FOXII_BLOCKSET));
 

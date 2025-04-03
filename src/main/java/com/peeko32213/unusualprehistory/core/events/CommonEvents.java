@@ -96,6 +96,7 @@ public class CommonEvents {
         event.put(UPEntities.TALPANAS.get(), TalpanasEntity.createAttributes().build());
         event.put(UPEntities.TELECREX.get(), TelecrexEntity.createAttributes().build());
         event.put(UPEntities.TITANONARKE.get(), TitanonarkeEntity.createAttributes().build());
+        event.put(UPEntities.UNICORN.get(), UnicornEntity.createAttributes().build());
 
         // Misc mobs
         event.put(UPEntities.ENCRUSTED.get(), EncrustedEntity.createAttributes().build());
@@ -104,6 +105,7 @@ public class CommonEvents {
         // Fossils
         event.put(UPEntities.TYRANNO_SKELETON.get(), SkeletonEntity.createAttributes().build());
         event.put(UPEntities.TRIKE_SKELETON.get(), SkeletonEntity.createAttributes().build());
+        event.put(UPEntities.UNICORN_SKELETON.get(), SkeletonEntity.createAttributes().build());
 
         // Non-living mobs
         event.put(UPEntities.BOOK_PALAEO.get(), PalaeophisBookEntity.createAttributes().build());

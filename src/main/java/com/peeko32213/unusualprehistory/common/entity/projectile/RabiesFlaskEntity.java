@@ -90,7 +90,7 @@ public class RabiesFlaskEntity extends ThrowableItemProjectile implements GeoAni
         if (!victimsList.isEmpty()) {
             for (int i = 0; i < victimsList.size(); i++) {
                 LivingEntity pissedUpon = victimsList.get(i);
-                pissedUpon.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
+                pissedUpon.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), 120000));
             }
         }
 

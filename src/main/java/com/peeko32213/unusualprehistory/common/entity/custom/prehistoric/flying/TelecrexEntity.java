@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TelecrexFlightGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TelecrexScatterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
@@ -58,6 +59,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class TelecrexEntity extends PrehistoricEntity {
 
@@ -101,6 +103,14 @@ public class TelecrexEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> LOOKOUT1 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LOOKOUT2 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
 
+
+    private static final Predicate<LivingEntity> TELECREX_STARTING_PREDICATE = (e -> {
+        if(e instanceof TelecrexEntity entity) {
+            return !entity.isFlying() && !entity.getMoveControl().hasWanted() && !entity.isSprinting() && entity.onGround();
+        }
+        return false;
+    });
+
     // Idle actions
 //    private static final EntityAction TELECREX_PECK_ACTION = new EntityAction(0, (e) -> {}, 1);
 //
@@ -118,6 +128,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(PREEN1, "telecrex_preen1")
                     .playTime(60)
                     .stopTime(130)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
                     .entityAction(TELECREX_PREEN1_ACTION)
                     .build();
@@ -128,6 +139,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(PREEN2, "telecrex_preen2")
                     .playTime(60)
                     .stopTime(130)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
                     .entityAction(TELECREX_PREEN2_ACTION)
                     .build();
@@ -138,6 +150,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(LOOKOUT1, "telecrex_lookout1")
                     .playTime(40)
                     .stopTime(120)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .entityAction(TELECREX_LOOKOUT1_ACTION)
                     .build();
 
@@ -147,6 +160,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             StateHelper.Builder.state(LOOKOUT2, "telecrex_lookout2")
                     .playTime(40)
                     .stopTime(120)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
                     .entityAction(TELECREX_LOOKOUT2_ACTION)
                     .build();
 
@@ -179,6 +193,9 @@ public class TelecrexEntity extends PrehistoricEntity {
         if (this.isFlying()) {
             helper.bodyLagMoving = 0.02F;
             helper.bodyLagStill = 0.08F;
+        } else if (this.isSprinting() && !this.isFlying()) {
+            helper.bodyLagMoving = 0.65F;
+            helper.bodyLagStill = 0.3F;
         } else {
             helper.bodyLagMoving = 0.5F;
             helper.bodyLagStill = 0.25F;
@@ -222,13 +239,9 @@ public class TelecrexEntity extends PrehistoricEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new RandomStateGoal<>(this) {
-        public boolean canUse() {
-                return !isFlying() && !getMoveControl().hasWanted() && onGround() && super.canUse();
-            }
-        });
+        this.goalSelector.addGoal(1, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new PanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new PrehistoricPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new TelecrexFlightGoal(this));
         this.goalSelector.addGoal(4, new TelecrexScatterGoal(this));
@@ -288,7 +301,7 @@ public class TelecrexEntity extends PrehistoricEntity {
             this.heal(2);
             return InteractionResult.SUCCESS;
         }
-        return super.mobInteract(player, hand);
+        return InteractionResult.FAIL;
     }
 
     public void tick() {
@@ -503,7 +516,7 @@ public class TelecrexEntity extends PrehistoricEntity {
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && this.onGround()) {
             if(this.isSprinting()) {
                 event.setAndContinue(TELECREX_WALK);
-                event.getController().setAnimationSpeed(1.25F);
+                event.getController().setAnimationSpeed(1.4F);
             }
             else event.setAndContinue(TELECREX_WALK);
             event.getController().setAnimationSpeed(1.0F);

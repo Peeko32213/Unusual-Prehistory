@@ -14,9 +14,6 @@ import net.minecraftforge.registries.RegistryObject;
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
 
 public class UPPrehistoricEggRegistry {
-
-
-
     public static void bootstrap(BootstapContext<PrehistoricEgg> context) {
         for(RegistryObject<Item> item : UPItems.ITEMS.getEntries()) {
             if(item.get() instanceof PrehistoricEggItem eggItem) {
@@ -24,9 +21,6 @@ public class UPPrehistoricEggRegistry {
                 ResourceKey<PrehistoricEgg> resourceKey = ResourceKey.create(UPRegistry.Keys.PREHISTORIC_EGG, modPrefix(location.getPath() + "_egg"));
                 context.register(resourceKey, new PrehistoricEgg(eggItem.getEntity().get(), eggItem.getSize(), eggItem.getVariant(), eggItem.getHatchTime(), eggItem.getColor1(), eggItem.getColor2()));
             }
-
-
         }
-
     }
 }

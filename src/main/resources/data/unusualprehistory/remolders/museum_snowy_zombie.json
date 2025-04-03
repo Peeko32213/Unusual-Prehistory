@@ -1,0 +1,19 @@
+{
+  "molding": "json",
+  "remolder": {
+    "type": "add",
+    "target": "elements[]",
+    "value": {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "unusualprehistory:village/houses/snowy_museum_1",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 20
+    }
+  },
+  "selector": "minecraft:worldgen/template_pool/village/snowy/zombie/houses"
+}

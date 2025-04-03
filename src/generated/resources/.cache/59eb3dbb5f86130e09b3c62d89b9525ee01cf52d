@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-26T13:51:11.7690424	Loot Tables
+// 1.20.1	2025-04-02T18:31:18.9555676	Loot Tables
 aa0fbbdafff4a7570ffe9721402dbe44bccca34c data/unusualprehistory/loot_tables/blocks/amber_block.json
 7c3df34b96111b893727f05c09f92a8984a5ee13 data/unusualprehistory/loot_tables/blocks/ammon_eggs.json
 70955d85f7619afb14f10968f0cb3ce929b5a5e7 data/unusualprehistory/loot_tables/blocks/antarcto_fossil.json
@@ -37,7 +37,7 @@ f939d186a3baed411aa65b1826d1be9f3e711c16 data/unusualprehistory/loot_tables/bloc
 8a676f02a59343f9219bc027c13e1873970b78c6 data/unusualprehistory/loot_tables/blocks/ophiodon_eggs.json
 d06c1ac99195d5d632669b6985dc21875c68001f data/unusualprehistory/loot_tables/blocks/pachy_fossil.json
 809dfccb92677397d75a3384afbd9961445bbbb6 data/unusualprehistory/loot_tables/blocks/permafrost.json
-d96717c285368ef2fc750ade453b9a268d09bfc0 data/unusualprehistory/loot_tables/blocks/permafrost_fossil.json
+9f9060ed03e0ebb54873b04ebfe51f009c0ecf2e data/unusualprehistory/loot_tables/blocks/permafrost_fossil.json
 785474c56c378a7354dcd7583ff973ca62ea4f18 data/unusualprehistory/loot_tables/blocks/scau_eggs.json
 cc4c5c1441bc0ef29f72e23674b7aad1e9e0c5d1 data/unusualprehistory/loot_tables/blocks/scau_fossil.json
 0b17137d116ee06194f4ef85bad2e9f145984d0e data/unusualprehistory/loot_tables/blocks/stetha_eggs.json
