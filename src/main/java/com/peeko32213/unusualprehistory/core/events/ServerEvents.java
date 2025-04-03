@@ -385,14 +385,15 @@ public class ServerEvents {
 
     @SubscribeEvent
     public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
-        if (event.getEffect() instanceof RampageEffect && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
-            //rabies can't be milked away unless you are vaccinated
-            event.setCanceled(true);
-        }
-        if (event.getEffect() instanceof TarbloodPrionEffect) {
-            //prion diseases are permanent
-            event.setCanceled(true);
-        }
+        // We don't want effects to not be clearable with commands
+//        if (event.getEffect() instanceof RampageEffect && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
+//            //rabies can't be milked away unless you are vaccinated
+//            event.setCanceled(true);
+//        }
+//        if (event.getEffect() instanceof TarbloodPrionEffect) {
+//            //prion diseases are permanent
+//            event.setCanceled(true);
+//        }
 
         if (event.getEffect() instanceof RampageRemedyEffect) {
 

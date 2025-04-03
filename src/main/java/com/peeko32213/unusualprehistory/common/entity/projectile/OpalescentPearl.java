@@ -86,7 +86,7 @@ public class OpalescentPearl extends ThrowableItemProjectile {
             }
             if (bounces > 3) {
                 teleport();
-                this.playSound(SoundEvents.ENDER_EYE_DEATH, 0.8f, 1.0F);
+                this.playSound(SoundEvents.ENDERMAN_TELEPORT, 0.8f, 1.0F);
                 this.discard();
             }
         }

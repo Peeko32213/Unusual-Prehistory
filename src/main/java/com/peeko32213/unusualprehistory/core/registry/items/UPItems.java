@@ -336,7 +336,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> YIXIAN_RAMPAGE_BOTTLE = item("yixian_rampage_bottle", () -> new RabiesFlaskItem((new Item.Properties()).stacksTo(16)));
     public static final RegistryObject<Item> DORMANT_RAMPAGE_BOTTLE = item("dormant_rampage_bottle", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> TARBLOOD_PRION_NEEDLE = ITEMS.register("tarblood_prion_needle", () -> new TarbloodPrionNeedleItem(new Item.Properties()));
+    public static final RegistryObject<Item> TARBLOOD_PRION_NEEDLE = translatedItem("tarblood_prion_needle", () -> new TarbloodPrionNeedleItem(new Item.Properties()));
 
     public static final RegistryObject<Item> JAWLESS_FISH_BUCKET = ITEMS.register("jawless_fish_bucket", () -> new UPFishBucketItem(UPEntities.JAWLESS_FISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 

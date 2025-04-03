@@ -116,6 +116,6 @@ public class TarbloodPrionEffect extends MobEffect {
 
 
     public @NotNull String getDescriptionId() {
-        return "unusualprehistory.potion.rampage";
+        return "unusualprehistory.potion.tarblood";
     }
 }

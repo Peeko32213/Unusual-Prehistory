@@ -13,7 +13,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 
@@ -95,96 +93,6 @@ public class UPLanguageGenerator extends LanguageProvider {
 
         addBlock(UPBlocks.FOSSIL_ORES, "Fossils");
 
-        //TOOLS
-        addItem(UPItems.WARPICK, "War Pick");
-        addItem(UPItems.PRIMAL_MACUAHUITL, "Primal Macuahuitl");
-        addItem(UPItems.CROCARINA, "Crocorina");
-        addItem(UPItems.HANDMADE_SPEAR, "Handmade Spear");
-        addItem(UPItems.HANDMADE_BATTLEAXE, "Handmade Battle Axe");
-        addItem(UPItems.HANDMADE_CLUB, "Handmade Club");
-
-        //FOSSILS
-        addItem(UPItems.SHELL_SHARD, "Shell Shard");
-        addItem(UPItems.PALEO_FOSSIL, "Paleozoic Fossil");
-        addItem(UPItems.MEZO_FOSSIL, "Mesozoic Fossil");
-        addItem(UPItems.PLANT_FOSSIL, "Plant Fossil");
-        addItem(UPItems.AMBER_FOSSIL, "Amber Fossil");
-        addItem(UPItems.AMBER, "Amber");
-        addItem(UPItems.FROZEN_FOSSIL, "Frozen Meat");
-        addItem(UPItems.TAR_FOSSIL, "Tar Fossil");
-        addItem(UPItems.OPAL, "Opal");
-        addItem(UPItems.OPAL_FOSSIL, "Opal Fossil");
-        addItem(UPItems.FIRE_OPAL, "Fire Opal");
-        addItem(UPItems.FIRE_OPAL_FOSSIL, "Fire Opal Fossil");
-        addItem(UPItems.BOULDER_OPAL, "Boulder Opal");
-        addItem(UPItems.BOULDER_OPAL_FOSSIL, "Boulder Opal Fossil");
-        addItem(UPItems.BLACK_OPAL, "Black Opal");
-        addItem(UPItems.BLACK_OPAL_FOSSIL, "Black Opal Fossil");
-
-        //EMBRYOS
-        addItem(UPItems.SMILODON_EMBRYO, "Smilodon Embryo");
-        addItem(UPItems.MAMMOTH_EMBRYO, "Mammoth Embryo");
-        addItem(UPItems.MEGATH_EMBRYO, "Megatherium Embryo");
-        addItem(UPItems.GIGANTO_EMBRYO, "Gigantopithecus Embryo");
-        addItem(UPItems.PARACER_EMBRYO, "Paraceratherium Embryo");
-        addItem(UPItems.PALAEO_EMBRYO, "Palaeolophis Embryo");
-        addItem(UPItems.OTAROCYON_EMBRYO, "Otarocyon Embryo");
-
-        //DINO DROPS
-        addItem(UPItems.TYRANNO_SCALE, "Tyrannosaurus Scale");
-        addItem(UPItems.MAJUNGA_SCUTE, "Majungasaurus Scute");
-        addItem(UPItems.VELOCI_FEATHERS, "Velociraptor Feathers");
-        addItem(UPItems.TYRANNO_TOOTH, "Tyrannosaurus Tooth");
-        addItem(UPItems.TRIKE_HORN, "Triceratops Horn");
-        addItem(UPItems.BEELZ_SALIVA, "Beelzebufo Saliva");
-        addItem(UPItems.AUSTRO_FEATHER, "Austroraptor Feather");
-        addItem(UPItems.ANTARCTO_PLATE, "Antarctopelta Plate");
-        addItem(UPItems.SMILO_FUR, "Smilodon Fur");
-        addItem(UPItems.PALAEO_SKIN, "Shed Palaeolophis Skin");
-        addItem(UPItems.PSITTACOSAURUS_QUILL, "Psittacosaurus Quill");
-        addItem(UPItems.AMBER_IDOL, "Amber Idol");
-        addItem(UPItems.YIXIAN_RAMPAGE_BOTTLE, "Bottle of Yixian Rampage");
-        addItem(UPItems.DORMANT_RAMPAGE_BOTTLE, "Bottle of Dormant Yixian Rampage");
-        addItem(UPItems.TARBLOOD_PRION_NEEDLE, "Tarblood Prion Needle");
-        addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
-        addItem(UPItems.PSITTACCO_ARROW, "Psittacosaurus Arrow");
-
-        //FOODS
-        addItem(UPItems.GROG, "Bottle of Grog");
-        addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
-        addItem(UPItems.RAW_COTY, "Raw Cotylorhynchus");
-        addItem(UPItems.COOKED_COTY, "Cooked Cotylorhynchus");
-        addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
-        addItem(UPItems.COOKED_SCAU, "Cooked Scaumenacia");
-        addItem(UPItems.GOLDEN_SCAU, "Golden Scaumenacia");
-        addItem(UPItems.GINKGO_FRUIT, "Ginkgo Fruit");
-        addItem(UPItems.RAW_GINKGO_SEEDS, "Raw Ginkgo Seeds");
-        addItem(UPItems.COOKED_GINKGO_SEEDS, "Cooked Ginkgo Seeds");
-        addItem(UPItems.AMBER_GUMMY, "Amber Gummy");
-        addItem(UPItems.RED_FRUIT, "Exotic Fruit");
-        addItem(UPItems.WHITE_FRUIT, "Luxurious Fruit");
-        addItem(UPItems.YELLOW_FRUIT, "Redolent Fruit");
-        addItem(UPItems.BLUE_FRUIT, "Salubrious Fruit");
-        addItem(UPItems.DEFROSTED_FROZEN_FOSSIL, "Defrosted Fossil");
-        addItem(UPItems.DRYO_NUTS, "Dryophyllum Nuts");
-        addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
-        addItem(UPItems.COOKED_MAMMOTH, "Cooked Mammoth");
-        addItem(UPItems.MAMMOTH_MEATBALL, "Mammoth Meatball");
-        addItem(UPItems.LEEDS_CAVIAR, "Leedsichthys Caviar");
-
-        //SCRAPS
-        addItem(UPItems.RED_FRUIT_SCRAPS, "Exotic Fruit Scraps");
-        addItem(UPItems.WHITE_FRUIT_SCRAPS, "Luxurious Fruit Scraps");
-        addItem(UPItems.YELLOW_FRUIT_SCRAPS, "Redolent Fruit Scraps");
-        addItem(UPItems.BLUE_FRUIT_SCRAPS, "Salubrious Fruit Scraps");
-
-        // Buckets
-        addItem(UPItems.BEELZE_BUCKET, "Bucket of Beelzebufo Tadpole");
-        addItem(UPItems.AMMON_BUCKET, "Bucket of Ammonite");
-        addItem(UPItems.STETHA_BUCKET, "Bucket of Stethacanthus");
-        addItem(UPItems.SCAU_BUCKET, "Bucket of Scaumenacia");
-        addItem(UPItems.PALAEO_BUCKET, "Bucket of Palaeolophis Hatchling");
-
         // Block Eggs
         addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
         addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Spawn");
@@ -236,8 +144,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         addMusicDisc(UPItems.ENCASED_DISC, "TheValiantSquidward - Encased");
         addMusicDisc(UPItems.OPALESENCE_DISC, "ChipsTheCat - Opalesence");
 
-        addItem(UPItems.ANIMAL_DNA_BOTTLES, "Flask of Prehistoric Animal DNA");
-        addItem(UPItems.PLANT_DNA_BOTTLES, "Flask of Prehistoric Plant DNA");
+        addItem(UPItems.ANIMAL_DNA_BOTTLES, "Bottle of Prehistoric Animal DNA");
+        addItem(UPItems.PLANT_DNA_BOTTLES, "Bottle of Prehistoric Plant DNA");
 
         addItem(UPItems.YIXIAN_RAMPAGE_BOTTLE, "Bottle of Yixian Rampage");
         addItem(UPItems.DORMANT_RAMPAGE_BOTTLE, "Bottle of Dormant Yixian Rampage");
