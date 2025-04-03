@@ -1,26 +1,19 @@
 package com.peeko32213.unusualprehistory.common.effect;
 
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -30,14 +23,25 @@ import java.util.UUID;
 import static net.minecraft.world.level.block.MultifaceBlock.getFaceProperty;
 
 public class TarbloodPrionEffect extends MobEffect {
+
+    private static final UUID TARBLOOD_UUID = UUID.fromString("420a7b73-9f67-4cee-847d-c773bc297d05");
+
     public TarbloodPrionEffect() {
-        super(MobEffectCategory.HARMFUL, 6685988);
+        super(MobEffectCategory.HARMFUL, 0x121010);
     }
-    public static final UUID PRION_UUID = UUID.fromString("254b4a35-d1ed-4f34-abd1-910ac3525744");
+
     private int duration = -1;
-    private final int color = 6685988;
+
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
+        AttributeInstance attributeinstance = pLivingEntity.getAttribute(Attributes.MOVEMENT_SPEED);
+
+//        if (attributeinstance != null) {
+//            float levelScale = (1 + pAmplifier) * 1.5F;
+//            float f = (-0.001F * levelScale);
+//            removeTarbloodModifier(pLivingEntity);
+//            attributeinstance.addTransientModifier(new AttributeModifier(TARBLOOD_UUID, "Tarblood movement penalty", -0.001, AttributeModifier.Operation.MULTIPLY_TOTAL));
+//        }
 
         if (pLivingEntity.isDeadOrDying() && pLivingEntity.tickCount%5 == 0) {
             pLivingEntity.level().playSound(null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), UPSounds.TAR_POP.get(), SoundSource.NEUTRAL, 0.75F, 1F / (pLivingEntity.level().getRandom().nextFloat() * 0.4F + 0.8F));
@@ -67,7 +71,7 @@ public class TarbloodPrionEffect extends MobEffect {
                 }
                 if (blockRand < 0.0001 * capability.playerTarbloodPrionTime && (serverPlayer.level().getBlockState(serverPlayer.blockPosition()).canBeReplaced() || pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).isAir()) && pLivingEntity.level().getBlockState(pLivingEntity.blockPosition().below()).isSolid()) {
                     //entities trail tar
-                    BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.valueOf(true));
+                    BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.TRUE);
                     serverPlayer.level().setBlock(serverPlayer.blockPosition(), tar, 3);
                 }
 
@@ -88,32 +92,44 @@ public class TarbloodPrionEffect extends MobEffect {
                 }
                 if (blockRand < 0.00001 * capability.animalTarbloodPrionTime && (pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).canBeReplaced() || pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).isAir()) && pLivingEntity.level().getBlockState(pLivingEntity.blockPosition().below()).isSolid()) {
                     //entities trail tar
-                    BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.valueOf(true));
+                    BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.TRUE);
                     pLivingEntity.level().setBlock(pLivingEntity.blockPosition(), tar, 3);
                 }
                 //slows the entity down, the speed scales off infection time
             });
         }
-
-        Objects.requireNonNull(pLivingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED)).addTransientModifier(new AttributeModifier(PRION_UUID.toString(), -0.001, AttributeModifier.Operation.MULTIPLY_TOTAL));
-
-
+        Objects.requireNonNull(pLivingEntity.getAttributes().getInstance(Attributes.MOVEMENT_SPEED)).addTransientModifier(new AttributeModifier(TARBLOOD_UUID.toString(), -0.001, AttributeModifier.Operation.MULTIPLY_TOTAL));
         duration ++;
     }
 
-    @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
-        //btw this function is necessary for an effect to work
+    // todo: make attribute clear when effect is lost
 
-        return true;
-        //effect will never expire
+    public void addAttributeModifiers(LivingEntity entity, AttributeMap map, int i) {
+        super.addAttributeModifiers(entity, map, i);
+    }
+
+    public void removeAttributeModifiers(LivingEntity entity, AttributeMap map, int i) {
+        super.removeAttributeModifiers(entity, map, i);
+        removeTarbloodModifier(entity);
+    }
+
+    protected void removeTarbloodModifier(LivingEntity living) {
+        AttributeInstance attributeinstance = living.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (attributeinstance != null) {
+            if (attributeinstance.getModifier(TARBLOOD_UUID) != null) {
+                attributeinstance.removeModifier(TARBLOOD_UUID);
+            }
+        }
+    }
+
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return duration > 0;
     }
 
     @Override
     public List<ItemStack> getCurativeItems() {
         return List.of();
     }
-
 
     public @NotNull String getDescriptionId() {
         return "unusualprehistory.potion.tarblood";

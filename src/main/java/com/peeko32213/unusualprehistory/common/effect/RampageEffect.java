@@ -87,10 +87,7 @@ public class RampageEffect extends MobEffect {
 
     @Override
     public boolean isDurationEffectTick(int pDuration, int pAmplifier) {
-        //btw this function is necessary for an effect to work
-
         return true;
-        //effect will never expire
     }
 
     public @NotNull String getDescriptionId() {

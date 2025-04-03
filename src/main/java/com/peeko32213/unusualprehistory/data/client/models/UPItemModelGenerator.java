@@ -162,8 +162,6 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaItem(UPItems.XIPHACT_DNA);
         dnaItem(UPItems.OVIRAPTOR_DNA);
         dnaItem(UPItems.GLOBIDENS_DNA);
-        dnaItem(UPItems.GUANLINGSAURUS_DNA);
-        dnaItem(UPItems.MEGALAMPRIS_DNA);
         dnaItem(UPItems.ESTEMMENO_DNA);
         dnaItem(UPItems.OTAROCYON_DNA);
         dnaItem(UPItems.LONGI_DNA);
@@ -208,7 +206,6 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaItem(UPItems.SMILODON_DNA);
         dnaItem(UPItems.TALPANAS_DNA);
         dnaItem(UPItems.TELECREX_DNA);
-        dnaItem(UPItems.TITANONARKE_DNA);
         dnaItem(UPItems.ANOSTYLOSTRAMA_DNA);
         dnaItem(UPItems.ARCHAEFRUCTUS_DNA);
         dnaItem(UPItems.ARCHAO_DNA);
@@ -220,11 +217,7 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaItem(UPItems.NELUMBITES_DNA);
         dnaItem(UPItems.QUEREUXIA_DNA);
         dnaItem(UPItems.SARR_DNA);
-        dnaItem(UPItems.NYCTORAPTOR_DNA);
         dnaItem(UPItems.PANACANTHOCARIS_DNA);
-        dnaItem(UPItems.PROSCINETES_DNA);
-        dnaItem(UPItems.CORONODON_DNA);
-        dnaItem(UPItems.SCHLUMBERGERITES_DNA);
         dnaItem(UPItems.ANIMAL_DNA_BOTTLES);
         dnaItem(UPItems.PLANT_DNA_BOTTLES);
 

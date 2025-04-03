@@ -108,7 +108,6 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BRACHI.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new BrachiosaurusModel()));
         event.registerEntityRenderer(UPEntities.ERYON.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ERYON)));
         event.registerEntityRenderer(UPEntities.GLOBIDENS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GlobidensModel()));
-        event.registerEntityRenderer(UPEntities.GUANLINGSAURUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new GuanlingsaurusModel()));
         event.registerEntityRenderer(UPEntities.HWACHA.get(), e -> new PrehistoricRenderer<>(e, new HwachavenatorModel()));
         event.registerEntityRenderer(UPEntities.KAPROSUCHUS.get(), e -> new AgeableMobRenderer<>(e, new KaprosuchusModel()));
         event.registerEntityRenderer(UPEntities.KENTRO.get(), e -> new AgeableMobRenderer<>(e, new KentrosaurusModel()));
@@ -116,16 +115,13 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.LEEDSICHTHYS.get(), e -> new PrehistoricRenderer<>(e, new LeedsichthysModel()));
         event.registerEntityRenderer(UPEntities.LONGISQUAMA.get(), e -> new AgeableMobRenderer<>(e, new LongisquamaModel()));
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new AgeableMobRenderer<>(e, new MajungasaurusModel()));
-        event.registerEntityRenderer(UPEntities.NYCTORAPTOR.get(), e -> new AgeableMobRenderer<>(e, new NyctoraptorModel()));
         event.registerEntityRenderer(UPEntities.OVIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new OviraptorModel()));
         event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new AgeableMobRenderer<>(e, new PachycephalosaurusModel()));
-        event.registerEntityRenderer(UPEntities.PROSCINETES.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProscinetesModel()));
         event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
         event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.PTERODAUSTRO)));
-        event.registerEntityRenderer(UPEntities.SCHLUMBERGERITES.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new SchlumbergeritesModel()));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
-        event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new AgeableMobRenderer<>(e, new TriceratopsModel()));
+        event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new PrehistoricRenderer<>(e, new TriceratopsModel()));
         event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new AgeableMobRenderer<>(e, new TyrannosaurusModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e -> new PrehistoricRenderer<>(e, new UlughbegsaurusModel()));
         event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
@@ -133,10 +129,8 @@ public final class ClientEvents {
 
         // Ceno mobs
         event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new PrehistoricRenderer<>(e, new BarinasuchusModel()));
-        event.registerEntityRenderer(UPEntities.CORONODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new CoronodonModel()));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new AgeableMobRenderer<>(e, new GigantopithicusModel()));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new AgeableMobRenderer<>(e, new MammothModel()));
-        event.registerEntityRenderer(UPEntities.MEGALAMPRIS.get(), e -> new PrehistoricRenderer<>(e, new MegalamprisModel()));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new AgeableMobRenderer<>(e, new MegalaniaModel()));
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e -> new PrehistoricRenderer<>(e, new MegatheriumModel()));
         event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
@@ -149,7 +143,6 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new PrehistoricRenderer<>(e, new SmilodonModel()));
         event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
         event.registerEntityRenderer(UPEntities.TELECREX.get(), TelecrexRenderer::new);
-        event.registerEntityRenderer(UPEntities.TITANONARKE.get(), e -> new PrehistoricRenderer<>(e, new TitanonarkeModel()));
         event.registerEntityRenderer(UPEntities.UNICORN.get(), e -> new AgeableMobRenderer<>(e, new UnicornModel()));
 
         // Monsters

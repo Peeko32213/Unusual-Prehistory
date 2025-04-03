@@ -129,7 +129,7 @@ public class TriceratopsAttackGoal extends Goal {
 
         switch (animState) {
             case 21, 22 -> tickStrikeAttack();
-            case 23 -> tickChargeAttack();
+//            case 23 -> tickChargeAttack();
             default -> {
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -226,41 +226,41 @@ public class TriceratopsAttackGoal extends Goal {
         }
     }
 
-    protected void tickChargeAttack () {
-        animTime++;
-        this.mob.getNavigation().stop();
-        this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
-        this.mob.yBodyRot = this.mob.yHeadRot;
-
-        // Find charge direction
-        if (animTime == 1) {
-            this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
-            this.mob.yBodyRot = this.mob.yHeadRot;
-            Entity target = this.mob.getTarget();
-            Vec3 targetPos = (target.position());
-
-            double x = -((this.mob.position().x - targetPos.x));
-            double z = -((this.mob.position().z - targetPos.z));
-
-            this.chargeMotion = new Vec3(x, this.mob.getDeltaMovement().y, z).normalize();
-        }
-
-        // Only move after charged up
-        if(animTime >= 19 && animTime < 38) {
-            this.mob.setDeltaMovement(chargeMotion.x/2, this.mob.getDeltaMovement().y, chargeMotion.z/2);
-
-            // Attack while charging
-            HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.chargeOffSet, 1.3, 3, 1.2, (ServerLevel) this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() / 1.25F, this.mob.damageSources().mobAttack(mob), 2.5F, true, false, false);
-        }
-
-        if(animTime >= 39) {
-            animTime=0;
-            this.mob.setAnimationState(0);
-            this.resetAttackCooldown();
-            this.ticksUntilNextPathRecalculation = 0;
-            this.chargeCD = this.mob.getRandom().nextInt(300) + 50;
-        }
-    }
+//    protected void tickChargeAttack () {
+//        animTime++;
+//        this.mob.getNavigation().stop();
+//        this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
+//        this.mob.yBodyRot = this.mob.yHeadRot;
+//
+//        // Find charge direction
+//        if (animTime == 1) {
+//            this.mob.lookAt(this.mob.getTarget(), 100000, 100000);
+//            this.mob.yBodyRot = this.mob.yHeadRot;
+//            Entity target = this.mob.getTarget();
+//            Vec3 targetPos = (target.position());
+//
+//            double x = -((this.mob.position().x - targetPos.x));
+//            double z = -((this.mob.position().z - targetPos.z));
+//
+//            this.chargeMotion = new Vec3(x, this.mob.getDeltaMovement().y, z).normalize();
+//        }
+//
+//        // Only move after charged up
+//        if(animTime >= 19 && animTime < 38) {
+//            this.mob.setDeltaMovement(chargeMotion.x/2, this.mob.getDeltaMovement().y, chargeMotion.z/2);
+//
+//            // Attack while charging
+//            HitboxAttacks.pivotedPolyHitCheck(mob, this.mob, this.chargeOffSet, 1.3, 3, 1.2, (ServerLevel) this.mob.level(), (float) mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() / 1.25F, this.mob.damageSources().mobAttack(mob), 2.5F, true, false, false);
+//        }
+//
+//        if(animTime >= 39) {
+//            animTime=0;
+//            this.mob.setAnimationState(0);
+//            this.resetAttackCooldown();
+//            this.ticksUntilNextPathRecalculation = 0;
+//            this.chargeCD = this.mob.getRandom().nextInt(300) + 50;
+//        }
+//    }
 
     protected void preformStrikeAttack () {
         this.mob.setDeltaMovement(this.mob.getDeltaMovement().scale(0));

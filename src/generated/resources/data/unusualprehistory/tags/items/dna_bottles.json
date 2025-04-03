@@ -33,7 +33,6 @@
     "unusualprehistory:gigantopithecus_dna_bottle",
     "unusualprehistory:smilodon_dna_bottle",
     "unusualprehistory:telecrex_dna_bottle",
-    "unusualprehistory:titanonarke_dna_bottle",
     "unusualprehistory:megatherium_dna_bottle",
     "unusualprehistory:paraceratherium_dna_bottle",
     "unusualprehistory:mammoth_dna_bottle",
@@ -70,12 +69,6 @@
     "unusualprehistory:globidens_dna_bottle",
     "unusualprehistory:archelon_dna_bottle",
     "unusualprehistory:estemmenosuchus_dna_bottle",
-    "unusualprehistory:guanlingsaurus_dna_bottle",
-    "unusualprehistory:megalampris_dna_bottle",
-    "unusualprehistory:nyctoraptor_dna_bottle",
-    "unusualprehistory:panacanthocaris_dna_bottle",
-    "unusualprehistory:proscinetes_dna_bottle",
-    "unusualprehistory:coronodon_dna_bottle",
-    "unusualprehistory:schlumbergerites_dna_bottle"
+    "unusualprehistory:panacanthocaris_dna_bottle"
   ]
 }

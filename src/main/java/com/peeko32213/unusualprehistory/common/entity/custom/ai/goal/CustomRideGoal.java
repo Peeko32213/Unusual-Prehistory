@@ -9,7 +9,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class CustomRideGoal  extends Goal {
+public class CustomRideGoal extends Goal {
 
     private final PathfinderMob tameableEntity;
     private LivingEntity player;

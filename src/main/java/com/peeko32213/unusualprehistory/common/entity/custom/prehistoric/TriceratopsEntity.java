@@ -48,6 +48,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -195,8 +196,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new TriceratopsAttackGoal(this, 1.7F, true));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
-        this.goalSelector.addGoal(1, new CustomRideGoal(this, 3D));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(8, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(8, new OwnerHurtTargetGoal(this));
@@ -308,35 +308,33 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
-    // Travel
-    @Override
-    public void travel(@NotNull Vec3 pos) {
-        if (this.isAlive()) {
-            LivingEntity livingentity = this.getControllingPassenger();
-            if (this.isVehicle() && livingentity != null) {
-                this.setYRot(livingentity.getYRot());
-                this.yRotO = this.getYRot();
-                this.setXRot(livingentity.getXRot() * 0.5F);
-                this.setRot(this.getYRot(), this.getXRot());
-                this.yBodyRot = this.getYRot();
-                this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa;
-                float f1 = livingentity.zza;
-                if (f1 <= 0.0F) {
-                    f1 *= 0.25F;
-                }
-                if(!this.isInSittingPose()) {
-                    if (this.getControllingPassenger().isSprinting()) {
-                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.4F));
-                    } else {
-                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
-                    }
-                }
-                super.travel(new Vec3(f, pos.y, f1));
-            } else {
-                super.travel(pos);
-            }
+    protected Vec3 getRiddenInput(Player player, Vec3 deltaIn) {
+        if (player.zza != 0) {
+            float f = player.zza < 0.0F ? 0.5F : 1.0F;
+            return new Vec3(player.xxa * 0.25F, 0.0D, player.zza * 0.5F * f);
+        } else {
+            this.setSprinting(false);
         }
+        return Vec3.ZERO;
+    }
+
+    protected void tickRidden(Player player, Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if(player.zza != 0 || player.xxa != 0){
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+            this.setMaxUpStep(1.25F);
+            this.getNavigation().stop();
+            this.setTarget(null);
+        }
+    }
+
+    protected float getRiddenSpeed(Player pPlayer) {
+        float f = 0.0F;
+        if(pPlayer.isSprinting()) {
+            f = 0.25F;
+        }
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
     }
 
     // Controlling passenger
@@ -344,7 +342,8 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     public LivingEntity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
             if (passenger instanceof Player) {
-                return (Player) passenger;
+                Player player = (Player) passenger;
+                return player;
             }
         }
         return null;

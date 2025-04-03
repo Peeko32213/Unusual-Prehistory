@@ -189,10 +189,6 @@ public class UPEntities {
                     .build(modPrefix("globidens").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x1a2525, 0x867e68);
 
-    public static final RegistryObject<EntityType<GuanlingsaurusEntity>> GUANLINGSAURUS = ENTITIES.register("guanlingsaurus",
-            () -> EntityType.Builder.of(GuanlingsaurusEntity::new, MobCategory.WATER_CREATURE).sized(3.5f, 2.25f)
-                    .build(modPrefix("guanlingsaurus").toString()));
-
     public static final RegistryObject<EntityType<HwachavenatorEntity>> HWACHA = registerPrehistoricCreatureWithEgg("hwachavenator",
             () -> EntityType.Builder.of(HwachavenatorEntity::new, MobCategory.CREATURE).sized(1.95F, 2.8F)
                     .build(modPrefix("hwachavenator").toString()),
@@ -226,11 +222,6 @@ public class UPEntities {
                     .build(modPrefix("majunga").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x1d600e, 0xcad9b0);
 
-    public static final RegistryObject<EntityType<NyctoraptorEntity>> NYCTORAPTOR = registerPrehistoricCreatureWithEgg("nyctoraptor",
-            () -> EntityType.Builder.of(NyctoraptorEntity::new, MobCategory.CREATURE).sized(2.15F, 3.0F)
-                    .build(modPrefix("nyctoraptor").toString()),
-            EggSize.SMALL, EggVariant.SPOTS, 1200, 0x4a302c, 0x99847a);
-
     public static final RegistryObject<EntityType<OviraptorEntity>> OVIRAPTOR = registerPrehistoricCreatureWithEgg("oviraptor",
             () -> EntityType.Builder.of(OviraptorEntity::new, MobCategory.CREATURE).sized(0.8F, 1.2F)
                     .build(modPrefix("oviraptor").toString()),
@@ -240,10 +231,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(PachycephalosaurusEntity::new, MobCategory.CREATURE).sized(1.2F, 1.9F)
                     .build(modPrefix("pachy").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x70837f, 0x191a2a);
-
-    public static final RegistryObject<EntityType<ProscinetesEntity>> PROSCINETES = ENTITIES.register("proscinetes",
-            () -> EntityType.Builder.of(ProscinetesEntity::new, MobCategory.WATER_CREATURE).sized(1.0F, 1.25F)
-                    .build(modPrefix("proscinetes").toString()));
 
     public static final RegistryObject<EntityType<ProtosphyraenaEntity>> PROTOSPHYRAENA = ENTITIES.register("protosphyraena",
             () -> EntityType.Builder.of(ProtosphyraenaEntity::new, MobCategory.WATER_CREATURE).sized(1.35f, 0.8f)
@@ -258,10 +245,6 @@ public class UPEntities {
             () -> EntityType.Builder.of(PterodaustroEntity::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
                     .build(modPrefix("pterodaustro").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0xc93660, 0xf9e3f9);
-
-    public static final RegistryObject<EntityType<SchlumbergeritesEntity>> SCHLUMBERGERITES = ENTITIES.register("schlumbergerites",
-            () -> EntityType.Builder.of(com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.SchlumbergeritesEntity::new, MobCategory.WATER_CREATURE).sized(0.85F, 0.8F)
-                    .build(modPrefix("schlumbergerites").toString()));
 
     public static final RegistryObject<EntityType<TanystropheusEntity>> TANY = registerPrehistoricCreatureWithEgg("tanystropheus",
             () -> EntityType.Builder.of(TanystropheusEntity::new, MobCategory.CREATURE).sized(1.8F, 0.7F)
@@ -298,10 +281,6 @@ public class UPEntities {
                     .build(modPrefix("barinasuchus").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x181606, 0xcebd1e);
 
-    public static final RegistryObject<EntityType<CoronodonEntity>> CORONODON = ENTITIES.register("coronodon",
-            () -> EntityType.Builder.of(CoronodonEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 0.95f)
-                    .build(modPrefix("coronodon").toString()));
-
     public static final RegistryObject<EntityType<GigantopithicusEntity>> GIGANTOPITHICUS = ENTITIES.register("gigantopithicus",
             () -> EntityType.Builder.of(GigantopithicusEntity::new, MobCategory.CREATURE).sized(2.55F, 3.0F)
                     .build(modPrefix("gigantopithicus").toString()));
@@ -309,10 +288,6 @@ public class UPEntities {
     public static final RegistryObject<EntityType<MammothEntity>> MAMMOTH = ENTITIES.register("mammoth",
             () -> EntityType.Builder.of(MammothEntity::new, MobCategory.CREATURE).sized(3.75F, 4.5F)
                     .build(modPrefix("mammoth").toString()));
-
-    public static final RegistryObject<EntityType<MegalamprisEntity>> MEGALAMPRIS = ENTITIES.register("megalampris",
-            () -> EntityType.Builder.of(MegalamprisEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 2.25f)
-                    .build(modPrefix("megalampris").toString()));
 
     public static final RegistryObject<EntityType<MegalaniaEntity>> MEGALANIA = registerPrehistoricCreatureWithEgg("megalania",
             () -> EntityType.Builder.of(MegalaniaEntity::new, MobCategory.CREATURE).sized(2.5F, 2.0F)
@@ -367,10 +342,6 @@ public class UPEntities {
     public static final RegistryObject<EntityType<TelecrexEntity>> TELECREX = ENTITIES.register("telecrex",
             () -> EntityType.Builder.of(TelecrexEntity::new, MobCategory.CREATURE).sized(0.7F, 1.1F)
                     .build(modPrefix("telecrex").toString()));
-
-    public static final RegistryObject<EntityType<TitanonarkeEntity>> TITANONARKE = ENTITIES.register("titanonarke",
-            () -> EntityType.Builder.of(TitanonarkeEntity::new, MobCategory.CREATURE).sized(1.5F, 0.35F)
-                    .build(modPrefix("titanonarke").toString()));
 
     public static final RegistryObject<EntityType<UnicornEntity>> UNICORN = ENTITIES.register("unicorn",
             () -> EntityType.Builder.of(UnicornEntity::new, MobCategory.CREATURE).sized(1.2F, 3.0F)

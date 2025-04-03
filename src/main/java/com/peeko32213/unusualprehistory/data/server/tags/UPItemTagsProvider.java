@@ -77,7 +77,6 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
                 GIGANTO_DNA.get(),
                 SMILODON_DNA.get(),
                 TELECREX_DNA.get(),
-                TITANONARKE_DNA.get(),
                 MEGATHERIUM_DNA.get(),
                 PARACER_DNA.get(),
                 MAMMOTH_DNA.get(),
@@ -114,13 +113,7 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
                 GLOBIDENS_DNA.get(),
                 ARCHELON_DNA.get(),
                 ESTEMMENO_DNA.get(),
-                GUANLINGSAURUS_DNA.get(),
-                MEGALAMPRIS_DNA.get(),
-                NYCTORAPTOR_DNA.get(),
-                PANACANTHOCARIS_DNA.get(),
-                PROSCINETES_DNA.get(),
-                CORONODON_DNA.get(),
-                SCHLUMBERGERITES_DNA.get()
+                PANACANTHOCARIS_DNA.get()
         );
 
         this.tag(UPItemTags.FOSSILS).add(

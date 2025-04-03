@@ -255,7 +255,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addDNAItem(UPItems.MEGALANIA_DNA.get());
         addDNAItem(UPItems.TALPANAS_DNA.get());
         addDNAItem(UPItems.TELECREX_DNA.get());
-        addDNAItem(UPItems.TITANONARKE_DNA.get());
         addDNAItem(UPItems.ZULOAGAE_DNA.get());
         addDNAItem(UPItems.RAIGUENRAYUN_DNA.get());
         addDNAItem(UPItems.FOXII_DNA.get());
@@ -270,8 +269,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addDNAItem(UPItems.EDAPHO_DNA.get());
         addDNAItem(UPItems.OVIRAPTOR_DNA.get());
         addDNAItem(UPItems.GLOBIDENS_DNA.get());
-        addDNAItem(UPItems.GUANLINGSAURUS_DNA.get());
-        addDNAItem(UPItems.MEGALAMPRIS_DNA.get());
         addDNAItem(UPItems.OTAROCYON_DNA.get());
         addDNAItem(UPItems.LONGI_DNA.get());
         addDNAItem(UPItems.JAWLESS_FISH_DNA.get());
@@ -285,11 +282,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addDNAItem(UPItems.PTERODAUSTRO_DNA.get());
         addDNAItem(UPItems.ARCHELON_DNA.get());
         addDNAItem(UPItems.PROTOSPHYRAENA_DNA.get());
-        addDNAItem(UPItems.NYCTORAPTOR_DNA.get());
         addDNAItem(UPItems.PANACANTHOCARIS_DNA.get());
-        addDNAItem(UPItems.PROSCINETES_DNA.get());
-        addDNAItem(UPItems.CORONODON_DNA.get());
-        addDNAItem(UPItems.SCHLUMBERGERITES_DNA.get());
         addDNAItem(UPItems.KAPRO_DNA.get());
 
         // Corals
@@ -353,12 +346,10 @@ public class UPLanguageGenerator extends LanguageProvider {
         // Meso mobs
         forEntity(UPEntities.ARCHELON);
         forEntity(UPEntities.BALAUR);
-        forEntity(UPEntities.GUANLINGSAURUS);
         forEntity(UPEntities.KAPROSUCHUS);
         forEntity(UPEntities.KIMMER);
         forEntity(UPEntities.LEEDSICHTHYS);
         forEntity(UPEntities.LONGISQUAMA);
-        forEntity(UPEntities.NYCTORAPTOR);
         forEntity(UPEntities.OVIRAPTOR);
         forEntity(UPEntities.PROTOSPHYRAENA);
         forEntity(UPEntities.PSITTACO);
@@ -367,12 +358,10 @@ public class UPLanguageGenerator extends LanguageProvider {
         forEntity(UPEntities.XIPH);
 
         // Ceno mobs
-        forEntity(UPEntities.MEGALAMPRIS);
         forEntity(UPEntities.OPHIODON);
         forEntity(UPEntities.OTAROCYON);
         forEntity(UPEntities.PSILOPTERUS);
         forEntity(UPEntities.TELECREX);
-        forEntity(UPEntities.TITANONARKE);
         forEntity(UPEntities.UNICORN);
 
         // Monsters
