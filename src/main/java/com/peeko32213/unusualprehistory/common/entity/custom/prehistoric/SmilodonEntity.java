@@ -143,11 +143,6 @@ public class SmilodonEntity extends PrehistoricEntity {
         }
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {

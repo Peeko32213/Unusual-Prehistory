@@ -229,11 +229,6 @@ public class KentrosaurusEntity extends PrehistoricEntity {
         this.orderedToSit = p_21840_;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {

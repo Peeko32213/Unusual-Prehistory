@@ -400,11 +400,6 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
         }
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 5;
-    }
-
     public void tick() {
         super.tick();
 

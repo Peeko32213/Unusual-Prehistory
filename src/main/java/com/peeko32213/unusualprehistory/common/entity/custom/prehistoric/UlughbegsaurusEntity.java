@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.UlughbegsaurusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
@@ -42,7 +43,6 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -58,6 +58,7 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
@@ -65,115 +66,104 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity, ICustomFollower {
-
-    private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private int attackCooldown;
-    public static final int ATTACK_COOLDOWN = 30;
-
     public float eatProgress;
-    public float sitProgress;
 
     // Movement animations
-    private static final RawAnimation ULUGH_SPRINT = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.sprint");
     private static final RawAnimation ULUGH_WALK = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.walk");
+    private static final RawAnimation ULUGH_SPRINT = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.run");
     private static final RawAnimation ULUGH_SWIM = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.swim");
 
     // Idle animations
     private static final RawAnimation ULUGH_IDLE = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.idle");
+    private static final RawAnimation ULUGH_YAWN = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.yawn_blend");
+    private static final RawAnimation ULUGH_SHAKE = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.shake_blend");
+    private static final RawAnimation ULUGH_VOCAL = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.vocal_blend");
+    private static final RawAnimation ULUGH_SIT_START = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.sit_start");
     private static final RawAnimation ULUGH_SIT = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.sit");
-    private static final RawAnimation ULUGH_EAT = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.eat");
-    private static final RawAnimation ULUGH_SLAY = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.slay");
-    private static final RawAnimation ULUGH_SCRATCH = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.scratch");
-    private static final RawAnimation ULUGH_SHAKE = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.shake");
-    private static final RawAnimation ULUGH_VOCAL = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.vocal");
+    private static final RawAnimation ULUGH_SIT_END = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.sit_end");
     private static final RawAnimation ULUGH_SLEEP = RawAnimation.begin().thenLoop("animation.ulughbegsaurus.sleep");
 
     // Attack animations
-    private static final RawAnimation ULUGH_BITE = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.bite");
+    private static final RawAnimation ULUGH_BITE1 = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.attack_blend1");
+    private static final RawAnimation ULUGH_BITE2 = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.attack_blend2");
+
+    // Misc animations
+    private static final RawAnimation ULUGH_EAT = RawAnimation.begin().thenPlay("animation.ulughbegsaurus.eat_bend");
 
     // Idle accessors
-    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> YAWN = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SHAKE = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> VOCAL = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Starting predicates
+    private static final Predicate<LivingEntity> ULUGHBEGSAURUS_STARTING_PREDICATE = (e -> {
+        if(e instanceof UlughbegsaurusEntity entity) {
+            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater();
+        }
+        return false;
+    });
 
     // Idle actions
-    private static final EntityAction ULUGH_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction ULUGH_YAWN_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper ULUGH_IDLE_1_STATE =
-            StateHelper.Builder.state(IDLE_1_AC, "ulughbegsaurus_slay")
-                    .playTime(15)
-                    .stopTime(50)
-                    .entityAction(ULUGH_IDLE_1_ACTION)
-                    .build();
-
-    private static final EntityAction ULUGH_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper ULUGH_IDLE_2_STATE =
-            StateHelper.Builder.state(IDLE_2_AC, "ulughbegsaurus_scratch")
-                    .playTime(40)
-                    .stopTime(90)
-                    .entityAction(ULUGH_IDLE_2_ACTION)
-                    .build();
-
-    private static final EntityAction ULUGH_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper ULUGH_IDLE_3_STATE =
-            StateHelper.Builder.state(IDLE_3_AC, "ulughbegsaurus_shake")
-                    .playTime(40)
+    private static final StateHelper ULUGH_YAWN_STATE =
+            StateHelper.Builder.state(YAWN, "ulughbegsaurus_yawn")
+                    .playTime(60)
                     .stopTime(120)
-                    .entityAction(ULUGH_IDLE_3_ACTION)
+                    .startingPredicate(ULUGHBEGSAURUS_STARTING_PREDICATE)
+                    .entityAction(ULUGH_YAWN_ACTION)
                     .build();
 
-    private static final EntityAction ULUGH_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction ULUGH_SHAKE_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper ULUGH_IDLE_4_STATE =
-            StateHelper.Builder.state(IDLE_4_AC, "ulughbegsaurus_vocal")
-                    .playTime(40)
+    private static final StateHelper ULUGH_SHAKE_STATE =
+            StateHelper.Builder.state(SHAKE, "ulughbegsaurus_shake")
+                    .playTime(80)
+                    .stopTime(150)
+                    .startingPredicate(ULUGHBEGSAURUS_STARTING_PREDICATE)
+                    .entityAction(ULUGH_SHAKE_ACTION)
+                    .build();
+
+    private static final EntityAction ULUGH_VOCAL_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper ULUGH_VOCAL_STATE =
+            StateHelper.Builder.state(VOCAL, "ulughbegsaurus_vocal")
+                    .playTime(60)
                     .stopTime(140)
-                    .entityAction(ULUGH_IDLE_4_ACTION)
+                    .startingPredicate(ULUGHBEGSAURUS_STARTING_PREDICATE)
+                    .entityAction(ULUGH_VOCAL_ACTION)
                     .build();
 
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
-                ULUGH_IDLE_1_STATE.getName(), ULUGH_IDLE_1_STATE,
-                ULUGH_IDLE_2_STATE.getName(), ULUGH_IDLE_2_STATE,
-                ULUGH_IDLE_3_STATE.getName(), ULUGH_IDLE_3_STATE,
-                ULUGH_IDLE_4_STATE.getName(), ULUGH_IDLE_4_STATE
+                ULUGH_YAWN_STATE.getName(), ULUGH_YAWN_STATE,
+                ULUGH_SHAKE_STATE.getName(), ULUGH_SHAKE_STATE,
+                ULUGH_VOCAL_STATE.getName(), ULUGH_VOCAL_STATE
         );
     }
 
     @Override
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
-                WeightedState.of(ULUGH_IDLE_1_STATE, 14),
-                WeightedState.of(ULUGH_IDLE_2_STATE, 12),
-                WeightedState.of(ULUGH_IDLE_3_STATE, 11),
-                WeightedState.of(ULUGH_IDLE_4_STATE, 10)
+                WeightedState.of(ULUGH_YAWN_STATE, 14),
+                WeightedState.of(ULUGH_SHAKE_STATE, 12),
+                WeightedState.of(ULUGH_VOCAL_STATE, 11)
         );
     }
-
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {}
 
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
         helper.bodyLagMoving = 0.5F;
-        helper.bodyLagStill = 0.1F;
+        helper.bodyLagStill = 0.15F;
         return helper;
     }
 
@@ -189,22 +179,17 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 60.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.2D)
-            .add(Attributes.ATTACK_DAMAGE, 8.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 60.0D).add(Attributes.MOVEMENT_SPEED, 0.2D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
     }
 
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 2D, false));
-        this.goalSelector.addGoal(2, new UlughbegsaurusEntity.IMeleeAttackGoal());
+        this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1, new UlughbegsaurusAttackGoal(this, 1.5F, true));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(1, new CustomRideGoal(this, 2D));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30) {
                     @Override
                     public boolean canUse() {
@@ -212,15 +197,14 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
                     }
                 }
         );
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.15F, 1.0F);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -285,7 +269,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     public @NotNull InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (isFood(itemstack) && !isTame()) {
             if(!this.level().isClientSide) {
@@ -322,27 +305,29 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
                 this.spawnAtLocation(Items.SADDLE);
                 return InteractionResult.SUCCESS;
             }
+            else if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() &&
+                    this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+                player.startRiding(this);
+            }
             else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    if(!this.level().isClientSide) {
-                        player.startRiding(this);
-                    }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    this.setCommand((this.getCommand() + 1) % 3);
+                this.setCommand((this.getCommand() + 1) % 3);
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
 
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
+                int var10001 = this.getCommand();
+                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
+                boolean sit = this.getCommand() == 2;
+                if (sit) {
+                    this.setOrderedToSit(true);
+                    if (!this.isInSittingPose() && this.onGround()){
+                        this.setSittingTime(20);
                     }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 2;
-                    if (sit) {
-                        this.setOrderedToSit(true);
-                        return InteractionResult.SUCCESS;
-                    } else {
-                        this.setOrderedToSit(false);
-                        return InteractionResult.SUCCESS;
+                } else {
+                    if (this.isInSittingPose() && this.onGround()){
+                        this.setStandingTime(20);
                     }
+                    this.setOrderedToSit(false);
                 }
             }
         }
@@ -352,34 +337,33 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("Saddle", this.isSaddled());
-        compound.putInt("UlughCommand", this.getCommand());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setSaddled(compound.getBoolean("Saddle"));
-        this.setCommand(compound.getInt("UlughCommand"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(IDLE_1_AC, false);
-        this.entityData.define(IDLE_2_AC, false);
-        this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(IDLE_4_AC, false);
+        this.entityData.define(YAWN, false);
+        this.entityData.define(SHAKE, false);
+        this.entityData.define(VOCAL, false);
         this.entityData.define(EATING_TIME, 0);
-        this.entityData.define(SADDLED, Boolean.FALSE);
-        this.entityData.define(COMMAND, 0);
     }
 
-    public boolean isSaddled() {
-        return this.entityData.get(SADDLED);
+    @Override
+    public boolean canBeLeashed(Player player) {
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
     }
 
-    public void setSaddled(boolean saddled) {
-        this.entityData.set(SADDLED, saddled);
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+        if (this.isInSittingPose()) {
+            return super.getDimensions(pPose).scale(1.0F, 0.625F);
+        } else {
+            return super.getDimensions(pPose);
+        }
     }
 
     @Nullable
@@ -406,9 +390,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     public void tick() {
         super.tick();
 
-        if(attackCooldown > 0){
-            attackCooldown--;
-        }
         if (this.isEating() && eatProgress < 5F) {
             eatProgress++;
         }
@@ -420,6 +401,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
             this.getNavigation().stop();
         }
 
+        // Float while ridden
         boolean ridden = !this.getPassengers().isEmpty();
         boolean water = this.isInWater();
         if(ridden && water) {
@@ -482,14 +464,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         return entityIn.is(this);
     }
 
-    public int getCommand() {
-        return this.entityData.get(COMMAND);
-    }
-
-    public void setCommand(int command) {
-        this.entityData.set(COMMAND, command);
-    }
-
     public void determineVariant(int variantChange){
         if (variantChange <= 8) {
             this.setVariant(1);
@@ -538,11 +512,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
     private void attack(LivingEntity entity) {
         entity.hurt(this.damageSources().mobAttack(this), 5.0F);
     }
@@ -565,29 +534,10 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         return this.getCommand() == 1;
     }
 
-    class IMeleeAttackGoal extends MeleeAttackGoal {
-        public IMeleeAttackGoal() {
-            super(UlughbegsaurusEntity.this, 1.6D, true);
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_25556_) {
-            return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 0.66F + p_25556_.getBbWidth();
-        }
-
-        @Override
-        protected void checkAndPerformAttack(@NotNull LivingEntity enemy, double distToEnemySqr) {
-            double d0 = this.getAttackReachSqr(enemy);
-            if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0) {
-                this.resetAttackCooldown();
-                ((UlughbegsaurusEntity) this.mob).attack(enemy);
-            }
-        }
-    }
-
     @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted()) {
-            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.2D);
+            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
         } else {
             this.setSprinting(false);
         }
@@ -612,13 +562,17 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         AnimationController<UlughbegsaurusEntity> controller = new AnimationController<>(this, "controller", 10, this::predicate);
         controllers.add(controller);
-        AnimationController<UlughbegsaurusEntity> blend = new AnimationController<>(this, "blend", 10, this::predicate)
-                .triggerableAnim("slay", ULUGH_SLAY)
-                .triggerableAnim("scratch", ULUGH_SCRATCH)
-                .triggerableAnim("shake", ULUGH_SHAKE)
-                .triggerableAnim("vocal", ULUGH_VOCAL);
-        blend.setSoundKeyframeHandler(this::soundListener);
-        controllers.add(blend);
+
+        AnimationController<UlughbegsaurusEntity> idle = new AnimationController<>(this, "idleController", 0, this::idlePredicate);
+        idle.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(idle);
+
+        AnimationController<UlughbegsaurusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
+
+        AnimationController<UlughbegsaurusEntity> sit = new AnimationController<>(this, "sitController", 0, this::sitPredicate);
+        controllers.add(sit);
     }
 
     protected <E extends UlughbegsaurusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -651,11 +605,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
             return PlayState.CONTINUE;
         }
 
-        if (this.isInSittingPose() && !this.isInWater()) {
-            event.setAndContinue(ULUGH_SIT);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
         if (this.isInWater()) {
             event.setAndContinue(ULUGH_SWIM);
             event.getController().setAnimationSpeed(1.0F);
@@ -663,44 +612,65 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         }
 
         if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "slay");
-                    return event.setAndContinue(ULUGH_IDLE);
-                } else {
-                    triggerAnim("blend", "slay");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_2_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "scratch");
-                    return event.setAndContinue(ULUGH_IDLE);
-                } else {
-                    triggerAnim("blend", "scratch");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_3_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "shake");
-                    return event.setAndContinue(ULUGH_IDLE);
-                } else {
-                    triggerAnim("blend", "shake");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_4_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "vocal");
-                    return event.setAndContinue(ULUGH_IDLE);
-                } else {
-                    triggerAnim("blend", "vocal");
-                    return PlayState.CONTINUE;
-                }
-            }
             return event.setAndContinue(ULUGH_IDLE);
         }
         return PlayState.CONTINUE;
+    }
+
+    // Idle animations
+    protected <E extends UlughbegsaurusEntity> PlayState idlePredicate(final AnimationState<E> event) {
+        if (getBooleanState(YAWN)) {
+            event.getController().setAnimation(ULUGH_YAWN);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(VOCAL)) {
+            event.getController().setAnimation(ULUGH_VOCAL);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(SHAKE)) {
+            event.getController().setAnimation(ULUGH_SHAKE);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
+    }
+
+    // Attack animations
+    protected <E extends UlughbegsaurusEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+
+        if (animState == 21) {
+            event.setAndContinue(ULUGH_BITE1);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 22) {
+            event.setAndContinue(ULUGH_BITE2);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
+    }
+
+    // Sitting animations
+    protected <E extends UlughbegsaurusEntity> PlayState sitPredicate(AnimationState<E> event) {
+        if (this.isInSittingPose() || (this.getSittingLag() < 7 && this.getSittingLag() > 0)){
+            event.setAndContinue(ULUGH_SIT);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getSittingTime() > 0) {
+            event.setAndContinue(ULUGH_SIT_START);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getStandingTime() > 0) {
+            event.setAndContinue(ULUGH_SIT_END);
+            return PlayState.CONTINUE;
+        }
+        else {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
     }
 }

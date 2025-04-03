@@ -193,11 +193,6 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
         return 1.25F;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob p_146744_) {

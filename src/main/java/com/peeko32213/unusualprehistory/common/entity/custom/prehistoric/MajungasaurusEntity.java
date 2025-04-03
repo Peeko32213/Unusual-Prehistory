@@ -217,11 +217,6 @@ public class MajungasaurusEntity extends PrehistoricEntity {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
     public void setChargeCooldownTicks(int ticks) {
         this.entityData.set(CHARGE_COOLDOWN_TICKS, ticks);
     }

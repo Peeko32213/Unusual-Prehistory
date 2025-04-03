@@ -366,11 +366,6 @@ public class PalaeolophisHatchlingEntity extends PrehistoricAquaticEntity implem
         return null;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     public void checkDespawn() {
         if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();

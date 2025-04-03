@@ -267,11 +267,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         return false;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
 

@@ -60,13 +60,15 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone neck = this.getAnimationProcessor().getBone("Ulugh_Neck");
-
-        CoreGeoBone saddle = this.getAnimationProcessor().getBone("Ulugh_Saddle");
-
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Ulugh_Head");
+        CoreGeoBone neck = this.getAnimationProcessor().getBone("neck");
+        CoreGeoBone saddle = this.getAnimationProcessor().getBone("saddle");
+        CoreGeoBone reins1 = this.getAnimationProcessor().getBone("left_reins");
+        CoreGeoBone reins2 = this.getAnimationProcessor().getBone("right_reins");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
         saddle.setHidden(!entity.isSaddled());
+        reins1.setHidden(!entity.isSaddled());
+        reins2.setHidden(!entity.isSaddled());
 
         if (entity.isBaby()) {
             head.setScaleX(1.5F);
@@ -81,8 +83,6 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
         if (!entity.isSprinting() && !entity.hasControllingPassenger()) {
             neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
-
-
     }
 }
 

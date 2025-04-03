@@ -343,11 +343,6 @@ public class MammothEntity extends PrehistoricEntity implements Shearable, net.m
         }
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     protected SoundEvent getAmbientSound() {
         return UPSounds.MAMMOTH_IDLE.get();
     }

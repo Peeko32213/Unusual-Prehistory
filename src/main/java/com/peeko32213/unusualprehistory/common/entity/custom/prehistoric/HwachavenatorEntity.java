@@ -646,9 +646,8 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     public float getStepHeight() {
         return 1.25F;
     }
-    @Override
+
     public void killed() {
-        super.killed();
         this.setIsShooting(false);
         this.shootProgress = 0;
     }
@@ -786,11 +785,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         double d0 = 35;
         Vec3 vec31 = vec3.add((double) f6 * d0, (double) f5 * d0, (double) f7 * d0);
         return p_41436_.clip(new ClipContext(vec3, vec31, ClipContext.Block.OUTLINE, p_41438_, p_41437_));
-    }
-
-    @Override
-    protected int getKillHealAmount() {
-        return 5;
     }
 
     public void performRangedAttack(LivingEntity p_30762_, float p_30763_) {

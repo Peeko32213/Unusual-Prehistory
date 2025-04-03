@@ -273,11 +273,6 @@ public class AustroraptorEntity extends PrehistoricEntity implements IVariantEnt
         }
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 5;
-    }
-
     private void attack(LivingEntity entity) {
         entity.hurt(this.damageSources().mobAttack(this), 5.0F);
     }

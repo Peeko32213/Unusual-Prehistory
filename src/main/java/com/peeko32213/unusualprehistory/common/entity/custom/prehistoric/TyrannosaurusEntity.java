@@ -381,11 +381,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         return this.isBaby();
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 30;
-    }
-
     // Eepy
     public void setEepy(boolean eepy) {
         this.entityData.set(EEPY, eepy);

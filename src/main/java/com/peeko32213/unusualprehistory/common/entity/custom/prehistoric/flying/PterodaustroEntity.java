@@ -132,12 +132,6 @@
          }
      }
 
-     @Override
-     protected int getKillHealAmount() {
-         return 0;
-     }
-
-
      private void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new MoveControl(this);

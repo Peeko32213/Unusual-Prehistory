@@ -97,30 +97,31 @@ public class TelecrexEntity extends PrehistoricEntity {
     private static final RawAnimation TELECREX_TAKEOFF = RawAnimation.begin().thenPlay("animation.telecrex.takeoff");
 
     // Idle accessors
-//    private static final EntityDataAccessor<Boolean> PECK = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PECK = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PREEN1 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PREEN2 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LOOKOUT1 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> LOOKOUT2 = SynchedEntityData.defineId(TelecrexEntity.class, EntityDataSerializers.BOOLEAN);
 
-
+    // Starting predicates
     private static final Predicate<LivingEntity> TELECREX_STARTING_PREDICATE = (e -> {
         if(e instanceof TelecrexEntity entity) {
-            return !entity.isFlying() && !entity.getMoveControl().hasWanted() && !entity.isSprinting() && entity.onGround();
+            return !entity.isFlying() && !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && entity.onGround();
         }
         return false;
     });
 
     // Idle actions
-//    private static final EntityAction TELECREX_PECK_ACTION = new EntityAction(0, (e) -> {}, 1);
-//
-//    private final StateHelper TELECREX_PECK_STATE =
-//            StateHelper.Builder.state(PECK, "telecrex_peck")
-//                    .playTime(40)
-//                    .stopTime(100)
-//                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-//                    .entityAction(TELECREX_PECK_ACTION)
-//                    .build();
+    private static final EntityAction TELECREX_PECK_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper TELECREX_PECK_STATE =
+            StateHelper.Builder.state(PECK, "telecrex_peck")
+                    .playTime(40)
+                    .stopTime(100)
+                    .startingPredicate(TELECREX_STARTING_PREDICATE)
+                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                    .entityAction(TELECREX_PECK_ACTION)
+                    .build();
 
     private static final EntityAction TELECREX_PREEN1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
@@ -167,7 +168,7 @@ public class TelecrexEntity extends PrehistoricEntity {
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
-//                TELECREX_PECK_STATE.getName(), TELECREX_PECK_STATE,
+                TELECREX_PECK_STATE.getName(), TELECREX_PECK_STATE,
                 TELECREX_PREEN1_STATE.getName(), TELECREX_PREEN1_STATE,
                 TELECREX_PREEN2_STATE.getName(), TELECREX_PREEN2_STATE,
                 TELECREX_LOOKOUT1_STATE.getName(), TELECREX_LOOKOUT1_STATE,
@@ -178,7 +179,7 @@ public class TelecrexEntity extends PrehistoricEntity {
     @Override
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
-//                WeightedState.of(TELECREX_PECK_STATE, 8),
+                WeightedState.of(TELECREX_PECK_STATE, 8),
                 WeightedState.of(TELECREX_PREEN1_STATE, 7),
                 WeightedState.of(TELECREX_PREEN2_STATE, 7),
                 WeightedState.of(TELECREX_LOOKOUT1_STATE, 10),
@@ -255,7 +256,7 @@ public class TelecrexEntity extends PrehistoricEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-//        this.entityData.define(PECK, false);
+        this.entityData.define(PECK, false);
         this.entityData.define(PREEN1, false);
         this.entityData.define(PREEN2, false);
         this.entityData.define(LOOKOUT1, false);
@@ -475,11 +476,6 @@ public class TelecrexEntity extends PrehistoricEntity {
         else return 0.8F;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
@@ -538,10 +534,10 @@ public class TelecrexEntity extends PrehistoricEntity {
 
     protected <E extends TelecrexEntity> PlayState idlePredicate(final AnimationState<E> event) {
         if(this.onGround() && !this.isFlying() && !getMoveControl().hasWanted()) {
-//            if (getBooleanState(PECK)) {
-//                event.getController().setAnimation(TELECREX_PECK);
-//                return PlayState.CONTINUE;
-//            }
+            if (getBooleanState(PECK)) {
+                event.getController().setAnimation(TELECREX_PECK);
+                return PlayState.CONTINUE;
+            }
             if (getBooleanState(PREEN1)) {
                 event.getController().setAnimation(TELECREX_PREEN_1);
                 return PlayState.CONTINUE;

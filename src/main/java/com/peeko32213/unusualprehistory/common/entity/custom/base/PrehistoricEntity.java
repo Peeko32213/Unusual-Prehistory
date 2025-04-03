@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
@@ -15,6 +16,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -32,7 +34,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private static final EntityDataAccessor<Boolean> PERFORMING_ACTION = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IS_STANDING_UP = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_FROM_EGG = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
@@ -42,8 +43,9 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private static final EntityDataAccessor<Integer> ANIM_TIMER = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
 
-    public float sitProgress;
-    protected int standingUpTime;
+    private static final EntityDataAccessor<Integer> SITTING_TIME = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> STANDING_TIME = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SITTING_LAG = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
 
     protected PrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -72,19 +74,49 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
             setAnimationTimer(getAnimationTimer() - 1);
         }
 
-        if(!this.level().isClientSide) {
-            if(this.isStandingUp() && standingUpTime++ > getStandingUpTime()) {
-                this.setOrderedToSit(false);
-                this.setIsStandingUp(false);
-                standingUpTime = 0;
+        // Sit control
+        if (this.isTame() && this.getSittingTime()==0 && this.getStandingTime()==0){
+            refreshDimensions();
+        }
+
+        if (this.getSittingTime() > 0){
+            if (!this.getNavigation().isDone()){
+                this.getNavigation().stop();
             }
+            this.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
+            int prev = this.getSittingTime();
+
+            if (this.getSittingTime() < 6)
+                this.setSittingLag(getSittingTime() + 5);
+
+            this.setSittingTime(prev - 1);
+        }
+        else if (this.getSittingLag() > 0) {
+            if(this.getSittingLag() == 1){
+                this.goalSelector.getRunningGoals().forEach(WrappedGoal::start);
+            }
+            int prev = this.getSittingLag();
+            this.setSittingLag(prev - 1);
+        }
+
+        if (this.isInSittingPose()){
+            this.getNavigation().stop();
+        }
+
+        if (this.getStandingTime() > 0){
+            if (!this.getNavigation().isDone()){
+                this.getNavigation().stop();
+            }
+            this.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
+            int prev = this.getStandingTime();
+            this.setStandingTime(prev - 1);
         }
     }
 
     // Heal on kill
-    public void killed() {
-        this.heal(getKillHealAmount());
-    }
+//    public void killed() {
+//        this.heal(getKillHealAmount());
+//    }
 
     public void checkDespawn() {
         if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
@@ -123,9 +155,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         }
     }
 
-    @Nullable
-    protected abstract int getKillHealAmount();
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -137,8 +166,10 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         this.entityData.define(RANDOM_BOOL, false);
         this.entityData.define(ANIM_TIMER, 0);
         this.entityData.define(COMMAND, 0);
-        this.entityData.define(IS_STANDING_UP, false);
         this.entityData.define(ANIMATION_STATE, 0);
+        this.entityData.define(SITTING_TIME, 0);
+        this.entityData.define(SITTING_LAG, 0);
+        this.entityData.define(STANDING_TIME, 0);
     }
 
     @Override
@@ -150,8 +181,9 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         compound.putInt("animTimer", this.getAnimationTimer());
         compound.putBoolean("randomBool", this.getRandomBool());
         compound.putInt("command", this.getCommand());
-        compound.putBoolean("standingUp", this.isStandingUp());
-        compound.putInt("standingUpTime", this.standingUpTime);
+        compound.putInt("StandingTime", this.getStandingTime());
+        compound.putInt("SittingTime", this.getSittingTime());
+        compound.putInt("SittingLag", this.getSittingLag());
     }
 
     @Override
@@ -163,15 +195,15 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         this.setRandomBool(compound.getBoolean("randomBool"));
         this.setAnimationTimer(compound.getInt("animTimer"));
         this.setCommand(compound.getInt("command"));
-        this.setIsStandingUp(compound.getBoolean("standingUp"));
-        this.standingUpTime = compound.getInt("standingUpTime");
+        this.setStandingTime(compound.getInt("StandingTime"));
+        this.setSittingTime(compound.getInt("SittingTime"));
+        this.setSittingLag(compound.getInt("SittingLag"));
     }
 
     // Animation states
     public boolean getBooleanState(EntityDataAccessor<Boolean> pKey) {
         return this.entityData.get(pKey);
     }
-
     public void setBooleanState(EntityDataAccessor<Boolean> pKey, boolean state) {
         this.entityData.set(pKey, state);
     }
@@ -180,7 +212,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     public boolean getPerformingAction() {
         return this.entityData.get(PERFORMING_ACTION);
     }
-
     public void setPerformingAction(boolean action) {
         this.entityData.set(PERFORMING_ACTION, action);
     }
@@ -207,21 +238,33 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         return false;
     }
 
+    // Sitting
     public boolean isInSittingPose() {
         return super.isInSittingPose() && !(this.isVehicle() || this.isPassenger());
     }
 
-    // Standing up
-    public boolean isStandingUp() {
-        return this.entityData.get(IS_STANDING_UP);
+    public int getStandingTime() {
+        return this.entityData.get(STANDING_TIME);
     }
 
-    public void setIsStandingUp(boolean standingUp) {
-        this.entityData.set(IS_STANDING_UP, standingUp);
+    public void setStandingTime(int command) {
+        this.entityData.set(STANDING_TIME, command);
     }
 
-    public int getStandingUpTime() {
-        return 20;
+    public int getSittingTime() {
+        return this.entityData.get(SITTING_TIME);
+    }
+
+    public void setSittingTime(int command) {
+        this.entityData.set(SITTING_TIME, command);
+    }
+
+    public int getSittingLag() {
+        return this.entityData.get(SITTING_LAG);
+    }
+
+    public void setSittingLag(int command) {
+        this.entityData.set(SITTING_LAG, command);
     }
 
     // Saddled
@@ -270,13 +313,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     }
     public void determineVariant(int variantChange) {}
 
-    @Override
-    public void onAddedToWorld() {
-        super.onAddedToWorld();
-        ResourceLocation entityLoc = EntityType.getKey(this.getType());
-        populateEntityFromData(entityLoc, true);
-    }
-
     public boolean getRandomBool() {
         return this.entityData.get(RANDOM_BOOL);
     }
@@ -303,12 +339,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     public boolean isStillEnough() {
         return this.getDeltaMovement().horizontalDistance() < 0.05;
-    }
-
-    public void populateEntityFromData(ResourceLocation location, boolean onlyGoals) {
-            //SomeDataManager manager = SomeDataManager;
-            //SomeEntityData someEntityData = manager.get(location);
-            //someEntityData.apply(this);
     }
 
     @Nullable

@@ -447,11 +447,6 @@ public class PalaeophisEntity extends PrehistoricAquaticEntity implements GeoAni
     }
 
     @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return null;
     }

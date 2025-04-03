@@ -188,11 +188,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     }
 
     @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);

@@ -328,11 +328,6 @@ public class NyctoraptorEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 4;
-    }
-
     // Save data
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {

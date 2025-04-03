@@ -142,9 +142,4 @@ public class ProscinetesEntity extends PrehistoricAquaticEntity {
     protected @NotNull SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
     }
-
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
 }

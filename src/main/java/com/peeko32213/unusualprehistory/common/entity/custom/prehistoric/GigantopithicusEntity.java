@@ -112,11 +112,6 @@ public class GigantopithicusEntity extends PrehistoricEntity implements IVariant
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {

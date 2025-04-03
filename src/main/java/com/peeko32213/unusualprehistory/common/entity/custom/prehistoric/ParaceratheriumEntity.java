@@ -136,11 +136,6 @@ public class ParaceratheriumEntity extends PrehistoricEntity {
         return UPSounds.PARACER_DEATH.get();
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     public int getAnimationState() {
 
         return this.entityData.get(ANIMATION_STATE);

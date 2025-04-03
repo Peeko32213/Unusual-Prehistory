@@ -226,11 +226,6 @@ public class HyneriaEntity extends PrehistoricEntity implements GeoEntity, ISemi
         return 0.5F;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
     public boolean isJumping() {
         return this.jumping;
     }

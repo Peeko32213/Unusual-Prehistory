@@ -430,11 +430,6 @@
      }
 
      @Override
-     protected int getKillHealAmount() {
-         return 4;
-     }
-
-     @Override
      public void setCustomName(@Nullable Component pName) {
          super.setCustomName(pName);
      }

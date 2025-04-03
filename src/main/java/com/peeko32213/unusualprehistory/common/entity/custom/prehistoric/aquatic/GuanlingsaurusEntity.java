@@ -141,11 +141,6 @@ public class GuanlingsaurusEntity extends PrehistoricAquaticEntity {
     }
 
     @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return null;
     }

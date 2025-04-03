@@ -220,11 +220,6 @@ public class GlobidensEntity extends PrehistoricEntity {
         return prev;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 6;
-    }
-
     public void travel(@NotNull Vec3 travelVector) {
         super.travel(travelVector);
     }

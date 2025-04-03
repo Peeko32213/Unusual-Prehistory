@@ -183,9 +183,4 @@ public class MegalamprisEntity extends PrehistoricAquaticEntity {
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
-
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
 }

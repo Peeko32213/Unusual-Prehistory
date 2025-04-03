@@ -166,11 +166,6 @@ public class PachycephalosaurusEntity extends PrehistoricEntity {
         return prev;
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     public boolean isUlti() {
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         return s != null && (s.toLowerCase().contains("ulti"));

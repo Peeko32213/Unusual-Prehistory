@@ -88,11 +88,6 @@ public class AntarctopeltaEntity extends PrehistoricEntity implements IVariantEn
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> p_28879_ instanceof Enemy && !(p_28879_ instanceof Creeper)));
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
         this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
     }

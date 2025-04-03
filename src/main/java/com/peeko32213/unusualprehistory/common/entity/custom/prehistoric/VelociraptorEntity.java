@@ -442,12 +442,6 @@ public class VelociraptorEntity extends PrehistoricEntity {
         }
     }
 
-    // Heal on kill
-    @Override
-    protected int getKillHealAmount() {
-        return 4;
-    }
-
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);

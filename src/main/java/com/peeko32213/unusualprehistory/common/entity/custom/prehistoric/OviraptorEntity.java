@@ -258,11 +258,6 @@ public class OviraptorEntity extends PrehistoricEntity {
     }
 
     @Override
-    protected int getKillHealAmount() {
-        return 2;
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("scale", this.getModelScale());

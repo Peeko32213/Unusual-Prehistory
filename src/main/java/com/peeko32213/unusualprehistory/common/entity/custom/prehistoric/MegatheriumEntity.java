@@ -320,11 +320,6 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {

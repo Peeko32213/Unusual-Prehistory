@@ -177,11 +177,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
         return (float) (super.getVoicePitch() * Math.sqrt(f) * 1.2F);
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 8;
-    }
-
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DUNK_SIZE, 0);

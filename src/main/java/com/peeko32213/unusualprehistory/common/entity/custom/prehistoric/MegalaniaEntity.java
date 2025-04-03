@@ -170,11 +170,6 @@ public class MegalaniaEntity extends PrehistoricEntity implements IVariantEntity
     }
 
     @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
-    @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
         if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;

@@ -545,11 +545,6 @@
          return UPEntities.OPHIODON.get().create(serverLevel);
      }
 
-     @Override
-     protected int getKillHealAmount() {
-         return 4;
-     }
-
      public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends WaterAnimal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
          int i = pLevel.getSeaLevel();
          int j = i - 13;

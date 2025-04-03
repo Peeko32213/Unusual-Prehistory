@@ -144,11 +144,6 @@ public class CotylorhynchusEntity extends PrehistoricEntity {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob p_146744_) {

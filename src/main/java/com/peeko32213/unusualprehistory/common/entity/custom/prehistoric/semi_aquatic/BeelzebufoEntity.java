@@ -393,11 +393,6 @@ public class BeelzebufoEntity extends PrehistoricEntity implements PlayerRideabl
         this.playSound(SoundEvents.FROG_STEP, 0.1F, 1.0F);
     }
 
-    @Override
-    protected int getKillHealAmount() {
-        return 10;
-    }
-
     protected void dropEquipment() {
         super.dropEquipment();
         if (this.isSaddled()) {

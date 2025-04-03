@@ -93,11 +93,6 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 3.0D, true));
     }
 
-    @Override
-    protected @Nullable int getKillHealAmount() {
-        return 1;
-    }
-
     // Flop
     @Override
     public void aiStep() {

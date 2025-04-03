@@ -471,11 +471,6 @@
      }
 
      @Override
-     protected int getKillHealAmount() {
-         return 10;
-     }
-
-     @Override
      public boolean isPushable() {
          return false;
      }

@@ -134,11 +134,6 @@
          this.entityData.set(FROM_BOOK, fromBook);
      }
 
-     @Override
-     protected int getKillHealAmount() {
-         return 0;
-     }
-
      protected <E extends TartuosteusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
          if (this.isFromBook()) {

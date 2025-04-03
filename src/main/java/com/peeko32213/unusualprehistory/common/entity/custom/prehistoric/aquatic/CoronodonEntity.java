@@ -201,9 +201,4 @@ public class CoronodonEntity extends PrehistoricAquaticEntity {
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return 0.5F;
     }
-
-    @Override
-    protected int getKillHealAmount() {
-        return 4;
-    }
 }

@@ -518,11 +518,6 @@
      }
 
      @Override
-     protected int getKillHealAmount() {
-         return 6;
-     }
-
-     @Override
      public boolean shouldFollow() {
          return this.getCommand() == 1;
      }

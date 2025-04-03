@@ -225,11 +225,6 @@
          return 0.5F;
      }
 
-     @Override
-     protected int getKillHealAmount() {
-         return 5;
-     }
-
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {

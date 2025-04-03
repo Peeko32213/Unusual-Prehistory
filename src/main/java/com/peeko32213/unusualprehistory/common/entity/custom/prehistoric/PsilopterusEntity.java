@@ -472,11 +472,6 @@
          return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
      }
 
-     @Override
-     protected int getKillHealAmount() {
-         return 4;
-     }
-
      public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
          return false;
      }

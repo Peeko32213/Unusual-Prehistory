@@ -136,11 +136,6 @@ public class TitanonarkeEntity extends PrehistoricAquaticEntity {
     }
 
     @Override
-    protected int getKillHealAmount() {
-        return 0;
-    }
-
-    @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
     }
