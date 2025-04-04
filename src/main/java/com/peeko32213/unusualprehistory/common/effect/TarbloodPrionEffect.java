@@ -61,18 +61,17 @@ public class TarbloodPrionEffect extends MobEffect {
                 //slows the player down, the speed scales off infection time
 
                 double hitRand = Math.random();
-                double blockRand = Math.random();
                 int dmg = (int) (1*Math.random()+1);
 
-                if (hitRand < 0.0001 * capability.playerTarbloodPrionTime && !serverPlayer.level().isClientSide()) {
+                if (hitRand < 0.00001 * capability.playerTarbloodPrionTime && !serverPlayer.level().isClientSide()) {
                     serverPlayer.hurt(serverPlayer.damageSources().generic(), dmg);
                     serverPlayer.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40), serverPlayer);
                     //entities has a 1% chance to take damage every tick and also go blind for 2 ticks
-                }
-                if (blockRand < 0.0001 * capability.playerTarbloodPrionTime && (serverPlayer.level().getBlockState(serverPlayer.blockPosition()).canBeReplaced() || pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).isAir()) && pLivingEntity.level().getBlockState(pLivingEntity.blockPosition().below()).isSolid()) {
-                    //entities trail tar
-                    BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.TRUE);
-                    serverPlayer.level().setBlock(serverPlayer.blockPosition(), tar, 3);
+                    if ((serverPlayer.level().getBlockState(serverPlayer.blockPosition()).canBeReplaced() || serverPlayer.level().getBlockState(serverPlayer.blockPosition()).isAir()) && serverPlayer.level().getBlockState(serverPlayer.blockPosition().below()).isSolid()) {
+                        BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.valueOf(true));
+                        serverPlayer.level().setBlock(serverPlayer.blockPosition(), tar, 3);
+                        //entities trail tar
+                    }
                 }
 
             });
@@ -82,18 +81,17 @@ public class TarbloodPrionEffect extends MobEffect {
                 capability.animalTarbloodPrionTime += 1;
 
                 double hitRand = Math.random();
-                double blockRand = Math.random();
                 int dmg = (int) (1*Math.random()+1);
 
                 if (hitRand < 0.00001 * capability.animalTarbloodPrionTime && !pLivingEntity.level().isClientSide()) {
                     pLivingEntity.hurt(pLivingEntity.damageSources().generic(), dmg);
                     pLivingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40), pLivingEntity);
                     //entities has a 1% chance to take damage every tick and also go blind for 2 ticks
-                }
-                if (blockRand < 0.00001 * capability.animalTarbloodPrionTime && (pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).canBeReplaced() || pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).isAir()) && pLivingEntity.level().getBlockState(pLivingEntity.blockPosition().below()).isSolid()) {
-                    //entities trail tar
-                    BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.TRUE);
-                    pLivingEntity.level().setBlock(pLivingEntity.blockPosition(), tar, 3);
+                    if ((pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).canBeReplaced() || pLivingEntity.level().getBlockState(pLivingEntity.blockPosition()).isAir()) && pLivingEntity.level().getBlockState(pLivingEntity.blockPosition().below()).isSolid()) {
+                        BlockState tar = UPBlocks.SPLATTERED_TAR.get().defaultBlockState().setValue(getFaceProperty(Direction.DOWN), Boolean.valueOf(true));
+                        pLivingEntity.level().setBlock(pLivingEntity.blockPosition(), tar, 3);
+                        //entities trail tar
+                    }
                 }
                 //slows the entity down, the speed scales off infection time
             });
