@@ -125,6 +125,32 @@ public class IKSolver {
             torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), -entity.getXRot());
 
 
+            /* Approach to solving for angle - constrained nodes
+            
+            1. Apply chain constraint to the node
+            
+            2. Use the minecraft native function to determine the heading of the entity
+
+            test
+
+            3. Rip out the minecraft native function to determine the heading of the child segment
+
+            test
+            
+            4. Receive the difference in heading and subtract that from 180 in order to receive the angle of the tail
+
+            5. Receive a constrained rotation using the angle of the tail in the last step
+
+            6. Obtain the heading of the parent node in relation to the world and add the constrained rotation to it
+
+            test
+
+            7. Rotate the child node using the rotation obtained in 6
+
+            test
+            */
+            
+
             double entityDir = ((double) MathHelpers.angleTo(entity.position(), torsoBack).y);
             //System.out.println(entityDir);
             //heading angle of the entity
