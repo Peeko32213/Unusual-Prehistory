@@ -14,21 +14,16 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 public class KimmeridgebrachypteraeschnidiumBaseLayer extends GeoRenderLayer<KimmeridgebrachypteraeschnidiumEntity> {
 
-    private static final ResourceLocation COLORED_BODY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmer/kimmeridgebrachypteraeschnidium_pattern_a.png");
-    private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
-
     public KimmeridgebrachypteraeschnidiumBaseLayer(GeoRenderer<KimmeridgebrachypteraeschnidiumEntity> entityRendererIn) {
         super(entityRendererIn);
     }
 
     @Override
-    public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        KimmeridgebrachypteraeschnidiumEntity.Pattern pattern = entityLivingBaseIn.getPattern();
-
-        RenderType cameo = RenderType.entityCutout(COLORED_BODY);
-
-        float[] fs = entityLivingBaseIn.getBaseColor().getTextureDiffuseColors();
-        getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, fs[0], fs[1], fs[2], 1);
+    public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entity, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+        if (!entity.isInvisible()) {
+            RenderType cameo = RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmeridgebrachypteraeschnidium/base/"+entity.getBaseColor()+".png"));
+            ResourceLocation model = new ResourceLocation(UnusualPrehistory.MODID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
+            this.getRenderer().reRender(this.getGeoModel().getBakedModel(model), poseStack, bufferSource, entity, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        }
     }
-
 }

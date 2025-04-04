@@ -14,22 +14,16 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 public class KimmeridgebrachypteraeschnidiumWingLayer extends GeoRenderLayer<KimmeridgebrachypteraeschnidiumEntity> {
 
-    private static final ResourceLocation WING = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmer/kimmeridgebrachypteraeschnidium_wing_layer.png");
-    private static final ResourceLocation MODEL = new ResourceLocation(UnusualPrehistory.MODID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
-
     public KimmeridgebrachypteraeschnidiumWingLayer(GeoRenderer<KimmeridgebrachypteraeschnidiumEntity> entityRendererIn) {
         super(entityRendererIn);
     }
 
     @Override
-    public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entityLivingBaseIn, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-        RenderType cameo = RenderType.entityCutout(WING);
-
-        float[] fs = entityLivingBaseIn.getWingColor().getTextureDiffuseColors();
-        getRenderer().reRender(this.getGeoModel().getBakedModel(MODEL), poseStack, bufferSource, entityLivingBaseIn, renderType,
-                bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY,
-                fs[0], fs[1], fs[2], 1);
+    public void render(PoseStack poseStack, KimmeridgebrachypteraeschnidiumEntity entity, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+        if (!entity.isInvisible()) {
+            RenderType cameo = RenderType.entityCutoutNoCull(new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/kimmeridgebrachypteraeschnidium/wings/" + "/wings_" + entity.getWingColor()+".png"));
+            ResourceLocation model = new ResourceLocation(UnusualPrehistory.MODID, "geo/kimmeridgebrachypteraeschnidium.geo.json");
+            this.getRenderer().reRender(this.getGeoModel().getBakedModel(model), poseStack, bufferSource, entity, renderType, bufferSource.getBuffer(cameo), partialTick, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        }
     }
-
-
 }

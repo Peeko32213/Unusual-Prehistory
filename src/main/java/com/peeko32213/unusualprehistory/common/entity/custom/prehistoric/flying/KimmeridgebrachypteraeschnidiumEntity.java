@@ -1,30 +1,23 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
-import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -39,12 +32,11 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -53,8 +45,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -65,15 +55,18 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.function.IntFunction;
 
 public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements IVariantEntity {
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Integer> SKIN_VARIANT = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
 
     public final float[] ringBuffer = new float[64];
     public float prevFlyProgress;
@@ -119,6 +112,134 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         this.goalSelector.addGoal(1, new AIFlyIdle());
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FLYING, false);
+        this.entityData.define(SKIN_VARIANT, 0);
+        this.entityData.define(BASE_COLOR, 0);
+        this.entityData.define(PATTERN, 0);
+        this.entityData.define(PATTERN_COLOR, 0);
+        this.entityData.define(HAS_PATTERN, false);
+        this.entityData.define(WING_COLOR, 0);
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Flying", this.isFlying());
+        compound.putInt("VariantSkin", this.getVariantSkin());
+        compound.putInt("BaseColor", this.getBaseColor());
+        compound.putInt("Pattern", this.getPattern());
+        compound.putInt("PatternColor", this.getPatternColor());
+        compound.putInt("WingColor", this.getWingColor());
+        compound.putBoolean("HasPattern", this.getHasPattern());
+    }
+
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setFlying(compound.getBoolean("Flying"));
+        this.setVariantSkin(compound.getInt("VariantSkin"));
+        this.setBaseColor(compound.getInt("BaseColor"));
+        this.setPattern(compound.getInt("Pattern"));
+        this.setPatternColor(compound.getInt("PatternColor"));
+        this.setWingColor(compound.getInt("WingColor"));
+        this.setHasPattern(compound.getBoolean("HasPattern"));
+    }
+
+    public int getVariantSkin() {
+        return this.entityData.get(SKIN_VARIANT);
+    }
+    public void setVariantSkin(int variant) {
+        this.entityData.set(SKIN_VARIANT, variant);
+    }
+
+    public int getBaseColor() {
+        return this.entityData.get(BASE_COLOR);
+    }
+    public void setBaseColor(int variant) {
+        this.entityData.set(BASE_COLOR, variant);
+    }
+
+    public int getPattern() {
+        return this.entityData.get(PATTERN);
+    }
+    public void setPattern(int variant) {
+        this.entityData.set(PATTERN, variant);
+    }
+
+    public int getPatternColor() {
+        return this.entityData.get(PATTERN_COLOR);
+    }
+    public void setPatternColor(int variant) {
+        this.entityData.set(PATTERN_COLOR, variant);
+    }
+
+    public int getWingColor() {
+        return this.entityData.get(WING_COLOR);
+    }
+    public void setWingColor(int variant) {
+        this.entityData.set(WING_COLOR, variant);
+    }
+
+    public Boolean getHasPattern() {
+        return this.entityData.get(HAS_PATTERN);
+    }
+    public void setHasPattern(Boolean variant) {
+        this.entityData.set(HAS_PATTERN, variant);
+    }
+
+    private void setBucketData(ItemStack bucket) {
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("BaseColor", this.getBaseColor());
+        compoundnbt.putInt("Pattern", this.getPattern());
+        compoundnbt.putInt("PatternColor", this.getPatternColor());
+        compoundnbt.putBoolean("HasPattern", this.getHasPattern());
+        compoundnbt.putInt("WingColor", this.getWingColor());
+
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+
+        if (pReason == MobSpawnType.BUCKET && pDataTag != null && pDataTag.contains("VariantSkin", 3)) {
+            this.setVariantSkin(pDataTag.getInt("VariantSkin"));
+            this.setBaseColor(pDataTag.getInt("BaseColor"));
+            this.setPattern(pDataTag.getInt("Pattern"));
+            this.setPatternColor(pDataTag.getInt("PatternColor"));
+            this.setHasPattern(pDataTag.getBoolean("HasPattern"));
+            this.setWingColor(pDataTag.getInt("WingColor"));
+
+            if (pDataTag.contains("Age")) {
+                this.setAge(pDataTag.getInt("Age"));
+            }
+        }
+        else {
+            this.setVariantSkin(this.random.nextInt(12));
+            this.setBaseColor(this.random.nextInt(16));
+            this.setPattern(this.random.nextInt(7));
+            this.setPatternColor(this.random.nextInt(16));
+            this.setHasPattern(this.random.nextInt(3)==0);
+            this.setWingColor(this.random.nextInt(16));
+        }
+
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    public static String getPatternName(int pattern){
+        return switch (pattern){
+            case 1 -> "tailshade";
+            case 2 -> "topshade";
+            case 3 -> "halfshade";
+            case 4 -> "large_stripe";
+            case 5 -> "racing_stripe";
+            case 6 -> "large_racing_stripe";
+            default -> "stripe";
+        };
+    }
 
     private void switchNavigator(boolean onLand) {
         if (onLand) {
@@ -221,7 +342,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         final double extraX = radius * Mth.sin(Mth.PI + angle);
         final double extraZ = radius * Mth.cos(angle);
         final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
-        BlockPos ground = this.getAnuroGround(radialPos);
+        BlockPos ground = this.getGround(radialPos);
         if (ground.getY() == -64) {
             return this.position();
         } else {
@@ -250,7 +371,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         double extraX = radius * Mth.sin((float) (Math.PI + angle));
         double extraZ = radius * Mth.cos(angle);
         final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
-        BlockPos ground = getAnuroGround(radialPos);
+        BlockPos ground = getGround(radialPos);
         int distFromGround = (int) this.getY() - ground.getY();
         int flightHeight = 5 + this.getRandom().nextInt(5);
         int j = this.getRandom().nextInt(5) + 5;
@@ -278,32 +399,12 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         return !level().getFluidState(position).isEmpty() || level().getBlockState(position).is(Blocks.VINE) || position.getY() <= -65;
     }
 
-    public BlockPos getAnuroGround(BlockPos in) {
+    public BlockPos getGround(BlockPos in) {
         BlockPos position = new BlockPos(in.getX(), (int) this.getY(), in.getZ());
         while (position.getY() > -64 && !level().getBlockState(position).isSolid() && level().getFluidState(position).isEmpty()) {
             position = position.below();
         }
         return position;
-    }
-
-    @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean shouldHurt;
-        float damage = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float knockback = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (target instanceof LivingEntity livingEntity) {
-            damage += livingEntity.getMobType().equals(MobType.ARTHROPOD) ? damage : 0;
-            knockback += (float) EnchantmentHelper.getKnockbackBonus(this);
-        }
-        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
-            if (knockback > 0.0f && target instanceof LivingEntity) {
-                ((LivingEntity)target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float)Math.PI / 180)), -Mth.cos(this.getYRot() * ((float)Math.PI / 180)));
-                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
-            }
-            this.doEnchantDamageEffects(this, target);
-            this.setLastHurtMob(target);
-        }
-        return shouldHurt;
     }
 
     protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -323,21 +424,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
-    }
-
-    @Override
-    public void setFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
     }
 
     @Override
@@ -414,25 +500,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
             z = 0;
             super.stop();
         }
-
     }
-
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK);
-    }
-
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
 
     @Nullable
     @Override
@@ -462,183 +530,4 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         }
         return super.mobInteract(player, hand);
     }
-
-    private void setBucketData(ItemStack bucket) {
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("Variant", this.getVariant());
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        SpawnGroupData spawnGroupData2 = super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
-        if (mobSpawnType == MobSpawnType.BUCKET && compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setPackedVariant(compoundTag.getInt("BucketVariantTag"));
-        } else {
-            RandomSource randomSource = serverLevelAccessor.getRandom();
-            Variant variant;
-            Pattern[] patterns = Pattern.values();
-            DyeColor[] dyeColors = DyeColor.values();
-            Pattern pattern = Util.getRandom(patterns, randomSource);
-            DyeColor dyeColor = Util.getRandom(dyeColors, randomSource);
-            DyeColor dyeColor2 = Util.getRandom(dyeColors, randomSource);
-            variant = new Variant(pattern, dyeColor, dyeColor2);
-
-            this.setPackedVariant(variant.getPackedId());
-        }
-        return spawnGroupData2;
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        assert FLYING != null;
-        this.entityData.define(FLYING, false);
-        this.entityData.define(FROM_BOOK, false);
-        this.entityData.define(DATA_ID_TYPE_VARIANT, 0);
-    }
-
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Flying", this.isFlying());
-        compound.putInt("Variant", this.getPackedVariant());
-    }
-
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setFlying(compound.getBoolean("Flying"));
-        this.setPackedVariant(compound.getInt("Variant"));
-    }
-
-    public void setPackedVariant(int i) {
-        this.entityData.set(DATA_ID_TYPE_VARIANT, i);
-    }
-
-    public int getPackedVariant() {
-        return this.entityData.get(DATA_ID_TYPE_VARIANT);
-    }
-
-    public static String getPredefinedName(int i) {
-        return "entity.unusualprehistory.kimmer.variant.predefined." + i;
-    }
-
-    static int packVariant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
-        return pattern.getPackedId() & '\uffff' | (dyeColor.getId() & 255) << 16 | (dyeColor2.getId() & 255) << 24;
-    }
-
-    public static DyeColor getBaseColor(int i) {
-        return DyeColor.byId(i >> 16 & 255);
-    }
-
-    public static DyeColor getPatternColor(int i) {
-        return DyeColor.byId(i >> 24 & 255);
-    }
-
-    //TODO keep or not?
-    public static DyeColor getWingColor(int i) {
-        return DyeColor.byId((i * 2) >> 24 & 255);
-    }
-
-    public static Pattern getPattern(int i) {
-        return Pattern.byId(i & '\uffff');
-    }
-
-    public DyeColor getBaseColor() {
-        return getBaseColor(this.getPackedVariant());
-    }
-
-    public DyeColor getPatternColor() {
-        return getPatternColor(this.getPackedVariant());
-    }
-
-    public DyeColor getWingColor() {
-        return getWingColor(this.getPackedVariant());
-    }
-
-    public Pattern getPattern() {
-        return getPattern(this.getPackedVariant());
-    }
-
-    public void setVariant(Pattern pattern) {
-        int i = this.getPackedVariant();
-        DyeColor dyeColor = getBaseColor(i);
-        DyeColor dyeColor2 = getPatternColor(i);
-        this.setPackedVariant(packVariant(pattern, dyeColor, dyeColor2));
-    }
-
-    public enum Pattern implements StringRepresentable {
-        COLORED_BODY("body", KimmeridgebrachypteraeschnidiumEntity.Base.SMALL, 0);
-
-        public static final Codec<Pattern> CODEC = StringRepresentable.fromEnum(Pattern::values);
-        private static final IntFunction<Pattern> BY_ID = ByIdMap.sparse(Pattern::getPackedId, values(), COLORED_BODY);
-        private final String name;
-        private final Component displayName;
-        private final KimmeridgebrachypteraeschnidiumEntity.Base base;
-        private final int packedId;
-
-        Pattern(String string2, KimmeridgebrachypteraeschnidiumEntity.Base base, int j) {
-            this.name = string2;
-            this.base = base;
-            this.packedId = base.id | j << 8;
-            this.displayName = Component.translatable("entity.unusualprehistory.kimmer.variant." + this.name);
-        }
-
-        public static Pattern byId(int i) {
-            return BY_ID.apply(i);
-        }
-
-        public KimmeridgebrachypteraeschnidiumEntity.Base base() {
-            return this.base;
-        }
-
-        public int getPackedId() {
-            return this.packedId;
-        }
-
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-
-        public Component displayName() {
-            return this.displayName;
-        }
-    }
-
-    public record Variant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
-        public Variant(Pattern pattern, DyeColor dyeColor, DyeColor dyeColor2) {
-            this.pattern = pattern;
-            this.dyeColor = dyeColor;
-            this.dyeColor2 = dyeColor2;
-        }
-
-        public int getPackedId() {
-            return packVariant(this.pattern, this.dyeColor, this.dyeColor2);
-        }
-
-        public Pattern pattern() {
-            return this.pattern;
-        }
-
-        public DyeColor dyeColor() {
-            return this.dyeColor;
-        }
-
-        public DyeColor dyeColor2() {
-            return this.dyeColor2;
-        }
-    }
-
-    public enum Base {
-        SMALL(0),
-        LARGE(1);
-
-        final int id;
-
-        Base(int j) {
-            this.id = j;
-        }
-    }
-
 }
