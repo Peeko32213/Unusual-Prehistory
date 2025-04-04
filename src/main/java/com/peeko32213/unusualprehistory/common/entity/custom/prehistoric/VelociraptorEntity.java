@@ -239,7 +239,7 @@ public class VelociraptorEntity extends PrehistoricEntity {
         }
 
         else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
-            if (this.isSprinting()) {
+            if (this.isSprinting() || this.isAggro()) {
                 event.setAndContinue(VELOCI_RUN);
                 event.getController().setAnimationSpeed(1.0D);
             } else {
@@ -364,17 +364,14 @@ public class VelociraptorEntity extends PrehistoricEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 14.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.22D)
-            .add(Attributes.ATTACK_DAMAGE, 5.0D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 14.0D).add(Attributes.MOVEMENT_SPEED, 0.22D).add(Attributes.ATTACK_DAMAGE, 5.0D).add(Attributes.FOLLOW_RANGE, 32D);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PounceGoal(this, 0));
-        this.goalSelector.addGoal(1, new VelociraptorAttackGoal(this, 1.5F, true));
+        this.goalSelector.addGoal(1, new VelociraptorAttackGoal(this));
         this.goalSelector.addGoal(4, new VelociraptorPushButtonsGoal(this, 0.5F, 5, 2));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
@@ -413,6 +410,19 @@ public class VelociraptorEntity extends PrehistoricEntity {
             this.setSprinting(false);
         }
         super.customServerAiStep();
+    }
+
+    public void tick() {
+        super.tick();
+
+        if (isAggro() && !hasAggroAttributes) {
+            hasAggroAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        }
+        if (!isAggro() && hasAggroAttributes) {
+            hasAggroAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.22D);
+        }
     }
 
     // Sounds

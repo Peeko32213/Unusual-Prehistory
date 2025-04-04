@@ -218,7 +218,7 @@ public class EdaphosaurusEntity extends PrehistoricEntity {
         return stack.is(UPItemTags.EDAPHO_FOOD_ITEMS);
     }
 
-    // Heal mob
+    // Heal triceratops
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;

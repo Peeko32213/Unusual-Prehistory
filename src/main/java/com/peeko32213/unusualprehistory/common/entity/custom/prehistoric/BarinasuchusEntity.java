@@ -11,7 +11,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableTem
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.BarinasuchusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
-import com.peeko32213.unusualprehistory.common.entity.util.navigator.MMPathNavigateGround;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
@@ -181,7 +180,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
 
     @Override
     protected @NotNull PathNavigation createNavigation(Level levelIn) {
-        return new MMPathNavigateGround(this, levelIn);
+        return new SmoothGroundNavigation(this, levelIn);
     }
 
     public BarinasuchusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {

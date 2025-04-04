@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.DelayedAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
@@ -97,7 +96,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
-        this.goalSelector.addGoal(1, new DunkleosteusEntity.MeleeAttackGoal());
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.DUNK_TARGETS)));
@@ -311,36 +309,6 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
     @Override
     public void setAction(boolean action) {}
-
-    class MeleeAttackGoal extends DelayedAttackGoal {
-
-        public MeleeAttackGoal() {
-            super(DunkleosteusEntity.this, 2.15D, true);
-        }
-
-        protected void tickAttack () {
-            animTime++;
-            if(animTime==5) {
-                performAttack();
-            }
-            if(animTime>=8) {
-                animTime=0;
-                if (this.getRangeCheck()) {
-                    this.mob.setAnimationState(22);
-                }else {
-                    this.mob.setAnimationState(0);
-                    this.resetAttackCooldown();
-                    this.ticksUntilNextPathRecalculation = 0;
-                }
-            }
-        }
-
-        protected void performAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.5F, this.mob.getVoicePitch());
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.1f, mob, pos,  1.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false, false);
-        }
-    }
 
     public void killed() {
         passiveFor = 2400 + random.nextInt(100, 1200);

@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableTempt;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.TriceratopsAttackGoal;
@@ -48,7 +47,6 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,7 +70,6 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     private UUID lastLightningBoltUUID;
 
     public static final Logger LOGGER = LogManager.getLogger();
-
 
     // Movement animations
     private static final RawAnimation TRIKE_SWIM = RawAnimation.begin().thenLoop("animation.triceratops.swim");
@@ -101,14 +98,14 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     // Starting predicates
     private static final Predicate<LivingEntity> TRICERATOPS_STARTING_PREDICATE = (e -> {
         if(e instanceof TriceratopsEntity entity) {
-            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater();
+            return !entity.isAggro() && !entity.isSprinting() && !entity.isInWater();
         }
         return false;
     });
 
     private static final Predicate<LivingEntity> TRICERATOPS_GRAZING_PREDICATE = (e -> {
         if(e instanceof TriceratopsEntity entity) {
-            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && entity.level().getBlockState(entity.blockPosition().below()).is(UPBlockTags.TRIKE_GRAZING_BLOCKS);
+            return !entity.isAggro() && !entity.isSprinting() && !entity.isInWater() && entity.level().getBlockState(entity.blockPosition().below()).is(UPBlockTags.TRIKE_GRAZING_BLOCKS);
         }
         return false;
     });
@@ -195,7 +192,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new TriceratopsAttackGoal(this, 1.7F, true));
+        this.goalSelector.addGoal(2, new TriceratopsAttackGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.2D, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(8, new OwnerHurtByTargetGoal(this));
@@ -212,6 +209,11 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     // Collision config
     public boolean canBeCollidedWith() {
         return UnusualPrehistoryConfig.TRIKE_COLLISON.get();
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !this.isVehicle() || !this.isInSittingPose();
     }
 
     // Sounds
@@ -306,6 +308,23 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
             }
         }
+
+        if (isAggro() && !hasAggroAttributes) {
+            hasAggroAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.34D);
+        }
+        if (!isAggro() && hasAggroAttributes) {
+            hasAggroAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
+        }
+    }
+
+    protected void doPlayerRide(@NotNull Player player) {
+        if (!this.level().isClientSide) {
+            player.setYRot(this.getYRot());
+            player.setXRot(this.getXRot());
+            player.startRiding(this);
+        }
     }
 
     protected Vec3 getRiddenInput(Player player, Vec3 deltaIn) {
@@ -359,6 +378,19 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
 
     public double getPassengersRidingOffset() {
         return 2.85;
+    }
+
+    // Travel
+    @Override
+    public void travel(Vec3 travelVector) {
+        super.travel(travelVector);
+        this.calculateEntityAnimation(false);
+        this.tryCheckInsideBlocks();
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() && this.isVehicle();
     }
 
     // Foods
@@ -415,7 +447,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             }
             else if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() &&
                 this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
-                player.startRiding(this);
+                this.doPlayerRide(player);
             }
             else {
                 this.setCommand((this.getCommand() + 1) % 3);
@@ -577,7 +609,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 }
             }
             else {
-                if (this.isSprinting() && !this.isBaby()) {
+                if (this.isSprinting() || this.isAggro()) {
                     event.setAndContinue(TRIKE_SPRINT);
                     event.getController().setAnimationSpeed(1.0F);
                 } else {

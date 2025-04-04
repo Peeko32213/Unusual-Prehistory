@@ -33,6 +33,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    private static final EntityDataAccessor<Boolean> AGGRO = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PERFORMING_ACTION = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
@@ -46,6 +47,8 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private static final EntityDataAccessor<Integer> SITTING_TIME = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> STANDING_TIME = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SITTING_LAG = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
+
+    public boolean hasAggroAttributes = false;
 
     protected PrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -158,6 +161,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(AGGRO, false);
         this.entityData.define(PERFORMING_ACTION, false);
         this.entityData.define(SADDLED, false);
         this.entityData.define(IS_FROM_EGG, false);
@@ -198,6 +202,14 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         this.setStandingTime(compound.getInt("StandingTime"));
         this.setSittingTime(compound.getInt("SittingTime"));
         this.setSittingLag(compound.getInt("SittingLag"));
+    }
+
+    // Set aggressive
+    public boolean isAggro() {
+        return this.entityData.get(AGGRO);
+    }
+    public void setAggro(boolean bool) {
+        this.entityData.set(AGGRO, bool);
     }
 
     // Animation states
