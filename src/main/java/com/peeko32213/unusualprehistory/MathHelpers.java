@@ -48,7 +48,7 @@ public class MathHelpers {
     public static double processConstraint(double constrainedAngle, double prevDir) {
 
         if (constrainedAngle < 0) {
-            System.out.println("guh");
+            //System.out.println("guh");
             return (constrainedAngle - prevDir);
             // modify this part
         }
