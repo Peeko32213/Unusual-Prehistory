@@ -61,7 +61,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDataAccessor<Integer> SKIN_VARIANT = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
@@ -116,7 +115,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FLYING, false);
-        this.entityData.define(SKIN_VARIANT, 0);
         this.entityData.define(BASE_COLOR, 0);
         this.entityData.define(PATTERN, 0);
         this.entityData.define(PATTERN_COLOR, 0);
@@ -127,7 +125,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Flying", this.isFlying());
-        compound.putInt("VariantSkin", this.getVariantSkin());
         compound.putInt("BaseColor", this.getBaseColor());
         compound.putInt("Pattern", this.getPattern());
         compound.putInt("PatternColor", this.getPatternColor());
@@ -138,19 +135,11 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setFlying(compound.getBoolean("Flying"));
-        this.setVariantSkin(compound.getInt("VariantSkin"));
         this.setBaseColor(compound.getInt("BaseColor"));
         this.setPattern(compound.getInt("Pattern"));
         this.setPatternColor(compound.getInt("PatternColor"));
         this.setWingColor(compound.getInt("WingColor"));
         this.setHasPattern(compound.getBoolean("HasPattern"));
-    }
-
-    public int getVariantSkin() {
-        return this.entityData.get(SKIN_VARIANT);
-    }
-    public void setVariantSkin(int variant) {
-        this.entityData.set(SKIN_VARIANT, variant);
     }
 
     public int getBaseColor() {
@@ -190,6 +179,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
 
     private void setBucketData(ItemStack bucket) {
         CompoundTag compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putFloat("Health", this.getHealth());
         compoundnbt.putInt("BaseColor", this.getBaseColor());
         compoundnbt.putInt("Pattern", this.getPattern());
         compoundnbt.putInt("PatternColor", this.getPatternColor());
@@ -202,28 +192,21 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     }
 
     @Nullable
-    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
 
         if (pReason == MobSpawnType.BUCKET && pDataTag != null && pDataTag.contains("VariantSkin", 3)) {
-            this.setVariantSkin(pDataTag.getInt("VariantSkin"));
             this.setBaseColor(pDataTag.getInt("BaseColor"));
             this.setPattern(pDataTag.getInt("Pattern"));
             this.setPatternColor(pDataTag.getInt("PatternColor"));
             this.setHasPattern(pDataTag.getBoolean("HasPattern"));
             this.setWingColor(pDataTag.getInt("WingColor"));
-
-            if (pDataTag.contains("Age")) {
-                this.setAge(pDataTag.getInt("Age"));
-            }
         }
         else {
-            this.setVariantSkin(this.random.nextInt(12));
-            this.setBaseColor(this.random.nextInt(16));
-            this.setPattern(this.random.nextInt(7));
-            this.setPatternColor(this.random.nextInt(16));
+            this.setBaseColor(this.random.nextInt(15));
+            this.setPattern(this.random.nextInt(6));
+            this.setPatternColor(this.random.nextInt(15));
             this.setHasPattern(this.random.nextInt(3)==0);
-            this.setWingColor(this.random.nextInt(16));
+            this.setWingColor(this.random.nextInt(15));
         }
 
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
