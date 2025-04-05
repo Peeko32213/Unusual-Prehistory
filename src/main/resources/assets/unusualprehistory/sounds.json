@@ -1326,5 +1326,12 @@
       "unusualprehistory:entity/leedsichthys/leedsichthys_death_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.leedsichthys_death"
+  },
+
+  "kimmeridgebrachypteraeschnidium_flap": {
+    "sounds": [
+      "unusualprehistory:entity/kimmeridgebrachypteraeschnidium/loop_0"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_flap"
   }
 }

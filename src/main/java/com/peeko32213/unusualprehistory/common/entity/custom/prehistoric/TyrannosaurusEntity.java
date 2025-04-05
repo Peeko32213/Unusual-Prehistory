@@ -110,7 +110,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Idle actions
     private static final EntityAction TYRANNO_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
@@ -140,25 +139,13 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                     .entityAction(TYRANNO_IDLE_3_ACTION)
                     .build();
 
-    private static final EntityAction TYRANNO_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper TYRANNO_IDLE_4_STATE =
-            StateHelper.Builder.state(IDLE_4_AC, "tyrannosaurus_sit")
-                    .playTime(240)
-                    .stopTime(300)
-                    .affectsAI(true)
-                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(TYRANNO_IDLE_4_ACTION)
-                    .build();
-
     // States
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
                 TYRANNO_IDLE_1_STATE.getName(), TYRANNO_IDLE_1_STATE,
                 TYRANNO_IDLE_2_STATE.getName(), TYRANNO_IDLE_2_STATE,
-                TYRANNO_IDLE_3_STATE.getName(), TYRANNO_IDLE_3_STATE,
-                TYRANNO_IDLE_4_STATE.getName(), TYRANNO_IDLE_4_STATE
+                TYRANNO_IDLE_3_STATE.getName(), TYRANNO_IDLE_3_STATE
         );
     }
 
@@ -167,8 +154,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         return ImmutableList.of(
                 WeightedState.of(TYRANNO_IDLE_1_STATE, 11),
                 WeightedState.of(TYRANNO_IDLE_2_STATE, 12),
-                WeightedState.of(TYRANNO_IDLE_3_STATE, 9),
-                WeightedState.of(TYRANNO_IDLE_4_STATE, 5)
+                WeightedState.of(TYRANNO_IDLE_3_STATE, 9)
         );
     }
 
@@ -279,9 +265,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
                                 triggerAnim("blend", "roar");
                                 return PlayState.CONTINUE;
                             }
-                        }
-                        if (getBooleanState(IDLE_4_AC)) {
-                            return event.setAndContinue(TYRANNO_SIT);
                         }
                         return event.setAndContinue(TYRANNO_IDLE);
                     }
@@ -439,7 +422,6 @@ public class TyrannosaurusEntity extends PrehistoricEntity {
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(IDLE_4_AC, false);
         this.entityData.define(EEPY, false);
         this.entityData.define(PASSIVE, false);
         this.entityData.define(SKELETAL, false);
