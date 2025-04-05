@@ -206,6 +206,10 @@ public class EncrustedEntity extends PrehistoricMonsterEntity implements IVarian
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.25F);
     }
 
+    protected float getSoundVolume() {
+        return 0.65F;
+    }
+
     @Override
     public MobType getMobType() {
         return MobType.ARTHROPOD;

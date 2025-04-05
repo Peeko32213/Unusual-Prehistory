@@ -227,6 +227,8 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> SLUDGE_SLAP = createSoundEvent("sludge_slap");
 
     public static final RegistryObject<SoundEvent> KIMMER_FLAP = createSoundEvent("kimmeridgebrachypteraeschnidium_flap");
+    public static final RegistryObject<SoundEvent> KIMMER_DEATH = createSoundEvent("kimmeridgebrachypteraeschnidium_death");
+    public static final RegistryObject<SoundEvent> KIMMER_HURT = createSoundEvent("kimmeridgebrachypteraeschnidium_hurt");
 
     private static RegistryObject<SoundEvent> createSoundEvent(final String soundName) {
         return DEF_REG.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(UnusualPrehistory.MODID, soundName)));

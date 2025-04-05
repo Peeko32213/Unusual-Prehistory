@@ -79,7 +79,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     public int ringBufferIndex = -1;
     private boolean isLandNavigator;
     private int timeFlying;
-    private int flapCooldown = 0;
 
     public float currentRoll = 0.0F;
     public float prevTilt;
@@ -375,14 +374,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
             }
         }
 
-//        if (flapCooldown == 0 && this.isFlying()) {
-//            flapCooldown = 1;
-//            this.playSound(UPSounds.KIMMER_FLAP.get(), 0.025F * this.getSoundVolume(), 2.0F);
-//        }
-//        if(flapCooldown > 0){
-//            flapCooldown--;
-//        }
-
         prevTilt = tilt;
         if (this.isFlying() && !this.onGround()) {
             final float v = Mth.degreesDifference(this.getYRot(), yRotO);
@@ -635,11 +626,26 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         return PlayState.STOP;
     }
 
+    // Sounds
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return UPSounds.KIMMER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.KIMMER_DEATH.get();
+    }
+
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.25F;
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return 1.4F;
     }
 
     @Override

@@ -635,6 +635,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.LEEDS_DEATH, "Leedsichthys dies");
 
         addSound(UPSounds.KIMMER_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
+        addSound(UPSounds.KIMMER_HURT, "Kimmeridgebrachypteraeschnidium hurts");
+        addSound(UPSounds.KIMMER_DEATH, "Kimmeridgebrachypteraeschnidium dies");
 
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");

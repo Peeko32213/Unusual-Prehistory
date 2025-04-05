@@ -1333,5 +1333,18 @@
       "unusualprehistory:entity/kimmeridgebrachypteraeschnidium/loop_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_flap"
+  },
+  "kimmeridgebrachypteraeschnidium_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/kimmeridgebrachypteraeschnidium/hurt_0",
+      "unusualprehistory:entity/kimmeridgebrachypteraeschnidium/hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_hurt"
+  },
+  "kimmeridgebrachypteraeschnidium_death": {
+    "sounds": [
+      "unusualprehistory:entity/kimmeridgebrachypteraeschnidium/death_0"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.kimmeridgebrachypteraeschnidium_death"
   }
 }
