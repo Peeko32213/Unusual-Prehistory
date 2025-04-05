@@ -13,8 +13,6 @@ public class UPBiomeGeneration {
         BiomeDefaultFeatures.addDefaultSoftDisks(generation);
         BiomeDefaultFeatures.addDefaultFlowers(generation);
         BiomeDefaultFeatures.addDefaultExtraVegetation(generation);
-        BiomeDefaultFeatures.addExtraEmeralds(generation);
-        BiomeDefaultFeatures.addInfestedStone(generation);
     }
 
 }
