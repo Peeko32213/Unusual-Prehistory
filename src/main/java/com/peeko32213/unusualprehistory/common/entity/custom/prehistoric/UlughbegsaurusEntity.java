@@ -13,6 +13,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideG
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
@@ -69,6 +70,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity, ICustomFollower {
+
+    public IKSolver TailKinematics;
 
     private static final EntityDataAccessor<Integer> EATING_TIME = SynchedEntityData.defineId(UlughbegsaurusEntity.class, EntityDataSerializers.INT);
     public static final Logger LOGGER = LogManager.getLogger();
@@ -176,6 +179,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         super(entityType, level);
         this.setMaxUpStep(1.25F);
         this.reassessTameGoals();
+        this.TailKinematics = new IKSolver(this, 3, 2);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -440,6 +444,8 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
                 this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
             }
         }
+
+        this.TailKinematics.calculateTailAngles(this);
     }
 
     @Override

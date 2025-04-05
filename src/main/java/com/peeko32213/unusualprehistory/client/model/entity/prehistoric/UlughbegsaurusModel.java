@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
 
+import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.UlughbegsaurusEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -83,6 +84,15 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
         if (!entity.isSprinting() && !entity.hasControllingPassenger()) {
             neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
+
+        CoreGeoBone tail = this.getAnimationProcessor().getBone("tail1_overlay");
+        CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail2_overlay");
+
+        tail.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1))));
+        tail2.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1))));
+        entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1);
+        entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1);
+
     }
 }
 

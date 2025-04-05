@@ -103,24 +103,6 @@ public class IKSolver {
      */
     public void calculateTailAngles(LivingEntity entity) {
         if (entity.level().isClientSide()) {
-            //this sounds stupid, it's a placeholder
-
-
-            boolean flip = false;
-
-            if ((prevYHeadRot < 90 && entity.getYHeadRot() >= 90) || (prevYHeadRot > 90 && entity.getYHeadRot() <= 90)) {
-                //System.out.println("flippe");
-                flip = true;
-                //this.prevHasFlipped ^= true;
-            }
-
-            //System.out.println(prevYHeadRot);
-            //System.out.println(entity.getYHeadRot());
-
-            deltaYHeadRot = prevYHeadRot - entity.getYHeadRot();
-            prevYHeadRot = entity.getYHeadRot();
-            //System.out.println(deltaYHeadRot);
-
 
             // torsoFront corresponds to the start of the body, torsoBack correspond to the back of the body(start of the tail).
             torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), -entity.getXRot());
@@ -139,24 +121,16 @@ public class IKSolver {
                 prevChain.add(nodes[i]);
             }
 
-            //System.out.println("-------------------------");
-            //everything above takes in and outputs degrees
-
-
             // Update Geckolib - usable bone angles for each node.
             tailYaws[0] = Math.toRadians(MathHelpers.angleTo(entity.position(), torsoBack).y - MathHelpers.angleTo(torsoBack, nodes[0]).y);
-            //System.out.println(tailYaws[0] * Mth.RAD_TO_DEG);
-            //System.out.println("---------------------------------------------------------------------------------------------");
             tailYaws[1] = Math.toRadians(MathHelpers.angleTo(torsoBack, nodes[0]).y - MathHelpers.angleTo(nodes[0], nodes[1]).y);
 
             for (int i = 2; i < nodes.length; i++) {
-                //tailYaws[i] = (MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 2], this.nodes[i - 1], this.nodes[i], leftRefPoint, rightRefPoint));
                 tailYaws[i] = Math.toRadians(MathHelpers.angleTo(nodes[i - 2], nodes[i - 1]).y - MathHelpers.angleTo(nodes[i - 1], nodes[i]).y);
             }
             //Yaw
 
             tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(torsoBack, this.nodes[0], this.nodes[1])));
-            ;
             for (int i = 1; i < nodes.length - 1; i++) {
                 tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint)));
             }
