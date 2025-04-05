@@ -206,7 +206,7 @@ public class TyrannosaurusSkeleton extends SkeletonEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::predicate));
+        controllers.add(new AnimationController<>(this, "Normal", 1, this::predicate));
     }
 
     private <E extends SkeletonEntity> PlayState predicate(AnimationState<E> event) {

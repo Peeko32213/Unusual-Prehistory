@@ -351,6 +351,11 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     }
 
     @Override
+    public boolean isPushable() {
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
+    }
+
+    @Override
     public EntityDimensions getDimensions(Pose pPose) {
         if (this.isInSittingPose()) {
             return super.getDimensions(pPose).scale(1.0F, 0.625F);

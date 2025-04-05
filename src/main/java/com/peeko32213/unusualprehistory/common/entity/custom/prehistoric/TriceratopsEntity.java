@@ -213,7 +213,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
 
     @Override
     public boolean isPushable() {
-        return !this.isVehicle() || !this.isInSittingPose();
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
     }
 
     // Sounds
