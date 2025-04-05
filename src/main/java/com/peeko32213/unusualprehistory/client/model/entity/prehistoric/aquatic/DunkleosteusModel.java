@@ -89,8 +89,8 @@ public class DunkleosteusModel extends GeoModel<DunkleosteusEntity> {
                 CoreGeoBone tail = this.getAnimationProcessor().getBone("Dunk_Tail");
                 CoreGeoBone tail2 = this.getAnimationProcessor().getBone("Dunk_Fluke");
 
-                tail.setRotY(tail.getRotY() + (float) (Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01), -Mth.PI*0.25, Mth.PI*0.25)));
-                tail2.setRotY(tail2.getRotY() + (float) (Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01), -Mth.PI*0.25, Mth.PI*0.25)));
+                tail.setRotY(tail.getRotY() + (float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01))));
+                tail2.setRotY(tail2.getRotY() + (float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01))));
                 entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01);
                 entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01);
                 //this runs BETWEEN TICKS
