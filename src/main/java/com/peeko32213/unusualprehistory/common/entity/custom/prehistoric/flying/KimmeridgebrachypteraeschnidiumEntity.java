@@ -1,12 +1,15 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -46,16 +49,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements IVariantEntity, Bucketable {
 
@@ -76,11 +79,57 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     public int ringBufferIndex = -1;
     private boolean isLandNavigator;
     private int timeFlying;
-    private static final RawAnimation KIMMER_HOVER = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.hover");
+
+    public float currentRoll = 0.0F;
+    public float prevTilt;
+    public float tilt;
+
+    // Movement animations
     private static final RawAnimation KIMMER_FLY = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.fly");
-    private static final RawAnimation KIMMER_IDLE_1 = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.idle1");
-    private static final RawAnimation KIMMER_IDLE_2 = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.idle2");
+
+    // Idle animations
+    private static final RawAnimation KIMMER_IDLE = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.idle1");
+    private static final RawAnimation KIMMER_HOVER = RawAnimation.begin().thenLoop("animation.kimmeridgebrachypteraeschnidium.hover");
     private static final RawAnimation KIMMER_PREEN = RawAnimation.begin().thenPlay("animation.kimmeridgebrachypteraeschnidium.preen");
+
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> PREEN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Starting predicates
+    private static final Predicate<LivingEntity> KIMMER_STARTING_PREDICATE = (e -> {
+        if(e instanceof KimmeridgebrachypteraeschnidiumEntity entity) {
+            return !entity.isAggro() && !entity.isSprinting() && !entity.isInWater() && !entity.isFlying();
+        }
+        return false;
+    });
+
+    // Idle actions
+    private static final EntityAction KIMMER_PREEN_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper KIMMER_PREEN_STATE =
+            StateHelper.Builder.state(PREEN, "kimmeridgebrachypteraeschnidium_preen")
+                    .playTime(60)
+                    .stopTime(130)
+                    .startingPredicate(KIMMER_STARTING_PREDICATE)
+                    .affectsAI(true)
+                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                    .entityAction(KIMMER_PREEN_ACTION)
+                    .build();
+
+    // States
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                KIMMER_PREEN_STATE.getName(), KIMMER_PREEN_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(KIMMER_PREEN_STATE, 10)
+        );
+    }
 
     // Body control / navigation
     @Override
@@ -111,12 +160,13 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new AIFlyIdle());
+        this.goalSelector.addGoal(1, new KimmerFlightGoal());
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(PREEN, false);
         this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(FLYING, false);
         this.entityData.define(BASE_COLOR, 0);
@@ -245,11 +295,11 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
             this.setWingColor(pDataTag.getInt("WingColor"));
         }
         else {
-            this.setBaseColor(this.random.nextInt(15));
-            this.setPattern(this.random.nextInt(6));
-            this.setPatternColor(this.random.nextInt(15));
+            this.setBaseColor(this.random.nextInt(16));
+            this.setPattern(this.random.nextInt(7));
+            this.setPatternColor(this.random.nextInt(16));
             this.setHasPattern(this.random.nextInt(3)==0);
-            this.setWingColor(this.random.nextInt(15));
+            this.setWingColor(this.random.nextInt(16));
         }
 
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
@@ -294,7 +344,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
             flyProgress--;
         }
         if (this.ringBufferIndex < 0) {
-            //initial population of buffer
             for (int i = 0; i < this.ringBuffer.length; ++i) {
                 this.ringBuffer[i] = 15;
             }
@@ -324,17 +373,45 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
                 this.timeFlying = 0;
             }
         }
-    }
 
-    public boolean hurt(@NotNull DamageSource source, float amount) {
-        boolean prev = super.hurt(source, amount);
-        return prev;
+        prevTilt = tilt;
+        if (this.isFlying() && !this.onGround()) {
+            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+            if (Math.abs(v) > 1) {
+                if (Math.abs(tilt) < 25) {
+                    tilt -= Math.signum(v);
+                }
+            } else {
+                if (Math.abs(tilt) > 0) {
+                    final float tiltSign = Math.signum(tilt);
+                    tilt -= tiltSign * 0.85F;
+                    if (tilt * tiltSign < 0) {
+                        tilt = 0;
+                    }
+                }
+            }
+        } else {
+            tilt = 0;
+        }
+
+        float prevRoll = this.currentRoll;
+        float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
+        targetRoll = -targetRoll;
+        this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
     }
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.IN_WALL)  || source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
     }
+
+    @Override
+    @NotNull
+    public MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
+    // Flight
     public boolean isFlying() {
         return this.entityData.get(FLYING);
     }
@@ -354,11 +431,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         double dist = result.getLocation().distanceToSqr(x, y, z);
         return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
     }
-
-    public void killed(ServerLevel world, LivingEntity entity) {
-        this.heal(10);
-    }
-
 
     public Vec3 getBlockGrounding(Vec3 fleePos) {
         final float radius = 3.15F * -3 - this.getRandom().nextInt(24);
@@ -409,14 +481,6 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         return null;
     }
 
-    @Override
-    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
-        return false;
-    }
-
-    protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
-    }
-
     private boolean isOverWaterOrVoid() {
         BlockPos position = this.blockPosition();
         while (position.getY() > -65 && level().isEmptyBlock(position)) {
@@ -433,41 +497,12 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         return position;
     }
 
-    protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if(this.isFromBook()){
-            return event.setAndContinue(KIMMER_HOVER);
-        }
-        if (event.isMoving() && this.onGround() && this.onGround()) {
-            return event.setAndContinue(KIMMER_HOVER);
-        }
-        if (!event.isMoving() && this.onGround() && this.onGround()) {
-            return event.setAndContinue(KIMMER_IDLE_1);
-        }
-        return event.setAndContinue(KIMMER_FLY);
-    }
-
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
-    }
-
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
-    }
-
-    private class AIFlyIdle extends Goal {
+    private class KimmerFlightGoal extends Goal {
         protected double x;
         protected double y;
         protected double z;
 
-        public AIFlyIdle() {
+        public KimmerFlightGoal() {
             super();
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
@@ -534,6 +569,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         return null;
     }
 
+    // Mob interactions
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
@@ -546,7 +582,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
             if (!this.level().isClientSide) {
                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, itemstack1);
             }
-            if (heldItem.isEmpty()) {
+            if (heldItem.isEmpty() && !player.isCreative()) {
                 player.setItemInHand(hand, itemstack1);
             } else if (!player.getInventory().add(itemstack1)) {
                 player.drop(itemstack1, false);
@@ -555,5 +591,85 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
+    }
+
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<KimmeridgebrachypteraeschnidiumEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<KimmeridgebrachypteraeschnidiumEntity> idle = new AnimationController<>(this, "idleController", 5, this::idlePredicate);
+        controllers.add(idle);
+    }
+
+    protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if(this.isFromBook()){
+            return event.setAndContinue(KIMMER_HOVER);
+        }
+        if (event.isMoving() && this.onGround()) {
+            return event.setAndContinue(KIMMER_HOVER);
+        }
+        if (!event.isMoving() && this.onGround() && !this.isFlying()) {
+            return event.setAndContinue(KIMMER_IDLE);
+        }
+        return event.setAndContinue(KIMMER_FLY);
+    }
+
+    // Idle animations
+    protected <E extends KimmeridgebrachypteraeschnidiumEntity> PlayState idlePredicate(final AnimationState<E> event) {
+        if (getBooleanState(PREEN)) {
+            event.getController().setAnimation(KIMMER_PREEN);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
+    }
+
+    // Sounds
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+        return UPSounds.KIMMER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.KIMMER_DEATH.get();
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.25F;
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return 1.4F;
+    }
+
+    @Override
+    protected void doPush(Entity entity) {
+    }
+
+    @Override
+    protected void pushEntities() {
+    }
+
+    @Override
+    protected Entity.@NotNull MovementEmission getMovementEmission() {
+        return Entity.MovementEmission.EVENTS;
+    }
+
+    @Override
+    protected void doWaterSplashEffect() {
+    }
+
+    @Override
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+        return false;
+    }
+
+    protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
 }

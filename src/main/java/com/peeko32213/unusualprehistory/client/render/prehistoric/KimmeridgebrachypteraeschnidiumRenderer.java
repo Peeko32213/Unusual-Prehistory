@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.client.render.prehistoric;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.model.entity.prehistoric.flying.KimmeridgebrachypteraeschnidiumModel;
 import com.peeko32213.unusualprehistory.client.render.layer.KimmeridgebrachypteraeschnidiumPatternLayer;
@@ -27,5 +28,13 @@ public class KimmeridgebrachypteraeschnidiumRenderer extends GeoEntityRenderer<K
     @Override
     public void render(KimmeridgebrachypteraeschnidiumEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLightIn) {
         super.render(entity, entityYaw, partialTicks, poseStack, bufferSource, packedLightIn);
+    }
+
+    @Override
+    protected void applyRotations(KimmeridgebrachypteraeschnidiumEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+        super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
+        if (animatable.isFlying() && !animatable.onGround()){
+            poseStack.mulPose(Axis.ZP.rotationDegrees(animatable.currentRoll * 180 / 4));
+        }
     }
 }

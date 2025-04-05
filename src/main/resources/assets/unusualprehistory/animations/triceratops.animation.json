@@ -142,6 +142,11 @@
 						"3.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.25": {
+					"effect": "triceratops_chatter"
+				}
 			}
 		},
 		"animation.triceratops.idle": {
@@ -3546,6 +3551,14 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"0.25": {
+					"effect": "triceratops_warn"
+				},
+				"2.25": {
+					"effect": "triceratops_warn"
+				}
 			}
 		},
 		"animation.triceratops.charge": {
@@ -4395,6 +4408,11 @@
 						"1.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.5": {
+					"effect": "triceratops_swipe"
+				}
 			}
 		},
 		"animation.triceratops.attack_blend2": {
@@ -4561,6 +4579,11 @@
 						"0.75": ["math.sin(query.anim_time*180/1+60)*10", 0, 0],
 						"1.0": [0, 0, 0]
 					}
+				}
+			},
+			"sound_effects": {
+				"0.5": {
+					"effect": "triceratops_swipe"
 				}
 			}
 		}

@@ -634,6 +634,10 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.LEEDS_HURT, "Leedsichthys hurts");
         addSound(UPSounds.LEEDS_DEATH, "Leedsichthys dies");
 
+        addSound(UPSounds.KIMMER_FLAP, "Kimmeridgebrachypteraeschnidium buzzes");
+        addSound(UPSounds.KIMMER_HURT, "Kimmeridgebrachypteraeschnidium hurts");
+        addSound(UPSounds.KIMMER_DEATH, "Kimmeridgebrachypteraeschnidium dies");
+
         add("entity.unusualprehistory.all.command_0", "%s is wandering");
         add("entity.unusualprehistory.all.command_1", "%s is following");
         add("entity.unusualprehistory.all.command_2", "%s is staying");
@@ -949,8 +953,8 @@ public class UPLanguageGenerator extends LanguageProvider {
 
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.stripe", "Stripes");
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.tailshade", "Tail");
-        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.topshade", "Top");
-        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.halfshade", "Half");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.topshade", "Back");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.halfshade", "Duality");
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
