@@ -4,7 +4,6 @@ package com.peeko32213.unusualprehistory;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaterniond;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,20 +14,15 @@ public class MathHelpers {
         return anchor.add((point.subtract(anchor)).normalize().multiply(dist, dist, dist));
     }
 
-    public static Vec3 distConstraint(ArrayList<Vec3> prevChain, Vec3 anchor, Vec3 point, double nodeRadius) {
+    public static Vec3 distConstraint(ArrayList<Vec3> prevChain, Vec3 point, double nodeRadius) {
+        Vec3 anchor = prevChain.get(prevChain.size() - 1);
 
         Vec3 returnStuff = anchor.add((point.subtract(anchor)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
 
-        Iterator iter = prevChain.iterator();
-
-        while (iter.hasNext()) {
-            Vec3 nextNode = (Vec3) iter.next();
-
+        for (Vec3 nextNode : prevChain) {
             if (returnStuff.distanceTo(nextNode) < nodeRadius) {
 
                 returnStuff = anchor.add((returnStuff.subtract(nextNode)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
-
-
             }
 
         }

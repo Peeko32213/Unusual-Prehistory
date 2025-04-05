@@ -130,17 +130,12 @@ public class IKSolver {
             prevChain.add(torsoFront);
             prevChain.add(entity.position());
             prevChain.add(torsoBack);
+            //adds the chain that represents the creature's body first
 
-            nodes[0] = MathHelpers.distConstraint(prevChain, torsoBack, nodes[0], nodeDist);
-            prevChain.add(nodes[0]);
+            // Chain-update subsequent tail points after no longer needing torso segments.
+            for (int i = 0; i < nodeCount; i++) {
 
-            nodes[1] = MathHelpers.distConstraint(prevChain, nodes[0], nodes[1], nodeDist);
-            prevChain.add(nodes[1]);
-
-            // Chain-update subsequent tail points.
-            for (int i = 2; i < nodeCount; i++) {
-
-                nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i - 1], nodes[i], nodeDist);
+                nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i], nodeDist);
                 prevChain.add(nodes[i]);
             }
 
@@ -212,15 +207,15 @@ public class IKSolver {
 
     public void visualizeNodes(Level level) {
         if (!level.isClientSide()) {
-            ServerLevel L = (ServerLevel) level;
-            L.sendParticles(ParticleTypes.BUBBLE_POP, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            L.sendParticles(ParticleTypes.BUBBLE, (torsoFront.x), (torsoFront.y + 2), (torsoFront.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            L.sendParticles(ParticleTypes.BUBBLE_POP, (torsoBack.x), (torsoBack.y + 2), (torsoBack.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //ServerLevel L = (ServerLevel) level;
+            //L.sendParticles(ParticleTypes.BUBBLE_POP, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //L.sendParticles(ParticleTypes.BUBBLE, (torsoFront.x), (torsoFront.y + 2), (torsoFront.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //L.sendParticles(ParticleTypes.BUBBLE_POP, (torsoBack.x), (torsoBack.y + 2), (torsoBack.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
-            L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            for (int i = 1; i < nodeCount; i++) {
-                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }
+            //L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //for (int i = 1; i < nodeCount; i++) {
+            //    L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            //}
         }
     }
 
