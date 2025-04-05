@@ -102,6 +102,7 @@ dependencies {
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     implementation fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    implementation fg.deobf("javax.vecmath:vecmath:1.5.2")
 
     // utils for dev
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")

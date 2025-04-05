@@ -6,21 +6,34 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaterniond;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class MathHelpers {
 
-    public static Vec3 distConstraint(Vec3 anchor, Vec3 point, double dist){
+    public static Vec3 distConstraintSingle(Vec3 anchor, Vec3 point, double dist){
         return anchor.add((point.subtract(anchor)).normalize().multiply(dist, dist, dist));
     }
 
-    public static Vec3[] constraintChain(Vec3[] nodes, Vec3 anchor, double dist) {
+    public static Vec3 distConstraint(ArrayList<Vec3> prevChain, Vec3 anchor, Vec3 point, double nodeRadius) {
 
-        nodes[0] = distConstraint(anchor, nodes[0], dist);
+        Vec3 returnStuff = anchor.add((point.subtract(anchor)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
 
-        for (int i = 1; i < nodes.length; i++) {
-            nodes[i] = distConstraint(nodes[i], nodes[i+1], dist);
+        Iterator iter = prevChain.iterator();
+
+        while (iter.hasNext()) {
+            Vec3 nextNode = (Vec3) iter.next();
+
+            if (returnStuff.distanceTo(nextNode) < nodeRadius) {
+
+                returnStuff = anchor.add((returnStuff.subtract(nextNode)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
+
+
+            }
+
         }
 
-        return nodes;
+        return returnStuff;
     }
 
     // Constrain the angle to be within a certain range of the anchor(Constraint entered must be positive)

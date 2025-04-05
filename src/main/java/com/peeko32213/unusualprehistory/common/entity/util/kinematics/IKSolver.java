@@ -7,6 +7,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import javax.vecmath.Quat4d;
+import java.util.ArrayList;
 
 public class IKSolver {
     public double prevYHeadRot = 0;
@@ -124,137 +126,22 @@ public class IKSolver {
             torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), -entity.getXRot());
             torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), -entity.getXRot());
 
+            ArrayList<Vec3> prevChain = new ArrayList<Vec3>();
+            prevChain.add(torsoFront);
+            prevChain.add(entity.position());
+            prevChain.add(torsoBack);
 
-            /* Approach to solving for angle - constrained nodes
-            
-            1. Apply chain constraint to the node
-            
-            2. Use the minecraft native function to determine the heading of the entity
+            nodes[0] = MathHelpers.distConstraint(prevChain, torsoBack, nodes[0], nodeDist);
+            prevChain.add(nodes[0]);
 
-            test
-
-            3. Rip out the minecraft native function to determine the heading of the child segment
-
-            test
-            
-            4. Receive the difference in heading and subtract that from 180 in order to receive the angle of the tail
-
-            5. Receive a constrained rotation using the angle of the tail in the last step
-
-            6. Obtain the heading of the parent node in relation to the world and add the constrained rotation to it
-
-            test
-
-            7. Rotate the child node using the rotation obtained in 6
-
-            test
-            */
-            
-
-            double entityDir = ((double) MathHelpers.angleTo(entity.position(), torsoBack).y);
-            //System.out.println(entityDir);
-            //heading angle of the entity
-            //51 = facing 51 degrees to the west of south
-
-            double node0Angle = ((double) MathHelpers.angleTo(torsoBack, nodes[0]).y);
-            //System.out.println(node0Angle);
-            //heading angle of the tail segment(from back to front, which direction it's pointing)
-            //51 = facing 51 degrees to the west of south(first variable is the front)
-
-            double relativeAngle = (entityDir - node0Angle);
-            //System.out.println(relativeAngle);
-            //angle of the tail relative to the body(how much it's bent)
-            //57 = bent to the right by 57 degrees
-
-            double constrainedAngle = (MathHelpers.constrainAngle(relativeAngle, stiffness));
-            //System.out.println(constrainedAngle);
-            //constrain the amount of bend
-
-            double node0AngleReal = (constrainedAngle - entityDir);
-            //System.out.println(node0AngleReal);
-            //get the angle relative to the world the tail will have after it has been bent
-            //this should correspond to node0Angle but negative
-
-            if (flip == true) {
-                //node0AngleReal = (Math.abs(entityDir + constrainedAngle) - 360);
-                //System.out.println("const");
-                //System.out.println(node0AngleReal);
-            } else {
-                //System.out.println("rotat");
-            }
-            nodes[0] = MathHelpers.rotateAroundCenter3dDeg(torsoBack, torsoBack.subtract(0, 0, nodeDist), (float) node0AngleReal, -MathHelpers.angleTo(torsoBack, nodes[0]).x);
-            //rotate the node according to node0AngleReal
-
-
-            double node0Dir = ((double) MathHelpers.angleTo(torsoBack, nodes[0]).y);
-            //System.out.println(node0Dir);
-            //heading angle of the entity
-            //51 = facing 51 degrees to the west of south
-
-            double node1Angle = ((double) MathHelpers.angleTo(nodes[0], nodes[1]).y);
-            //System.out.println(node1Angle);
-            //heading angle of the tail segment(from back to front, which direction it's pointing)
-            //51 = facing 51 degrees to the west of south(first variable is the front)
-
-            double relativeAngle1 = (node0Dir - node1Angle);
-            //System.out.println(relativeAngle1);
-            //angle of the tail relative to the body(how much it's bent)
-            //57 = bent to the right by 57 degrees
-
-            double constrainedAngle1 = (MathHelpers.constrainAngle(relativeAngle1, stiffness));
-            //System.out.println(constrainedAngle1);
-            //constrain the amount of bend
-
-            double node1AngleReal = (constrainedAngle1 - node0Dir);
-            //System.out.println(node1AngleReal);
-            //get the angle relative to the world the tail will have after it has been bent
-            //this should correspond to node0Angle but negative
-
-            if (flip == true) {
-                //node1AngleReal = (Math.abs(node0Dir + constrainedAngle1) - 360);
-                //System.out.println("const");
-            } else {
-                //System.out.println("rotat");
-            }
-            nodes[1] = MathHelpers.rotateAroundCenter3dDeg(nodes[0], nodes[0].subtract(0, 0, nodeDist), (float) node1AngleReal, -MathHelpers.angleTo(nodes[0], nodes[1]).x);
-            //rotate the node according to node0AngleReal
-
+            nodes[1] = MathHelpers.distConstraint(prevChain, nodes[0], nodes[1], nodeDist);
+            prevChain.add(nodes[1]);
 
             // Chain-update subsequent tail points.
             for (int i = 2; i < nodeCount; i++) {
 
-                double prevNodeDir = ((double) MathHelpers.angleTo(nodes[i - 2], nodes[i - 1]).y);
-                //System.out.println(prevNodeDir);
-                //heading angle of the entity
-                //51 = facing 51 degrees to the west of south
-
-                double nodeiAngle = ((double) MathHelpers.angleTo(nodes[i - 1], nodes[i]).y);
-                //System.out.println(nodeiAngle);
-                //heading angle of the tail segment(from back to front, which direction it's pointing)
-                //51 = facing 51 degrees to the west of south(first variable is the front)
-
-                double relativeiAngle = (prevNodeDir - nodeiAngle);
-                //System.out.println(relativeiAngle);
-                //angle of the tail relative to the body(how much it's bent)
-                //57 = bent to the right by 57 degrees
-
-                double constrainediAngle = (MathHelpers.constrainAngle(relativeiAngle, stiffness));
-                //System.out.println(constrainediAngle);
-                //constrain the amount of bend
-
-                double nodeiAngleReal = (constrainediAngle - prevNodeDir);
-                //System.out.println(nodeiAngleReal);
-                //get the angle relative to the world the tail will have after it has been bent
-                //this should correspond to node0Angle but negative
-
-                if (flip == true) {
-                    //nodeiAngleReal = (Math.abs(prevNodeDir + constrainediAngle) - 360);
-                    //System.out.println("const");
-
-                } else {
-                    //System.out.println("rotat");
-                }
-                nodes[i] = MathHelpers.rotateAroundCenter3dDeg(nodes[i - 1], nodes[i - 1].subtract(0, 0, nodeDist), (float) nodeiAngleReal, -MathHelpers.angleTo(nodes[i - 1], nodes[i]).x);
+                nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i - 1], nodes[i], nodeDist);
+                prevChain.add(nodes[i]);
             }
 
             //System.out.println("-------------------------");
@@ -326,14 +213,14 @@ public class IKSolver {
     public void visualizeNodes(Level level) {
         if (!level.isClientSide()) {
             ServerLevel L = (ServerLevel) level;
-            //L.sendParticles(ParticleTypes.BUBBLE_POP, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            L.sendParticles(ParticleTypes.BUBBLE_POP, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             L.sendParticles(ParticleTypes.BUBBLE, (torsoFront.x), (torsoFront.y + 2), (torsoFront.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             L.sendParticles(ParticleTypes.BUBBLE_POP, (torsoBack.x), (torsoBack.y + 2), (torsoBack.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
-            //L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            //for (int i = 1; i < nodeCount; i++) {
-            //    L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            //}
+            L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            for (int i = 1; i < nodeCount; i++) {
+                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
         }
     }
 
