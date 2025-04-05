@@ -895,6 +895,66 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("unusualprehistory.encyclopedia.tutorial", "Intro to Revival");
         add("unusualprehistory.encyclopedia.fossils", "Fossils");
 
+        // Kimmer bottle
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.0", "Black Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.1", "Blue Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.2", "Brown Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.3", "Cyan Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.4", "Gray Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.5", "Green Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.6", "Light Blue Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.7", "Light Gray Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.8", "Lime Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.9", "Magenta Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.10", "Orange Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.11", "Pink Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.12", "Purple Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.13", "Red Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.14", "White Body");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_base_color.15", "Yellow Body");
+
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.0", "Black Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.1", "Blue Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.2", "Brown Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.3", "Cyan Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.4", "Gray Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.5", "Green Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.6", "Light Blue Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.7", "Light Gray Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.8", "Lime Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.9", "Magenta Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.10", "Orange Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.11", "Pink Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.12", "Purple Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.13", "Red Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.14", "White Wings");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color.15", "Yellow Wings");
+
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.0", "Black");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.1", "Blue");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.2", "Brown");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.3", "Cyan");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.4", "Gray");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.5", "Green");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.6", "Light Blue");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.7", "Light Gray");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.8", "Lime");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.9", "Magenta");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.10", "Orange");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.11", "Pink");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.12", "Purple");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.13", "Red");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.14", "White");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color.15", "Yellow");
+
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.stripe", "Stripes");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.tailshade", "Tail");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.topshade", "Top");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.halfshade", "Half");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.large_stripe", "Large Stripes");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
+        add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
+
         // Effects
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");

@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry.items;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.custom.FruitLootBoxBlock;
-import com.peeko32213.unusualprehistory.common.item.CaptureFlaskItem;
+import com.peeko32213.unusualprehistory.common.item.CaptureBottleItem;
 import com.peeko32213.unusualprehistory.common.item.UPFishBucketItem;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -15,7 +15,7 @@ public class UPItemProperties {
         makeFruitLootBox(UPBlocks.FRUIT_LOOT_BOX.get().asItem());
 
         for (RegistryObject<Item> item : UPItems.ITEMS.getEntries()) {
-            if (item.get() instanceof CaptureFlaskItem || item.get() instanceof UPFishBucketItem) {
+            if (item.get() instanceof CaptureBottleItem || item.get() instanceof UPFishBucketItem) {
                 registerVariantProperties(item.get());
             }
         }

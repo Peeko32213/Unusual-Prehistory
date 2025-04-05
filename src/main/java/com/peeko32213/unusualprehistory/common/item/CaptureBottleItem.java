@@ -1,8 +1,13 @@
 package com.peeko32213.unusualprehistory.common.item;
 
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.KimmeridgebrachypteraeschnidiumEntity;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -30,17 +35,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class CaptureFlaskItem extends BucketItem {
+public class CaptureBottleItem extends BucketItem {
 
     private final Supplier<? extends EntityType<?>> entityType;
     private final Item item1;
     private final boolean hasTooltip;
 
-    public CaptureFlaskItem(Supplier<EntityType<?>> entityType, Item item, boolean hasTooltip, Properties properties) {
+    public CaptureBottleItem(Supplier<EntityType<?>> entityType, Item item, boolean hasTooltip, Properties properties) {
         this(entityType, Fluids.EMPTY, item, hasTooltip, properties);
     }
 
-    public CaptureFlaskItem(Supplier<EntityType<?>> entityType, Fluid fluid, Item item, boolean hasTooltip, Properties properties) {
+    public CaptureBottleItem(Supplier<EntityType<?>> entityType, Fluid fluid, Item item, boolean hasTooltip, Properties properties) {
         super(fluid, properties);
         this.entityType = entityType;
         this.item1 = item;
@@ -85,9 +90,40 @@ public class CaptureFlaskItem extends BucketItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, world, tooltip, flag);
+
+        ChatFormatting[] grayChatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+
         if (hasTooltip && stack.hasTag()) {
             MutableComponent variant = Component.translatable(getEntityType().getDescriptionId() + "." + stack.getTag().getInt("Variant")).withStyle(ChatFormatting.GRAY);
             tooltip.add(variant);
+        }
+
+        if (getEntityType() == UPEntities.KIMMER.get()) {
+            CompoundTag compoundtag = stack.getTag();
+            if (compoundtag != null && compoundtag.contains("BaseColor", 3)) {
+
+                int base_color = compoundtag.getInt("BaseColor");
+                int pattern = compoundtag.getInt("Pattern");
+                int pattern_color = compoundtag.getInt("PatternColor");
+                int wing_color = compoundtag.getInt("WingColor");
+
+                Boolean hasPattern = compoundtag.getBoolean("HasPattern");
+
+                String base = "unusualprehistory.kimmeridgebrachypteraeschnidium_base_color." + base_color;
+                String patterns = "unusualprehistory.kimmeridgebrachypteraeschnidium_pattern." + KimmeridgebrachypteraeschnidiumEntity.getPatternName(pattern);
+                String patternColor = "unusualprehistory.kimmeridgebrachypteraeschnidium_pattern_color." + pattern_color;
+                String wingColor = "unusualprehistory.kimmeridgebrachypteraeschnidium_wing_color." + wing_color;
+
+                MutableComponent patternInfo = Component.translatable(patternColor);
+                patternInfo.append(CommonComponents.SPACE).append(Component.translatable(patterns));
+                patternInfo.withStyle(grayChatFormatting);
+
+                tooltip.add(Component.translatable(base).withStyle(grayChatFormatting));
+                tooltip.add(Component.translatable(wingColor).withStyle(grayChatFormatting));
+                if (hasPattern){
+                    tooltip.add(patternInfo);
+                }
+            }
         }
     }
 

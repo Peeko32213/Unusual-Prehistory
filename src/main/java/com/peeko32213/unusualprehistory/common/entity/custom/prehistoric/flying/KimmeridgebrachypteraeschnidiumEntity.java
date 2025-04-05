@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -56,7 +57,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements IVariantEntity {
+public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity implements IVariantEntity, Bucketable {
 
     @Nullable
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
@@ -66,6 +67,8 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> HAS_PATTERN = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> WING_COLOR = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(KimmeridgebrachypteraeschnidiumEntity.class, EntityDataSerializers.BOOLEAN);
 
     public final float[] ringBuffer = new float[64];
     public float prevFlyProgress;
@@ -114,6 +117,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(FLYING, false);
         this.entityData.define(BASE_COLOR, 0);
         this.entityData.define(PATTERN, 0);
@@ -140,6 +144,45 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
         this.setPatternColor(compound.getInt("PatternColor"));
         this.setWingColor(compound.getInt("WingColor"));
         this.setHasPattern(compound.getBoolean("HasPattern"));
+    }
+
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    public void setFromBucket(boolean pFromBucket) {
+        this.entityData.set(FROM_BUCKET, pFromBucket);
+    }
+
+    @Override
+    public void saveToBucketTag(ItemStack bucket) {
+        CompoundTag compoundnbt = bucket.getOrCreateTag();
+        Bucketable.saveDefaultDataToBucketTag(this, bucket);
+        compoundnbt.putFloat("Health", this.getHealth());
+        compoundnbt.putInt("BaseColor", this.getBaseColor());
+        compoundnbt.putInt("Pattern", this.getPattern());
+        compoundnbt.putInt("PatternColor", this.getPatternColor());
+        compoundnbt.putInt("WingColor", this.getWingColor());
+        compoundnbt.putBoolean("HasPattern", this.getHasPattern());
+        compoundnbt.putInt("Age", this.getAge());
+        if (this.hasCustomName()) {
+            bucket.setHoverName(this.getCustomName());
+        }
+    }
+
+    @Override
+    public void loadFromBucketTag(CompoundTag pTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, pTag);
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(UPItems.CAPTURED_KIMMER_BOTTLE.get());
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BOTTLE_FILL_DRAGONBREATH;
     }
 
     public int getBaseColor() {
@@ -194,7 +237,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
 
-        if (pReason == MobSpawnType.BUCKET && pDataTag != null && pDataTag.contains("VariantSkin", 3)) {
+        if (pReason == MobSpawnType.BUCKET && pDataTag != null && pDataTag.contains("BaseColor", 3)) {
             this.setBaseColor(pDataTag.getInt("BaseColor"));
             this.setPattern(pDataTag.getInt("Pattern"));
             this.setPatternColor(pDataTag.getInt("PatternColor"));

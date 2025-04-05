@@ -78,7 +78,7 @@ public class UPItems {
     public static final RegistryObject<Item> MAJUNGA_SCUTE = translatedItem("majungasaurus_scute", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADORNED_STAFF = translatedItem("adorned_staff", () -> new Item(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> GROG = item("grog_bottle", () -> new UPDrinkItem(drinkItem().food(UPFood.GROG), true, false));
-    public static final RegistryObject<Item> CAPTURED_KIMMER_BOTTLE = item("kimmeridgebrachypteraeschnidium_bottle", () -> new CaptureFlaskItem(UPEntities.KIMMER::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CAPTURED_KIMMER_BOTTLE = item("kimmeridgebrachypteraeschnidium_bottle", () -> new CaptureBottleItem(UPEntities.KIMMER::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
 
     // Fossil skeletons
     public static final RegistryObject<Item> TRIKE_SKELETON = translatedItem("triceratops_skeleton", () -> new SkeletonItem(UPEntities.TRIKE_SKELETON, new Item.Properties()));
