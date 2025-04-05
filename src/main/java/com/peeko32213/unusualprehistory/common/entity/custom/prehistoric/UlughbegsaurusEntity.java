@@ -179,7 +179,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         super(entityType, level);
         this.setMaxUpStep(1.25F);
         this.reassessTameGoals();
-        this.TailKinematics = new IKSolver(this, 3, 2);
+        this.TailKinematics = new IKSolver(this, 3, 3);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

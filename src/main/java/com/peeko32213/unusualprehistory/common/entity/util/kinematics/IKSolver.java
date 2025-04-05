@@ -23,6 +23,7 @@ public class IKSolver {
     private Vec3[] nodes = {};
     private enum nodeLimits {POS_LIMIT, NEG_LIMIT}
     private int nodeDist;
+    private int bodyLength;
 
 
     private double bodyPitch = 0;
@@ -34,16 +35,16 @@ public class IKSolver {
 
 
     private Vec3 torsoFront;
-    private Vec3 torsoFrontOffset = new Vec3(0, 0, -1);
+    private Vec3 torsoFrontOffset = new Vec3(0, 0, -1);;
 
     private Vec3 torsoBack;
-    private Vec3 torsoBackOffset = new Vec3(0, 0, 1);
+    private Vec3 torsoBackOffset = new Vec3(0, 0, 1);;
 
     private Vec3 rightRefPoint;
-    private final Vec3 rightRefOffset = new Vec3(1, 0, 0);
+    private Vec3 rightRefOffset = new Vec3(1, 0, 0);
 
     private Vec3 leftRefPoint;
-    private final Vec3 leftRefOffset = new Vec3(-1, 0, 0);
+    private Vec3 leftRefOffset = new Vec3(-1, 0, 0);
 
     private Vec3 upRefPoint;
     private final Vec3 upRefOffset = new Vec3(0, -1, 0);
@@ -51,6 +52,7 @@ public class IKSolver {
     private Vec3 downRefPoint;
     private final Vec3 downRefOffset = new Vec3(0, 1, 0);
 
+    private Boolean shiftNodes = false;
 
     public IKSolver(LivingEntity entity, int nodeCount, int nodeDist) {
 
@@ -59,7 +61,12 @@ public class IKSolver {
         //number of nodes^
         this.nodeDist = nodeDist;
         //distance between each node^
+        //this.bodyLength = Math.min(nodeDist, (int) (entity.getBoundingBox().getXsize()/2));
+        //Length of the body used to calculate body hitbox
         this.nodes = new Vec3[nodeCount];
+
+        //this.torsoFrontOffset = new Vec3(0, 0, -bodyLength);
+        //this.torsoBackOffset = new Vec3(0, 0, bodyLength);
 
         this.tailYaws = new double[nodeCount];
         this.tailPitches = new double[nodeCount];
@@ -73,6 +80,41 @@ public class IKSolver {
         torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYHeadRot());
         torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYHeadRot());
 
+
+        initTailPoints();
+    }
+
+    public IKSolver(LivingEntity entity, int nodeCount, int nodeDist, boolean shiftNodes) {
+
+        this.entity = entity;
+        this.nodeCount = nodeCount;
+        //number of nodes^
+        this.nodeDist = nodeDist;
+        //distance between each node^
+        //this.bodyLength = Math.min(nodeDist, (int) (entity.getBoundingBox().getXsize()/2));
+        //Length of the body used to calculate body hitbox
+        this.nodes = new Vec3[nodeCount];
+
+        //this.torsoFrontOffset = new Vec3(0, 0, -bodyLength);
+        //this.torsoBackOffset = new Vec3(0, 0, bodyLength);
+
+        this.tailYaws = new double[nodeCount];
+        this.tailPitches = new double[nodeCount];
+        this.currentTailYaws = new double[nodeCount];
+        this.currentTailPitches = new double[nodeCount];
+
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
+        torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYHeadRot());
+        torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYHeadRot());
+
+        if (shiftNodes == true) {
+            torsoFrontOffset = new Vec3(0, -1, -1);;
+            torsoBackOffset = new Vec3(0, -1, 1);;
+            this.shiftNodes = true;
+        }
 
         initTailPoints();
     }
@@ -116,9 +158,52 @@ public class IKSolver {
 
             // Chain-update subsequent tail points after no longer needing torso segments.
             for (int i = 0; i < nodeCount; i++) {
-
+                nodes[i] = shiftNodes ? nodes[i] = nodes[i].subtract(0, -1, 0) : nodes[i];
                 nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i], nodeDist);
                 prevChain.add(nodes[i]);
+            }
+
+            // Update Geckolib - usable bone angles for each node.
+            tailYaws[0] = Math.toRadians(MathHelpers.angleTo(entity.position(), torsoBack).y - MathHelpers.angleTo(torsoBack, nodes[0]).y);
+            tailYaws[1] = Math.toRadians(MathHelpers.angleTo(torsoBack, nodes[0]).y - MathHelpers.angleTo(nodes[0], nodes[1]).y);
+
+            for (int i = 2; i < nodes.length; i++) {
+                tailYaws[i] = Math.toRadians(MathHelpers.angleTo(nodes[i - 2], nodes[i - 1]).y - MathHelpers.angleTo(nodes[i - 1], nodes[i]).y);
+            }
+            //Yaw
+
+            tailPitches[0] = ((float) (Mth.PI * MathHelpers.angleFromYdiff(torsoBack, this.nodes[0], this.nodes[1])));
+            for (int i = 1; i < nodes.length - 1; i++) {
+                tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint)));
+            }
+            //Pitch
+
+
+            //side refs don't move vertically
+            leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
+            rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
+            upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
+            downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
+            //END of IK
+        }
+
+    }
+
+    public void calculateTailAnglesNoConstraint(LivingEntity entity) {
+        if (entity.level().isClientSide()) {
+
+            // torsoFront corresponds to the start of the body, torsoBack correspond to the back of the body(start of the tail).
+            torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), -entity.getXRot());
+            torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), -entity.getXRot());
+
+            // Chain-update subsequent tail points after no longer needing torso segments.
+            nodes[0] = nodes[0].subtract(0, -1, 0);
+            nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], nodeDist);
+            nodes[0] = nodes[0].subtract(0, -1, 0);
+            for (int i = 1; i < nodeCount; i++) {
+                nodes[i] = nodes[i].subtract(0, -1, 0);
+                nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], nodeDist);
+                nodes[i] = nodes[i].subtract(0, -1, 0);
             }
 
             // Update Geckolib - usable bone angles for each node.

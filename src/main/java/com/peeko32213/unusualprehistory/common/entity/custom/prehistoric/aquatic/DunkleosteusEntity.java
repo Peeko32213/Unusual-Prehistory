@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSt
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
+import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
@@ -52,6 +53,8 @@ import java.util.Objects;
 
 public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
+    public IKSolver TailKinematics;
+
     private static final EntityDataAccessor<Integer> DUNK_SIZE = SynchedEntityData.defineId(DunkleosteusEntity.class, EntityDataSerializers.INT);
 
     private static final EntityDimensions SMALL_SIZE = EntityDimensions.scalable(0.75F, 0.6F);
@@ -81,8 +84,9 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
     public DunkleosteusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.lookControl = new SmoothSwimmingLookControl(this, 6);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 4, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 2);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+        this.TailKinematics = new IKSolver(this, 3, 4, true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -95,8 +99,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 2));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 3));
         this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.DUNK_TARGETS)));
     }
@@ -230,6 +233,8 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
         if (this.passiveFor > 0) {
             passiveFor--;
         }
+
+        this.TailKinematics.calculateTailAnglesNoConstraint(this);
     }
 
     @Override
@@ -323,12 +328,15 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
         if (variantChange <= 30) {
             this.setDunkSize(1);
+            this.TailKinematics = new IKSolver(this, 3, 3);
         }
         else if (variantChange <= 60) {
             this.setDunkSize(2);
+            this.TailKinematics = new IKSolver(this, 3, 4);
         }
         else {
             this.setDunkSize(0);
+            this.TailKinematics = new IKSolver(this, 3, 1);
         }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }

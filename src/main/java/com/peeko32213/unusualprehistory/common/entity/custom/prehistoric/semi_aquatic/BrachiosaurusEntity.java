@@ -11,6 +11,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEnt
 import com.peeko32213.unusualprehistory.common.entity.custom.part.BrachiosaurusPartEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
+import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
@@ -72,6 +73,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquatic {
+
+    public IKSolver TailKinematics;
 
     private static final EntityDataAccessor<Boolean> LAUNCHING = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> HEAD_HEIGHT = SynchedEntityData.defineId(BrachiosaurusEntity.class, EntityDataSerializers.FLOAT);
@@ -165,6 +168,7 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
         this.neck = new BrachiosaurusPartEntity(this, 2,19);
         this.theEntireNeck = new BrachiosaurusPartEntity[]{this.neck};
         this.allParts = new BrachiosaurusPartEntity[]{this.neck};
+        this.TailKinematics = new IKSolver(this, 3, 3);
     }
 
     @Override
@@ -539,6 +543,8 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
             }
         }
         shakeCooldown--;
+
+        this.TailKinematics.calculateTailAngles(this);
     }
 
     private float getLaunchStrength() {
