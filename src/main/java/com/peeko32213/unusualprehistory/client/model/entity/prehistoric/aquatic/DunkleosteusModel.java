@@ -71,54 +71,54 @@ public class DunkleosteusModel extends GeoModel<DunkleosteusEntity> {
                 CoreGeoBone tail = this.getAnimationProcessor().getBone("Dunk_Tail");
                 CoreGeoBone tail2 = this.getAnimationProcessor().getBone("Dunk_Fluke");
 
-                tail.setRotY(tail.getRotY() + (float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1), Mth.PI*0.33)));
-                tail2.setRotY(tail.getRotY() + (float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1), Mth.PI*0.33)));
-                entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1);
-                entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1);
+                tail.setRotY(tail.getRotY() + (float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01))));
+                tail2.setRotY(tail2.getRotY() + (float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01))));
+                entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01);
+                entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01);
                 //this runs BETWEEN TICKS
                 //0.25 means it interpolates to a quarter of the way to the target
                 //setRotY takes RADIANS
 
                 //No deg to rad because the arccos function used to return the angle
                 //gotta set up UNIQUE NODES FOR EACH BONE
-                tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1), -Mth.PI*0.25, Mth.PI*0.1));
-                entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1);
+                tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.01), -Mth.PI*0.25, Mth.PI*0.25));
+                entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.01);
                 //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
                 
             } else if (entity.getDunkSize() == 1) {
                 CoreGeoBone tail = this.getAnimationProcessor().getBone("Dunk_Tail");
                 CoreGeoBone tail2 = this.getAnimationProcessor().getBone("Dunk_Fluke");
 
-                tail.setRotY(tail.getRotY() + (float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1), Mth.PI*0.33)));
-                tail2.setRotY(tail.getRotY() + (float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1), Mth.PI*0.33)));
-                entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1);
-                entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1);
+                tail.setRotY(tail.getRotY() + (float) (Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01), -Mth.PI*0.25, Mth.PI*0.25)));
+                tail2.setRotY(tail2.getRotY() + (float) (Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01), -Mth.PI*0.25, Mth.PI*0.25)));
+                entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01);
+                entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01);
                 //this runs BETWEEN TICKS
                 //0.25 means it interpolates to a quarter of the way to the target
                 //setRotY takes RADIANS
 
                 //No deg to rad because the arccos function used to return the angle
                 //gotta set up UNIQUE NODES FOR EACH BONE
-                tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1), -Mth.PI*0.25, Mth.PI*0.1));
-                entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1);
+                tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.01), -Mth.PI*0.25, Mth.PI*0.25));
+                entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.01);
                 //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
                 
             } else if (entity.getDunkSize() == 0) {
                 CoreGeoBone tail = this.getAnimationProcessor().getBone("Dunk_Tail");
                 CoreGeoBone tail2 = this.getAnimationProcessor().getBone("Dunk_Fluke");
 
-                tail.setRotY(tail.getRotY() + (float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1), Mth.PI*0.33)));
-                tail2.setRotY(tail.getRotY() + (float) (MathHelpers.angleClamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1), Mth.PI*0.33)));
-                entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1);
-                entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1);
+                tail.setRotY(tail.getRotY() + (float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01))));
+                tail2.setRotY(tail2.getRotY() + (float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01))));
+                entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.01);
+                entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.01);
                 //this runs BETWEEN TICKS
                 //0.25 means it interpolates to a quarter of the way to the target
                 //setRotY takes RADIANS
 
                 //No deg to rad because the arccos function used to return the angle
                 //gotta set up UNIQUE NODES FOR EACH BONE
-                tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1), -Mth.PI*0.25, Mth.PI*0.1));
-                entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1);
+                tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.01), -Mth.PI*0.25, Mth.PI*0.25));
+                entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.01);
                 //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
                 
             }
