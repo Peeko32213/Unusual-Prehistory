@@ -6,9 +6,22 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class MathHelpers {
+
+    public static Vec3 quickReturn (Vec3 parent, Vec3 point, Vec3 appliedToNode, float angleX, float angleY, double perTickRate) {
+
+        if (angleY > 0) {
+            appliedToNode = MathHelpers.rotateAroundCenterFlatDeg(point, appliedToNode, (double) -perTickRate);
+        } else if (angleY < 0) {
+            appliedToNode = MathHelpers.rotateAroundCenterFlatDeg(point, appliedToNode, (double) perTickRate);
+        }
+
+        return appliedToNode;
+
+    }
 
     public static Vec3 distConstraintSingle(Vec3 anchor, Vec3 point, double dist){
         return anchor.add((point.subtract(anchor)).normalize().multiply(dist, dist, dist));
@@ -19,9 +32,9 @@ public class MathHelpers {
 
         Vec3 returnStuff = anchor.add((point.subtract(anchor)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
 
+        Collections.reverse(prevChain);
         for (Vec3 nextNode : prevChain) {
             if (returnStuff.distanceTo(nextNode) < nodeRadius) {
-
                 returnStuff = anchor.add((returnStuff.subtract(nextNode)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
             }
 
@@ -52,21 +65,6 @@ public class MathHelpers {
         return angle;
     }
 
-    public static double processConstraint(double constrainedAngle, double prevDir) {
-
-        if (constrainedAngle < 0) {
-            //System.out.println("guh");
-            return (constrainedAngle - prevDir);
-            // modify this part
-        }
-
-        return (constrainedAngle - prevDir);
-    }
-
-
-
-
-
     public static Vec2 angleTo(Vec3 target, Vec3 mePos) {
         double d0 = target.x - mePos.x;
         double d1 = target.y - mePos.y;
@@ -77,7 +75,8 @@ public class MathHelpers {
         double YAngle = (((float)(Mth.atan2(d2, d0) * 57.2957763671875) - 90.0F));
 
         return new Vec2((float) XAngle, (float) YAngle);
-        //returns the y and x angle from the source location(mePos) to the target location(target)
+        //returns the y and x angle from the source location(mePos) to the target location(target) WITH RESPECT TO THE WORLD AXIS
+        //try to not use this
         //Y is yaw, X is pitch
     }
 

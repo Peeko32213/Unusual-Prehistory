@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import javax.vecmath.Quat4d;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class IKSolver {
 
 
     private Vec3[] nodes = {};
+    private Vec3[] coreNodes = {};
     private enum nodeLimits {POS_LIMIT, NEG_LIMIT}
     private int nodeDist;
     private int bodyLength;
@@ -94,6 +96,7 @@ public class IKSolver {
         //this.bodyLength = Math.min(nodeDist, (int) (entity.getBoundingBox().getXsize()/2));
         //Length of the body used to calculate body hitbox
         this.nodes = new Vec3[nodeCount];
+        this.coreNodes = new Vec3[nodeCount];
 
         //this.torsoFrontOffset = new Vec3(0, 0, -bodyLength);
         //this.torsoBackOffset = new Vec3(0, 0, bodyLength);
@@ -156,12 +159,43 @@ public class IKSolver {
             prevChain.add(torsoBack);
             //adds the chain that represents the creature's body first
 
+            nodes[0] = MathHelpers.distConstraint(prevChain, nodes[0], nodeDist);
+            float angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoFront, torsoBack, nodes[0], this.leftRefPoint, this.rightRefPoint));
+            float angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(torsoFront, torsoBack, nodes[0]));
+            //System.out.println(angleY);
+            //System.out.println(angleX);
+            nodes[0] = MathHelpers.quickReturn(torsoFront, torsoBack, nodes[0], angleX, angleY, 1);
+            //System.out.println((Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoFront, torsoBack, nodes[0], this.leftRefPoint, this.rightRefPoint)));
+            prevChain.add(nodes[0]);
+            //System.out.println("nodes[0]");
+
+            nodes[1] = MathHelpers.distConstraintSingle(nodes[0], nodes[1], nodeDist);
+            angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoBack, nodes[0], nodes[1], this.leftRefPoint, this.rightRefPoint));
+            angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(torsoBack, nodes[0], nodes[1]));
+            //System.out.println(nodes[1]);
+            System.out.println(angleY);
+            System.out.println(angleX);
+            nodes[1] = MathHelpers.quickReturn(torsoBack, nodes[0], nodes[1], angleX, angleY, 1);
+            System.out.println((Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoBack, nodes[0], nodes[1], this.leftRefPoint, this.rightRefPoint)));
+            prevChain.add(nodes[1]);
+            System.out.println("nodes[1]");
+
             // Chain-update subsequent tail points after no longer needing torso segments.
-            for (int i = 0; i < nodeCount; i++) {
+            for (int i = 2; i < nodeCount; i++) {
                 nodes[i] = shiftNodes ? nodes[i] = nodes[i].subtract(0, -1, 0) : nodes[i];
                 nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i], nodeDist);
+
+                angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(nodes[i - 1], nodes[i - 2], nodes[i], this.leftRefPoint, this.rightRefPoint));
+                angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(nodes[i - 2], nodes[i - 1], nodes[i]));
+
+                //nodes[0] = MathHelpers.quickReturn(nodes[i-2], nodes[i-1], nodes[i], angleX, angleY, 1);
+
                 prevChain.add(nodes[i]);
             }
+
+
+
+
 
             // Update Geckolib - usable bone angles for each node.
             tailYaws[0] = Math.toRadians(MathHelpers.angleTo(entity.position(), torsoBack).y - MathHelpers.angleTo(torsoBack, nodes[0]).y);
@@ -200,6 +234,7 @@ public class IKSolver {
             nodes[0] = nodes[0].subtract(0, -1, 0);
             nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], nodeDist);
             nodes[0] = nodes[0].subtract(0, -1, 0);
+
             for (int i = 1; i < nodeCount; i++) {
                 nodes[i] = nodes[i].subtract(0, -1, 0);
                 nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], nodeDist);
@@ -266,15 +301,15 @@ public class IKSolver {
 
     public void visualizeNodes(Level level) {
         if (!level.isClientSide()) {
-            //ServerLevel L = (ServerLevel) level;
-            //L.sendParticles(ParticleTypes.BUBBLE_POP, (entity.getX()), (entity.getY() + 2), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            //L.sendParticles(ParticleTypes.BUBBLE, (torsoFront.x), (torsoFront.y + 2), (torsoFront.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            //L.sendParticles(ParticleTypes.BUBBLE_POP, (torsoBack.x), (torsoBack.y + 2), (torsoBack.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            ServerLevel L = (ServerLevel) level;
+            L.sendParticles(ParticleTypes.BUBBLE, (entity.getX()), (entity.getY() + 1), (entity.getZ()), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            L.sendParticles(ParticleTypes.BUBBLE, (torsoFront.x), (torsoFront.y + 1), (torsoFront.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            L.sendParticles(ParticleTypes.BUBBLE, (torsoBack.x), (torsoBack.y + 1), (torsoBack.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
-            //L.sendParticles(ParticleTypes.BUBBLE_POP, (nodes[0].x), (nodes[0].y + 2), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            //for (int i = 1; i < nodeCount; i++) {
-            //    L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 2), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            //}
+            L.sendParticles(ParticleTypes.BUBBLE, (nodes[0].x), (nodes[0].y + 1), (nodes[0].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            for (int i = 1; i < nodeCount; i++) {
+                L.sendParticles(ParticleTypes.BUBBLE, (nodes[i].x), (nodes[i].y + 1), (nodes[i].z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }
         }
     }
 
