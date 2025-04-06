@@ -162,34 +162,17 @@ public class IKSolver {
             nodes[0] = MathHelpers.distConstraint(prevChain, nodes[0], nodeDist);
             float angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoFront, torsoBack, nodes[0], this.leftRefPoint, this.rightRefPoint));
             float angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(torsoFront, torsoBack, nodes[0]));
-            //System.out.println(angleY);
-            //System.out.println(angleX);
             nodes[0] = MathHelpers.quickReturn(torsoFront, torsoBack, nodes[0], angleX, angleY, 1);
-            //System.out.println((Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoFront, torsoBack, nodes[0], this.leftRefPoint, this.rightRefPoint)));
             prevChain.add(nodes[0]);
-            //System.out.println("nodes[0]");
+            //realistically only the first node needs return to center
 
-            nodes[1] = MathHelpers.distConstraintSingle(nodes[0], nodes[1], nodeDist);
-            angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoBack, nodes[0], nodes[1], this.leftRefPoint, this.rightRefPoint));
-            angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(torsoBack, nodes[0], nodes[1]));
-            //System.out.println(nodes[1]);
-            System.out.println(angleY);
-            System.out.println(angleX);
-            nodes[1] = MathHelpers.quickReturn(torsoBack, nodes[0], nodes[1], angleX, angleY, 1);
-            System.out.println((Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoBack, nodes[0], nodes[1], this.leftRefPoint, this.rightRefPoint)));
+            nodes[1] = MathHelpers.distConstraintSingle(nodes[0], nodes[1], nodeDist*0.75);
             prevChain.add(nodes[1]);
-            System.out.println("nodes[1]");
 
             // Chain-update subsequent tail points after no longer needing torso segments.
             for (int i = 2; i < nodeCount; i++) {
                 nodes[i] = shiftNodes ? nodes[i] = nodes[i].subtract(0, -1, 0) : nodes[i];
-                nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i], nodeDist);
-
-                angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(nodes[i - 1], nodes[i - 2], nodes[i], this.leftRefPoint, this.rightRefPoint));
-                angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(nodes[i - 2], nodes[i - 1], nodes[i]));
-
-                //nodes[0] = MathHelpers.quickReturn(nodes[i-2], nodes[i-1], nodes[i], angleX, angleY, 1);
-
+                nodes[i] = MathHelpers.distConstraint(prevChain, nodes[i], nodeDist*0.75);
                 prevChain.add(nodes[i]);
             }
 

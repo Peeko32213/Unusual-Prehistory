@@ -13,9 +13,9 @@ public class MathHelpers {
 
     public static Vec3 quickReturn (Vec3 parent, Vec3 point, Vec3 appliedToNode, float angleX, float angleY, double perTickRate) {
 
-        if (angleY > 0) {
+        if (angleY >= 0 && angleY < 180) {
             appliedToNode = MathHelpers.rotateAroundCenterFlatDeg(point, appliedToNode, (double) -perTickRate);
-        } else if (angleY < 0) {
+        } else if (angleY < 0 && angleY >= -180) {
             appliedToNode = MathHelpers.rotateAroundCenterFlatDeg(point, appliedToNode, (double) perTickRate);
         }
 
@@ -32,7 +32,6 @@ public class MathHelpers {
 
         Vec3 returnStuff = anchor.add((point.subtract(anchor)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
 
-        Collections.reverse(prevChain);
         for (Vec3 nextNode : prevChain) {
             if (returnStuff.distanceTo(nextNode) < nodeRadius) {
                 returnStuff = anchor.add((returnStuff.subtract(nextNode)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
