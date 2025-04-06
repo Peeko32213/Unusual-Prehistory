@@ -246,8 +246,6 @@ public class UPItemModelGenerator extends ItemModelProvider {
 
         // Bottle items
         singleTex(UPItems.CAPTURED_KIMMER_BOTTLE);
-        singleTex(UPItems.DORMANT_RAMPAGE_BOTTLE);
-        singleTex(UPItems.YIXIAN_RAMPAGE_BOTTLE);
 
         // Animal items
         singleTex(UPItems.BEELZ_SALIVA);
@@ -288,7 +286,6 @@ public class UPItemModelGenerator extends ItemModelProvider {
 
         singleTex(UPItems.PSITTACOSAURUS_QUILL);
         singleTex(UPItems.PSITTACCO_ARROW);
-        singleTex(UPItems.QUILL_REMEDY);
 
         basicItem(UPItems.ADORNED_STAFF);
         basicItem(UPItems.AMBER_GUMMY);

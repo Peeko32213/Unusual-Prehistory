@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-03T11:34:44.073422	Item Models: unusualprehistory
+// 1.20.1	2025-04-06T09:49:07.2815604	Item Models: unusualprehistory
 d59024cc150895caef16ca23064bdcd28b78f807 assets/unusualprehistory/models/item/adorned_staff.json
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
@@ -67,7 +67,6 @@ d9ba79c5953f80d5e3f48ad26563d1366ff991a4 assets/unusualprehistory/models/item/de
 5b36a1d53784b7c363a9fc2f375deb6f6fba3887 assets/unusualprehistory/models/item/defrosted_meat.json
 3c0b098255fdbb847fdaeb694160f2ef476d6a3b assets/unusualprehistory/models/item/diplocaulus_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/diplocaulus_spawn_egg.json
-099b9d0aa13809b7fc26aa17639dc872cb5bc48d assets/unusualprehistory/models/item/dormant_rampage_bottle.json
 d586d9086b99d847ed4f9a05b40411156818fb11 assets/unusualprehistory/models/item/dryophyllum_boat.json
 5fb67b8fc11fcf7fae0f447695967746b2ba98b4 assets/unusualprehistory/models/item/dryophyllum_chest_boat.json
 61049ffb5c476eecc76841a423754663130c078b assets/unusualprehistory/models/item/dryophyllum_dna_bottle.json
@@ -268,7 +267,6 @@ e138a9738b0d97282b666e08c717fa7bb2ce77ab assets/unusualprehistory/models/item/pt
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/pterygotus_spawn_egg.json
 d865966feb8175438f85bbaea7333e1acf04cb45 assets/unusualprehistory/models/item/quereuxia.json
 817720bcd949904a9d74cc7f4f0077dd1a379bab assets/unusualprehistory/models/item/quereuxia_dna_bottle.json
-efc26eb99c0533a45de0fa3a4431e59e549e1feb assets/unusualprehistory/models/item/quill_remedy.json
 7044bcf685d4e2a62483dac74adbc0b75404ffa6 assets/unusualprehistory/models/item/raiguenrayun_dna_bottle.json
 ad03969faeb065b61df14a4c7c0f264cbaffb0d6 assets/unusualprehistory/models/item/redolant_fruit.json
 5f3d4fe7270d3e861b6f74ab6e85154b360d2097 assets/unusualprehistory/models/item/redolant_fruit_scraps.json
@@ -341,7 +339,6 @@ db86ae61634d0466ef33007cbdf87bf5ee9a313d assets/unusualprehistory/models/item/un
 4abe7fb763e8613e9e83bee0bfcabf8af58b4308 assets/unusualprehistory/models/item/war_pick.json
 b479dfadc04761bcc92ee3506940feb5d783e5bc assets/unusualprehistory/models/item/xiphactinus_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/xiphactinus_spawn_egg.json
-015a59d3d538a4e2aa42df9121f33639ffa2102e assets/unusualprehistory/models/item/yixian_rampage_bottle.json
 67e82f4fdf427c0cfff294d2a4ff8dbb305739cd assets/unusualprehistory/models/item/zuloagae.json
 5fb0d4d4684cb68170f0b308890d8233bb8e5694 assets/unusualprehistory/models/item/zuloagae_block.json
 061b7bd37f91c0b3b2431cc4f77e7ec2651ae83c assets/unusualprehistory/models/item/zuloagae_button.json

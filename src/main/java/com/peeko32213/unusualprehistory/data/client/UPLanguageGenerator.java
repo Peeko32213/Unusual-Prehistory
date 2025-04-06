@@ -147,10 +147,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addItem(UPItems.ANIMAL_DNA_BOTTLES, "Bottle of Prehistoric Animal DNA");
         addItem(UPItems.PLANT_DNA_BOTTLES, "Bottle of Prehistoric Plant DNA");
 
-        addItem(UPItems.YIXIAN_RAMPAGE_BOTTLE, "Bottle of Yixian Rampage");
-        addItem(UPItems.DORMANT_RAMPAGE_BOTTLE, "Bottle of Dormant Yixian Rampage");
-        addItem(UPItems.QUILL_REMEDY, "Rampage Remedy Quill");
-
         // Foods
         addItem(UPItems.GROG, "Bottle of Grog");
         addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
@@ -965,9 +961,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
         addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
-        addEffect(UPEffects.YIXIAN_RAMPAGE, "Yixian Rampage");
-        addEffect(UPEffects.RABIES_VACCINE, "M-Lyssavirus Vaccine");
-        addEffect(UPEffects.TARBLOOD_PRION, "Tarblood Prion");
 
         // Block entities
         addBETranslatable("analyzer", "                          Analyzer");

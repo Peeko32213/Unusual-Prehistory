@@ -17,8 +17,6 @@
  import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.world.DifficultyInstance;
- import net.minecraft.world.InteractionHand;
- import net.minecraft.world.InteractionResult;
  import net.minecraft.world.effect.MobEffectInstance;
  import net.minecraft.world.entity.*;
  import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,14 +26,9 @@
  import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
  import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
- import net.minecraft.world.entity.animal.Animal;
  import net.minecraft.world.entity.player.Player;
- import net.minecraft.world.item.Item;
- import net.minecraft.world.item.ItemStack;
- import net.minecraft.world.item.Items;
  import net.minecraft.world.level.Level;
  import net.minecraft.world.level.ServerLevelAccessor;
- import net.minecraft.world.level.block.state.BlockState;
  import net.minecraft.world.level.pathfinder.Node;
  import net.minecraft.world.level.pathfinder.Path;
  import net.minecraft.world.phys.Vec2;
@@ -539,20 +532,8 @@
          return PlayState.CONTINUE;
      }
 
-     @javax.annotation.Nullable
-     @Override
-     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
-         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-
-         if (Math.random() <= 0.25) {
-             this.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), -1));
-         }
-
-         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-     }
-
      protected <E extends PsittacosaurusEntity> PlayState shakeController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-         if ((this.getIsShedding() || this.hasRabies(this)) && !this.isInWater()) {
+         if ((this.getIsShedding()) && !this.isInWater()) {
              event.setAndContinue(PSITTACO_SHAKE);
              return PlayState.CONTINUE;
          }
@@ -560,39 +541,9 @@
          return PlayState.STOP;
      }
 
-     public boolean hasRabies(LivingEntity entity) {
-         MobEffectInstance ailment = entity.getEffect(UPEffects.YIXIAN_RAMPAGE.get());
-
-         if (ailment == null) {
-             return false;
-         } else {
-             return true;
-         }
-     }
-
-     public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-         ItemStack itemstack = player.getItemInHand(hand);
-         Item item = itemstack.getItem();
-
-         if(item == Items.GLASS_BOTTLE && this.hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
-             //harvest rabies from rabid psittacos
-
-             player.getItemInHand(hand).shrink(1);
-             player.addItem(new ItemStack(UPItems.YIXIAN_RAMPAGE_BOTTLE.get()));
-             //add rabies
-             return InteractionResult.SUCCESS;
-         }
-         return InteractionResult.FAIL;
-     }
-
      @Override
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
          controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
          controllers.add(new AnimationController<>(this, "Shake", 5, this::shakeController));
-     }
-
-     @Override
-     public double getTick(Object o) {
-         return tickCount;
      }
  }

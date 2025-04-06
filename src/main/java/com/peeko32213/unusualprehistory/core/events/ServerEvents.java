@@ -1,17 +1,12 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.ItemWeightedPairCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitCodec;
 import com.peeko32213.unusualprehistory.common.data.lootfruit.LootFruitJsonManager;
-import com.peeko32213.unusualprehistory.common.effect.RampageEffect;
-import com.peeko32213.unusualprehistory.common.effect.RampageRemedyEffect;
-import com.peeko32213.unusualprehistory.common.effect.TarbloodPrionEffect;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.RabiesHuntGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.HwachavenatorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.DunkleosteusEntity;
 import com.peeko32213.unusualprehistory.common.message.*;
@@ -33,12 +28,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +38,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.server.ServerStartedEvent;
@@ -170,14 +159,6 @@ public class ServerEvents {
             if (event.getSource().getEntity() instanceof LivingEntity living) {
 
                 LivingEntity entity = event.getEntity();
-                Entity offender = event.getSource().getEntity();
-
-                if (offender instanceof LivingEntity && ((LivingEntity) offender).hasEffect(UPEffects.YIXIAN_RAMPAGE.get())) {
-                    //rabies spread
-                    entity.addEffect(new MobEffectInstance(UPEffects.YIXIAN_RAMPAGE.get(), 120000));
-                    event.setAmount(event.getAmount()/4);
-                    //rabid animals only deal quarter damage to each other
-                }
 
                 ItemStack itemStack = living.getItemInHand(InteractionHand.MAIN_HAND);
                 if(!itemStack.hasTag()) return;
@@ -296,153 +277,6 @@ public class ServerEvents {
     public void preventDamage(AttackEntityEvent event) {
         if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
             event.setCanceled(true);
-        }
-    }
-
-    //This is already added  to the entity no need to check it every tick
-    //@SubscribeEvent
-    ////cant be canceled
-    //public void rabiesFacilitatorEvent(LivingEvent.LivingTickEvent event) {
-    //    Entity titty = event.getEntity();
-////
-    //    if(titty instanceof PathfinderMob && ((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && !checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-    //        //has effect but has no piss(add)
-    //        ((PathfinderMob) titty).goalSelector.addGoal(-1, new RabiesHuntGoal(((PathfinderMob) titty)));
-    //        //TODO: Make rabies only manifest after a certain number of ticks
-    //    }
-////
-    //    if(titty instanceof PathfinderMob && !((PathfinderMob) titty).hasEffect(UPEffects.YIXIAN_RAMPAGE.get()) && checkContainRabies(((PathfinderMob) titty).goalSelector.getAvailableGoals())) {
-    //        //has no effect but has piss(remove)
-    //        cutRabies(((PathfinderMob) titty));
-    //    }
-    //}
-
-    @SubscribeEvent
-    public void tossPrionItem(ItemTossEvent event) {
-        if (event.getPlayer().hasEffect(UPEffects.TARBLOOD_PRION.get())) {
-            ItemEntity fucker = event.getEntity();
-            ItemStack fuckerStack = fucker.getItem();
-            CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
-
-            if (!itemTags.contains("ItemInfectious")) {
-                itemTags.putBoolean("ItemInfectious", true);
-            }
-
-            fuckerStack.setTag(itemTags);
-        }
-    }
-
-    @SubscribeEvent
-    public void dropPrionItem(LivingDropsEvent event) {
-        if (event.getEntity().hasEffect(UPEffects.TARBLOOD_PRION.get())) {
-
-            Iterator<ItemEntity> iter = event.getDrops().iterator();
-
-            while(iter.hasNext()) {
-                ItemEntity fucker = iter.next();
-                ItemStack fuckerStack = fucker.getItem();
-                CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
-
-                if (!itemTags.contains("ItemInfectious")) {
-                    itemTags.putBoolean("ItemInfectious", true);
-                    //give the item an infectious tag
-                }
-
-                fuckerStack.setTag(itemTags);
-            }
-
-
-        }
-    }
-
-    @SubscribeEvent
-    public void pickupPrionItem(EntityItemPickupEvent event) {
-        //infects entity when they pick up an item with the prion
-
-        ItemEntity fucker = event.getItem();
-        ItemStack fuckerStack = fucker.getItem();
-        CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
-
-        if (itemTags.contains("ItemInfectious")) {
-            event.getEntity().addEffect(new MobEffectInstance(UPEffects.TARBLOOD_PRION.get(), -1));
-            //give the item an infectious tag
-        }
-    }
-
-    @SubscribeEvent
-    public void pickupPrionItemPlayer(PlayerEvent.ItemPickupEvent event) {
-        //infects player when they pick up an item with the prion
-
-        ItemEntity fucker = event.getOriginalEntity();
-        ItemStack fuckerStack = fucker.getItem();
-        CompoundTag itemTags = fuckerStack.getOrCreateTag().copy();
-
-        if (itemTags.contains("ItemInfectious")) {
-            event.getEntity().addEffect(new MobEffectInstance(UPEffects.TARBLOOD_PRION.get(), -1));
-            //give the item an infectious tag
-        }
-    }
-
-    @SubscribeEvent
-    public void thingsThatCannotBeMilkedEvent(MobEffectEvent.Remove event) {
-        // We don't want effects to not be clearable with commands
-//        if (event.getEffect() instanceof RampageEffect && !event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
-//            //rabies can't be milked away unless you are vaccinated
-//            event.setCanceled(true);
-//        }
-//        if (event.getEffect() instanceof TarbloodPrionEffect) {
-//            //prion diseases are permanent
-//            event.setCanceled(true);
-//        }
-
-        if (event.getEffect() instanceof RampageRemedyEffect) {
-
-            if(event.getEntity() instanceof ServerPlayer serverPlayer){
-                serverPlayer.getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(capability -> {
-                    System.out.println("rabiesvacc");
-
-                    if (serverPlayer.hasEffect(UPEffects.RABIES_VACCINE.get())) {
-                        capability.playerVaccinationTime = 0;
-                        //System.out.println(capability.playerVaccinationTime);
-                    }
-
-                });
-
-            }
-        } else {
-            event.getEntity().getCapability(UPCapabilities.ANIMAL_CAPABILITY).ifPresent(capability -> {
-                if (!event.getEntity().hasEffect(UPEffects.RABIES_VACCINE.get())) {
-                    capability.entityVaccinationTime = 0;
-                    //set vac time to 0 if the entity has no vacc effect
-                }
-            });
-        }
-        //can remove vaccines so that particles don't shit themselves
-    }
-
-//
-    private boolean checkContainRabies(Set<WrappedGoal> availableGoals) {
-        WrappedGoal[] arring = availableGoals.toArray(new WrappedGoal[0]);
-//
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
-                return true;
-                //has piss goal
-            }
-        }
-//
-        return false;
-        //has no piss goal
-        //remember this check also happens clientside and if that's the case it returns false.
-    }
-//
-    private void cutRabies(PathfinderMob titty) {
-        WrappedGoal[] arring = titty.goalSelector.getAvailableGoals().toArray(new WrappedGoal[0]);
-//
-        for (WrappedGoal wrappedGoal : arring) {
-            if (wrappedGoal.getGoal() instanceof RabiesHuntGoal) {
-                titty.goalSelector.removeGoal(wrappedGoal.getGoal());
-            }
         }
     }
 }

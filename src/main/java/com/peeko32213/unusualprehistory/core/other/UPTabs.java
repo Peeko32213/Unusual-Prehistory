@@ -128,7 +128,6 @@ public class UPTabs {
                         entries.accept(UPItems.ANTARCTO_PLATE.get());
                         entries.accept(UPItems.MAJUNGA_SCUTE.get());
                         entries.accept(UPItems.PSITTACOSAURUS_QUILL.get());
-                        entries.accept(UPItems.QUILL_REMEDY.get());
                         entries.accept(UPItems.PSITTACCO_ARROW.get());
                         entries.accept(UPItems.TRIKE_HORN.get());
                         entries.accept(UPItems.TYRANNO_SCALE.get());
@@ -223,9 +222,6 @@ public class UPTabs {
                         // Misc bottles
                         entries.accept(UPItems.GROG.get());
                         entries.accept(UPItems.CAPTURED_KIMMER_BOTTLE.get());
-                        entries.accept(UPItems.DORMANT_RAMPAGE_BOTTLE.get());
-                        entries.accept(UPItems.YIXIAN_RAMPAGE_BOTTLE.get());
-                        entries.accept(UPItems.TARBLOOD_PRION_NEEDLE.get());
 
                         // Paleo DNA
                         entries.accept(UPItems.AMMONITE_DNA.get());

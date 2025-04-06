@@ -14,18 +14,12 @@ import org.apache.logging.log4j.Logger;
 public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
     public static final Logger LOGGER = LogManager.getLogger();
     public int amberProtection = 0;
-    public int playerVaccinationTime = 0;
-    public int playersRabiesHadTime = 0;
-    public int playerTarbloodPrionTime = 0;
 
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
 
         nbt.putInt("amberProtection", this.amberProtection);
-        nbt.putInt("playerVaccinationTime", this.playerVaccinationTime);
-        nbt.putInt("playersRabiesHadTime", this.playersRabiesHadTime);
-        nbt.putInt("playerTarbloodPrionTime", this.playerTarbloodPrionTime);
 
         return nbt;
     }
@@ -34,9 +28,6 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag nbt) {
 
         this.amberProtection = nbt.getInt("amberProtection");
-        this.playerVaccinationTime = nbt.getInt("playerVaccinationTime");
-        this.playersRabiesHadTime = nbt.getInt("playersRabiesHadTime");
-        this.playerTarbloodPrionTime = nbt.getInt("playerTarbloodPrionTime");
     }
 
 
@@ -46,9 +37,6 @@ public class UPPlayerCapability implements INBTSerializable<CompoundTag> {
             event.getOriginal().getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(oldStore -> {
                 event.getOriginal().getCapability(UPCapabilities.PLAYER_CAPABILITY).ifPresent(newStore -> {
                     newStore.amberProtection = oldStore.amberProtection;
-                    newStore.playerVaccinationTime = oldStore.playerVaccinationTime;
-                    newStore.playersRabiesHadTime = oldStore.playersRabiesHadTime;
-                    newStore.playerTarbloodPrionTime = oldStore.playerTarbloodPrionTime;
                 });
             });
         }

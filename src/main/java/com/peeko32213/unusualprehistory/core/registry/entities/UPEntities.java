@@ -382,13 +382,6 @@ public class UPEntities {
                     .updateInterval(10)
                     .build(modPrefix("opalescent_shuriken").toString()));
 
-    public static final RegistryObject<EntityType<RabiesFlaskEntity>> RABIES_FLASK = ENTITIES.register("rabies_flask",
-            () ->  EntityType.Builder.<RabiesFlaskEntity>of(RabiesFlaskEntity::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
-                    .build(modPrefix("rabies_flask").toString()));
-
     public static final RegistryObject<EntityType<PalaeophisBookEntity>> BOOK_PALAEO = ENTITIES.register("palaeo_book_palaeo",
             () -> EntityType.Builder.<PalaeophisBookEntity>of(PalaeophisBookEntity::new, MobCategory.MISC)
                     .noSummon()

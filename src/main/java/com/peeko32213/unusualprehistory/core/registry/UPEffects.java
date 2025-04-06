@@ -17,9 +17,5 @@ public class UPEffects {
     public static final RegistryObject<MobEffect> SCREEN_SHAKE = EFFECT_DEF_REG.register("screen_shake", ScreenShakeEffect::new);
     public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("prevent_click", PreventClickEffect::new);
     public static final RegistryObject<MobEffect> HEALTH_REDUCTION = EFFECT_DEF_REG.register("health_reduction", HealthReductionEffect::new);
-    public static final RegistryObject<MobEffect> YIXIAN_RAMPAGE = EFFECT_DEF_REG.register("yixian_rampage", RampageEffect::new);
-    public static final RegistryObject<MobEffect> RABIES_VACCINE = EFFECT_DEF_REG.register("rabies_vaccine", RampageRemedyEffect::new);
-
-    public static final RegistryObject<MobEffect> TARBLOOD_PRION = EFFECT_DEF_REG.register("tarblood_prion", TarbloodPrionEffect::new);
 
 }
