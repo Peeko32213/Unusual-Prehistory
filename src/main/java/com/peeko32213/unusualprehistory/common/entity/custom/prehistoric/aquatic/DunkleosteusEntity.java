@@ -8,6 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAqu
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
@@ -24,6 +25,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -104,12 +106,20 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.DUNK_TARGETS)));
     }
 
+    @Override
+    public boolean isInvulnerableTo(DamageSource pSource) {
+        if(getVariant() == 1) {
+            return super.isInvulnerableTo(pSource) &&pSource.is(DamageTypes.ARROW);
+        }
+        return super.isInvulnerableTo(pSource);
+    }
+
     public boolean passive = false;
 
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.getItem() == UPItems.GOLDEN_SCAU.get() && !this.passive) {
+        if (itemstack.is(UPItemTags.DUNK_FOOD_PASSIFY) && !this.passive) {
 
             if (!this.level().isClientSide) {
 
@@ -123,7 +133,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
                 return InteractionResult.SUCCESS;
             }
         }
-        else if (itemstack.getItem() == UPItems.RAW_SCAU.get() && this.passive) {
+        else if (itemstack.is(UPItemTags.DUNK_FOOD) && this.passive) {
 
             if (!this.level().isClientSide) {
 

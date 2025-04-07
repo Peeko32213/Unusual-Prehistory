@@ -193,6 +193,14 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
                 Items.POTATO
         );
 
+        this.tag(UPItemTags.DUNK_FOOD_PASSIFY).add(
+                GOLDEN_SCAU.get()
+        );
+
+        this.tag(UPItemTags.DUNK_FOOD).add(
+                RAW_SCAU.get()
+        );
+
         this.tag(UPItemTags.ESTEMME_FOOD_ITEMS).add(
                 RAW_COTY.get(),
                 GINKGO_FRUIT.get(),
