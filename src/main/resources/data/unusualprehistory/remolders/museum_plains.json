@@ -6,7 +6,7 @@
     "value": {
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
-        "location": "unusualprehistory:village/houses/plains_museum_1",
+        "location": "unusualprehistory:village/houses/plains_museum",
         "processors": "minecraft:mossify_10_percent",
         "projection": "rigid"
       },

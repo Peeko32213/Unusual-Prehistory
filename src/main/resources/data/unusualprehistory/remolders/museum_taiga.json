@@ -6,14 +6,12 @@
     "value": {
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
-        "location": "unusualprehistory:village/houses/snowy_museum",
-        "processors": {
-          "processors": []
-        },
+        "location": "unusualprehistory:village/houses/taiga_museum",
+        "processors": "minecraft:mossify_10_percent",
         "projection": "rigid"
       },
       "weight": 20
     }
   },
-  "selector": "minecraft:worldgen/template_pool/village/snowy/houses"
+  "selector": "minecraft:worldgen/template_pool/village/taiga/houses"
 }

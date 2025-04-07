@@ -6,7 +6,7 @@
     "value": {
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
-        "location": "unusualprehistory:village/houses/snowy_museum_1",
+        "location": "unusualprehistory:village/houses/snowy_museum",
         "processors": {
           "processors": []
         },
