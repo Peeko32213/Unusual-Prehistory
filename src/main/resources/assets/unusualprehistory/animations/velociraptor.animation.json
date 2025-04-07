@@ -3239,7 +3239,7 @@
 			"bones": {
 				"body_main": {
 					"rotation": ["-5+math.sin(query.anim_time*720)*2.5", "math.sin(query.anim_time*360-45)*5", "math.sin(query.anim_time*360)*-5"],
-					"position": [0, "-5+math.sin(query.anim_time*720+60)*0.25", "math.sin(query.anim_time*90)*1"]
+					"position": [0, "math.sin(query.anim_time*720+60)*0.25", "math.sin(query.anim_time*90)*1"]
 				},
 				"neck1": {
 					"rotation": ["10+math.sin(query.anim_time*720-60)*-2.5", "math.sin(query.anim_time*360-105)*-5", "math.sin(query.anim_time*360-60)*5"]
@@ -3908,6 +3908,11 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.4375": {
+					"effect": "velociraptor_bite"
 				}
 			}
 		},
@@ -4868,6 +4873,11 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.8542": {
+					"effect": "velociraptor_kick"
 				}
 			}
 		}

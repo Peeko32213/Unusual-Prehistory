@@ -16,7 +16,7 @@ public class PrehistoricPanicGoal extends PanicGoal {
     }
 
     protected boolean findRandomPosition() {
-        Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 15, 4);
+        Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 16, 8);
         if (vec3 == null) {
             return false;
         } else {
@@ -33,7 +33,7 @@ public class PrehistoricPanicGoal extends PanicGoal {
         if (!level.getBlockState(entityPos).getCollisionShape(level, entityPos).isEmpty()) {
             return null;
         }
-        return BlockPos.findClosestMatch(entityPos, range + 5, 2, (pos) -> level.getFluidState(pos).is(FluidTags.WATER)).orElse(null);
+        return BlockPos.findClosestMatch(entityPos, range + 6, 4, (pos) -> level.getFluidState(pos).is(FluidTags.WATER)).orElse(null);
     }
 }
 

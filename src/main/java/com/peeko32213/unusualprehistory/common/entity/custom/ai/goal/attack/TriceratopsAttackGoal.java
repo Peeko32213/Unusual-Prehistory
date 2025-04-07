@@ -4,7 +4,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.Tricera
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -33,14 +32,14 @@ public class TriceratopsAttackGoal extends Goal {
     }
 
     public void start() {
-        triceratops.setAggro(!triceratops.isVehicle());
+        triceratops.setRunning(!triceratops.isVehicle());
         triceratops.setAnimationState(0);
         this.animTime = 0;
         this.chargeCD = 0;
     }
 
     public void stop() {
-        triceratops.setAggro(false);
+        triceratops.setRunning(false);
         triceratops.setAnimationState(0);
     }
 

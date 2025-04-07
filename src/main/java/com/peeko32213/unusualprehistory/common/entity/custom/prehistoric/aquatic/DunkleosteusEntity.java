@@ -4,13 +4,12 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.DunkleosteusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
 import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import net.minecraft.nbt.CompoundTag;
@@ -20,19 +19,18 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -46,12 +44,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 public class DunkleosteusEntity extends PrehistoricAquaticEntity {
 
@@ -102,16 +100,48 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1.2, 1, 70, 70, 3));
+        this.goalSelector.addGoal(1, new DunkleosteusAttackGoal(this));
         this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.DUNK_TARGETS)));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, false, this::canAttack) {
+        @Override
+        public boolean canUse() {
+            if(this.mob instanceof DunkleosteusEntity dunkleosteus) {
+                if(dunkleosteus.getDunkSize() > 0) return false;
+            }
+            return super.canUse();
+        }});
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.BIG_DUNK_TARGETS)){
+        @Override
+        public boolean canUse() {
+            if(this.mob instanceof DunkleosteusEntity dunkleosteus) {
+                if(dunkleosteus.getDunkSize() == 2) return false;
+            }
+            return super.canUse();
+        }});
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.MEDIUM_DUNK_TARGETS)){
+        @Override
+        public boolean canUse() {
+            if(this.mob instanceof DunkleosteusEntity dunkleosteus) {
+                if(dunkleosteus.getDunkSize() == 1) return false;
+            }
+            return super.canUse();
+        }});
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.SMALL_DUNK_TARGETS)){
+        @Override
+        public boolean canUse() {
+            if(this.mob instanceof DunkleosteusEntity dunkleosteus) {
+                if(dunkleosteus.getDunkSize() == 0) return false;
+            }
+            return super.canUse();
+        }});
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource pSource) {
-        if(getVariant() == 1) {
-            return super.isInvulnerableTo(pSource) &&pSource.is(DamageTypes.ARROW);
+    public boolean isInvulnerableTo(DamageSource source) {
+        if(getDunkSize() == 2.0F) {
+            return source.is(DamageTypeTags.IS_PROJECTILE) | super.isInvulnerableTo(source);
         }
-        return super.isInvulnerableTo(pSource);
+        return super.isInvulnerableTo(source);
     }
 
     public boolean passive = false;
@@ -119,7 +149,7 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
     @Override
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.is(UPItemTags.DUNK_FOOD_PASSIFY) && !this.passive) {
+        if (itemstack.is(UPItemTags.DUNK_FOOD_PACIFY) && !this.passive) {
 
             if (!this.level().isClientSide) {
 
@@ -258,43 +288,57 @@ public class DunkleosteusEntity extends PrehistoricAquaticEntity {
         super.aiStep();
     }
 
+    // Animation control
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+        AnimationController<DunkleosteusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<DunkleosteusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        controllers.add(attack);
     }
 
-    protected <E extends DunkleosteusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends DunkleosteusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return event.setAndContinue(DUNK_IDLE);
         }
 
-        int animState = this.getAnimationState();
-
         if(!this.isFromBook()) {
-            if (animState == 1) {
-                return event.setAndContinue(DUNK_ATTACK);
-            } else {
-                if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                    if(this.isSprinting()){
-                        event.setAndContinue(DUNK_SWIM_SPRINT);
-                        event.getController().setAnimationSpeed(1.0F);
-                    } else {
-                        event.setAndContinue(DUNK_SWIM);
-                        event.getController().setAnimationSpeed(1.0F);
-                    }
-                    return PlayState.CONTINUE;
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                if(this.isSprinting()){
+                    event.setAndContinue(DUNK_SWIM_SPRINT);
+                    event.getController().setAnimationSpeed(1.0F + event.getLimbSwingAmount());
+                } else {
+                    event.setAndContinue(DUNK_SWIM);
+                    event.getController().setAnimationSpeed(1.0F + event.getLimbSwingAmount());
                 }
-                if (!this.isInWater()) {
-                    event.setAndContinue(DUNK_BEACHED);
-                    event.getController().setAnimationSpeed(1.0F);
-                    return PlayState.CONTINUE;
-                } else if (this.isInWater()) {
-                    event.setAndContinue(DUNK_IDLE);
-                    return PlayState.CONTINUE;
-                }
+                return PlayState.CONTINUE;
+            }
+            if (!this.isInWater()) {
+                event.setAndContinue(DUNK_BEACHED);
+                event.getController().setAnimationSpeed(1.0F + event.getLimbSwingAmount());
+                return PlayState.CONTINUE;
+            } else if (this.isInWater()) {
+                event.setAndContinue(DUNK_IDLE);
+                return PlayState.CONTINUE;
             }
         }
         return PlayState.CONTINUE;
+    }
+
+    // Attack animations
+    protected <E extends DunkleosteusEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+
+        if (animState == 21) {
+            event.setAndContinue(DUNK_ATTACK);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
     }
 
     @Override

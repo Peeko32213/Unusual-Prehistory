@@ -106,7 +106,7 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
                 .addOptional(new ResourceLocation("naturalist:rattlesnake"))
         ;
 
-        tag(UPEntityTypeTags.DUNK_TARGETS)
+        tag(UPEntityTypeTags.BIG_DUNK_TARGETS)
                 .add(UPEntities.AMMON.get())
                 .add(EntityType.SQUID)
                 .add(EntityType.GLOW_SQUID)
@@ -117,6 +117,21 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
                 .add(EntityType.PUFFERFISH)
                 .add(EntityType.DROWNED)
                 .add(EntityType.GUARDIAN)
+        ;
+
+        tag(UPEntityTypeTags.MEDIUM_DUNK_TARGETS)
+                .add(EntityType.SQUID)
+                .add(EntityType.GLOW_SQUID)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.DOLPHIN)
+                .add(EntityType.TROPICAL_FISH)
+                .add(EntityType.PUFFERFISH)
+                .add(EntityType.DROWNED)
+        ;
+
+        tag(UPEntityTypeTags.SMALL_DUNK_TARGETS)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.TROPICAL_FISH)
         ;
 
         tag(UPEntityTypeTags.XIPH_TARGETS)

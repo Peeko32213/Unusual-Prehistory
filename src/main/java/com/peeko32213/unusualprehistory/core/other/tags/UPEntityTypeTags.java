@@ -20,7 +20,9 @@ public class UPEntityTypeTags {
     public static final TagKey<EntityType<?>> RAPTOR_TARGETS = entityTypeTag("raptor_targets");
     public static final TagKey<EntityType<?>> ANTARCTO_TARGETS = entityTypeTag("antarcto_targets");
     public static final TagKey<EntityType<?>> ENCRUSTED_TARGETS = entityTypeTag("encrusted_targets");
-    public static final TagKey<EntityType<?>> DUNK_TARGETS = entityTypeTag("dunk_targets");
+    public static final TagKey<EntityType<?>> BIG_DUNK_TARGETS = entityTypeTag("large_dunkleosteus_targets");
+    public static final TagKey<EntityType<?>> MEDIUM_DUNK_TARGETS = entityTypeTag("medium_dunkleosteus_targets");
+    public static final TagKey<EntityType<?>> SMALL_DUNK_TARGETS = entityTypeTag("small_dunkleosteus_targets");
     public static final TagKey<EntityType<?>> HYNERIA_TARGETS = entityTypeTag("hyneria_targets");
     public static final TagKey<EntityType<?>> LAND_MOBS = entityTypeTag("land_mobs");
     public static final TagKey<EntityType<?>> PSITTACO_TARGETS = entityTypeTag("psittaco_targets");

@@ -98,14 +98,14 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     // Starting predicates
     private static final Predicate<LivingEntity> TRICERATOPS_STARTING_PREDICATE = (e -> {
         if(e instanceof TriceratopsEntity entity) {
-            return !entity.isAggro() && !entity.isSprinting() && !entity.isInWater();
+            return !entity.isRunning() && !entity.isSprinting() && !entity.isInWater();
         }
         return false;
     });
 
     private static final Predicate<LivingEntity> TRICERATOPS_GRAZING_PREDICATE = (e -> {
         if(e instanceof TriceratopsEntity entity) {
-            return !entity.isAggro() && !entity.isSprinting() && !entity.isInWater() && entity.level().getBlockState(entity.blockPosition().below()).is(UPBlockTags.TRIKE_GRAZING_BLOCKS);
+            return !entity.isRunning() && !entity.isSprinting() && !entity.isInWater() && entity.level().getBlockState(entity.blockPosition().below()).is(UPBlockTags.TRIKE_GRAZING_BLOCKS);
         }
         return false;
     });
@@ -309,12 +309,12 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             }
         }
 
-        if (isAggro() && !hasAggroAttributes) {
-            hasAggroAttributes = true;
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.34D);
         }
-        if (!isAggro() && hasAggroAttributes) {
-            hasAggroAttributes = false;
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.15D);
         }
     }
@@ -609,7 +609,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 }
             }
             else {
-                if (this.isSprinting() || this.isAggro()) {
+                if (this.isSprinting() || this.isRunning()) {
                     event.setAndContinue(TRIKE_SPRINT);
                     event.getController().setAnimationSpeed(1.0F);
                 } else {

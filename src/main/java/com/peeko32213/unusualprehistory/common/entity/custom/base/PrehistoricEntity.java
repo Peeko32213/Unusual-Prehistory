@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.base;
 
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TriceratopsEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
@@ -10,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -33,7 +31,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    private static final EntityDataAccessor<Boolean> AGGRO = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> RUNNING = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PERFORMING_ACTION = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> COMMAND = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.BOOLEAN);
@@ -48,7 +46,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private static final EntityDataAccessor<Integer> STANDING_TIME = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SITTING_LAG = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
 
-    public boolean hasAggroAttributes = false;
+    public boolean hasRunningAttributes = false;
 
     protected PrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -116,11 +114,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         }
     }
 
-    // Heal on kill
-//    public void killed() {
-//        this.heal(getKillHealAmount());
-//    }
-
     public void checkDespawn() {
         if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
             this.discard();
@@ -161,7 +154,7 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(AGGRO, false);
+        this.entityData.define(RUNNING, false);
         this.entityData.define(PERFORMING_ACTION, false);
         this.entityData.define(SADDLED, false);
         this.entityData.define(IS_FROM_EGG, false);
@@ -205,11 +198,11 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     }
 
     // Set aggressive
-    public boolean isAggro() {
-        return this.entityData.get(AGGRO);
+    public boolean isRunning() {
+        return this.entityData.get(RUNNING);
     }
-    public void setAggro(boolean bool) {
-        this.entityData.set(AGGRO, bool);
+    public void setRunning(boolean bool) {
+        this.entityData.set(RUNNING, bool);
     }
 
     // Animation states

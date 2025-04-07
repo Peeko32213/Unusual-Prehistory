@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 
 public class UPItemTags {
     public static final TagKey<Item> NONE_ITEM_TAG = itemTag("none_item_tag");
-    public static final TagKey<Item> DUNK_FOOD_PASSIFY = itemTag("dunkleosteus_food_passify");
+    public static final TagKey<Item> DUNK_FOOD_PACIFY = itemTag("pacifies_dunkleosteus");
     public static final TagKey<Item> DUNK_FOOD = itemTag("dunkleosteus_food");
 
 

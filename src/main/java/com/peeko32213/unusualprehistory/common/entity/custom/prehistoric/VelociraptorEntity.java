@@ -7,7 +7,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStat
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PounceGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.VelociraptorFleeGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.VelociraptorPushButtonsGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.VelociraptorAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
@@ -25,9 +25,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -35,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -49,8 +48,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-
-import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
+import java.util.function.Predicate;
 
 
 public class VelociraptorEntity extends PrehistoricEntity {
@@ -89,257 +87,125 @@ public class VelociraptorEntity extends PrehistoricEntity {
     private static final RawAnimation VELOCI_KICK = RawAnimation.begin().thenPlay("animation.velociraptor.kick");
 
     // Idle accessors
-    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_5_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_6_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_7_AC = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LOOKOUT_1 = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LOOKOUT_2 = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> CHATTER = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SCRATCH_1 = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SCRATCH_2 = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PREEN_1 = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PREEN_2 = SynchedEntityData.defineId(VelociraptorEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Starting predicates
+    private static final Predicate<LivingEntity> VELOCIRAPTOR_STARTING_PREDICATE = (e -> {
+        if(e instanceof VelociraptorEntity entity) {
+            return !entity.isRunning() && !entity.isSprinting() && !entity.isInWater() && entity.onGround();
+        }
+        return false;
+    });
 
     // Idle actions
-    private static final EntityAction VELOCI_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_LOOKOUT_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_1_STATE =
-            StateHelper.Builder.state(IDLE_1_AC, "velociraptor_lookout_1")
+    private static final StateHelper VELOCI_LOOKOUT_1_STATE =
+            StateHelper.Builder.state(LOOKOUT_1, "velociraptor_lookout_1")
                     .playTime(60)
                     .stopTime(150)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
                     .affectsAI(true)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(VELOCI_IDLE_1_ACTION)
+                    .entityAction(VELOCI_LOOKOUT_1_ACTION)
                     .build();
 
-    private static final EntityAction VELOCI_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_LOOKOUT_2_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_2_STATE =
-            StateHelper.Builder.state(IDLE_2_AC, "velociraptor_lookout_2")
+    private static final StateHelper VELOCI_LOOKOUT_2_STATE =
+            StateHelper.Builder.state(LOOKOUT_2, "velociraptor_lookout_2")
                     .playTime(60)
                     .stopTime(150)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
                     .affectsAI(true)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(VELOCI_IDLE_2_ACTION)
+                    .entityAction(VELOCI_LOOKOUT_2_ACTION)
                     .build();
 
-    private static final EntityAction VELOCI_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_CHATTER_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_3_STATE =
-            StateHelper.Builder.state(IDLE_3_AC, "velociraptor_chatter")
+    private static final StateHelper VELOCI_CHATTER_STATE =
+            StateHelper.Builder.state(CHATTER, "velociraptor_chatter")
                     .playTime(60)
                     .stopTime(150)
-                    .entityAction(VELOCI_IDLE_3_ACTION)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
+                    .entityAction(VELOCI_CHATTER_ACTION)
                     .build();
 
-    private static final EntityAction VELOCI_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_SCRATCH_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_4_STATE =
-            StateHelper.Builder.state(IDLE_4_AC, "velociraptor_scratch_1")
+    private static final StateHelper VELOCI_SCRATCH_1_STATE =
+            StateHelper.Builder.state(SCRATCH_1, "velociraptor_scratch_1")
                     .playTime(60)
                     .stopTime(150)
-                    .entityAction(VELOCI_IDLE_4_ACTION)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
+                    .entityAction(VELOCI_SCRATCH_1_ACTION)
                     .build();
 
-    private static final EntityAction VELOCI_IDLE_5_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_SCRATCH_2_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_5_STATE =
-            StateHelper.Builder.state(IDLE_5_AC, "velociraptor_scratch_2")
+    private static final StateHelper VELOCI_SCRATCH_2_STATE =
+            StateHelper.Builder.state(SCRATCH_2, "velociraptor_scratch_2")
                     .playTime(60)
                     .stopTime(150)
-                    .entityAction(VELOCI_IDLE_5_ACTION)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
+                    .entityAction(VELOCI_SCRATCH_2_ACTION)
                     .build();
 
-    private static final EntityAction VELOCI_IDLE_6_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_PREEN_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_6_STATE =
-            StateHelper.Builder.state(IDLE_6_AC, "velociraptor_preen_1")
+    private static final StateHelper VELOCI_PREEN_1_STATE =
+            StateHelper.Builder.state(PREEN_1, "velociraptor_preen_1")
                     .playTime(60)
                     .stopTime(150)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
                     .affectsAI(true)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(VELOCI_IDLE_6_ACTION)
+                    .entityAction(VELOCI_PREEN_1_ACTION)
                     .build();
 
-    private static final EntityAction VELOCI_IDLE_7_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction VELOCI_PREEN_2_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper VELOCI_IDLE_7_STATE =
-            StateHelper.Builder.state(IDLE_7_AC, "velociraptor_preen_2")
+    private static final StateHelper VELOCI_PREEN_2_STATE =
+            StateHelper.Builder.state(PREEN_2, "velociraptor_preen_2")
                     .playTime(60)
                     .stopTime(150)
+                    .startingPredicate(VELOCIRAPTOR_STARTING_PREDICATE)
                     .affectsAI(true)
                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                    .entityAction(VELOCI_IDLE_7_ACTION)
+                    .entityAction(VELOCI_PREEN_2_ACTION)
                     .build();
 
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
-                VELOCI_IDLE_1_STATE.getName(), VELOCI_IDLE_1_STATE,
-                VELOCI_IDLE_2_STATE.getName(), VELOCI_IDLE_2_STATE,
-                VELOCI_IDLE_3_STATE.getName(), VELOCI_IDLE_3_STATE,
-                VELOCI_IDLE_4_STATE.getName(), VELOCI_IDLE_4_STATE,
-                VELOCI_IDLE_5_STATE.getName(), VELOCI_IDLE_5_STATE,
-                VELOCI_IDLE_6_STATE.getName(), VELOCI_IDLE_6_STATE,
-                VELOCI_IDLE_7_STATE.getName(), VELOCI_IDLE_7_STATE
+                VELOCI_LOOKOUT_1_STATE.getName(), VELOCI_LOOKOUT_1_STATE,
+                VELOCI_LOOKOUT_2_STATE.getName(), VELOCI_LOOKOUT_2_STATE,
+                VELOCI_CHATTER_STATE.getName(), VELOCI_CHATTER_STATE,
+                VELOCI_SCRATCH_1_STATE.getName(), VELOCI_SCRATCH_1_STATE,
+                VELOCI_SCRATCH_2_STATE.getName(), VELOCI_SCRATCH_2_STATE,
+                VELOCI_PREEN_1_STATE.getName(), VELOCI_PREEN_1_STATE,
+                VELOCI_PREEN_2_STATE.getName(), VELOCI_PREEN_2_STATE
         );
     }
 
     @Override
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
-                WeightedState.of(VELOCI_IDLE_1_STATE, 10),
-                WeightedState.of(VELOCI_IDLE_2_STATE, 10),
-                WeightedState.of(VELOCI_IDLE_3_STATE, 12),
-                WeightedState.of(VELOCI_IDLE_4_STATE, 11),
-                WeightedState.of(VELOCI_IDLE_5_STATE, 11),
-                WeightedState.of(VELOCI_IDLE_6_STATE, 9),
-                WeightedState.of(VELOCI_IDLE_7_STATE, 9)
+                WeightedState.of(VELOCI_LOOKOUT_1_STATE, 10),
+                WeightedState.of(VELOCI_LOOKOUT_2_STATE, 10),
+                WeightedState.of(VELOCI_CHATTER_STATE, 12),
+                WeightedState.of(VELOCI_SCRATCH_1_STATE, 11),
+                WeightedState.of(VELOCI_SCRATCH_2_STATE, 11),
+                WeightedState.of(VELOCI_PREEN_1_STATE, 9),
+                WeightedState.of(VELOCI_PREEN_2_STATE, 9)
         );
-    }
-
-    // Animation sounds
-    private void soundListener(SoundKeyframeEvent<VelociraptorEntity> event) {
-        VelociraptorEntity velociraptor = event.getAnimatable();
-        if (event.getKeyframeData().getSound().equals("velociraptor_attack")) {
-            velociraptor.level().playLocalSound(velociraptor.getX(), velociraptor.getY(), velociraptor.getZ(), UPSounds.VELOCIRAPTOR_ATTACK.get(), velociraptor.getSoundSource(), 0.5F, velociraptor.getVoicePitch(), false);
-        }
-    }
-
-    // Animation control
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<VelociraptorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-
-        AnimationController<VelociraptorEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
-                .triggerableAnim("lookout_1", VELOCI_LOOKOUT_1)
-                .triggerableAnim("lookout_2", VELOCI_LOOKOUT_2)
-                .triggerableAnim("scratch_1", VELOCI_SCRATCH_1)
-                .triggerableAnim("scratch_2", VELOCI_SCRATCH_2)
-                .triggerableAnim("chatter", VELOCI_CHATTER);
-        blend.setSoundKeyframeHandler(this::soundListener);
-        controllers.add(blend);
-
-        AnimationController<VelociraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
-        controllers.add(flap);
-
-        AnimationController<VelociraptorEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
-        attack.setSoundKeyframeHandler(this::soundListener);
-        controllers.add(attack);
-    }
-
-    protected <E extends VelociraptorEntity> PlayState predicate(final AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            return event.setAndContinue(VELOCI_IDLE);
-        }
-
-        if (this.isInWater()) {
-            event.setAndContinue(VELOCI_SWIM);
-            event.getController().setAnimationSpeed(1.0D);
-            return PlayState.CONTINUE;
-        }
-
-        else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
-            if (this.isSprinting() || this.isAggro()) {
-                event.setAndContinue(VELOCI_RUN);
-                event.getController().setAnimationSpeed(1.0D);
-            } else {
-                event.setAndContinue(VELOCI_WALK);
-                event.getController().setAnimationSpeed(1.0D);
-            }
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isFlapping()) {
-            event.setAndContinue(VELOCI_JUMP);
-            event.getController().setAnimationSpeed(1.0D);
-        }
-
-        if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "lookout_1");
-                    return event.setAndContinue(VELOCI_IDLE);
-                } else {
-                    triggerAnim("blend", "lookout_1");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_2_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "lookout_2");
-                    return event.setAndContinue(VELOCI_IDLE);
-                } else {
-                    triggerAnim("blend", "lookout_2");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_3_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "scratch_1");
-                    return event.setAndContinue(VELOCI_IDLE);
-                } else {
-                    triggerAnim("blend", "scratch_1");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_4_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "scratch_2");
-                    return event.setAndContinue(VELOCI_IDLE);
-                } else {
-                    triggerAnim("blend", "scratch_2");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_5_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "chatter");
-                    return event.setAndContinue(VELOCI_IDLE);
-                } else {
-                    triggerAnim("blend", "chatter");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_6_AC)) {
-                return event.setAndContinue(VELOCI_PREEN_1);
-            }
-            if (getBooleanState(IDLE_7_AC)) {
-                return event.setAndContinue(VELOCI_PREEN_2);
-            }
-            return event.setAndContinue(VELOCI_IDLE);
-        }
-        return PlayState.CONTINUE;
-    }
-
-    // Falling animation
-    protected <E extends VelociraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
-        if (!this.onGround() && !this.isInWater()) {
-            event.getController().setAnimation(VELOCI_JUMP);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-        event.getController().forceAnimationReset();
-
-        return PlayState.STOP;
-    }
-
-    // Attack animations
-    protected <E extends VelociraptorEntity> PlayState attackPredicate(final AnimationState<E> event) {
-        int animState = this.getAnimationState();
-
-        if (animState == 21) {
-            event.setAndContinue(VELOCI_BITE);
-            return PlayState.CONTINUE;
-        }
-        else if (animState == 22) {
-            event.setAndContinue(VELOCI_KICK);
-            return PlayState.CONTINUE;
-        }
-        else if (animState == 0) {
-            event.getController().forceAnimationReset();
-            return PlayState.STOP;
-        }
-        else return PlayState.CONTINUE;
     }
 
     // Body control / navigation
@@ -364,20 +230,21 @@ public class VelociraptorEntity extends PrehistoricEntity {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 14.0D).add(Attributes.MOVEMENT_SPEED, 0.22D).add(Attributes.ATTACK_DAMAGE, 5.0D).add(Attributes.FOLLOW_RANGE, 32D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.MOVEMENT_SPEED, 0.22D).add(Attributes.ATTACK_DAMAGE, 5.0D).add(Attributes.FOLLOW_RANGE, 32D);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PounceGoal(this, 0));
         this.goalSelector.addGoal(1, new VelociraptorAttackGoal(this));
+        this.goalSelector.addGoal(6, new VelociraptorFleeGoal(this));
         this.goalSelector.addGoal(4, new VelociraptorPushButtonsGoal(this, 0.5F, 5, 2));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
         this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(4, (new HurtByTargetGoal(this, VelociraptorEntity.class)).setAlertOthers());
     }
 
     @Override
@@ -415,13 +282,24 @@ public class VelociraptorEntity extends PrehistoricEntity {
     public void tick() {
         super.tick();
 
-        if (isAggro() && !hasAggroAttributes) {
-            hasAggroAttributes = true;
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.4D);
         }
-        if (!isAggro() && hasAggroAttributes) {
-            hasAggroAttributes = false;
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.22D);
+        }
+
+        LivingEntity target = this.getTarget();
+        if (target != null && target.isAlive() && !(target instanceof Player player && player.isCreative())) {
+            if (this.getHealth() < this.getMaxHealth() * 0.25F) {
+                if (target instanceof Mob mob) {
+                    mob.setTarget(null);
+                    mob.setLastHurtByMob(null);
+                    mob.setLastHurtMob(null);
+                }
+            }
         }
     }
 
@@ -467,13 +345,13 @@ public class VelociraptorEntity extends PrehistoricEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(IDLE_1_AC, false);
-        this.entityData.define(IDLE_2_AC, false);
-        this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(IDLE_4_AC, false);
-        this.entityData.define(IDLE_5_AC, false);
-        this.entityData.define(IDLE_6_AC, false);
-        this.entityData.define(IDLE_7_AC, false);
+        this.entityData.define(LOOKOUT_1, false);
+        this.entityData.define(LOOKOUT_2, false);
+        this.entityData.define(CHATTER, false);
+        this.entityData.define(SCRATCH_1, false);
+        this.entityData.define(SCRATCH_2, false);
+        this.entityData.define(PREEN_1, false);
+        this.entityData.define(PREEN_2, false);
         this.entityData.define(PRESS, false);
     }
 
@@ -518,4 +396,133 @@ public class VelociraptorEntity extends PrehistoricEntity {
         }
     }
 
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<VelociraptorEntity> event) {
+        VelociraptorEntity velociraptor = event.getAnimatable();
+        if (event.getKeyframeData().getSound().equals("velociraptor_bite")) {
+            velociraptor.level().playLocalSound(velociraptor.getX(), velociraptor.getY(), velociraptor.getZ(), UPSounds.VELOCIRAPTOR_ATTACK.get(), velociraptor.getSoundSource(), 0.4F, velociraptor.getVoicePitch(), false);
+        }
+        if (event.getKeyframeData().getSound().equals("velociraptor_kick")) {
+            velociraptor.level().playLocalSound(velociraptor.getX(), velociraptor.getY(), velociraptor.getZ(), UPSounds.TAIL_SWIPE.get(), velociraptor.getSoundSource(), 0.3F, velociraptor.getVoicePitch(), false);
+        }
+    }
+
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<VelociraptorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<VelociraptorEntity> idle = new AnimationController<>(this, "idleController", 5, this::idlePredicate);
+        idle.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(idle);
+
+        AnimationController<VelociraptorEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
+        controllers.add(flap);
+
+        AnimationController<VelociraptorEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
+    }
+
+    protected <E extends VelociraptorEntity> PlayState predicate(final AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(VELOCI_IDLE);
+        }
+
+        if (this.isInWater()) {
+            event.setAndContinue(VELOCI_SWIM);
+            event.getController().setAnimationSpeed(1.0D);
+            return PlayState.CONTINUE;
+        }
+
+        else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
+            if (this.isSprinting() || this.isRunning()) {
+                event.setAndContinue(VELOCI_RUN);
+                event.getController().setAnimationSpeed(1.0D);
+            } else {
+                event.setAndContinue(VELOCI_WALK);
+                event.getController().setAnimationSpeed(1.0D);
+            }
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isFlapping()) {
+            event.setAndContinue(VELOCI_JUMP);
+            event.getController().setAnimationSpeed(1.0D);
+        }
+
+        if (!this.isInWater()) {
+            return event.setAndContinue(VELOCI_IDLE);
+        }
+        return PlayState.CONTINUE;
+    }
+
+    // Idle animations
+    protected <E extends VelociraptorEntity> PlayState idlePredicate(final AnimationState<E> event) {
+        if (!this.isRunning() || !this.onGround()) {
+            if (getBooleanState(LOOKOUT_1)) {
+                event.getController().setAnimation(VELOCI_LOOKOUT_1);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(LOOKOUT_2)) {
+                event.getController().setAnimation(VELOCI_LOOKOUT_2);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(CHATTER)) {
+                event.getController().setAnimation(VELOCI_CHATTER);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(SCRATCH_1)) {
+                event.getController().setAnimation(VELOCI_SCRATCH_1);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(SCRATCH_2)) {
+                event.getController().setAnimation(VELOCI_SCRATCH_2);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(PREEN_1)) {
+                event.getController().setAnimation(VELOCI_PREEN_1);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(PREEN_2)) {
+                event.getController().setAnimation(VELOCI_PREEN_2);
+                return PlayState.CONTINUE;
+            }
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
+    }
+
+    // Attack animations
+    protected <E extends VelociraptorEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+
+        if (animState == 21) {
+            event.setAndContinue(VELOCI_BITE);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 22) {
+            event.setAndContinue(VELOCI_KICK);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
+    }
+
+    // Falling animation
+    protected <E extends VelociraptorEntity> PlayState flapPredicate(final AnimationState<E> event) {
+        if (!this.onGround() && !this.isInWater()) {
+            event.getController().setAnimation(VELOCI_JUMP);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+
+        return PlayState.STOP;
+    }
 }

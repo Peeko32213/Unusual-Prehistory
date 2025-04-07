@@ -98,7 +98,7 @@ public class KimmeridgebrachypteraeschnidiumEntity extends PrehistoricEntity imp
     // Starting predicates
     private static final Predicate<LivingEntity> KIMMER_STARTING_PREDICATE = (e -> {
         if(e instanceof KimmeridgebrachypteraeschnidiumEntity entity) {
-            return !entity.isAggro() && !entity.isSprinting() && !entity.isInWater() && !entity.isFlying();
+            return !entity.isRunning() && !entity.isSprinting() && !entity.isInWater() && !entity.isFlying();
         }
         return false;
     });
