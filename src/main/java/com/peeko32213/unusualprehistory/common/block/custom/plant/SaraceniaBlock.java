@@ -36,7 +36,7 @@ public class SaraceniaBlock extends BushBlock implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel p_220874_, RandomSource p_220875_, BlockPos p_220876_, BlockState p_220877_) {
-        DoublePlantBlock doubleplantblock = (DoublePlantBlock) (this == UPBlocks.SARACENIA.get() ? UPBlocks.TALL_SARACENIA.get() : UPBlocks.TALL_SARACENIA.get());
+        DoublePlantBlock doubleplantblock = (DoublePlantBlock) (UPBlocks.TALL_SARACENIA.get());
         if (doubleplantblock.defaultBlockState().canSurvive(p_220874_, p_220876_) && p_220874_.isEmptyBlock(p_220876_.above())) {
             DoublePlantBlock.placeAt(p_220874_, doubleplantblock.defaultBlockState(), p_220876_, 2);
         }

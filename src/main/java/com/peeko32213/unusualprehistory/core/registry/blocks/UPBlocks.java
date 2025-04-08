@@ -165,6 +165,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> RAIGUENRAYUN = registerBlock("raiguenrayun", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
     public static final RegistryObject<Block> SARACENIA = registerBlock("sarracenia", () -> new SaraceniaBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
     public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
+    public static final RegistryObject<Block> ISOETES_BEESTONII = createBlock("isoetes_beestonii", () -> new IsoetesBeestoniiBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> CLADOPHLEBIS = createBlock("cladophlebis", () -> new CladophlebisBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
 
     // Prehistoric corals
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
@@ -178,11 +180,13 @@ public class UPBlocks {
     public static final RegistryObject<Block> CLATHRODICTYON_WALL_FAN = BLOCKS.register("clathrodictyon_wall_fan", () -> new CoralWallFanBlock(DEAD_CLATHRODICTYON_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(CLATHRODICTYON_FAN.get())));
 
     // Potted plants
-    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.HORSETAIL, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-    public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutBlockItem("potted_leefructus", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.LEEFRUCTUS, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-    public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutBlockItem("potted_bennett", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.BENNETTITALES, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILARIA = registerBlockWithoutBlockItem("potted_archaeos", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.ARCHAEOSIGILARIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
-    public static final RegistryObject<Block> POTTED_SARACENIA = registerBlockWithoutBlockItem("potted_sarracenia", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, UPBlocks.SARACENIA, BlockBehaviour.Properties.copy(Blocks.POTTED_DANDELION).noOcclusion()));
+    public static final RegistryObject<Block> POTTED_HORSETAIL = registerBlockWithoutBlockItem("potted_horsetail", () -> new FlowerPotBlock(UPBlocks.HORSETAIL.get(), PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_LEEFRUCTUS = registerBlockWithoutBlockItem("potted_leefructus", () -> new FlowerPotBlock(UPBlocks.LEEFRUCTUS.get(), PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_BENNETTITALES = registerBlockWithoutBlockItem("potted_bennettitales", () -> new FlowerPotBlock(UPBlocks.BENNETTITALES.get(), PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_ARCHAEOSIGILARIA = registerBlockWithoutBlockItem("potted_archaeosigilaria", () -> new FlowerPotBlock(UPBlocks.ARCHAEOSIGILARIA.get(), PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_SARACENIA = registerBlockWithoutBlockItem("potted_sarracenia", () -> new FlowerPotBlock(UPBlocks.SARACENIA.get(), PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_ISOETES_BEESTONII = registerBlockWithoutBlockItem("potted_isoetes_beestonii", () -> new FlowerPotBlock(UPBlocks.ISOETES_BEESTONII.get(), PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutBlockItem("potted_cladophlebis", () -> new FlowerPotBlock(UPBlocks.CLADOPHLEBIS.get(), PropertyUtil.flowerPot()));
 
     // Amber blocks
     public static final RegistryObject<Block> AMBER_BLOCK = createBlock("amber_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
@@ -212,7 +216,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> DRYO_LEAVES = createBlockNoLang("dryo_leaves", () -> new LeavesBlock(UPProperties.DRYO.leaves()));
     public static final RegistryObject<Block> DRYO_SAPLING = createBlockNoLang("dryo_sapling", () -> new SaplingBlock(new DryoTreeGrower(), UPProperties.DRYO.sapling()));
-    public static final RegistryObject<Block> POTTED_DRYO_SAPLING = createBlockNoItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(null, DRYO_SAPLING, PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_DRYO_SAPLING = createBlockNoItem("potted_dryophyllum_sapling", () -> new FlowerPotBlock(DRYO_SAPLING.get(), PropertyUtil.flowerPot()));
 
     // Foxii
     // Uses no lang because the block id doesn't use the full name like it should
@@ -258,7 +262,7 @@ public class UPBlocks {
 
     public static final RegistryObject<Block> GINKGO_LEAVES = createBlock("ginkgo_leaves", () -> new LeavesBlock(UPProperties.Blocks.GINKGO_LEAVES));
     public static final RegistryObject<Block> GINKGO_SAPLING = createBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), UPProperties.Blocks.GINKGO_SAPLING));
-    public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = createBlockNoItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(null, GINKGO_SAPLING, PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = createBlockNoItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(GINKGO_SAPLING.get(), PropertyUtil.flowerPot()));
 
     // Petrified
     public static final RegistryObject<Block> PETRIFIED_LOG = createBlockNoLang("petrified_wood_log", () -> new UPWoodBlocks(UPProperties.Blocks.petrified()));
@@ -280,7 +284,7 @@ public class UPBlocks {
     public static final Pair<RegistryObject<BlueprintCeilingHangingSignBlock>, RegistryObject<BlueprintWallHangingSignBlock>> PETRIFIED_HANGING_SIGN = createHangingSignBlock("petrified", UPBlockSetType.PETRIFIED_WOOD_TYPE.get(), UPProperties.Blocks.PETRIFIED_SIGNS);
 
     public static final RegistryObject<Block> PETRIFIED_BUSH = createBlock("petrified_bush", () -> new DeadBushBlock(UPProperties.Blocks.PETRIFIED_BUSH));
-    public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = createBlockNoItem("potted_petrified_bush", () -> new FlowerPotBlock(null, PETRIFIED_BUSH, PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = createBlockNoItem("potted_petrified_bush", () -> new FlowerPotBlock(PETRIFIED_BUSH.get(), PropertyUtil.flowerPot()));
 
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = createBlock("polished_petrified_wood", () -> new Block(UPProperties.Blocks.petrified()));
     public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_STAIRS = createBlock("polished_petrified_wood_stairs", () -> new StairBlock(() -> POLISHED_PETRIFIED_WOOD.get().defaultBlockState(), UPProperties.Blocks.petrified()));
@@ -305,7 +309,7 @@ public class UPBlocks {
     public static final Pair<RegistryObject<BlueprintCeilingHangingSignBlock>, RegistryObject<BlueprintWallHangingSignBlock>> ZULOAGAE_HANGING_SIGN = createHangingSignBlock("zuloagae", UPBlockSetType.ZULOAGAE_WOOD_TYPE.get(), UPProperties.Blocks.ZULOAGAE_SIGNS);
 
     public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlockWithoutBlockItem("zuloagae_sapling", () -> new ZuloagaeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
-    public static final RegistryObject<Block> POTTED_ZULOAGAE_SAPLING = createBlockNoItem("potted_zuloagae_sapling", () -> new FlowerPotBlock(null, ZULOAGAE_SAPLING, PropertyUtil.flowerPot()));
+    public static final RegistryObject<Block> POTTED_ZULOAGAE_SAPLING = createBlockNoItem("potted_zuloagae_sapling", () -> new FlowerPotBlock(ZULOAGAE_SAPLING.get(), PropertyUtil.flowerPot()));
 
     public static final RegistryObject<Block> ZULOAGAE = createBlock("zuloagae", () -> new ZuloagaeBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO).randomTicks().instabreak().strength(1.0F).sound(SoundType.BAMBOO).noOcclusion().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ)));
 

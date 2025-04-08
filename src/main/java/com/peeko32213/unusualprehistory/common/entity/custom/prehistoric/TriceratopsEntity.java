@@ -434,17 +434,19 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
                 }
                 this.heal((float) itemstack.getFoodProperties(this).getNutrition());
                 this.gameEvent(GameEvent.EAT, this);
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+            }
+            else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
                 this.playSound(SoundEvents.HORSE_SADDLE);
                 this.setSaddled(true);
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
+            }
+            else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
                 this.setSaddled(false);
                 this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.spawnAtLocation(Items.SADDLE);
             }
         }
-        else if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
+        if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
             if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() &&
                 this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
                 this.doPlayerRide(player);

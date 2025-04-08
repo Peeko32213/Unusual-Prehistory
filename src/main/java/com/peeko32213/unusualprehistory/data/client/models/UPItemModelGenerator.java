@@ -134,6 +134,16 @@ public class UPItemModelGenerator extends ItemModelProvider {
         blockItemWithItemTexture(UPBlocks.ZULOAGAE_HANGING_SIGN.getFirst());
         blockItemWithItemTexture(UPBlocks.ZULOAGAE_DOOR);
 
+        // Plants
+        itemFromBlockTexture(UPBlocks.ARCHAEOSIGILARIA);
+        itemFromBlockTexture(UPBlocks.BENNETTITALES);
+        itemFromBlockTexture(UPBlocks.HORSETAIL);
+        itemFromBlockTexture(UPBlocks.LEEFRUCTUS);
+        itemFromBlockTexture(UPBlocks.SARACENIA);
+        itemFromBlockTexture(UPBlocks.ISOETES_BEESTONII);
+        itemFromBlockTexture(UPBlocks.CLADOPHLEBIS);
+        itemFromBlockTexture(UPBlocks.ARCHAEFRUCTUS);
+
         // Fossils
         fossilItem(UPItems.PALEO_FOSSIL);
         fossilItem(UPItems.MEZO_FOSSIL);

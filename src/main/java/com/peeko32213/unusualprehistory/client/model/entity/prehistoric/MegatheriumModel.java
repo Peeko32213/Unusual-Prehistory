@@ -39,6 +39,17 @@ public class MegatheriumModel extends GeoModel<MegatheriumEntity> {
         saddle.setHidden(!animatable.isSaddled());
 
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
+
+        if (animatable.isBaby()) {
+            head.setScaleX(1.5F);
+            head.setScaleY(1.5F);
+            head.setScaleZ(1.5F);
+        } else {
+            head.setScaleX(1.0F);
+            head.setScaleY(1.0F);
+            head.setScaleZ(1.0F);
+        }
+
         head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
     }
 }

@@ -338,29 +338,37 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
 
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         if (itemstack.is(UPItemTags.MEGATHERIUM_FOOD)) {
             if(!this.isTame()) {
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                this.gameEvent(GameEvent.EAT, this);
+                this.playSound(SoundEvents.HORSE_EAT, 0.5F, 1.0F);
                 this.level().broadcastEntityEvent(this, (byte) 6);
 
                 int size = itemstack.getCount();
                 int tameAmount = 60 + random.nextInt(32);
-                if (size >= tameAmount) {
+                if(!player.isCreative()) {
+                    if (size >= tameAmount) {
+                        this.tame(player);
+                        this.level().broadcastEntityEvent(this, (byte) 7);
+                    }
+                    itemstack.shrink(size);
+                }
+                else {
                     this.tame(player);
                     this.level().broadcastEntityEvent(this, (byte) 7);
                 }
-                itemstack.shrink(size);
-                this.playSound(SoundEvents.HORSE_EAT);
+                return InteractionResult.SUCCESS;
             }
         }
-        if (this.isTame() && this.isOwnedBy(player)) {
+        if (this.isTame()) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
                 this.heal(4);
                 this.gameEvent(GameEvent.EAT, this);
+                this.playSound(SoundEvents.HORSE_EAT, 0.5F, 1.0F);
             }
             else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
@@ -372,8 +380,9 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
                 this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.spawnAtLocation(Items.SADDLE);
             }
+            return InteractionResult.SUCCESS;
         }
-        if (isTame() && isOwnedBy(player)) {
+        if (this.isOwnedBy(player)) {
             if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
                 this.doPlayerRide(player);
             }
@@ -383,7 +392,7 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
                     this.setCommand(0);
                 }
                 int var10001 = this.getCommand();
-                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
+                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, this.getName()), true);
                 boolean sit = this.getCommand() == 2;
                 if (sit) {
                     this.setOrderedToSit(true);
@@ -397,6 +406,7 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
                     this.setOrderedToSit(false);
                 }
             }
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }

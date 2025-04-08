@@ -1,13 +1,15 @@
 {
   "values": [
-    "unusualprehistory:potted_archaeos",
-    "unusualprehistory:potted_bennett",
+    "unusualprehistory:potted_archaeosigilaria",
+    "unusualprehistory:potted_bennettitales",
     "unusualprehistory:potted_dryophyllum_sapling",
     "unusualprehistory:potted_horsetail",
     "unusualprehistory:potted_leefructus",
     "unusualprehistory:potted_ginkgo_sapling",
     "unusualprehistory:potted_petrified_bush",
     "unusualprehistory:potted_sarracenia",
-    "unusualprehistory:potted_zuloagae_sapling"
+    "unusualprehistory:potted_zuloagae_sapling",
+    "unusualprehistory:potted_cladophlebis",
+    "unusualprehistory:potted_isoetes_beestonii"
   ]
 }

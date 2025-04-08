@@ -199,11 +199,13 @@ public class UPBlockstateGenerator extends BlockStateProvider {
         basicBlock(UPBlocks.BLACK_OPAL_BLOCK);
 
         // Potted plants
-        createPottedPlant(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA,"cutout");
-        createPottedPlant(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES,"cutout");
-        createPottedPlant(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL,"cutout");
-        createPottedPlant(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS,"cutout");
-        createPottedPlant(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA,"cutout");
+        plantWithPottedBlock(UPBlocks.ARCHAEOSIGILARIA, UPBlocks.POTTED_ARCHAEOSIGILARIA);
+        plantWithPottedBlock(UPBlocks.BENNETTITALES, UPBlocks.POTTED_BENNETTITALES);
+        plantWithPottedBlock(UPBlocks.HORSETAIL, UPBlocks.POTTED_HORSETAIL);
+        plantWithPottedBlock(UPBlocks.LEEFRUCTUS, UPBlocks.POTTED_LEEFRUCTUS);
+        plantWithPottedBlock(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA);
+        plantWithPottedBlock(UPBlocks.ISOETES_BEESTONII, UPBlocks.POTTED_ISOETES_BEESTONII);
+        plantWithPottedBlock(UPBlocks.CLADOPHLEBIS, UPBlocks.POTTED_CLADOPHLEBIS);
     }
 
     private void basicBlock(Supplier<? extends Block> block) {
@@ -280,14 +282,12 @@ public class UPBlockstateGenerator extends BlockStateProvider {
     }
 
     private void modCrossBlock(Supplier<? extends Block> block, String renderType) {
-        getVariantBuilder(block.get()).forAllStates(blockState -> ConfiguredModel.builder()
-                .modelFile(models().cross(name(block.get()), modBlockLocation(name(block.get()))).renderType(renderType)).build());
+        getVariantBuilder(block.get()).forAllStates(blockState -> ConfiguredModel.builder().modelFile(models().cross(name(block.get()), modBlockLocation(name(block.get()))).renderType(renderType)).build());
     }
 
     private void plantWithPottedBlock(Supplier<? extends Block> plant, Supplier<? extends Block> potted_plant) {
         modCrossBlock(plant, "cutout");
-        simpleBlock(potted_plant.get(), models().withExistingParent(name(potted_plant.get()), POTTED_CROSS)
-                .texture(PLANT, modBlockLocation(name(plant.get()))).renderType("cutout"));
+        simpleBlock(potted_plant.get(), models().withExistingParent(name(potted_plant.get()), POTTED_CROSS).texture(PLANT, modBlockLocation(name(plant.get()))).renderType("cutout"));
     }
 
     public void hangingSignBlock(Block signBlock, Block wallSignBlock, ResourceLocation texture) {

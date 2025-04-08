@@ -105,7 +105,9 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
                 POTTED_GINKGO_SAPLING.get(),
                 POTTED_PETRIFIED_BUSH.get(),
                 POTTED_SARACENIA.get(),
-                POTTED_ZULOAGAE_SAPLING.get()
+                POTTED_ZULOAGAE_SAPLING.get(),
+                POTTED_CLADOPHLEBIS.get(),
+                POTTED_ISOETES_BEESTONII.get()
         );
 
         this.tag(BlockTags.FLOWERS).add(
@@ -322,6 +324,21 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
                 .addTag(BlockTags.SAND)
                 .addTag(BlockTags.DIRT)
                 .add(ZULOAGAE.get(), ZULOAGAE_SAPLING.get(), Blocks.GRAVEL);
+
+        this.tag(UPBlockTags.ISOETES_BEESTONII_PLACEABLE)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .add(Blocks.GRAVEL);
+
+        this.tag(UPBlockTags.CLADOPHLEBIS_PLACEABLE)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .add(Blocks.GRAVEL);
+
+        this.tag(UPBlockTags.HORSETAIL_PLACEABLE)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .add(Blocks.GRAVEL);
 
         this.tag(UPBlockTags.DINO_NATURAL_SPAWNABLE);
 

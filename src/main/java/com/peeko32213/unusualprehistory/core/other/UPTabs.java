@@ -340,22 +340,13 @@ public class UPTabs {
                         entries.accept(UPItems.SMILODON_EMBRYO.get());
 
                         // Plants
-                        entries.accept(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
                         entries.accept(UPBlocks.ARCHAEFRUCTUS.get());
                         entries.accept(UPBlocks.ARCHAEOSIGILARIA.get());
                         entries.accept(UPBlocks.BENNETTITALES.get());
-                        entries.accept(UPBlocks.CLATHRODICTYON_BLOCK.get());
-                        entries.accept(UPBlocks.CLATHRODICTYON.get());
-                        entries.accept(UPBlocks.CLATHRODICTYON_FAN.get());
-                        entries.accept(UPBlocks.DEAD_CLATHRODICTYON_BLOCK.get());
-                        entries.accept(UPBlocks.DEAD_CLATHRODICTYON.get());
-                        entries.accept(UPBlocks.DEAD_CLATHRODICTYON_FAN.get());
-                        entries.accept(UPBlocks.DRYO_SAPLING.get());
-                        entries.accept(UPBlocks.FOXII_SAPLING.get());
-                        entries.accept(UPBlocks.GINKGO_SAPLING.get());
-                        entries.accept(UPBlocks.PETRIFIED_BUSH.get());
+                        entries.accept(UPBlocks.CLADOPHLEBIS.get());
                         entries.accept(UPBlocks.HORSETAIL.get());
                         entries.accept(UPBlocks.TALL_HORSETAIL.get());
+                        entries.accept(UPBlocks.ISOETES_BEESTONII.get());
                         entries.accept(UPBlocks.LEEFRUCTUS.get());
                         entries.accept(UPBlocks.NELUMBITES.get());
                         entries.accept(UPBlocks.QUEREUXIA.get());
@@ -363,7 +354,18 @@ public class UPTabs {
                         entries.accept(UPBlocks.RAIGUENRAYUN.get());
                         entries.accept(UPBlocks.SARACENIA.get());
                         entries.accept(UPBlocks.TALL_SARACENIA.get());
+                        entries.accept(UPBlocks.DRYO_SAPLING.get());
+                        entries.accept(UPBlocks.FOXII_SAPLING.get());
+                        entries.accept(UPBlocks.GINKGO_SAPLING.get());
+                        entries.accept(UPBlocks.PETRIFIED_BUSH.get());
                         entries.accept(UPBlocks.ZULOAGAE.get());
+                        entries.accept(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
+                        entries.accept(UPBlocks.CLATHRODICTYON_BLOCK.get());
+                        entries.accept(UPBlocks.CLATHRODICTYON.get());
+                        entries.accept(UPBlocks.CLATHRODICTYON_FAN.get());
+                        entries.accept(UPBlocks.DEAD_CLATHRODICTYON_BLOCK.get());
+                        entries.accept(UPBlocks.DEAD_CLATHRODICTYON.get());
+                        entries.accept(UPBlocks.DEAD_CLATHRODICTYON_FAN.get());
 
                         // Dryo wood
                         entries.accept(UPBlocks.DRYO_LOG.get());
