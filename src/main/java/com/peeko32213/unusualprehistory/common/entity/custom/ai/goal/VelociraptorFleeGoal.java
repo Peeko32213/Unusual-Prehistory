@@ -32,7 +32,7 @@ public class VelociraptorFleeGoal extends Goal {
     }
 
     protected boolean findRandomPosition() {
-        Vec3 vec3 = LandRandomPos.getPos(velociraptor, 20, 8);
+        Vec3 vec3 = LandRandomPos.getPos(velociraptor, 24, 8);
         if (vec3 == null) {
             return false;
         } else {
