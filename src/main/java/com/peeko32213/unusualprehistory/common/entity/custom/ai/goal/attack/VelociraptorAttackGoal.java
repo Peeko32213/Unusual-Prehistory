@@ -103,9 +103,8 @@ public class VelociraptorAttackGoal extends Goal {
 
     public void pounce() {
         Vec3 diff = new Vec3(velociraptor.getTarget().getX() - velociraptor.getX(), (velociraptor.getTarget().getY() - velociraptor.getY()) + 1.25, velociraptor.getTarget().getZ() -velociraptor.getZ());
-        Vec3 vel = diff.multiply(0.5D,0.4D, 0.5D).add(0,0.3,0).normalize();
+        Vec3 vel = diff.multiply(0.5D,0.4D, 0.5D).add(0,0.45,0).normalize();
         velociraptor.setDeltaMovement(vel);
-        velociraptor.getNavigation().stop();
         this.pounceCooldown = velociraptor.getRandom().nextInt(25) + 50;
     }
 }
