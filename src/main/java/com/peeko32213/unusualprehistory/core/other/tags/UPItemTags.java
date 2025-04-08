@@ -10,7 +10,7 @@ public class UPItemTags {
     public static final TagKey<Item> DUNK_FOOD_PACIFY = itemTag("pacifies_dunkleosteus");
     public static final TagKey<Item> DUNK_FOOD = itemTag("dunkleosteus_food");
 
-
+    public static final TagKey<Item> MEGATHERIUM_FOOD = itemTag("megatherium_food");
     public static final TagKey<Item> EDAPHO_FOOD_ITEMS = itemTag("edaphosaurus_food_items");
     public static final TagKey<Item> ESTEMME_FOOD_ITEMS = itemTag("estemmenosuchus_food_items");
     public static final TagKey<Item> UNICORN_FOOD_ITEMS = itemTag("unicorn_food_items");

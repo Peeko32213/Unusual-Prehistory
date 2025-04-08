@@ -193,6 +193,8 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
                 Items.POTATO
         );
 
+        this.tag(UPItemTags.MEGATHERIUM_FOOD).addTag(ItemTags.LEAVES);
+
         this.tag(UPItemTags.DUNK_FOOD_PACIFY).add(
                 GOLDEN_SCAU.get()
         );

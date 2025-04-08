@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-07T14:19:00.7493326	Tags for minecraft:item mod id unusualprehistory
+// 1.20.1	2025-04-07T22:37:20.8665133	Tags for minecraft:item mod id unusualprehistory
 f98b0fffa1dfb5685fb776758040b39d22b0f5bc data/forge/tags/items/fence_gates/wooden.json
 0e007da7010fb59ad16ba8721022e513aafaa8d5 data/minecraft/tags/items/arrows.json
 8c9d4134fb821bc0c24f7f5a718f599fc079601f data/minecraft/tags/items/fence_gates.json
@@ -30,7 +30,6 @@ c3071203a153c504b712ec3ee724bbc630e6dc1c data/unusualprehistory/tags/items/allow
 7aadfe08d35c04f4746f8061765f234b94696782 data/unusualprehistory/tags/items/cotylorhynchus_food.json
 64354b09550153142d542f5cfa1d5095c9998cee data/unusualprehistory/tags/items/dna_bottles.json
 552c291c9460919fa26bd9880fa05c8f56f277d3 data/unusualprehistory/tags/items/dunkleosteus_food.json
-91285df2b29375e8fbd225f8d760ae97b46537ab data/unusualprehistory/tags/items/dunkleosteus_food_passify.json
 386b3296abc29e0df46a4437d01f51704e829353 data/unusualprehistory/tags/items/edaphosaurus_food_items.json
 536bcb37551a0407fe3d0d88161cd359f74b672e data/unusualprehistory/tags/items/estemmenosuchus_food_items.json
 c3071203a153c504b712ec3ee724bbc630e6dc1c data/unusualprehistory/tags/items/filled_flasks.json
@@ -40,9 +39,11 @@ c3071203a153c504b712ec3ee724bbc630e6dc1c data/unusualprehistory/tags/items/fille
 47be456ad97366b91300f74739cd8cac544f698d data/unusualprehistory/tags/items/hynerpeton_igniters.json
 9a167887814f36e0277c10df98c76f8299730929 data/unusualprehistory/tags/items/kentro_food.json
 b0894357bcf3600979a89c89b3b5cc911a10a770 data/unusualprehistory/tags/items/majunga_food.json
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/unusualprehistory/tags/items/megatherium_food.json
 9b60e340008138b58f90aa13fb096ba3c8c2dbf4 data/unusualprehistory/tags/items/opal_gems.json
 8c693e070134b06a0aca7e31e0b583e96d6a3a12 data/unusualprehistory/tags/items/organic_ooze.json
 57627870f28d478de1d30ed00cc029cd4d3f14ac data/unusualprehistory/tags/items/pachy_food.json
+91285df2b29375e8fbd225f8d760ae97b46537ab data/unusualprehistory/tags/items/pacifies_dunkleosteus.json
 7e63a2140df6843d5ff2da1da816e1b23d6a1291 data/unusualprehistory/tags/items/telecrex_food.json
 cd895cf19d27aba603bda83fb6e09625533e6abb data/unusualprehistory/tags/items/triceratops_food.json
 506d6476cc7794fbbf746c92c5bd837843613273 data/unusualprehistory/tags/items/triceratops_tames.json

@@ -1,24 +1,29 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.MegatheriumAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -44,15 +49,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollower {
-
-    private Ingredient temptationItems;
-    public float sitProgress;
 
     // Movement animations
     private static final RawAnimation MEGATHERIUM_WALK = RawAnimation.begin().thenLoop("animation.megatherium.walk");
@@ -68,7 +73,7 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
     private static final RawAnimation MEGATHERIUM_MBLEM_2 = RawAnimation.begin().thenLoop("animation.megatherium.mblem_blend2");
     private static final RawAnimation MEGATHERIUM_SCRATCH_1 = RawAnimation.begin().thenLoop("animation.megatherium.scratch_blend1");
     private static final RawAnimation MEGATHERIUM_SCRATCH_2 = RawAnimation.begin().thenLoop("animation.megatherium.scratch_blend2");
-    private static final RawAnimation MEGATHERIUM_SHAKE = RawAnimation.begin().thenLoop("animation.megatherium.shake");
+    private static final RawAnimation MEGATHERIUM_SHAKE = RawAnimation.begin().thenLoop("animation.megatherium.shake_blend");
     private static final RawAnimation MEGATHERIUM_YAWN = RawAnimation.begin().thenLoop("animation.megatherium.yawn_blend");
 
     // Attack animations
@@ -77,6 +82,107 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
 
     // Misc animations
     private static final RawAnimation MEGATHERIUM_BULLDOZE = RawAnimation.begin().thenLoop("animation.megatherium.bulldoze");
+
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> MBLEM_1 = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> MBLEM_2 = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SCRATCH_1 = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SCRATCH_2 = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SHAKE = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> YAWN = SynchedEntityData.defineId(MegatheriumEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Starting predicates
+    private static final Predicate<LivingEntity> MEGATHERIUM_STARTING_PREDICATE = (e -> {
+        if(e instanceof MegatheriumEntity entity) {
+            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && !entity.isRunning();
+        }
+        return false;
+    });
+
+    private static final EntityAction MEGATHERIUM_MBLEM_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper MEGATHERIUM_MBLEM_1_STATE =
+            StateHelper.Builder.state(MBLEM_1, "megatherium_mblem_1")
+                    .playTime(40)
+                    .stopTime(50)
+                    .startingPredicate(MEGATHERIUM_STARTING_PREDICATE)
+                    .entityAction(MEGATHERIUM_MBLEM_1_ACTION)
+                    .build();
+
+    private static final EntityAction MEGATHERIUM_MBLEM_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper MEGATHERIUM_MBLEM_2_STATE =
+            StateHelper.Builder.state(MBLEM_2, "megatherium_mblem_2")
+                    .playTime(40)
+                    .stopTime(50)
+                    .startingPredicate(MEGATHERIUM_STARTING_PREDICATE)
+                    .entityAction(MEGATHERIUM_MBLEM_2_ACTION)
+                    .build();
+
+    private static final EntityAction MEGATHERIUM_SCRATCH_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper MEGATHERIUM_SCRATCH_1_STATE =
+            StateHelper.Builder.state(SCRATCH_1, "megatherium_scratch_1")
+                    .playTime(80)
+                    .stopTime(140)
+                    .startingPredicate(MEGATHERIUM_STARTING_PREDICATE)
+                    .entityAction(MEGATHERIUM_SCRATCH_1_ACTION)
+                    .build();
+
+    private static final EntityAction MEGATHERIUM_SCRATCH_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper MEGATHERIUM_SCRATCH_2_STATE =
+            StateHelper.Builder.state(SCRATCH_2, "megatherium_scratch_2")
+                    .playTime(80)
+                    .stopTime(140)
+                    .startingPredicate(MEGATHERIUM_STARTING_PREDICATE)
+                    .entityAction(MEGATHERIUM_SCRATCH_2_ACTION)
+                    .build();
+
+    private static final EntityAction MEGATHERIUM_SHAKE_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper MEGATHERIUM_SHAKE_STATE =
+            StateHelper.Builder.state(SHAKE, "megatherium_shake")
+                    .playTime(40)
+                    .stopTime(160)
+                    .startingPredicate(MEGATHERIUM_STARTING_PREDICATE)
+                    .entityAction(MEGATHERIUM_SHAKE_ACTION)
+                    .build();
+
+    private static final EntityAction MEGATHERIUM_YAWN_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper MEGATHERIUM_YAWN_STATE =
+            StateHelper.Builder.state(YAWN, "megatherium_yawn")
+                    .playTime(40)
+                    .stopTime(120)
+                    .startingPredicate(MEGATHERIUM_STARTING_PREDICATE)
+                    .entityAction(MEGATHERIUM_YAWN_ACTION)
+                    .build();
+
+    // Idle states
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                MEGATHERIUM_MBLEM_1_STATE.getName(), MEGATHERIUM_MBLEM_1_STATE,
+                MEGATHERIUM_MBLEM_2_STATE.getName(), MEGATHERIUM_MBLEM_2_STATE,
+                MEGATHERIUM_SCRATCH_1_STATE.getName(), MEGATHERIUM_SCRATCH_1_STATE,
+                MEGATHERIUM_SCRATCH_2_STATE.getName(), MEGATHERIUM_SCRATCH_2_STATE,
+                MEGATHERIUM_SHAKE_STATE.getName(), MEGATHERIUM_SHAKE_STATE,
+                MEGATHERIUM_YAWN_STATE.getName(), MEGATHERIUM_YAWN_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(MEGATHERIUM_MBLEM_1_STATE, 10),
+                WeightedState.of(MEGATHERIUM_MBLEM_2_STATE, 10),
+                WeightedState.of(MEGATHERIUM_SCRATCH_1_STATE, 7),
+                WeightedState.of(MEGATHERIUM_SCRATCH_2_STATE, 7),
+                WeightedState.of(MEGATHERIUM_SHAKE_STATE, 6),
+                WeightedState.of(MEGATHERIUM_YAWN_STATE, 9)
+        );
+    }
 
     // Body control / navigation
     @Override
@@ -96,20 +202,18 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 80.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.16D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
+            .add(Attributes.MAX_HEALTH, 80.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.16D).add(Attributes.KNOCKBACK_RESISTANCE, 1.5D)
         ;
     }
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
+        this.goalSelector.addGoal(1, new MegatheriumAttackGoal(this));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, Ingredient.of(UPItemTags.MEGATHERIUM_FOOD), false));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(1, new CustomRideGoal(this, 2D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
@@ -118,38 +222,109 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 10));
     }
 
-    private Ingredient getTemptationItems() {
-        if (temptationItems == null)
-            temptationItems = Ingredient.merge(Lists.newArrayList(
-                    Ingredient.of(ItemTags.LEAVES)
-            ));
-
-        return temptationItems;
-    }
-
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(MBLEM_1, false);
+        this.entityData.define(MBLEM_2, false);
+        this.entityData.define(SCRATCH_1, false);
+        this.entityData.define(SCRATCH_2, false);
+        this.entityData.define(SHAKE, false);
+        this.entityData.define(YAWN, false);
         super.defineSynchedData();
     }
 
     public void tick() {
         super.tick();
 
-        if (this.isOrderedToSit() && sitProgress < 5F) {
-            sitProgress++;
+        // Float while being ridden
+        boolean ridden = !this.getPassengers().isEmpty();
+        boolean water = this.isInWater();
+        if(ridden && water) {
+            boolean waterBelow = this.level().isWaterAt(this.blockPosition().below());
+
+            if(waterBelow) {
+                this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
+            }
         }
-        if (!this.isOrderedToSit() && sitProgress > 0F) {
-            sitProgress--;
+
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.28D);
         }
-        if (this.getCommand() == 2 && !this.isVehicle()) {
-            this.setOrderedToSit(true);
-        } else {
-            this.setOrderedToSit(false);
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.16D);
         }
     }
 
+    @Override
+    public boolean canBeLeashed(Player player) {
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
+    }
 
-    //TODO add positionRider to base class so we dont have to do all this again we can just use a method to fetch the offset
+    @Override
+    public boolean isPushable() {
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+        if (this.isInSittingPose()) {
+            return super.getDimensions(pPose).scale(1.0F, 0.8F);
+        } else {
+            return super.getDimensions(pPose);
+        }
+    }
+
+    protected void doPlayerRide(@NotNull Player player) {
+        if (!this.level().isClientSide) {
+            player.setYRot(this.getYRot());
+            player.setXRot(this.getXRot());
+            player.startRiding(this);
+        }
+    }
+
+    protected Vec3 getRiddenInput(Player player, Vec3 deltaIn) {
+        if (player.zza != 0) {
+            float f = player.zza < 0.0F ? 0.5F : 1.0F;
+            return new Vec3(player.xxa * 0.25F, 0.0D, player.zza * 0.5F * f);
+        } else {
+            this.setSprinting(false);
+        }
+        return Vec3.ZERO;
+    }
+
+    protected void tickRidden(Player player, Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if(player.zza != 0 || player.xxa != 0){
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+            this.setMaxUpStep(1.25F);
+            this.getNavigation().stop();
+            this.setTarget(null);
+        }
+    }
+
+    protected float getRiddenSpeed(Player pPlayer) {
+        float f = 0.0F;
+        if(pPlayer.isSprinting()) {
+            f = 0.1F;
+        }
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
+    }
+
+    // Controlling passenger
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                return player;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
@@ -157,76 +332,69 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
         pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
     }
 
-    //TODO add getPassengersRidingOffset to base class so we dont have to do all this again
     public double getPassengersRidingOffset() {
-        if (this.isInWater()) {
-            return 0.99;
-        }
-        else {
-            return 2.6;
-        }
+        return 3.65;
     }
 
-    //TODO add mobinteract to base class so we dont have to do all this again
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        if (isFood(itemstack) && !isTame()) {
+        if (itemstack.is(UPItemTags.MEGATHERIUM_FOOD)) {
+            if(!this.isTame()) {
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                this.level().broadcastEntityEvent(this, (byte) 6);
 
-            this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-            this.level().broadcastEntityEvent(this, (byte) 6);
-
-            if(random.nextBoolean()) {
-                this.tame(player);
-                this.level().broadcastEntityEvent(this, (byte) 7);
+                int size = itemstack.getCount();
+                int tameAmount = 60 + random.nextInt(32);
+                if (size >= tameAmount) {
+                    this.tame(player);
+                    this.level().broadcastEntityEvent(this, (byte) 7);
+                }
+                itemstack.shrink(size);
+                this.playSound(SoundEvents.HORSE_EAT);
             }
-            itemstack.shrink(1);
-
-            return InteractionResult.SUCCESS;
         }
-        if (isTame() && isOwnedBy(player)) {
+        if (this.isTame() && this.isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
-                if(!this.level().isClientSide) {
-                    this.heal(6);
-                }
-                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-                this.level().broadcastEntityEvent(this, (byte) 7);
+                this.heal(4);
                 this.gameEvent(GameEvent.EAT, this);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
+            }
+            else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
-                this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
+                this.playSound(SoundEvents.HORSE_SADDLE);
                 this.setSaddled(true);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
+            }
+            else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
                 this.setSaddled(false);
+                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
-            } else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
-                    if(!this.level().isClientSide) {
-                        player.startRiding(this);
+            }
+        }
+        if (isTame() && isOwnedBy(player)) {
+            if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+                this.doPlayerRide(player);
+            }
+            else {
+                this.setCommand((this.getCommand() + 1) % 3);
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
+                int var10001 = this.getCommand();
+                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
+                boolean sit = this.getCommand() == 2;
+                if (sit) {
+                    this.setOrderedToSit(true);
+                    if (!this.isInSittingPose() && this.onGround()){
+                        this.setSittingTime(20);
                     }
-                    return InteractionResult.SUCCESS;
                 } else {
-                    this.setCommand((this.getCommand() + 1) % 3);
-
-                    if (this.getCommand() == 3) {
-                        this.setCommand(0);
+                    if (this.isInSittingPose() && this.onGround()){
+                        this.setStandingTime(20);
                     }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
-                    boolean sit = this.getCommand() == 2;
-                    if (sit) {
-                        this.setOrderedToSit(true);
-                        return InteractionResult.SUCCESS;
-                    } else {
-                        this.setOrderedToSit(false);
-                        return InteractionResult.SUCCESS;
-                    }
+                    this.setOrderedToSit(false);
                 }
             }
         }
@@ -239,63 +407,15 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
-    }
-
-    public boolean isAlliedTo(Entity entityIn) {
-        if (this.isTame()) {
-            LivingEntity livingentity = this.getOwner();
-            if (entityIn == livingentity) {
-                return true;
-            }
-            if (entityIn instanceof TamableAnimal) {
-                return ((TamableAnimal) entityIn).isOwnedBy(livingentity);
-            }
-            if (livingentity != null) {
-                return livingentity.isAlliedTo(entityIn);
-            }
-        }
-
-        return entityIn.is(this);
-    }
-
-    @Override
-    public void travel(Vec3 pos) {
-        if (this.isAlive()) {
-            LivingEntity livingentity = this.getControllingPassenger();
-
-            if (this.isVehicle() && livingentity != null) {
-                double d0 = 0.08D;
-                this.setYRot(livingentity.getYRot());
-                this.yRotO = this.getYRot();
-                this.setXRot(livingentity.getXRot() * 0.5F);
-                this.setRot(this.getYRot(), this.getXRot());
-                this.yBodyRot = this.getYRot();
-                this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa * 0.5F;
-                float f1 = livingentity.zza;
-                if (f1 <= 0.0F) {
-                    f1 *= 0.25F;
-                }
-                this.setSpeed(0.1F);
-                super.travel(new Vec3(f, pos.y, f1));
-
-            } else {
-                super.travel(pos);
-            }
-        }
+        this.playSound(SoundEvents.POLAR_BEAR_STEP, 0.25F, 1.0F);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("Saddle", this.isSaddled());
-        compound.putInt("TrikeCommand", this.getCommand());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setSaddled(compound.getBoolean("Saddle"));
-        this.setCommand(compound.getInt("TrikeCommand"));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -326,13 +446,57 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
         return UPEntities.MEGATHERIUM.get().create(serverLevel);
     }
 
-    protected <E extends MegatheriumEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<MegatheriumEntity> event) {
+        MegatheriumEntity megatherium = event.getAnimatable();
+        if (megatherium.level().isClientSide) {
+            if (event.getKeyframeData().getSound().equals("megatherium_swipe")) {
+                megatherium.level().playLocalSound(megatherium.getX(), megatherium.getY(), megatherium.getZ(), UPSounds.TAIL_SWIPE.get(), megatherium.getSoundSource(), 0.75F, megatherium.getVoicePitch(), false);
+            }
+        }
+    }
+
+    // Attack controller
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<MegatheriumEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<MegatheriumEntity> idle = new AnimationController<>(this, "idleController", 0, this::idlePredicate);
+        idle.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(idle);
+
+        AnimationController<MegatheriumEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
+
+        AnimationController<MegatheriumEntity> sit = new AnimationController<>(this, "sitController", 0, this::sitPredicate);
+        controllers.add(sit);
+    }
+
+    protected <E extends MegatheriumEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
         if (this.isFromBook()) {
             return event.setAndContinue(MEGATHERIUM_IDLE);
         }
         if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !this.isInSittingPose() && !this.isSwimming()) {
-            event.getController().setAnimationSpeed(1.0F);
-            event.setAndContinue(MEGATHERIUM_WALK);
+            if(this.hasControllingPassenger()) {
+                if (this.getControllingPassenger().isSprinting()) {
+                    event.setAndContinue(MEGATHERIUM_RUN);
+                    event.getController().setAnimationSpeed(1.0F);
+                } else {
+                    event.setAndContinue(MEGATHERIUM_WALK);
+                    event.getController().setAnimationSpeed(1.25F);
+                }
+            }
+            else {
+                if (this.isSprinting() || this.isRunning()) {
+                    event.getController().setAnimationSpeed(1.0F);
+                    event.setAndContinue(MEGATHERIUM_RUN);
+                } else {
+                    event.getController().setAnimationSpeed(1.0F);
+                    event.setAndContinue(MEGATHERIUM_WALK);
+                }
+            }
             return PlayState.CONTINUE;
         }
         if (this.isInWater() || this.isSwimming()) {
@@ -351,23 +515,71 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
         return PlayState.CONTINUE;
     }
 
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    // Idle animations
+    protected <E extends MegatheriumEntity> PlayState idlePredicate(final AnimationState<E> event) {
+        if (getBooleanState(MBLEM_1)) {
+            event.getController().setAnimation(MEGATHERIUM_MBLEM_1);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(MBLEM_2)) {
+            event.getController().setAnimation(MEGATHERIUM_MBLEM_2);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(SCRATCH_1)) {
+            event.getController().setAnimation(MEGATHERIUM_SCRATCH_1);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(SCRATCH_2)) {
+            event.getController().setAnimation(MEGATHERIUM_SCRATCH_2);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(SHAKE)) {
+            event.getController().setAnimation(MEGATHERIUM_SHAKE);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(YAWN)) {
+            event.getController().setAnimation(MEGATHERIUM_YAWN);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
     }
 
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
+    // Attack animations
+    protected <E extends MegatheriumEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+        if (animState == 21) {
+            event.setAndContinue(MEGATHERIUM_ATTACK_1);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 22) {
+            event.setAndContinue(MEGATHERIUM_ATTACK_2);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
     }
 
-    @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
-    }
-
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
+    // Sitting animations
+    protected <E extends MegatheriumEntity> PlayState sitPredicate(AnimationState<E> event) {
+        if (this.isInSittingPose() || (this.getSittingLag() < 7 && this.getSittingLag() > 0)){
+            event.setAndContinue(MEGATHERIUM_SIT);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getSittingTime() > 0) {
+            event.setAndContinue(MEGATHERIUM_SIT_START);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getStandingTime() > 0) {
+            event.setAndContinue(MEGATHERIUM_SIT_END);
+            return PlayState.CONTINUE;
+        }
+        else {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
     }
 }

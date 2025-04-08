@@ -295,7 +295,7 @@ public class UPEntities {
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x49412e, 0x33d090);
 
     public static final RegistryObject<EntityType<MegatheriumEntity>> MEGATHERIUM = ENTITIES.register("megatherium",
-            () -> EntityType.Builder.of(MegatheriumEntity::new, MobCategory.CREATURE).sized(2.75F, 3.0F)
+            () -> EntityType.Builder.of(MegatheriumEntity::new, MobCategory.CREATURE).sized(3.0F, 4.25F)
                     .build(modPrefix("megatherium").toString()));
 
     public static final RegistryObject<EntityType<OphiodonEntity>> OPHIODON = ENTITIES.register("ophiodon",

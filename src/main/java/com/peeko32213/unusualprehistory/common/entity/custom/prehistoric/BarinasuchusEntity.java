@@ -94,7 +94,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     // Starting predicates
     private static final Predicate<LivingEntity> BARINASUCHUS_STARTING_PREDICATE = (e -> {
         if(e instanceof BarinasuchusEntity entity) {
-            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater();
+            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && !entity.isRunning();
         }
         return false;
     });
