@@ -17,7 +17,7 @@ public class VelociraptorAttackGoal extends Goal {
     private int animTime = 0;
     private int pounceCooldown = 0;
 
-    Vec3 biteOffSet = new Vec3(0, 0.25, 1.2);
+    Vec3 biteOffSet = new Vec3(0, 0.5, 1.15);
 
     public VelociraptorAttackGoal(VelociraptorEntity pMob) {
         this.velociraptor = pMob;
@@ -38,7 +38,6 @@ public class VelociraptorAttackGoal extends Goal {
     public void stop() {
         velociraptor.setRunning(false);
         velociraptor.setAnimationState(0);
-        velociraptor.hasRunningAttributes = false;
     }
 
     public void tick() {
@@ -83,7 +82,7 @@ public class VelociraptorAttackGoal extends Goal {
     protected void tickBiteAttack () {
         animTime++;
         if(animTime==9) {
-            HitboxAttacks.pivotedPolyHitCheck(velociraptor, velociraptor, this.biteOffSet, 0.5, 1, 0.8, (ServerLevel)velociraptor.level(), (float) velociraptor.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (velociraptor.damageSources().mobAttack(velociraptor)), 0.1F, false, true, false);
+            HitboxAttacks.pivotedPolyHitCheck(velociraptor, velociraptor, this.biteOffSet, 0.25, -0.15, 0.2, (ServerLevel)velociraptor.level(), (float) velociraptor.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (velociraptor.damageSources().mobAttack(velociraptor)), 0.1F, false, true, false);
         }
         if(animTime>=10) {
             animTime=0;
@@ -94,7 +93,7 @@ public class VelociraptorAttackGoal extends Goal {
     protected void tickKickAttack () {
         animTime++;
         if(animTime==15) {
-            HitboxAttacks.pivotedPolyHitCheck(velociraptor, velociraptor, this.biteOffSet, 0.6, 1, 1.0, (ServerLevel)velociraptor.level(), (float) velociraptor.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.25F, (velociraptor.damageSources().mobAttack(velociraptor)), 0.15F, false, true, false);
+            HitboxAttacks.pivotedPolyHitCheck(velociraptor, velociraptor, this.biteOffSet, 0.3, -0.15, 0.2, (ServerLevel)velociraptor.level(), (float) velociraptor.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.25F, (velociraptor.damageSources().mobAttack(velociraptor)), 0.15F, false, true, false);
         }
         if(animTime>=16) {
             animTime=0;

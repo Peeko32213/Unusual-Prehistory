@@ -190,11 +190,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     // Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 36.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.185D)
-            .add(Attributes.ARMOR, 8.0D)
-            .add(Attributes.ATTACK_DAMAGE, 12.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.2D);
+            .add(Attributes.MAX_HEALTH, 36.0D).add(Attributes.MOVEMENT_SPEED, 0.18D).add(Attributes.ARMOR, 8.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.2D).add(Attributes.FOLLOW_RANGE, 32D);
     }
 
     @Override
@@ -207,7 +203,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new BarinasuchusAttackGoal(this, 1.75, true));
+        this.goalSelector.addGoal(1, new BarinasuchusAttackGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 30));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, false, this::canAttack));
@@ -349,6 +345,15 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
 
     public void tick() {
         super.tick();
+
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.38D);
+        }
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.18D);
+        }
     }
 
     // Follow
@@ -406,7 +411,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             }
 
             else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
-                if(this.isSprinting() && !this.isBaby()) {
+                if(this.isSprinting() || this.isRunning()) {
                     event.setAndContinue(BARINA_SPRINT);
                 } else {
                     event.setAndContinue(BARINA_WALK);
@@ -448,7 +453,6 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     // Attack animations
     protected <E extends BarinasuchusEntity> PlayState attackPredicate(final AnimationState<E> event) {
         int animState = this.getAnimationState();
-
         if (animState == 21) {
             event.setAndContinue(BARINA_BITE_1);
             return PlayState.CONTINUE;
