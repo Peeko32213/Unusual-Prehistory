@@ -361,14 +361,13 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
                 return InteractionResult.SUCCESS;
             }
         }
-        if (this.isTame()) {
+        if(this.isTame() && this.isOwnedBy(player)) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 if (!player.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }
-                this.heal(4);
+                this.heal((float) itemstack.getFoodProperties(this).getNutrition());
                 this.gameEvent(GameEvent.EAT, this);
-                this.playSound(SoundEvents.HORSE_EAT, 0.5F, 1.0F);
             }
             else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
                 this.usePlayerItem(player, hand, itemstack);
@@ -380,10 +379,10 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
                 this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.spawnAtLocation(Items.SADDLE);
             }
-            return InteractionResult.SUCCESS;
         }
-        if (this.isOwnedBy(player)) {
-            if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+        if (!this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime() == 0 && this.getSittingTime() == 0) {
+            if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() &&
+                    this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
                 this.doPlayerRide(player);
             }
             else {
@@ -391,8 +390,9 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
                 if (this.getCommand() == 3) {
                     this.setCommand(0);
                 }
+
                 int var10001 = this.getCommand();
-                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, this.getName()), true);
+                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
                 boolean sit = this.getCommand() == 2;
                 if (sit) {
                     this.setOrderedToSit(true);
@@ -408,7 +408,7 @@ public class MegatheriumEntity extends PrehistoricEntity implements ICustomFollo
             }
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+        return InteractionResult.FAIL;
     }
 
     @Override

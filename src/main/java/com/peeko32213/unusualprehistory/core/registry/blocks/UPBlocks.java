@@ -167,7 +167,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
     public static final RegistryObject<Block> ISOETES_BEESTONII = createBlock("isoetes_beestonii", () -> new IsoetesBeestoniiBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
     public static final RegistryObject<Block> CLADOPHLEBIS = createBlock("cladophlebis", () -> new CladophlebisBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
-
+    public static final RegistryObject<Block> CALAMOPHYTON = createBlock("calamophyton", () -> new CalamophytonBlock(UPProperties.Blocks.CALAMOPHYTON));
     // Prehistoric corals
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));

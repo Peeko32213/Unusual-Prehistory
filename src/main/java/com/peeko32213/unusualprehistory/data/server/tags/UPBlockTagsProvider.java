@@ -340,6 +340,11 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
                 .addTag(BlockTags.DIRT)
                 .add(Blocks.GRAVEL);
 
+        this.tag(UPBlockTags.CALAMOPHYTON_PLACEABLE)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .add(Blocks.GRAVEL);
+
         this.tag(UPBlockTags.DINO_NATURAL_SPAWNABLE);
 
         this.tag(UPBlockTags.TYRANNO_BREAKABLES)

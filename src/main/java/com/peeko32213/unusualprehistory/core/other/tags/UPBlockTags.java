@@ -37,7 +37,7 @@ public class UPBlockTags {
     public static final TagKey<Block> ISOETES_BEESTONII_PLACEABLE = blockTag("isoetes_beestonii_placeable");
     public static final TagKey<Block> CLADOPHLEBIS_PLACEABLE = blockTag("cladophlebis_placeable");
     public static final TagKey<Block> HORSETAIL_PLACEABLE = blockTag("horsetail_placeable");
-
+    public static final TagKey<Block> CALAMOPHYTON_PLACEABLE = blockTag("calamophyton_placeable");
 
     private static TagKey<Block> blockTag(String name) {
         return TagUtil.blockTag(UnusualPrehistory.MODID, name);

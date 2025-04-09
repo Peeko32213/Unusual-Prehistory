@@ -42,11 +42,9 @@ public class SaraceniaBlock extends BushBlock implements BonemealableBlock {
         }
     }
 
-
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
         return SHAPE.move(offset.x, offset.y, offset.z);
     }
-
 }

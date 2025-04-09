@@ -290,7 +290,7 @@ public class UPEntities {
                     .build(modPrefix("mammoth").toString()));
 
     public static final RegistryObject<EntityType<MegalaniaEntity>> MEGALANIA = registerPrehistoricCreatureWithEgg("megalania",
-            () -> EntityType.Builder.of(MegalaniaEntity::new, MobCategory.CREATURE).sized(2.5F, 2.0F)
+            () -> EntityType.Builder.of(MegalaniaEntity::new, MobCategory.CREATURE).sized(2.25F, 1.5F)
                     .build(modPrefix("megalania").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x49412e, 0x33d090);
 

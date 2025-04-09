@@ -70,5 +70,8 @@ public class UPProperties {
         public static final BlockBehaviour.Properties ZULOAGAE_PRESSURE_PLATE = zuloagae().forceSolidOn().noCollission().pushReaction(PushReaction.DESTROY).strength(0.5F);
         public static final BlockBehaviour.Properties ZULOAGAE_BUTTON = zuloagae().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY);
         public static final BlockBehaviour.Properties ZULOAGAE_SIGNS = zuloagae().forceSolidOn().noCollission().strength(1.0F);
+
+        public static final BlockBehaviour.Properties CALAMOPHYTON = BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY);
+
     }
 }

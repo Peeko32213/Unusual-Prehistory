@@ -13,9 +13,9 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class MegalaniaModel extends GeoModel<MegalaniaEntity>
 {
-    private static final ResourceLocation TEXTURE_TEMPERATE = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania.png");
+    private static final ResourceLocation TEXTURE_TEMPERATE = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_temperate.png");
     private static final ResourceLocation TEXTURE_COLD = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_cold.png");
-    private static final ResourceLocation TEXTURE_HOT = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_hot.png");
+    private static final ResourceLocation TEXTURE_WARM = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_warm.png");
     private static final ResourceLocation TEXTURE_NETHER = new ResourceLocation("unusualprehistory:textures/entity/megalania/megalania_nether.png");
 
     @Override
@@ -27,7 +27,7 @@ public class MegalaniaModel extends GeoModel<MegalaniaEntity>
     public ResourceLocation getTextureResource(MegalaniaEntity megalania) {
         return switch (megalania.getVariant()) {
             case 1 -> TEXTURE_COLD;
-            case 2 -> TEXTURE_HOT;
+            case 2 -> TEXTURE_WARM;
             case 3 -> TEXTURE_NETHER;
             default -> TEXTURE_TEMPERATE;
         };
@@ -43,7 +43,7 @@ public class MegalaniaModel extends GeoModel<MegalaniaEntity>
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Varanus_Head");
 
         if (!animatable.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);

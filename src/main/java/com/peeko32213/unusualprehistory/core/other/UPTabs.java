@@ -343,6 +343,7 @@ public class UPTabs {
                         entries.accept(UPBlocks.ARCHAEFRUCTUS.get());
                         entries.accept(UPBlocks.ARCHAEOSIGILARIA.get());
                         entries.accept(UPBlocks.BENNETTITALES.get());
+                        entries.accept(UPBlocks.CALAMOPHYTON.get());
                         entries.accept(UPBlocks.CLADOPHLEBIS.get());
                         entries.accept(UPBlocks.HORSETAIL.get());
                         entries.accept(UPBlocks.TALL_HORSETAIL.get());

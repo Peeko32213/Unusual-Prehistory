@@ -3,131 +3,116 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.edaphosaurus",
+				"identifier": "geometry.unknown",
 				"texture_width": 256,
 				"texture_height": 256,
-				"visible_bounds_width": 6,
-				"visible_bounds_height": 3.5,
-				"visible_bounds_offset": [0, 1.25, 0]
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
 			},
 			"bones": [
 				{
-					"name": "root",
-					"pivot": [0, 0, 0]
+					"name": "Edaphosaurus",
+					"pivot": [0, 0, -1],
+					"rotation": [0, 180, 0]
 				},
 				{
-					"name": "Body",
-					"parent": "root",
-					"pivot": [0, 10, 0],
+					"name": "Edapho_Upper_Body",
+					"parent": "Edaphosaurus",
+					"pivot": [0, 0, -1],
 					"cubes": [
-						{"origin": [-6.5, 3, -10], "size": [13, 11, 20], "uv": [70, 0]}
+						{"origin": [-6.5, 4, -10], "size": [13, 11, 19], "uv": [74, 74]},
+						{"origin": [-1, 11, -26], "size": [2, 31, 35], "uv": [0, 74]},
+						{"origin": [0, 9, -28], "size": [0, 35, 39], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "Fan",
-					"parent": "Body",
-					"pivot": [0, 14, -3],
+					"name": "Edapho_Head",
+					"parent": "Edapho_Upper_Body",
+					"pivot": [0, 12, 9],
 					"cubes": [
-						{"origin": [-1, 8, -12], "size": [2, 27, 34], "uv": [42, 36]},
-						{"origin": [0, 5, -14], "size": [0, 32, 38], "uv": [0, 0]}
+						{"origin": [-2.5, 12, 9], "size": [5, 3, 6], "uv": [78, 29]}
 					]
 				},
 				{
-					"name": "Neck",
-					"parent": "Body",
-					"pivot": [0, 12, -10],
+					"name": "Edapho_Jaw",
+					"parent": "Edapho_Head",
+					"pivot": [-0.5, 12, 9],
 					"cubes": [
-						{"origin": [-3, 6, -14], "size": [6, 7, 4], "uv": [0, 11]}
+						{"origin": [-2.5, 11, 9], "size": [5, 1, 6], "uv": [78, 38]}
 					]
 				},
 				{
-					"name": "Head",
-					"parent": "Neck",
-					"pivot": [0, 13, -11],
+					"name": "Edapho_Arm_Left",
+					"parent": "Edapho_Upper_Body",
+					"pivot": [-6, 5.5, 6],
 					"cubes": [
-						{"origin": [-3.5, 10.1, -18], "size": [7, 4, 7], "uv": [0, 0]}
+						{"origin": [-9.5, 0, 4], "size": [4, 7, 4], "uv": [78, 45]}
 					]
 				},
 				{
-					"name": "Tail",
-					"parent": "Body",
-					"pivot": [0, 5, 9],
+					"name": "Edapho_Hand_Left",
+					"parent": "Edapho_Arm_Left",
+					"pivot": [-8.5, 0, 7],
 					"cubes": [
-						{"origin": [-2.5, 0, 6], "size": [5, 5, 30], "uv": [0, 0]}
+						{"origin": [-12.5, 0.01, 7], "size": [7, 0, 4], "uv": [78, 67]}
 					]
 				},
 				{
-					"name": "ArmControl",
-					"parent": "root",
-					"pivot": [0, 6, -7]
-				},
-				{
-					"name": "Arm1",
-					"parent": "ArmControl",
-					"pivot": [6.5, 6, -7],
+					"name": "Edapho_Arm_Right",
+					"parent": "Edapho_Upper_Body",
+					"pivot": [6, 5.5, 6],
 					"cubes": [
-						{"origin": [5.5, 0, -9], "size": [4, 7, 4], "uv": [40, 0]}
+						{"origin": [5.5, 0, 4], "size": [4, 7, 4], "uv": [78, 45], "mirror": true}
 					]
 				},
 				{
-					"name": "Hand1",
-					"parent": "Arm1",
-					"pivot": [7.5, 0, -8],
+					"name": "Edapho_Hand_Right",
+					"parent": "Edapho_Arm_Right",
+					"pivot": [8.5, 0, 7],
 					"cubes": [
-						{"origin": [5.5, 0, -13], "size": [7, 0, 5], "uv": [0, 22]}
+						{"origin": [5.5, 0.01, 7], "size": [7, 0, 4], "uv": [78, 67], "mirror": true}
 					]
 				},
 				{
-					"name": "Arm2",
-					"parent": "ArmControl",
-					"pivot": [-6.5, 6, -7],
+					"name": "Edapho_Tail",
+					"parent": "Edapho_Upper_Body",
+					"pivot": [0, 5, -8.5],
+					"rotation": [5, 0, 0],
 					"cubes": [
-						{"origin": [-9.5, 0, -9], "size": [4, 7, 4], "uv": [40, 0], "mirror": true}
+						{"origin": [-2.5, 2, -31], "size": [5, 5, 24], "pivot": [0, 4.5, -19], "rotation": [0, 0, -180], "uv": [78, 0]}
 					]
 				},
 				{
-					"name": "Hand2",
-					"parent": "Arm2",
-					"pivot": [-7.5, 0, -8],
+					"name": "Edapho_Leg_Left",
+					"parent": "Edaphosaurus",
+					"pivot": [-6, 5.5, -5],
 					"cubes": [
-						{"origin": [-12.5, 0, -13], "size": [7, 0, 5], "uv": [0, 22], "mirror": true}
+						{"origin": [-9.5, 0, -7], "size": [4, 7, 4], "uv": [78, 56]}
 					]
 				},
 				{
-					"name": "LegControl",
-					"parent": "root",
-					"pivot": [6.5, 6, 6]
-				},
-				{
-					"name": "Leg1",
-					"parent": "LegControl",
-					"pivot": [6.5, 6, 6],
+					"name": "Edapho_Foot_Left",
+					"parent": "Edapho_Leg_Left",
+					"pivot": [-8.5, 0, -4],
 					"cubes": [
-						{"origin": [5.5, 0, 4], "size": [4, 7, 4], "uv": [40, 0]}
+						{"origin": [-12.5, 0.01, -4], "size": [7, 0, 4], "uv": [94, 45]}
 					]
 				},
 				{
-					"name": "Foot1",
-					"parent": "Leg1",
-					"pivot": [7.5, 0, 5],
+					"name": "Edapho_Leg_Right",
+					"parent": "Edaphosaurus",
+					"pivot": [6, 5.5, -5],
 					"cubes": [
-						{"origin": [5.5, 0, 0], "size": [7, 0, 5], "uv": [0, 22]}
+						{"origin": [5.5, 0, -7], "size": [4, 7, 4], "uv": [78, 56], "mirror": true}
 					]
 				},
 				{
-					"name": "Leg2",
-					"parent": "LegControl",
-					"pivot": [-6.5, 6, 6],
+					"name": "Edapho_Foot_Right",
+					"parent": "Edapho_Leg_Right",
+					"pivot": [8.5, 0, -4],
 					"cubes": [
-						{"origin": [-9.5, 0, 4], "size": [4, 7, 4], "uv": [40, 0], "mirror": true}
-					]
-				},
-				{
-					"name": "Foot2",
-					"parent": "Leg2",
-					"pivot": [-7.5, 0, 5],
-					"cubes": [
-						{"origin": [-12.5, 0, 0], "size": [7, 0, 5], "uv": [0, 22], "mirror": true}
+						{"origin": [5.5, 0.01, -4], "size": [7, 0, 4], "uv": [94, 45], "mirror": true}
 					]
 				}
 			]

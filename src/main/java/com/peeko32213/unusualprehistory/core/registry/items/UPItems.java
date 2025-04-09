@@ -204,7 +204,7 @@ public class UPItems {
     public static final RegistryObject<Item> ANTARCO_SPAWN_EGG = spawnEgg("antarctopelta", UPEntities.ANTARCO , 0x39332d, 0xe6e1d4);
     public static final RegistryObject<Item> ANURO_SPAWN_EGG = spawnEgg("anurognathus", UPEntities.ANURO , 0x7d7968, 0xf4dd48);
     public static final RegistryObject<Item> ARCHELON_SPAWN_EGG = spawnEgg("archelon", UPEntities.ARCHELON , 0x618b89, 0x171923);
-    public static final RegistryObject<Item> AUSTRO_SPAWN_EGG = spawnEgg("austroraptor", UPEntities.AUSTRO , 0xfff9f7, 0xc72727);
+    public static final RegistryObject<Item> AUSTRO_SPAWN_EGG = spawnEgg("austroraptor", UPEntities.AUSTRO , 0xa19d97, 0xdc4c39);
     public static final RegistryObject<Item> BALAUR_SPAWN_EGG = spawnEgg("balaur", UPEntities.BALAUR , 0x1d1d28, 0x3b8a34);
     public static final RegistryObject<Item> BARINA_SPAWN_EGG = spawnEgg("barinasuchus", UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e);
     public static final RegistryObject<Item> BEELZ_SPAWN_EGG = spawnEgg("beelzebufo", UPEntities.BEELZ , 0x5d9439, 0x7457c5);
@@ -213,7 +213,7 @@ public class UPItems {
     public static final RegistryObject<Item> COTY_SPAWN_EGG = spawnEgg("cotylorhynchus", UPEntities.COTY , 0xc26940, 0xebe0c5);
     public static final RegistryObject<Item> DIPLOCAULUS_SPAWN_EGG = spawnEgg("diplocaulus", UPEntities.DIPLOCAULUS , 0x21212e, 0xfc9214);
     public static final RegistryObject<Item> DUNK_SPAWN_EGG = spawnEgg("dunkleosteus", UPEntities.DUNK , 0x417a69, 0x825147);
-    public static final RegistryObject<Item> EDAPHOSAURUS_SPAWN_EGG = spawnEgg("edaphosaurus", UPEntities.EDAPHOSAURUS , 0x572b2b, 0xf6e8e8);
+    public static final RegistryObject<Item> EDAPHOSAURUS_SPAWN_EGG = spawnEgg("edaphosaurus", UPEntities.EDAPHOSAURUS , 0x3d879d, 0xcaf986);
     public static final RegistryObject<Item> ENCRUSTED_SPAWN_EGG = spawnEgg("encrusted", UPEntities.ENCRUSTED , 0x8c5302, 0xffb12a);
     public static final RegistryObject<Item> ERYON_SPAWN_EGG = spawnEgg("eryon", UPEntities.ERYON , 0x1d2110, 0xe4b423);
     public static final RegistryObject<Item> ESTEMMENOSUCHUS_SPAWN_EGG = spawnEgg("estemmenosuchus", UPEntities.ESTEMMENOSUCHUS , 0x1e202d, 0x7e4995);
@@ -224,17 +224,17 @@ public class UPItems {
     public static final RegistryObject<Item> HYNERPETON_SPAWN_EGG = spawnEgg("hynerpeton", UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
     public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = spawnEgg("jawless_fish", UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);
     public static final RegistryObject<Item> KAPROSUCUHS_SPAWN_EGG = spawnEgg("kaprosuchus", UPEntities.KAPROSUCHUS , 0x322f2c, 0xf6f050);
-    public static final RegistryObject<Item> KENTRO_SPAWN_EGG = spawnEgg("kentrosaurus", UPEntities.KENTRO , 0x122407, 0xddcca4);
+    public static final RegistryObject<Item> KENTRO_SPAWN_EGG = spawnEgg("kentrosaurus", UPEntities.KENTRO , 0x657341, 0x181a14);
     public static final RegistryObject<Item> KIMMER_SPAWN_EGG = spawnEgg("kimmeridgebrachypteraeschnidium", UPEntities.KIMMER , 0xf77efc, 0x44b0ef);
     public static final RegistryObject<Item> LEEDS_SPAWN_EGG = spawnEgg("leedsichthys", UPEntities.LEEDSICHTHYS , 0x505b67, 0xd9dada);
     public static final RegistryObject<Item> LONGISQUAMA_SPAWN_EGG = spawnEgg("longisquama", UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
     public static final RegistryObject<Item> MAJUNGA_SPAWN_EGG = spawnEgg("majungasaurus", UPEntities.MAJUNGA , 0x1d600e, 0xacd35d);
     public static final RegistryObject<Item> MAMMOTH_SPAWN_EGG = spawnEgg("mammoth", UPEntities.MAMMOTH , 0x180a08, 0x5e5333);
-    public static final RegistryObject<Item> MEGALANIA_SPAWN_EGG = spawnEgg("megalania", UPEntities.MEGALANIA , 0x2e2319, 0x96874b);
+    public static final RegistryObject<Item> MEGALANIA_SPAWN_EGG = spawnEgg("megalania", UPEntities.MEGALANIA , 0x4f432b, 0x3ae3fd);
     public static final RegistryObject<Item> MEGATH_SPAWN_EGG = spawnEgg("megatherium", UPEntities.MEGATHERIUM , 0x221e1b, 0xc9bfa1);
     public static final RegistryObject<Item> OPHIODON_SPAWN_EGG = spawnEgg("ophiodon", UPEntities.OPHIODON , 0x212d47, 0x467186);
     public static final RegistryObject<Item> OTAROCYON_SPAWN_EGG = spawnEgg("otarocyon", UPEntities.OTAROCYON , 0x281b25, 0x681523);
-    public static final RegistryObject<Item> OVIRAPTOR_SPAWN_EGG = spawnEgg("oviraptor", UPEntities.OVIRAPTOR , 0x365754, 0xe19f2e);
+    public static final RegistryObject<Item> OVIRAPTOR_SPAWN_EGG = spawnEgg("oviraptor", UPEntities.OVIRAPTOR , 0x456a66, 0xe84560);
     public static final RegistryObject<Item> PACHY_SPAWN_EGG = spawnEgg("pachycephalosaurus", UPEntities.PACHY , 0x852d2d, 0xf8b209);
     public static final RegistryObject<Item> PALAEOPHIS_SPAWN_EGG = spawnEgg("palaeophis", UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1);
     public static final RegistryObject<Item> PALAEOPHIS_HATCHLING_SPAWN_EGG = spawnEgg("palaeophis_hatchling", UPEntities.BABY_PALAEO , 0x3a4172, 0x8da5b3);
@@ -243,7 +243,7 @@ public class UPItems {
     public static final RegistryObject<Item> PROTOSPHYRAENA_SPAWN_EGG = spawnEgg("protosphyraena", UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
     public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = spawnEgg("psilopterus", UPEntities.PSILOPTERUS , 0x3f3428, 0xe4ceb0);
     public static final RegistryObject<Item> PSITTACO_SPAWN_EGG = spawnEgg("psittacosaurus", UPEntities.PSITTACO , 0xa04f2a, 0xd6b560);
-    public static final RegistryObject<Item> PTERODAUSTRO_SPAWN_EGG = spawnEgg("pterodaustro", UPEntities.PTERODAUSTRO , 0xc93660, 0xfff3fd);
+    public static final RegistryObject<Item> PTERODAUSTRO_SPAWN_EGG = spawnEgg("pterodaustro", UPEntities.PTERODAUSTRO , 0xf6887f, 0x1b1419);
     public static final RegistryObject<Item> PTERYGOTUS_SPAWN_EGG = spawnEgg("pterygotus", UPEntities.PTERYGOTUS , 0xb88966, 0x664531);
     public static final RegistryObject<Item> SCAU_SPAWN_EGG = spawnEgg("scaumenacia", UPEntities.SCAU , 0x909da1, 0x5094c1);
     public static final RegistryObject<Item> SLUDGE_SPAWN_EGG = spawnEgg("sludge", UPEntities.SLUDGE , 0x0a090a, 0x282627);
