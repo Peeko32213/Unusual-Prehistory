@@ -2,16 +2,15 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquati
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.SchoolingWaterAnimal;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.XiphactinusAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.part.XiphactinusPartEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,56 +18,48 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
 
-public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity, GeoAnimatable, IBookEntity {
+public class XiphactinusEntity extends PrehistoricAquaticEntity {
 
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(XiphactinusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(XiphactinusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(XiphactinusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(XiphactinusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> RAMMING = SynchedEntityData.defineId(XiphactinusEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    public final XiphactinusPartEntity head;
+    public final XiphactinusPartEntity tail;
+    public final XiphactinusPartEntity[] allParts;
+    public int ringBufferIndex = -1;
+    public final float[][] ringBuffer = new float[64][3];
+
+    private int passiveFor = 0;
+
+    public float prevTilt;
+    public float tilt;
+    public float currentRoll = 0.0F;
 
     // Idle animations
     private static final RawAnimation XIPH_IDLE = RawAnimation.begin().thenLoop("animation.xiphactinus.idle");
@@ -82,7 +73,7 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
     private static final RawAnimation XIPH_FLOP = RawAnimation.begin().thenLoop("animation.xiphactinus.flop");
 
     // Attack animations
-    private static final RawAnimation XIPH_CHARGE = RawAnimation.begin().thenLoop("animation.xiphactinus.attack_charge");
+    private static final RawAnimation XIPH_RAM = RawAnimation.begin().thenLoop("animation.xiphactinus.attack_charge");
     private static final RawAnimation XIPH_BITE = RawAnimation.begin().thenPlay("animation.xiphactinus.attack_impact");
 
     // Idle accessors
@@ -136,66 +127,35 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
         );
     }
 
-    private int passiveFor = 0;
-
     @Override
-    protected int getKillHealAmount() {
-        return 6;
+    protected @NotNull BodyRotationControl createBodyControl() {
+        SmartBodyHelper helper = new SmartBodyHelper(this);
+        helper.bodyLagMoving = 0.2F;
+        helper.bodyLagStill = 0.1F;
+        return helper;
     }
 
-    public XiphactinusEntity(EntityType<? extends SchoolingWaterAnimal> entityType, Level level) {
+    public XiphactinusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.moveControl = new MoveHelperController(this);
+        this.head = new XiphactinusPartEntity(this, 1.25F,1.1F );
+        this.tail = new XiphactinusPartEntity(this, 1.25F, 1.1F);
+        this.allParts = new XiphactinusPartEntity[]{this.head, this.tail};
     }
 
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 30.0D)
-            .add(Attributes.ATTACK_DAMAGE, 8.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.15D)
-            .add(Attributes.FOLLOW_RANGE, 16.0D);
+                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, 8.0D)
+                .add(Attributes.FOLLOW_RANGE, 24.0D);
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(1, new XiphactinusEntity.XiphMeleeAttackGoal(this, 2.15F, true));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new XiphactinusAttackGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.XIPH_TARGETS)));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.XIPH_TARGETS)));
         this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
-    }
-
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
-    @Override
-    public boolean canAttack(@NotNull LivingEntity entity) {
-        boolean prev = super.canAttack(entity);
-        if(prev && passiveFor > 0 && entity instanceof LivingEntity && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().getUUID().equals(entity.getUUID()))){
-            return false;
-        }
-        return prev;
-    }
-
-    public void travel(@NotNull Vec3 travelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.925D));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-            }
-        } else {
-            super.travel(travelVector);
-        }
     }
  
     protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
@@ -218,58 +178,134 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
         return SoundEvents.COD_FLOP;
     }
 
+    // Synched data
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(RAMMING, false);
         this.entityData.define(IDLE_1_AC, false);
         this.entityData.define(IDLE_2_AC, false);
         this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-        this.entityData.define(ENTITY_STATE, 0);
-        this.entityData.define(FROM_BOOK, false);
     }
 
+    // Save data
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("Ramming", this.isRamming());
         compound.putInt("PassiveFor", passiveFor);
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setRamming(compound.getBoolean("Ramming"));
         passiveFor = compound.getInt("PassiveFor");
     }
 
-    public void tick() {
-        super.tick();
+    // Ramming
+    public void setRamming(boolean ramming) {
+        this.entityData.set(RAMMING, ramming);
+    }
+    public boolean isRamming() {
+        return this.entityData.get(RAMMING);
     }
 
     @Override
     public void aiStep() {
+        super.aiStep();
+
+        // Tilt
+        prevTilt = tilt;
+        if (this.isInWater() && !this.onGround()) {
+            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+            if (Math.abs(v) > 1) {
+                if (Math.abs(tilt) < 25) {
+                    tilt -= Math.signum(v);
+                }
+            } else {
+                if (Math.abs(tilt) > 0) {
+                    final float tiltSign = Math.signum(tilt);
+                    tilt -= tiltSign * 0.85F;
+                    if (tilt * tiltSign < 0) {
+                        tilt = 0;
+                    }
+                }
+            }
+        } else {
+            tilt = 0;
+        }
+
+        // Roll
+        float prevRoll =  this.currentRoll;
+        float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
+        targetRoll = -targetRoll;
+        this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
+
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
-        super.aiStep();
-    }
 
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
+        // Multipart
+        if (!this.isNoAi()) {
+            if (this.ringBufferIndex < 0) {
+                for (int i = 0; i < this.ringBuffer.length; ++i) {
+                    this.ringBuffer[i][0] = this.getYRot();
+                    this.ringBuffer[i][1] = (float) this.getY();
+                }
+            }
+            this.ringBufferIndex++;
+            if (this.ringBufferIndex == this.ringBuffer.length) {
+                this.ringBufferIndex = 0;
+            }
+            this.ringBuffer[this.ringBufferIndex][0] = this.getYRot();
+            this.ringBuffer[ringBufferIndex][1] = (float) this.getY();
+            Vec3[] avector3d = new Vec3[this.allParts.length];
 
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
+            for (int j = 0; j < this.allParts.length; ++j) {
+                this.allParts[j].collideWithNearbyEntities();
+                avector3d[j] = new Vec3(this.allParts[j].getX(), this.allParts[j].getY(), this.allParts[j].getZ());
+            }
+            final float f17 = this.getYRot() * Mth.DEG_TO_RAD;
+            final float pitch = this.getXRot() * Mth.DEG_TO_RAD;
+            final float xRotDiv90 = Math.abs(this.getXRot() / 90F);
+            final float f3 = Mth.sin(f17) * (1 - xRotDiv90);
+            final float f18 = Mth.cos(f17) * (1 - xRotDiv90);
+
+            this.setPartPosition(this.head, f3 * -1.8F, -pitch * 0.8F, -f18 * -1.8F);
+            this.setPartPosition(this.tail, f3 * 1.8F, pitch * 0.3F, f18 * -1.8F);
+
+            for (int l = 0; l < this.allParts.length; ++l) {
+                this.allParts[l].xo = avector3d[l].x;
+                this.allParts[l].yo = avector3d[l].y;
+                this.allParts[l].zo = avector3d[l].z;
+                this.allParts[l].xOld = avector3d[l].x;
+                this.allParts[l].yOld = avector3d[l].y;
+                this.allParts[l].zOld = avector3d[l].z;
+            }
+        }
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
+    public boolean isMultipartEntity() {
+        return true;
     }
 
     @Override
-    public double getTick(Object o) {
-        return tickCount;
+    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
+        return this.allParts;
+    }
+
+    private void setPartPosition(XiphactinusPartEntity part, double offsetX, double offsetY, double offsetZ) {
+        part.setPos(this.getX() + offsetX * part.scale, this.getY() + offsetY * part.scale, this.getZ() + offsetZ * part.scale);
+    }
+
+    public boolean attackEntityPartFrom(XiphactinusPartEntity xiphactinusPart, DamageSource source, float amount) {
+        return this.hurt(source, amount);
+    }
+
+    public InteractionResult interactEntityPartFrom(XiphactinusPartEntity xiphactinusPart, Player player, InteractionHand hand) {
+        return this.mobInteract(player, hand);
     }
 
     @Override
@@ -282,296 +318,71 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
         super.customServerAiStep();
     }
 
+    public void tick() {
+        super.tick();
+
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(2.0D);
+        }
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+        }
+    }
+
     @Override
-    public @NotNull ItemStack getBucketItemStack() {
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(0.01F, pTravelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0F, -0.005, 0.0F));
+            }
+        } else {
+            super.travel(pTravelVector);
+        }
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+        return pSize.height * 0.65F;
+    }
+
+    public void killed() {
+        passiveFor = 2400 + random.nextInt(100, 1200);
+        this.heal(15);
+    }
+
+    @Override
+    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
         return null;
     }
 
-    static class MoveHelperController extends MoveControl {
-        private final XiphactinusEntity dolphin;
-
-        public MoveHelperController(XiphactinusEntity dolphinIn) {
-            super(dolphinIn);
-            this.dolphin = dolphinIn;
-        }
-
-        public void tick() {
-            if (this.dolphin.isInWater()) {
-                this.dolphin.setDeltaMovement(this.dolphin.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-            }
-
-            if (this.operation == Operation.MOVE_TO && !this.dolphin.getNavigation().isDone()) {
-                double d0 = this.wantedX - this.dolphin.getX();
-                double d1 = this.wantedY - this.dolphin.getY();
-                double d2 = this.wantedZ - this.dolphin.getZ();
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                if (d3 < (double) 2.5000003E-7F) {
-                    this.mob.setZza(0.0F);
-                } else {
-                    float f = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                    this.dolphin.setYRot(this.rotlerp(this.dolphin.getYRot(), f, 10.0F));
-                    this.dolphin.yBodyRot = this.dolphin.getYRot();
-                    this.dolphin.yHeadRot = this.dolphin.getYRot();
-                    float f1 = (float) (this.speedModifier * this.dolphin.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                    if (this.dolphin.isInWater()) {
-                        this.dolphin.setSpeed(f1 * 0.02F);
-                        float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * (double) (180F / (float) Math.PI)));
-                        f2 = Mth.clamp(Mth.wrapDegrees(f2), -85.0F, 85.0F);
-                        this.dolphin.setXRot(this.rotlerp(this.dolphin.getXRot(), f2, 5.0F));
-                        float f3 = Mth.cos(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                        float f4 = Mth.sin(this.dolphin.getXRot() * ((float) Math.PI / 180F));
-                        this.dolphin.zza = f3 * f1;
-                        this.dolphin.yya = -f4 * f1;
-                    } else {
-                        this.dolphin.setSpeed(f1 * 0.1F);
-                    }
-
-                }
-            } else {
-                this.dolphin.setSpeed(0.0F);
-                this.dolphin.setXxa(0.0F);
-                this.dolphin.setYya(0.0F);
-                this.dolphin.setZza(0.0F);
-            }
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<XiphactinusEntity> event) {
+        XiphactinusEntity xiphactinus = event.getAnimatable();
+        if (xiphactinus.level().isClientSide) {
         }
     }
 
-    // Bite attack
-    static class XiphMeleeAttackGoal extends Goal {
-
-        protected final XiphactinusEntity mob;
-        private final double speedModifier;
-        private final boolean followingTargetEvenIfNotSeen;
-        private Path path;
-        private double pathedTargetX;
-        private double pathedTargetY;
-        private double pathedTargetZ;
-        private int ticksUntilNextPathRecalculation;
-        private int ticksUntilNextAttack;
-        private long lastCanUseCheck;
-        private int failedPathFindingPenalty = 0;
-        private boolean canPenalize = false;
-        private int animTime = 0;
-
-        public XiphMeleeAttackGoal(XiphactinusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
-            this.mob = p_i1636_1_;
-            this.speedModifier = p_i1636_2_;
-            this.followingTargetEvenIfNotSeen = p_i1636_4_;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-        }
-
-        public boolean canUse() {
-            long i = this.mob.level().getGameTime();
-            {
-                this.lastCanUseCheck = i;
-                LivingEntity livingentity = this.mob.getTarget();
-                if (livingentity == null) {
-                    return false;
-                } else if (!livingentity.isAlive()) {
-                    return false;
-                } else {
-                    if (canPenalize) {
-                        if (--this.ticksUntilNextPathRecalculation <= 0) {
-                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                            return this.path != null;
-                        } else {
-                            return true;
-                        }
-                    }
-                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                    if (this.path != null) {
-                        return true;
-                    } else {
-                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                    }
-                }
-            }
-        }
-
-        public boolean canContinueToUse() {
-
-            LivingEntity livingentity = this.mob.getTarget();
-
-            if (livingentity == null) {
-                return false;
-            }
-            else if (!livingentity.isAlive()) {
-                return false;
-            } else if (!this.followingTargetEvenIfNotSeen) {
-                return !this.mob.getNavigation().isDone();
-            } else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
-                return false;
-            } else {
-                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
-            }
-        }
-
-        public void start() {
-            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
-            this.ticksUntilNextPathRecalculation = 0;
-            this.ticksUntilNextAttack = 0;
-            this.animTime = 0;
-            this.mob.setAnimationState(0);
-        }
-
-        public void stop() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget(null);
-            }
-            this.mob.setAnimationState(0);
-        }
-
-        public void tick() {
-
-            LivingEntity target = this.mob.getTarget();
-            assert target != null;
-            double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-            double reach = this.getAttackReachSqr(target);
-            int animState = this.mob.getAnimationState();
-            Vec3 aim = this.mob.getLookAngle();
-            Vec2 aim2d = new Vec2((float) (aim.x / (1 - Math.abs(aim.y))), (float) (aim.z / (1 - Math.abs(aim.y))));
-
-            if (animState == 1) {
-                tickBiteAttack();
-            } else {
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                this.doMovement(target, distance);
-                this.checkForCloseRangeAttack(distance, reach);
-            }
-        }
-
-        protected void doMovement (LivingEntity livingentity, Double d0){
-
-            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
-                this.pathedTargetX = livingentity.getX();
-                this.pathedTargetY = livingentity.getY();
-                this.pathedTargetZ = livingentity.getZ();
-                this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                if (this.canPenalize) {
-                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
-                    if (this.mob.getNavigation().getPath() != null) {
-                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
-                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
-                        else
-                            failedPathFindingPenalty += 10;
-                    } else {
-                        failedPathFindingPenalty += 10;
-                    }
-                }
-                if (d0 > 1024.0D) {
-                    this.ticksUntilNextPathRecalculation += 10;
-                } else if (d0 > 256.0D) {
-                    this.ticksUntilNextPathRecalculation += 5;
-                }
-
-                if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                    this.ticksUntilNextPathRecalculation += 15;
-                }
-            }
-        }
-
-        protected void checkForCloseRangeAttack ( double distance, double reach){
-            if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                this.mob.setAnimationState(1);
-            }
-        }
-
-        protected boolean getRangeCheck () {
-            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 1.6F * this.getAttackReachSqr(this.mob.getTarget());
-        }
-
-        protected void tickBiteAttack () {
-            animTime++;
-
-            if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-                this.mob.yBodyRot = this.mob.yHeadRot;
-            }
-
-            if(animTime==6) {
-                preformBiteAttack();
-            }
-
-            if(animTime>=9) {
-                animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void preformBiteAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.DUNK_ATTACK.get(), 0.15F, 1.0F);
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
-        }
-
-        protected void resetAttackCooldown () {
-            this.ticksUntilNextAttack = 0;
-        }
-
-        protected boolean isTimeToAttack () {
-            return this.ticksUntilNextAttack <= 0;
-        }
-
-        protected int getTicksUntilNextAttack () {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected int getAttackInterval () {
-            return 5;
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 1.8F + p_179512_1_.getBbWidth();
-        }
-    }
-
-    public boolean canDisableShield() {
-        return false;
-    }
-
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
-
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
-
-    public int getCombatState() {
-        return this.entityData.get(COMBAT_STATE);
-    }
-
-    public void setCombatState(int anim) {
-        this.entityData.set(COMBAT_STATE, anim);
-    }
-
-    public int getEntityState() {
-        return this.entityData.get(ENTITY_STATE);
-    }
-
-    public void setEntityState(int anim) {
-        this.entityData.set(ENTITY_STATE, anim);
-    }
-
+    // Attack controller
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-        controllers.add(new AnimationController<>(this, "blend", 5, this::Controller)
-            .triggerableAnim("inspect", XIPH_INSPECT)
-            .triggerableAnim("open_jaw", XIPH_OPEN_JAW)
-            .triggerableAnim("hiccup", XIPH_HICCUP));
+        AnimationController<XiphactinusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<XiphactinusEntity> idle = new AnimationController<>(this, "idleController", 0, this::idlePredicate);
+        idle.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(idle);
+
+        AnimationController<XiphactinusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
     }
 
-    protected <E extends XiphactinusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    protected <E extends XiphactinusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
 
         if (this.isFromBook()) {
             return event.setAndContinue(XIPH_IDLE);
@@ -585,7 +396,7 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
             }
             else {
                 if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                    if(this.isSprinting()){
+                    if(this.isSprinting() || this.isRunning()){
                         event.setAndContinue(XIPH_SWIM_FAST);
                         event.getController().setAnimationSpeed(1.0F);
                     } else {
@@ -600,21 +411,6 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
                     return PlayState.CONTINUE;
                 }
                 else if (this.isInWater()) {
-                    if (getBooleanState(IDLE_1_AC)) {
-                        triggerAnim("blend", "inspect");
-                        return PlayState.CONTINUE;
-                    }
-                    if (getBooleanState(IDLE_2_AC)) {
-                        triggerAnim("blend", "hiccup");
-                        return PlayState.CONTINUE;
-                    }
-                    if (getBooleanState(IDLE_3_AC)) {
-                        triggerAnim("blend", "open_jaw");
-                        return PlayState.CONTINUE;
-                    }
-                    else {
-                        event.setAndContinue(XIPH_IDLE);
-                    }
                     return PlayState.CONTINUE;
                 }
             }
@@ -622,40 +418,26 @@ public class XiphactinusEntity extends SchoolingWaterAnimal implements GeoEntity
         return PlayState.CONTINUE;
     }
 
-    public boolean isFromBook() {
-        return this.entityData.get(FROM_BOOK);
+    // Idle animations
+    protected <E extends XiphactinusEntity> PlayState idlePredicate(final AnimationState<E> event) {
+        return PlayState.CONTINUE;
     }
 
-    public void setIsFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    @Override
-    public void setFromBook(boolean fromBook) {
-        this.entityData.set(FROM_BOOK, fromBook);
-    }
-
-    public void killed() {
-        passiveFor = 2400 + random.nextInt(100, 1200);
-        this.heal(15);
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-
-
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
+    // Attack animations
+    protected <E extends XiphactinusEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+        if (animState == 21) {
+            event.setAndContinue(XIPH_BITE);
+            return PlayState.CONTINUE;
         }
-        return p_28137_;
-    }
-    public static boolean checkSurfaceWaterDinoSpawnRules(EntityType<? extends XiphactinusEntity> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        int i = pLevel.getSeaLevel();
-        int j = i - 13;
-        return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER);
+        if (animState == 22 && this.isRamming()) {
+            event.setAndContinue(XIPH_RAM);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
     }
 }

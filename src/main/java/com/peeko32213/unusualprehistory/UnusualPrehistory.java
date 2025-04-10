@@ -226,17 +226,17 @@ public class UnusualPrehistory {
             PathPackResources pack = new PathPackResources(ModList.get().getModFileById(UnusualPrehistory.MODID).getFile().getFileName() + ":" + resourcePath, resourcePath, true);
             PackMetadataSection metadata = new PackMetadataSection(Component.translatable("pack.unusualprehistory.natural_prehistoric_generation.description"), SharedConstants.getCurrentVersion().getPackVersion(PackType.SERVER_DATA));
             event.addRepositorySource((source) ->
-                source.accept(Pack.create(
-                    "builtin/natural_prehistoric_generation",
-                    Component.translatable("pack.unusualprehistory.natural_prehistoric_generation.title"),
-                    false,
-                    (string) -> pack,
-                    new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES), FeatureFlagSet.of(), pack.isHidden()),
-                    PackType.SERVER_DATA,
-                    Pack.Position.TOP,
-                    false,
-                    create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_GENERATION.get()))
-                )
+                    source.accept(Pack.create(
+                            "builtin/natural_prehistoric_generation",
+                            Component.translatable("pack.unusualprehistory.natural_prehistoric_generation.title"),
+                            false,
+                            (string) -> pack,
+                            new Pack.Info(metadata.getDescription(), metadata.getPackFormat(PackType.SERVER_DATA), metadata.getPackFormat(PackType.CLIENT_RESOURCES), FeatureFlagSet.of(), pack.isHidden()),
+                            PackType.SERVER_DATA,
+                            Pack.Position.TOP,
+                            false,
+                            create(decorateWithSource(), UnusualPrehistoryConfig.NATURAL_PREHISTORIC_GENERATION.get()))
+                    )
             );
         }
     }

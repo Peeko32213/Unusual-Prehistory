@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.part;
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.PalaeophisEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHurtableMultipart;
-import com.peeko32213.unusualprehistory.common.message.UPMessageHurtMultipart;
+import com.peeko32213.unusualprehistory.common.message.MultipartHurtMessage;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import com.peeko32213.unusualprehistory.core.other.util.UPMath;
 import net.minecraft.core.BlockPos;
@@ -104,7 +104,7 @@ public class PalaeophisPartEntity extends LivingEntity implements IHurtableMulti
                 if (parent != null) {
                     if (parent instanceof final LivingEntity livingEntityParent) {
                         if (livingEntityParent.hurtTime > 0 || livingEntityParent.deathTime > 0) {
-                            UPMessages.sendMSGToAll(new UPMessageHurtMultipart(this.getId(), parent.getId(), 0));
+                            UPMessages.sendMSGToAll(new MultipartHurtMessage(this.getId(), parent.getId(), 0));
                             this.hurtTime = livingEntityParent.hurtTime;
                             this.deathTime = livingEntityParent.deathTime;
                         }

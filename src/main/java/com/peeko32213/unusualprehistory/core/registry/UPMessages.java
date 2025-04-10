@@ -58,10 +58,15 @@ public class UPMessages {
                 .consumerMainThread(AttackOutputMessage::handle)
                 .add();
 
-        net.registerMessage(id(), UPMessageHurtMultipart.class,
-                UPMessageHurtMultipart::write,
-                UPMessageHurtMultipart::read,
-                UPMessageHurtMultipart.Handler::handle);
+        net.registerMessage(id(), MultipartHurtMessage.class,
+                MultipartHurtMessage::write,
+                MultipartHurtMessage::read,
+                MultipartHurtMessage.Handler::handle);
+
+        net.registerMessage(id(), MultipartEntityMessage.class,
+                MultipartEntityMessage::write,
+                MultipartEntityMessage::read,
+                MultipartEntityMessage::handle);
 
         net.registerMessage(id(), LootFruitTierPacketS2C.class,
                 LootFruitTierPacketS2C::encode,

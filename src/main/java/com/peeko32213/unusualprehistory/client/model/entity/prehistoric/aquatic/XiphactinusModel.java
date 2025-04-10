@@ -32,19 +32,23 @@ public class XiphactinusModel extends GeoModel<XiphactinusEntity> {
     public void setCustomAnimations(XiphactinusEntity animatable, long instanceId, AnimationState<XiphactinusEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
-        if(animatable.isFromBook()) return;
 
-        if (animatable.isInWaterOrBubble()) {
-            CoreGeoBone body = this.getAnimationProcessor().getBone("Body");
-            CoreGeoBone tail = this.getAnimationProcessor().getBone("TailBody");
-            EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head_rot");
+        CoreGeoBone body = this.getAnimationProcessor().getBone("body_rot");
+        CoreGeoBone middleBody = this.getAnimationProcessor().getBone("middle_rot");
+        CoreGeoBone tailBody = this.getAnimationProcessor().getBone("tail_rot");
 
-            CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-            root.setRotX(extraDataOfType.headPitch() * (Mth.DEG_TO_RAD / 2));
+        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 2));
+        head.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 8));
+        body.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 8));
+        middleBody.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
+        tailBody.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
 
-            body.setRotZ(body.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
-            tail.setRotY(tail.getRotY() + extraDataOfType.netHeadYaw() * ((float) Math.PI / 270F));
-        }
+        body.setRotY(animatable.currentRoll / 2);
+        middleBody.setRotY(-animatable.currentRoll);
+        tailBody.setRotY(-animatable.currentRoll);
     }
 }
 

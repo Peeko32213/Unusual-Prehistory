@@ -16,8 +16,13 @@
 					"pivot": [0, 0, -7]
 				},
 				{
-					"name": "Body",
+					"name": "swim_control",
 					"parent": "root",
+					"pivot": [0, 7, 5]
+				},
+				{
+					"name": "Body",
+					"parent": "swim_control",
 					"pivot": [0, 7, -24]
 				},
 				{
@@ -124,6 +129,11 @@
 					]
 				},
 				{
+					"name": "tail_rot",
+					"parent": "TailBody",
+					"pivot": [0, 9, 36]
+				},
+				{
 					"name": "BottomFin1",
 					"parent": "BodyBack",
 					"pivot": [3.5, 0, 12],
@@ -156,6 +166,21 @@
 					"cubes": [
 						{"origin": [-1.5, -13, 25], "size": [2, 13, 6], "uv": [55, 0]}
 					]
+				},
+				{
+					"name": "middle_rot",
+					"parent": "BodyBack",
+					"pivot": [0, 7, 8]
+				},
+				{
+					"name": "body_rot",
+					"parent": "BodyFront",
+					"pivot": [0, 7, 8]
+				},
+				{
+					"name": "head_rot",
+					"parent": "Head",
+					"pivot": [0, 7, -24]
 				}
 			]
 		}

@@ -198,13 +198,6 @@
          );
      }
 
-     // Actions
-     @Override
-     public boolean getAction() {return false;}
-
-     @Override
-     public void setAction(boolean action) {}
-
      @Override
      protected @NotNull BodyRotationControl createBodyControl() {
          SmartBodyHelper helper = new SmartBodyHelper(this);

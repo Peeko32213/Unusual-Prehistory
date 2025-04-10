@@ -11,20 +11,20 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class UPMessageHurtMultipart {
+public class MultipartHurtMessage {
     public int part;
     public int parent;
     public float damage;
     public String damageType;
 
-    public UPMessageHurtMultipart(int part, int parent, float damage) {
+    public MultipartHurtMessage(int part, int parent, float damage) {
         this.part = part;
         this.parent = parent;
         this.damage = damage;
         this.damageType = "";
     }
 
-    public UPMessageHurtMultipart(int part, int parent, float damage, String damageType) {
+    public MultipartHurtMessage(int part, int parent, float damage, String damageType) {
         this.part = part;
         this.parent = parent;
         this.damage = damage;
@@ -32,11 +32,11 @@ public class UPMessageHurtMultipart {
     }
 
 
-    public static UPMessageHurtMultipart read(FriendlyByteBuf buf) {
-        return new UPMessageHurtMultipart(buf.readInt(), buf.readInt(), buf.readFloat(), buf.readUtf());
+    public static MultipartHurtMessage read(FriendlyByteBuf buf) {
+        return new MultipartHurtMessage(buf.readInt(), buf.readInt(), buf.readFloat(), buf.readUtf());
     }
 
-    public static void write(UPMessageHurtMultipart message, FriendlyByteBuf buf) {
+    public static void write(MultipartHurtMessage message, FriendlyByteBuf buf) {
         buf.writeInt(message.part);
         buf.writeInt(message.parent);
         buf.writeFloat(message.damage);
@@ -47,7 +47,7 @@ public class UPMessageHurtMultipart {
         public Handler() {
         }
 
-        public static void handle(UPMessageHurtMultipart message, Supplier<NetworkEvent.Context> context) {
+        public static void handle(MultipartHurtMessage message, Supplier<NetworkEvent.Context> context) {
             context.get().setPacketHandled(true);
             Player player = context.get().getSender();
             if(context.get().getDirection().getReceptionSide() == LogicalSide.CLIENT){
