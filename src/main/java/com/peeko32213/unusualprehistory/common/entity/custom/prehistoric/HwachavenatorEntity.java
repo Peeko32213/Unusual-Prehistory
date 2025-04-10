@@ -158,122 +158,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         );
     }
 
-    // Actions
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {}
-
-    // Animation sounds
-    private void soundListener(SoundKeyframeEvent<HwachavenatorEntity> event) {
-        HwachavenatorEntity hwacha = event.getAnimatable();
-        if (event.getKeyframeData().getSound().equals("hwacha_roar")) {
-            hwacha.level().playLocalSound(hwacha.getX(), hwacha.getY(), hwacha.getZ(), UPSounds.HWACHA_ROAR.get(), hwacha.getSoundSource(), 1.5F, hwacha.getVoicePitch(), false);
-        }
-    }
-
-    // Animation control
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        AnimationController<HwachavenatorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-        controllers.add(controller);
-
-        AnimationController<HwachavenatorEntity> blend = new AnimationController<>(this, "blend", 10, this::predicate)
-                .triggerableAnim("roar", HWACHA_ROAR)
-                .triggerableAnim("yawn", HWACHA_YAWN)
-                .triggerableAnim("lookout", HWACHA_DANCE1)
-                .triggerableAnim("bite_1", HWACHA_BITE_1)
-                .triggerableAnim("bite_2", HWACHA_BITE_2);
-        blend.setSoundKeyframeHandler(this::soundListener);
-        controllers.add(blend);
-    }
-
-    protected <E extends HwachavenatorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if(this.isFromBook()){
-            return event.setAndContinue(HWACHA_IDLE);
-        }
-
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
-            if(this.isSprinting() && !this.isBaby()) {
-                event.setAndContinue(HWACHA_SPRINT);
-                event.getController().setAnimationSpeed(1.0F);
-            } else {
-                event.setAndContinue(HWACHA_WALK);
-                event.getController().setAnimationSpeed(1.0F);
-            }
-            return PlayState.CONTINUE;
-        }
-
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
-
-            if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
-                event.setAndContinue(HWACHA_SPRINT);
-                event.getController().setAnimationSpeed(1.15F);
-            }
-            else {
-                event.setAndContinue(HWACHA_WALK);
-                event.getController().setAnimationSpeed(1.5F);
-            }
-            return PlayState.CONTINUE;
-        }
-
-        if (isShooting() && !this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
-            event.setAndContinue(HWACHA_TURRET_FIRE);
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isInSittingPose() && !isShooting()) {
-            event.setAndContinue(HWACHA_SIT);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isInWater()  && !isShooting() && !this.isInSittingPose()) {
-            event.setAndContinue(HWACHA_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        if(!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "roar");
-                    return event.setAndContinue(HWACHA_IDLE);
-                }
-                else {
-                    triggerAnim("blend", "roar");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_2_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "yawn");
-                    return event.setAndContinue(HWACHA_IDLE);
-                }
-                else {
-                    triggerAnim("blend", "yawn");
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (getBooleanState(IDLE_3_AC)) {
-                if (this.isStillEnough()) {
-                    triggerAnim("blend", "lookout");
-                    return event.setAndContinue(HWACHA_IDLE);
-                }
-                else {
-                    triggerAnim("blend", "lookout");
-                    return PlayState.CONTINUE;
-                }
-            }
-            return event.setAndContinue(HWACHA_IDLE);
-        }
-        return PlayState.CONTINUE;
-    }
-
     // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
@@ -813,5 +697,112 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     @Override
     public boolean shouldFollow() {
         return this.getCommand() == 1;
+    }
+
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<HwachavenatorEntity> event) {
+        HwachavenatorEntity hwacha = event.getAnimatable();
+        if (event.getKeyframeData().getSound().equals("hwachavenator_roar")) {
+            hwacha.level().playLocalSound(hwacha.getX(), hwacha.getY(), hwacha.getZ(), UPSounds.HWACHA_ROAR.get(), hwacha.getSoundSource(), 1.5F, hwacha.getVoicePitch(), false);
+        }
+    }
+
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<HwachavenatorEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<HwachavenatorEntity> blend = new AnimationController<>(this, "blend", 10, this::predicate)
+                .triggerableAnim("roar", HWACHA_ROAR)
+                .triggerableAnim("yawn", HWACHA_YAWN)
+                .triggerableAnim("lookout", HWACHA_DANCE1)
+                .triggerableAnim("bite_1", HWACHA_BITE_1)
+                .triggerableAnim("bite_2", HWACHA_BITE_2);
+        blend.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(blend);
+    }
+
+    protected <E extends HwachavenatorEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if(this.isFromBook()){
+            return event.setAndContinue(HWACHA_IDLE);
+        }
+
+        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
+            if(this.isSprinting() && !this.isBaby()) {
+                event.setAndContinue(HWACHA_SPRINT);
+                event.getController().setAnimationSpeed(1.0F);
+            } else {
+                event.setAndContinue(HWACHA_WALK);
+                event.getController().setAnimationSpeed(1.0F);
+            }
+            return PlayState.CONTINUE;
+        }
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
+
+            if(Objects.requireNonNull(this.getControllingPassenger()).isSprinting()){
+                event.setAndContinue(HWACHA_SPRINT);
+                event.getController().setAnimationSpeed(1.15F);
+            }
+            else {
+                event.setAndContinue(HWACHA_WALK);
+                event.getController().setAnimationSpeed(1.5F);
+            }
+            return PlayState.CONTINUE;
+        }
+
+        if (isShooting() && !this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
+            event.setAndContinue(HWACHA_TURRET_FIRE);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInSittingPose() && !isShooting()) {
+            event.setAndContinue(HWACHA_SIT);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if (this.isInWater()  && !isShooting() && !this.isInSittingPose()) {
+            event.setAndContinue(HWACHA_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        if(!this.isInWater()) {
+            if (getBooleanState(IDLE_1_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "roar");
+                    return event.setAndContinue(HWACHA_IDLE);
+                }
+                else {
+                    triggerAnim("blend", "roar");
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (getBooleanState(IDLE_2_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "yawn");
+                    return event.setAndContinue(HWACHA_IDLE);
+                }
+                else {
+                    triggerAnim("blend", "yawn");
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (getBooleanState(IDLE_3_AC)) {
+                if (this.isStillEnough()) {
+                    triggerAnim("blend", "lookout");
+                    return event.setAndContinue(HWACHA_IDLE);
+                }
+                else {
+                    triggerAnim("blend", "lookout");
+                    return PlayState.CONTINUE;
+                }
+            }
+            return event.setAndContinue(HWACHA_IDLE);
+        }
+        return PlayState.CONTINUE;
     }
 }
