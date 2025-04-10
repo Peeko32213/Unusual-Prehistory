@@ -90,7 +90,7 @@ public class XiphactinusAttackGoal extends Goal {
         xiphactinus.setRamming(true);
 
         Entity target = xiphactinus.getTarget();
-        xiphactinus.lookAt(target, 360, 360);
+        xiphactinus.lookAt(target, 360, 30);
         xiphactinus.yBodyRot = xiphactinus.getYRot();
 
         if (animTime == 28) {

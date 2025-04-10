@@ -16,28 +16,41 @@
 					"pivot": [6.5, 21, -1]
 				},
 				{
-					"name": "Hwacha_Upper_Body",
+					"name": "Body_overlay",
 					"parent": "Hwachavenator",
+					"pivot": [0, 23, 10]
+				},
+				{
+					"name": "Hwacha_Upper_Body",
+					"parent": "Body_overlay",
 					"pivot": [0, 23, 10],
 					"cubes": [
-						{"origin": [2, 38.01, -8], "size": [0, 3, 21], "pivot": [2, 39.51, 2.5], "rotation": [0, 0, 5], "uv": [214, 97]},
-						{"origin": [-2, 38.01, -8], "size": [0, 3, 21], "pivot": [-2, 39.51, 2.5], "rotation": [0, 0, -5], "uv": [214, 97]},
 						{"origin": [-7.5, 20, -16], "size": [15, 18, 29], "uv": [86, 0]}
 					]
 				},
 				{
-					"name": "Hwacha_Neck",
+					"name": "Neck_overlay",
 					"parent": "Hwacha_Upper_Body",
+					"pivot": [0, 33, -12]
+				},
+				{
+					"name": "Hwacha_Neck",
+					"parent": "Neck_overlay",
 					"pivot": [0, 33, -12],
 					"cubes": [
-						{"origin": [2, 38.01, -19], "size": [0, 18, 14], "pivot": [2, 47.01, -12], "rotation": [0, 0, 5], "uv": [228, 85]},
-						{"origin": [-2, 38.01, -19], "size": [0, 18, 14], "pivot": [-2, 47.01, -12], "rotation": [0, 0, -5], "uv": [228, 85]},
+						{"origin": [2, 38.01, -19], "size": [0, 18, 14], "inflate": 0.0025, "pivot": [2, 47.01, -12], "rotation": [0, 0, 5], "uv": [228, 85]},
+						{"origin": [-2, 38.01, -19], "size": [0, 18, 14], "inflate": 0.0025, "pivot": [-2, 47.01, -12], "rotation": [0, 0, -5], "uv": [228, 85]},
 						{"origin": [-3.5, 29, -22], "size": [7, 23, 14], "uv": [86, 94]}
 					]
 				},
 				{
-					"name": "Hwacha_Head",
+					"name": "Head_overlay",
 					"parent": "Hwacha_Neck",
+					"pivot": [0, 47, -20]
+				},
+				{
+					"name": "Hwacha_Head",
+					"parent": "Head_overlay",
 					"pivot": [0, 47, -20],
 					"cubes": [
 						{"origin": [-4.5, 42.01, -27], "size": [9, 11, 8], "uv": [162, 109]},
@@ -50,13 +63,18 @@
 					]
 				},
 				{
-					"name": "Hwacha_Jaw",
+					"name": "Jaw_overlay",
 					"parent": "Hwacha_Head",
+					"pivot": [0, 47, -22]
+				},
+				{
+					"name": "Hwacha_Jaw",
+					"parent": "Jaw_overlay",
 					"pivot": [0, 47, -22],
 					"cubes": [
 						{"origin": [-3, 41.01, -38], "size": [6, 5, 19], "uv": [-3, 147]},
 						{"origin": [-3, 46.01, -38], "size": [6, 2, 15], "uv": [148, 152]},
-						{"origin": [0, 35, -38], "size": [0, 6, 16], "uv": [0, 71]}
+						{"origin": [0, 35, -38], "size": [0, 6, 16], "inflate": 0.0025, "uv": [0, 71]}
 					]
 				},
 				{
@@ -67,7 +85,7 @@
 					"cubes": [
 						{"origin": [2.5, 49.01, -19], "size": [2, 7, 16], "uv": [76, 152]},
 						{"origin": [2.5, 56.01, -5], "size": [2, 4, 2], "uv": [118, 131]},
-						{"origin": [3.5, 48.01, -19], "size": [0, 12, 17], "uv": [128, 94]}
+						{"origin": [3.5, 48.01, -19], "size": [0, 12, 17], "inflate": 0.0025, "uv": [128, 94]}
 					]
 				},
 				{
@@ -78,22 +96,32 @@
 					"cubes": [
 						{"origin": [-4.5, 49.01, -19], "size": [2, 7, 16], "uv": [76, 152], "mirror": true},
 						{"origin": [-4.5, 56.01, -5], "size": [2, 4, 2], "uv": [118, 131], "mirror": true},
-						{"origin": [-3.5, 48.01, -19], "size": [0, 12, 17], "uv": [128, 94], "mirror": true}
+						{"origin": [-3.5, 48.01, -19], "size": [0, 12, 17], "inflate": 0.0025, "uv": [128, 94], "mirror": true}
 					]
 				},
 				{
-					"name": "Hwacha_Arm_Left",
+					"name": "Arm_left_overlay",
 					"parent": "Hwacha_Upper_Body",
+					"pivot": [7.5, 24, -8]
+				},
+				{
+					"name": "Hwacha_Arm_Left",
+					"parent": "Arm_left_overlay",
 					"pivot": [7.5, 24, -8],
 					"cubes": [
 						{"origin": [6, 8, -11], "size": [4, 18, 6], "inflate": 0.01, "uv": [174, 14]},
 						{"origin": [6, 8, -15], "size": [4, 8, 4], "inflate": 0.01, "uv": [174, 80]},
-						{"origin": [9, 4, -14], "size": [0, 18, 13], "uv": [42, 158]}
+						{"origin": [9, 4, -14], "size": [0, 18, 13], "inflate": 0.0025, "uv": [42, 158]}
 					]
 				},
 				{
-					"name": "Hwacha_Fingers_Left",
+					"name": "Finger_left_overlay",
 					"parent": "Hwacha_Arm_Left",
+					"pivot": [10, 12, -15]
+				},
+				{
+					"name": "Hwacha_Fingers_Left",
+					"parent": "Finger_left_overlay",
 					"pivot": [10, 12, -15],
 					"rotation": [0, 30, 0],
 					"cubes": [
@@ -106,18 +134,28 @@
 					]
 				},
 				{
-					"name": "Hwacha_Arm_Right",
+					"name": "Arm_right_overlay",
 					"parent": "Hwacha_Upper_Body",
+					"pivot": [-7.5, 24, -8]
+				},
+				{
+					"name": "Hwacha_Arm_Right",
+					"parent": "Arm_right_overlay",
 					"pivot": [-7.5, 24, -8],
 					"cubes": [
 						{"origin": [-10, 8, -11], "size": [4, 18, 6], "inflate": 0.01, "uv": [174, 14], "mirror": true},
 						{"origin": [-10, 8, -15], "size": [4, 8, 4], "inflate": 0.01, "uv": [174, 80], "mirror": true},
-						{"origin": [-9, 4, -14], "size": [0, 18, 13], "uv": [42, 158], "mirror": true}
+						{"origin": [-9, 4, -14], "size": [0, 18, 13], "inflate": 0.0025, "uv": [42, 158], "mirror": true}
 					]
 				},
 				{
-					"name": "Hwacha_Fingers_Right",
+					"name": "Finger_right_overlay",
 					"parent": "Hwacha_Arm_Right",
+					"pivot": [-10, 12, -15]
+				},
+				{
+					"name": "Hwacha_Fingers_Right",
+					"parent": "Finger_right_overlay",
 					"pivot": [-10, 12, -15],
 					"rotation": [0, -30, 0],
 					"cubes": [
@@ -130,8 +168,13 @@
 					]
 				},
 				{
-					"name": "Hwacha_Tail",
+					"name": "Tail_overlay",
 					"parent": "Hwacha_Upper_Body",
+					"pivot": [0, 32.5, 13]
+				},
+				{
+					"name": "Hwacha_Tail",
+					"parent": "Tail_overlay",
 					"pivot": [0, 32.5, 13],
 					"cubes": [
 						{"origin": [-3, 29, 13], "size": [6, 7, 14], "uv": [77, 131]},
@@ -139,14 +182,9 @@
 						{"origin": [-3, 41, 18], "size": [6, 14, 36], "uv": [1, 71]},
 						{"origin": [-3, 38, 51], "size": [6, 3, 3], "uv": [91, 175]},
 						{"origin": [-3, 36, 49], "size": [6, 2, 5], "uv": [175, 60]},
-						{"origin": [2.5, 37, 15], "size": [0, 28, 43], "pivot": [2.5, 55, 18], "rotation": [0, 0, 5], "uv": [0, 0]},
-						{"origin": [-2.5, 37, 15], "size": [0, 28, 43], "pivot": [-2.5, 55, 18], "rotation": [0, 0, -5], "uv": [0, 0], "mirror": true}
+						{"origin": [2.5, 37, 15], "size": [0, 28, 43], "inflate": 0.0025, "pivot": [2.5, 55, 18], "rotation": [0, 0, 5], "uv": [0, 0]},
+						{"origin": [-2.5, 37, 15], "size": [0, 28, 43], "inflate": 0.0025, "pivot": [-2.5, 55, 18], "rotation": [0, 0, -5], "uv": [0, 0], "mirror": true}
 					]
-				},
-				{
-					"name": "Rider",
-					"parent": "Hwacha_Upper_Body",
-					"pivot": [0, 45, -1]
 				},
 				{
 					"name": "Leg_control",
@@ -154,26 +192,41 @@
 					"pivot": [0, 26, 10]
 				},
 				{
-					"name": "Hwacha_Leg_Right",
+					"name": "Right_Leg_overlay",
 					"parent": "Leg_control",
+					"pivot": [-8.5, 23, 10]
+				},
+				{
+					"name": "Hwacha_Leg_Right",
+					"parent": "Right_Leg_overlay",
 					"pivot": [-8.5, 23, 10],
 					"cubes": [
 						{"origin": [-11.5, 12, 4], "size": [10, 17, 12], "uv": [0, 121], "mirror": true},
-						{"origin": [-10, 22, 4], "size": [0, 9, 14], "uv": [162, 127], "mirror": true}
+						{"origin": [-10, 22, 4], "size": [0, 9, 14], "inflate": 0.0025, "uv": [162, 127], "mirror": true}
 					]
+				},
+				{
+					"name": "Right_knee_overlay",
+					"parent": "Hwacha_Leg_Right",
+					"pivot": [-6.5, 15, 13.5]
 				},
 				{
 					"name": "Hwacha_Knee_Right",
-					"parent": "Hwacha_Leg_Right",
+					"parent": "Right_knee_overlay",
 					"pivot": [-6.5, 15, 13.5],
 					"cubes": [
 						{"origin": [-9.5, 3, 11], "size": [6, 18, 7], "uv": [148, 169], "mirror": true},
-						{"origin": [-9, 12, 18], "size": [0, 8, 2], "uv": [68, 158], "mirror": true}
+						{"origin": [-9, 12, 18], "size": [0, 8, 2], "inflate": 0.0025, "uv": [68, 158], "mirror": true}
 					]
 				},
 				{
-					"name": "Hwacha_Foot_Right",
+					"name": "Right_foot_overlay",
 					"parent": "Hwacha_Knee_Right",
+					"pivot": [-6.5, 3, 15]
+				},
+				{
+					"name": "Hwacha_Foot_Right",
+					"parent": "Right_foot_overlay",
 					"pivot": [-6.5, 3, 15],
 					"cubes": [
 						{"origin": [-10.5, 0, 8], "size": [8, 3, 12], "uv": [162, 94], "mirror": true},
@@ -183,26 +236,41 @@
 					]
 				},
 				{
-					"name": "Hwacha_Leg_Left",
+					"name": "Left_Leg_overlay",
 					"parent": "Leg_control",
+					"pivot": [8.5, 23, 10]
+				},
+				{
+					"name": "Hwacha_Leg_Left",
+					"parent": "Left_Leg_overlay",
 					"pivot": [8.5, 23, 10],
 					"cubes": [
 						{"origin": [1.5, 12, 4], "size": [10, 17, 12], "uv": [0, 121]},
-						{"origin": [10, 22, 4], "size": [0, 9, 14], "uv": [162, 127]}
+						{"origin": [10, 22, 4], "size": [0, 9, 14], "inflate": 0.0025, "uv": [162, 127]}
 					]
+				},
+				{
+					"name": "Left_knee_overlay",
+					"parent": "Hwacha_Leg_Left",
+					"pivot": [6.5, 15, 13.5]
 				},
 				{
 					"name": "Hwacha_Knee_Left",
-					"parent": "Hwacha_Leg_Left",
+					"parent": "Left_knee_overlay",
 					"pivot": [6.5, 15, 13.5],
 					"cubes": [
 						{"origin": [3.5, 3, 11], "size": [6, 18, 7], "uv": [148, 169]},
-						{"origin": [9, 12, 18], "size": [0, 8, 2], "uv": [68, 158]}
+						{"origin": [9, 12, 18], "size": [0, 8, 2], "inflate": 0.0025, "uv": [68, 158]}
 					]
 				},
 				{
-					"name": "Hwacha_Foot_Left",
+					"name": "Left_foot_overlay",
 					"parent": "Hwacha_Knee_Left",
+					"pivot": [6.5, 3, 15]
+				},
+				{
+					"name": "Hwacha_Foot_Left",
+					"parent": "Left_foot_overlay",
 					"pivot": [6.5, 3, 15],
 					"cubes": [
 						{"origin": [2.5, 0, 8], "size": [8, 3, 12], "uv": [162, 94]},

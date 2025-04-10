@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
@@ -92,17 +93,18 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     private static final RawAnimation HWACHA_IDLE = RawAnimation.begin().thenLoop("animation.hwachavenator.idle");
     private static final RawAnimation HWACHA_SIT = RawAnimation.begin().thenLoop("animation.hwachavenator.sit");
     private static final RawAnimation HWACHA_SLEEP = RawAnimation.begin().thenLoop("animation.hwachavenator.sleep");
-    private static final RawAnimation HWACHA_ROAR = RawAnimation.begin().thenPlay("animation.hwachavenator.roar");
-    private static final RawAnimation HWACHA_YAWN = RawAnimation.begin().thenPlay("animation.hwachavenator.yawn");
-    private static final RawAnimation HWACHA_LOOKOUT = RawAnimation.begin().thenPlay("animation.hwachavenator.lookout");
+    private static final RawAnimation HWACHA_ROAR = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_roar");
+    private static final RawAnimation HWACHA_YAWN = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_yawn");
+    private static final RawAnimation HWACHA_DANCE1 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_dance1");
+    private static final RawAnimation HWACHA_DANCE2 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_dance2");
 
     // Attack animations
-    private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwachavenator.shake_attack");
-    private static final RawAnimation HWACHA_BITE_1 = RawAnimation.begin().thenPlay("animation.hwachavenator.bite_1");
-    private static final RawAnimation HWACHA_BITE_2 = RawAnimation.begin().thenPlay("animation.hwachavenator.bite_2");
+    private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwachavenator.blent_shake_attack");
+    private static final RawAnimation HWACHA_BITE_1 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_bite_1");
+    private static final RawAnimation HWACHA_BITE_2 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_bite_2");
 
     // Misc animations
-    private static final RawAnimation HWACHA_EAT = RawAnimation.begin().thenPlay("animation.hwachavenator.eat");
+    private static final RawAnimation HWACHA_EAT = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_eat");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
@@ -182,7 +184,7 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         AnimationController<HwachavenatorEntity> blend = new AnimationController<>(this, "blend", 10, this::predicate)
                 .triggerableAnim("roar", HWACHA_ROAR)
                 .triggerableAnim("yawn", HWACHA_YAWN)
-                .triggerableAnim("lookout", HWACHA_LOOKOUT)
+                .triggerableAnim("lookout", HWACHA_DANCE1)
                 .triggerableAnim("bite_1", HWACHA_BITE_1)
                 .triggerableAnim("bite_2", HWACHA_BITE_2);
         blend.setSoundKeyframeHandler(this::soundListener);
@@ -305,6 +307,7 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     // Goals
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         if(!this.hasControllingPassenger()) {
             this.goalSelector.addGoal(1, new RangedAttackGoal(this, 0D, 1, 16.0F));
         }
@@ -431,16 +434,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
                 this.level().broadcastEntityEvent(this, (byte) 7);
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
-                this.setSaddled(true);
-                return InteractionResult.SUCCESS;
-            } else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                this.setSaddled(false);
-                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
-                this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
             }
             if (this.isHealingFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 if (!player.getAbilities().instabuild) {
@@ -452,7 +445,7 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
                 return InteractionResult.SUCCESS;
             }
             else {
-                if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled()) {
+                if (!player.isShiftKeyDown() && !this.isBaby()) {
                     if(!this.level().isClientSide) {
                         player.startRiding(this);
 
@@ -803,11 +796,14 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
 
     // Variants
     public void determineVariant(int variantChange){
-        if (variantChange <= 33) {
+        if (variantChange <= 25) {
             this.setVariant(1);
         }
-        else if (variantChange <= 66) {
+        else if (variantChange <= 50) {
             this.setVariant(2);
+        }
+        else if (variantChange <= 75) {
+            this.setVariant(3);
         }
         else {
             this.setVariant(0);
