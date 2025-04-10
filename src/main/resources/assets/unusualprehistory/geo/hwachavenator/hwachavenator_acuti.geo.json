@@ -207,6 +207,11 @@
 					]
 				},
 				{
+					"name": "Rider",
+					"parent": "Hwacha_Upper_Body",
+					"pivot": [0, 43, 1]
+				},
+				{
 					"name": "Leg_control",
 					"parent": "Hwachavenator",
 					"pivot": [0, 26, 10]

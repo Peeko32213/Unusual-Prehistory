@@ -28,9 +28,9 @@ public class DoubleHeadPlantBlock extends GrowingPlantBodyBlock implements Liqui
         return Fluids.WATER.getSource(false);
     }
 
-    public boolean canAttachTo(BlockState p_153457_) {
-        return this.getHeadBlock().canAttachTo(p_153457_);
-    }
+//    public boolean canAttachTo(BlockState pState) {
+//        return this.getHeadBlock().canAttachTo(pState);
+//    }
 
     public boolean canPlaceLiquid(BlockGetter p_54325_, BlockPos p_54326_, BlockState p_54327_, Fluid p_54328_) {
         return false;

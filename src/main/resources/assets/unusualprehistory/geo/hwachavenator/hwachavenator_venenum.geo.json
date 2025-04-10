@@ -276,6 +276,11 @@
 						{"origin": [2.5, 37, 15], "size": [0, 28, 43], "inflate": 0.0025, "pivot": [2.5, 55, 18], "rotation": [0, 0, 5], "uv": [0, 0]},
 						{"origin": [-2.5, 37, 15], "size": [0, 28, 43], "inflate": 0.0025, "pivot": [-2.5, 55, 18], "rotation": [0, 0, -5], "uv": [0, 0], "mirror": true}
 					]
+				},
+				{
+					"name": "Rider",
+					"parent": "Hwacha_Upper_Body",
+					"pivot": [0, 43, 1]
 				}
 			]
 		}
