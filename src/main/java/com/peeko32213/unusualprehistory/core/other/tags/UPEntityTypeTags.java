@@ -8,10 +8,6 @@ import net.minecraft.world.entity.EntityType;
 public class UPEntityTypeTags {
 
     // Target tags
-    public static final TagKey<EntityType<?>> NO_ATTACK_ATTRIBUTE_MOBS = entityTypeTag("no_attack_attribute_mobs");
-
-    public static final TagKey<EntityType<?>> NONE_ENTITY_TAG = entityTypeTag("none_entity_tag");
-
     public static final TagKey<EntityType<?>> ANURO_TARGETS = entityTypeTag("anuro_targets");
     public static final TagKey<EntityType<?>> MAJUNGA_TARGETS = entityTypeTag("majunga_targets");
     public static final TagKey<EntityType<?>> MEGALANIA_TARGETS = entityTypeTag("megalania_targets");
@@ -50,6 +46,7 @@ public class UPEntityTypeTags {
     public static final TagKey<EntityType<?>> TAR_WALKABLE_ON_MOBS= entityTypeTag("tar_walkable_on_mobs");
     public static final TagKey<EntityType<?>> TAR_WALKABLE_THROUGH_MOBS= entityTypeTag("tar_walkable_through_mobs");
 
+    public static final TagKey<EntityType<?>> PACHY_AVOIDS = entityTypeTag("pachycephalosaurus_avoids");
     public static final TagKey<EntityType<?>> SCATTERS_TELECREX= entityTypeTag("scatters_telecrex");
 
     private static TagKey<EntityType<?>> entityTypeTag(String name) {

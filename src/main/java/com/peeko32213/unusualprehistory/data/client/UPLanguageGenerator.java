@@ -522,7 +522,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.PACHY_IDLE, "Pachycephalosaurus grunts");
         addSound(UPSounds.PACHY_HURT, "Pachycephalosaurus hurts");
         addSound(UPSounds.PACHY_HEADBUTT, "Pachycephalosaurus bonks");
-        addSound(UPSounds.PACHY_KICK, "Pachycephalosaurus kicks");
+        addSound(UPSounds.PACHY_WARN, "Pachycephalosaurus warns");
         addSound(UPSounds.PACHY_DEATH, "Pachycephalosaurus dies");
 
         addSound(UPSounds.ERYON_IDLE, "Eryon noises");

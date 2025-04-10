@@ -27,6 +27,7 @@ public class UPBlockTags {
     public static final TagKey<Block> DIPLO_BURROWS = blockTag("diplocaulus_burrow_blocks");
     public static final TagKey<Block> TRIKE_GRAZING_BLOCKS = blockTag("triceratops_grazing_blocks");
     public static final TagKey<Block> COTY_GRAZING_BLOCKS = blockTag("cotylorhynchus_grazing_blocks");
+    public static final TagKey<Block> PACHY_GRAZING_BLOCKS = blockTag("pachycephalosaurus_grazing_blocks");
 
     public static final TagKey<Block> MEGATHERIUM_MINEABLES = blockTag("megatherium_mineables");
 

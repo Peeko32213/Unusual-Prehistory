@@ -406,6 +406,16 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
         tag(UPEntityTypeTags.TAR_WALKABLE_THROUGH_MOBS)
                 .add(EntityType.RAVAGER);
 
+        tag(UPEntityTypeTags.SCATTERS_TELECREX);
+
+        tag(UPEntityTypeTags.PACHY_AVOIDS).add(
+                UPEntities.MAJUNGA.get(),
+                UPEntities.TYRANNOSAURUS.get(),
+                UPEntities.ULUG.get(),
+                UPEntities.BARINASUCHUS.get(),
+                UPEntities.HWACHA.get()
+        );
+
         tag(UPEntityTypeTags.HERBIVORES)
                 .add(UPEntities.ANTARCO.get())
                 .add(UPEntities.BRACHI.get())

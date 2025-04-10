@@ -381,6 +381,15 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
                 TALL_HORSETAIL.get()
         );
 
+        this.tag(UPBlockTags.PACHY_GRAZING_BLOCKS).add(
+                Blocks.GRASS_BLOCK,
+                Blocks.FERN,
+                Blocks.LARGE_FERN,
+                Blocks.GRASS,
+                HORSETAIL.get(),
+                TALL_HORSETAIL.get()
+        );
+
         this.tag(UPBlockTags.MEGATHERIUM_MINEABLES)
                 .addTag(BlockTags.LEAVES)
                 .addTag(BlockTags.DIRT)

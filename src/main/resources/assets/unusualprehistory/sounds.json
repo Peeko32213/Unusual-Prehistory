@@ -662,41 +662,43 @@
     "subtitle": "unusualprehistory.sound.subtitle.balaur_hurt"
   },
 
-  "pachy_death": {
+  "pachycephalosaurus_death": {
     "sounds": [
-        "unusualprehistory:entity/pachy/pachy_death"
+        "unusualprehistory:entity/pachycephalosaurus/death_0",
+        "unusualprehistory:entity/pachycephalosaurus/death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.pachy_death"
+    "subtitle": "unusualprehistory.sound.subtitle.pachycephalosaurus_death"
   },
-  "pachy_headbutt": {
+  "pachycephalosaurus_headbutt": {
     "sounds": [
-        "unusualprehistory:entity/pachy/pachy_headbutt_0",
-        "unusualprehistory:entity/pachy/pachy_headbutt_1",
-        "unusualprehistory:entity/pachy/pachy_headbutt_2"
+        "unusualprehistory:entity/pachycephalosaurus/headbutt_0",
+        "unusualprehistory:entity/pachycephalosaurus/headbutt_1",
+        "unusualprehistory:entity/pachycephalosaurus/headbutt_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.pachy_headbutt"
+    "subtitle": "unusualprehistory.sound.subtitle.pachycephalosaurus_headbutt"
   },
-  "pachy_hurt": {
+  "pachycephalosaurus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/pachy/pachy_hurt_0",
-        "unusualprehistory:entity/pachy/pachy_hurt_1"
+        "unusualprehistory:entity/pachycephalosaurus/hurt_0",
+        "unusualprehistory:entity/pachycephalosaurus/hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.pachy_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.pachycephalosaurus_hurt"
   },
-  "pachy_idle": {
+  "pachycephalosaurus_idle": {
     "sounds": [
-        "unusualprehistory:entity/pachy/pachy_idle_0",
-        "unusualprehistory:entity/pachy/pachy_idle_1",
-        "unusualprehistory:entity/pachy/pachy_idle_2"
+        "unusualprehistory:entity/pachycephalosaurus/idle_0",
+        "unusualprehistory:entity/pachycephalosaurus/idle_1",
+        "unusualprehistory:entity/pachycephalosaurus/idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.pachy_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.pachycephalosaurus_idle"
   },
-  "pachy_kick": {
+  "pachycephalosaurus_warn": {
     "sounds": [
-        "unusualprehistory:entity/pachy/pachy_kick_0",
-        "unusualprehistory:entity/pachy/pachy_kick_1"
+        "unusualprehistory:entity/pachycephalosaurus/warn_0",
+        "unusualprehistory:entity/pachycephalosaurus/warn_1",
+        "unusualprehistory:entity/pachycephalosaurus/warn_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.pachy_kick"
+    "subtitle": "unusualprehistory.sound.subtitle.pachycephalosaurus_warn"
   },
 
   "eryon_death": {

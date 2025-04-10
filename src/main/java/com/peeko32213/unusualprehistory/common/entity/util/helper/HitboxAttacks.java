@@ -139,7 +139,6 @@ public class HitboxAttacks {
 
     public static void pivotedPolyHitCheck(PathfinderMob entityIn, LivingEntity source, Vec3 boxOffset, double attackWidth, double attackHeight, double attackLength, ServerLevel world, float damage, DamageSource damageSource, float knockback, boolean disableShield, boolean checkTarget, boolean hitBoxOutline) {
         //attackRadius is in blocks
-
         Vec3 sourcePos = source.position();
         double entityAngle = (source.getYRot());
         Vec3 truePos = sourcePos.add(boxOffset);
@@ -214,57 +213,4 @@ public class HitboxAttacks {
         world.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (box.minX), (box.minY), (box.maxZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
         world.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, (box.minX), (box.maxY), (box.minZ), 1, 0.0D, 0.0D, 0.0D, 0.0D);
     }
-
-    public static void longAttackWithTargetCheck(DamageSource source, float damage, float knockback, PathfinderMob entityIn, Vec3 pos0, double radius, double edgeS, double edgeR, double hInf, double hSup) {
-
-        Vec2 knockVec = MathHelpers.OrizontalAimVector(
-                MathHelpers.AimVector(new Vec3(-entityIn.position().x, -entityIn.position().y, -entityIn.position().z),
-                        new Vec3(-entityIn.getTarget().position().x, -entityIn.getTarget().position().y, -entityIn.getTarget().position().z)
-                ));
-
-        Vec2 aim = MathHelpers.OrizontalAimVector(entityIn.getLookAngle());
-        Level worldIn = entityIn.level();
-
-
-        for (int i = 0; i <= radius / d; ++i) {
-
-
-            for (int j = Math.round(Math.round(edgeS / d)); j <= edgeR / d; ++j) {
-
-                double angle = edgeR * Math.PI * (2 ^ (-2)) / 4 + angleVar * j;
-
-                //double x = pos0.x + aim.x*(d*i) + d*(aim.x*Math.cos(angle) - aim.y*Math.sin(angle));
-                //double z = pos0.z + aim.y*(d*i) + d*(aim.y*Math.cos(angle) + aim.x * Math.sin(angle));
-
-                double x = pos0.x + aim.x * (d * i + d * j);
-                double z = pos0.z + aim.y * (d * i + d * j);
-
-                for (int k = 0; k <= (hSup - hInf) / d; ++k) {
-
-                    double y = pos0.y + hInf + k * d;
-                    AABB scanAbove = new AABB(x - d, y - 4d, z - d, x + d, y + 2d, z + d);
-                    List<LivingEntity> entities = new ArrayList<>(worldIn.getEntitiesOfClass(LivingEntity.class, scanAbove));
-
-                    if (!entities.isEmpty()) {
-                        for (int n = 0; n < entities.size(); n++) {
-
-                            LivingEntity target = entities.get(n);
-
-                            if (target == entityIn.getTarget()) {
-                                //entityIn.doHurtTarget(target);
-                                target.hurt(source, damage);
-                                target.setLastHurtByMob(entityIn);
-
-                                target.knockback(knockback, knockVec.x, knockVec.y);
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
-
 }

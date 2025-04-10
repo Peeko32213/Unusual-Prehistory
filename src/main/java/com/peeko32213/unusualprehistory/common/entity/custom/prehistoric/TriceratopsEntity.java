@@ -66,6 +66,7 @@ import java.util.function.Predicate;
 
 public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollower {
 
+    private static final EntityDataAccessor<Boolean> CHARGING = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SKELETAL = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
     private UUID lastLightningBoltUUID;
 
@@ -88,7 +89,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     // Attack animations
     private static final RawAnimation TRIKE_ATTACK_1 = RawAnimation.begin().thenPlay("animation.triceratops.attack_blend1");
     private static final RawAnimation TRIKE_ATTACK_2 = RawAnimation.begin().thenPlay("animation.triceratops.attack_blend2");
-    private static final RawAnimation TRIKE_CHARGE = RawAnimation.begin().thenPlay("animation.triceratops.warning_blend").thenLoop("animation.triceratops.charge");
+    private static final RawAnimation TRIKE_CHARGE = RawAnimation.begin().thenPlay("animation.triceratops.warn_blend").thenLoop("animation.triceratops.charge");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> GRAZE = SynchedEntityData.defineId(TriceratopsEntity.class, EntityDataSerializers.BOOLEAN);
@@ -258,6 +259,14 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         }
     }
 
+    // Charging
+    public void setCharging(boolean charge) {
+        this.entityData.set(CHARGING, charge);
+    }
+    public boolean isCharging() {
+        return this.entityData.get(CHARGING);
+    }
+
     // Synched data
     @Override
     protected void defineSynchedData() {
@@ -266,6 +275,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
         this.entityData.define(HEAD_SHAKE, false);
         this.entityData.define(CHATTER, false);
         this.entityData.define(SKELETAL, false);
+        this.entityData.define(CHARGING, false);
     }
 
     // Save data
@@ -273,12 +283,14 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("skeletal", this.isSkeletal());
+        compound.putBoolean("Charging", this.isCharging());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setSkeletal(compound.getBoolean("skeletal"));
+        this.setCharging(compound.getBoolean("Charging"));
     }
 
     @Override
@@ -497,7 +509,10 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.25F, 1.0F);
+        if (this.isCharging()) {
+            this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.5F, 1.25F);
+        }
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.25F, 1.25F);
     }
 
     protected void dropEquipment() {
@@ -561,11 +576,14 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             if (event.getKeyframeData().getSound().equals("triceratops_chatter")) {
                 triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TRIKE_CHATTER.get(), triceratops.getSoundSource(), 1.5F, triceratops.getVoicePitch(), false);
             }
+            if (event.getKeyframeData().getSound().equals("triceratops_swipe")) {
+                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TAIL_SWIPE.get(), triceratops.getSoundSource(), 0.75F, triceratops.getVoicePitch(), false);
+            }
             if (event.getKeyframeData().getSound().equals("triceratops_warn")) {
                 triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TRIKE_WARN.get(), triceratops.getSoundSource(), 1.75F, triceratops.getVoicePitch(), false);
             }
-            if (event.getKeyframeData().getSound().equals("triceratops_swipe")) {
-                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.TAIL_SWIPE.get(), triceratops.getSoundSource(), 0.75F, triceratops.getVoicePitch(), false);
+            if (event.getKeyframeData().getSound().equals("triceratops_warn_stomp")) {
+                triceratops.level().playLocalSound(triceratops.getX(), triceratops.getY(), triceratops.getZ(), UPSounds.MAJUNGA_STEP.get(), triceratops.getSoundSource(), 1.25F, 0.8F, false);
             }
         }
     }
@@ -600,7 +618,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             return PlayState.CONTINUE;
         }
 
-        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.isInSittingPose()) {
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.isInSittingPose() && !this.isCharging()) {
             if(this.hasControllingPassenger()) {
                 if (this.getControllingPassenger().isSprinting()) {
                     event.setAndContinue(TRIKE_SPRINT);
@@ -659,7 +677,7 @@ public class TriceratopsEntity extends PrehistoricEntity implements ICustomFollo
             event.setAndContinue(TRIKE_ATTACK_2);
             return PlayState.CONTINUE;
         }
-        else if (animState == 23) {
+        else if (this.isCharging() && animState == 23) {
             event.setAndContinue(TRIKE_CHARGE);
             event.getController().setAnimationSpeed(1.0F);
             return PlayState.CONTINUE;

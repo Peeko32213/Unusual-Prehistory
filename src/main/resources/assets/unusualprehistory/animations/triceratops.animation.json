@@ -3556,8 +3556,14 @@
 				"0.25": {
 					"effect": "triceratops_warn"
 				},
+				"0.875": {
+					"effect": "triceratops_warn_stomp"
+				},
 				"2.25": {
 					"effect": "triceratops_warn"
+				},
+				"2.875": {
+					"effect": "triceratops_warn_stomp"
 				}
 			}
 		},

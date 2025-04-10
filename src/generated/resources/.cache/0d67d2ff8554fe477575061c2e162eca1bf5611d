@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-08T19:04:08.492817	Tags for minecraft:block mod id unusualprehistory
+// 1.20.1	2025-04-09T18:21:24.1244472	Tags for minecraft:block mod id unusualprehistory
 bc15fbcbd9b90e8cd93b2caaf31e3cd6aac2a32d data/forge/tags/blocks/fence_gates.json
 f98b0fffa1dfb5685fb776758040b39d22b0f5bc data/forge/tags/blocks/fence_gates/wooden.json
 ce8c5d46ed3bff2f18b60393a4ec94d07cd6b77a data/minecraft/tags/blocks/buttons.json
@@ -52,6 +52,7 @@ c1b2a217bb3fcb7e1d67f5bc45409796720bd171 data/unusualprehistory/tags/blocks/eryo
 2bcb3c579a424057b34c0d9ff318d84dc8a54cb7 data/unusualprehistory/tags/blocks/horsetail_placeable.json
 2bcb3c579a424057b34c0d9ff318d84dc8a54cb7 data/unusualprehistory/tags/blocks/isoetes_beestonii_placeable.json
 ea0942a4980c62e7926011cee586aef6994aae37 data/unusualprehistory/tags/blocks/megatherium_mineables.json
+d98c9836df30d8e98a5d65f4d4c5670e50a1cfb9 data/unusualprehistory/tags/blocks/pachycephalosaurus_grazing_blocks.json
 2f846dfa4f179f1d33be754cbaf8ef2e945bd8c6 data/unusualprehistory/tags/blocks/petrified_logs.json
 d151bd3bdf63b9b9019d27f177f7f5c7f9c357b7 data/unusualprehistory/tags/blocks/talpanas_diggables.json
 d6bc79380a108eef6352d3b6645c893ea765bd72 data/unusualprehistory/tags/blocks/tar_pit_replaceable.json

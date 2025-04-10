@@ -125,11 +125,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> BALAUR_DEATH = createSoundEvent("balaur_death");
     public static final RegistryObject<SoundEvent> BALAUR_HURT = createSoundEvent("balaur_hurt");
 
-    public static final RegistryObject<SoundEvent> PACHY_DEATH = createSoundEvent("pachy_death");
-    public static final RegistryObject<SoundEvent> PACHY_HEADBUTT = createSoundEvent("pachy_headbutt");
-    public static final RegistryObject<SoundEvent> PACHY_HURT = createSoundEvent("pachy_hurt");
-    public static final RegistryObject<SoundEvent> PACHY_IDLE = createSoundEvent("pachy_idle");
-    public static final RegistryObject<SoundEvent> PACHY_KICK = createSoundEvent("pachy_kick");
+    public static final RegistryObject<SoundEvent> PACHY_DEATH = createSoundEvent("pachycephalosaurus_death");
+    public static final RegistryObject<SoundEvent> PACHY_HEADBUTT = createSoundEvent("pachycephalosaurus_headbutt");
+    public static final RegistryObject<SoundEvent> PACHY_HURT = createSoundEvent("pachycephalosaurus_hurt");
+    public static final RegistryObject<SoundEvent> PACHY_IDLE = createSoundEvent("pachycephalosaurus_idle");
+    public static final RegistryObject<SoundEvent> PACHY_WARN = createSoundEvent("pachycephalosaurus_warn");
 
     public static final RegistryObject<SoundEvent> ERYON_DEATH = createSoundEvent("eryon_death");
     public static final RegistryObject<SoundEvent> ERYON_HURT = createSoundEvent("eryon_hurt");
