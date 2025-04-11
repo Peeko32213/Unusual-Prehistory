@@ -466,6 +466,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.HYNERIA_JUMP, "Hyneria jumps");
 
         addSound(UPSounds.TYRANNO_IDLE, "Tyrannosaurus drones");
+        addSound(UPSounds.TYRANNO_AGGRO, "Tyrannosaurus snarls");
         addSound(UPSounds.TYRANNO_STOMP_ATTACK, "Tyrannosaurus stomps");
         addSound(UPSounds.TYRANNO_BITE, "Tyrannosaurus chomps");
         addSound(UPSounds.TYRANNO_TAIL_SWIPE, "Tyrannosaurus swipes");

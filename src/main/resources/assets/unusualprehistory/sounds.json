@@ -344,73 +344,81 @@
 
   "tyrannosaurus_bite": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_0",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_1",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_bite_2"
+        "unusualprehistory:entity/tyrannosaurus/bite_0",
+        "unusualprehistory:entity/tyrannosaurus/bite_1",
+        "unusualprehistory:entity/tyrannosaurus/bite_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_bite"
   },
   "tyrannosaurus_death": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_death_0",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_death_1"
+        "unusualprehistory:entity/tyrannosaurus/death_0",
+        "unusualprehistory:entity/tyrannosaurus/death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_death"
   },
   "tyrannosaurus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_hurt_0",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_hurt_1"
+        "unusualprehistory:entity/tyrannosaurus/hurt_0",
+        "unusualprehistory:entity/tyrannosaurus/hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_hurt"
   },
   "tyrannosaurus_idle": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_0",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_1",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_idle_2"
+        "unusualprehistory:entity/tyrannosaurus/idle_0",
+        "unusualprehistory:entity/tyrannosaurus/idle_1",
+        "unusualprehistory:entity/tyrannosaurus/idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_idle"
   },
+  "tyrannosaurus_aggressive": {
+    "sounds": [
+      "unusualprehistory:entity/tyrannosaurus/aggro_0",
+      "unusualprehistory:entity/tyrannosaurus/aggro_1",
+      "unusualprehistory:entity/tyrannosaurus/aggro_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_aggressive"
+  },
   "tyrannosaurus_step": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_step_0",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_step_1"
+        "unusualprehistory:entity/tyrannosaurus/step_0",
+        "unusualprehistory:entity/tyrannosaurus/step_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_step"
   },
   "tyrannosaurus_stomp_attack": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_stomp_attack_0",
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_stomp_attack_1"
+        "unusualprehistory:entity/tyrannosaurus/stomp_attack_0",
+        "unusualprehistory:entity/tyrannosaurus/stomp_attack_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_stomp_attack"
   },
   "tyrannosaurus_tail_swipe": {
     "sounds": [
-        "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_tail_swipe"
+        "unusualprehistory:entity/tyrannosaurus/tail_swipe_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_tail_swipe"
   },
   "tyrannosaurus_roar": {
     "sounds": [
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_0",
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_1",
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_roar_2"
+      "unusualprehistory:entity/tyrannosaurus/roar_0",
+      "unusualprehistory:entity/tyrannosaurus/roar_1",
+      "unusualprehistory:entity/tyrannosaurus/roar_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_roar"
   },
   "tyrannosaurus_sniff": {
     "sounds": [
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff_0",
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff_1",
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_sniff_2"
+      "unusualprehistory:entity/tyrannosaurus/sniff_0",
+      "unusualprehistory:entity/tyrannosaurus/sniff_1",
+      "unusualprehistory:entity/tyrannosaurus/sniff_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_sniff"
   },
   "tyrannosaurus_revive": {
     "sounds": [
-      "unusualprehistory:entity/tyrannosaurus/tyrannosaurus_revive"
+      "unusualprehistory:entity/tyrannosaurus/revive"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.tyrannosaurus_revive"
   },

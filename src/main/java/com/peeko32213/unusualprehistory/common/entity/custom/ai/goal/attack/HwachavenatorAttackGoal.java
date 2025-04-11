@@ -16,7 +16,7 @@ public class HwachavenatorAttackGoal extends Goal {
     protected final HwachavenatorEntity hwachavenator;
     private int animTime = 0;
 
-    Vec3 slashOffSet = new Vec3(0, 1.5, 2.2);
+    Vec3 biteOffSet = new Vec3(0, 1.5, 2.2);
 
     public HwachavenatorAttackGoal(HwachavenatorEntity pMob) {
         this.hwachavenator = pMob;
@@ -76,7 +76,7 @@ public class HwachavenatorAttackGoal extends Goal {
         animTime++;
         hwachavenator.getNavigation().stop();
         if(animTime == 8) {
-            HitboxAttacks.pivotedPolyHitCheck(hwachavenator, hwachavenator, this.slashOffSet, 0.5, 0.6, 0.5, (ServerLevel) hwachavenator.level(), (float) hwachavenator.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (hwachavenator.damageSources().mobAttack(hwachavenator)), 0.2F, false, true, false);
+            HitboxAttacks.pivotedPolyHitCheck(hwachavenator, hwachavenator, this.biteOffSet, 0.5, 0.6, 0.5, (ServerLevel) hwachavenator.level(), (float) hwachavenator.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (hwachavenator.damageSources().mobAttack(hwachavenator)), 0.2F, false, true, false);
         }
         if(animTime >= 12) {
             animTime = 0;

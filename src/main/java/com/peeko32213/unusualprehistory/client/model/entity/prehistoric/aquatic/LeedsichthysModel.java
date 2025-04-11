@@ -37,18 +37,6 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("tail_tip_rot");
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        CoreGeoBone root = this.getAnimationProcessor().getBone("root");
-
-        if (entity.isBaby()) {
-            root.setScaleX(0.5F);
-            root.setScaleY(0.5F);
-            root.setScaleZ(0.5F);
-        } else {
-            root.setScaleX(1.0F);
-            root.setScaleY(1.0F);
-            root.setScaleZ(1.0F);
-        }
-
         if (entity.isInWaterOrBubble()) {
             tail.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01))));
             tailfin.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.01))));

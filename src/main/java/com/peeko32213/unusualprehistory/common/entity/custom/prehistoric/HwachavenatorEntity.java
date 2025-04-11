@@ -261,7 +261,7 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         if (this.getVariant() == 3) {
             return 0.98F;
         }
-        else return getWaterSlowDown();
+        else return 0.4F;
     }
 
     // Mob interactions

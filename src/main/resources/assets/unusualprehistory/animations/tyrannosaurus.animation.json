@@ -3719,6 +3719,11 @@
 						"2.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.4583": {
+					"effect": "tyrannosaurus_bite"
+				}
 			}
 		},
 		"animation.tyrannosaurus.bite_blend2": {
@@ -3889,6 +3894,11 @@
 						"1.0": ["math.sin(query.anim_time*180/2+60)*10", "math.sin(query.anim_time*180/2+90)*10", "math.sin(query.anim_time*180/2+60)*10"],
 						"2.0": [0, 0, 0]
 					}
+				}
+			},
+			"sound_effects": {
+				"0.4583": {
+					"effect": "tyrannosaurus_bite"
 				}
 			}
 		},
@@ -4569,6 +4579,11 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"1.5": {
+					"effect": "tyrannosaurus_stomp"
+				}
 			}
 		},
 		"animation.tyrannosaurus.stomp_left": {
@@ -5247,6 +5262,11 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"1.5": {
+					"effect": "tyrannosaurus_stomp"
 				}
 			}
 		},
@@ -6217,6 +6237,11 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"0.9583": {
+					"effect": "tyrannosaurus_tail_swipe"
+				}
 			}
 		},
 		"animation.tyrannosaurus.tackle": {
@@ -6932,6 +6957,11 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.5": {
+					"effect": "tyrannosaurus_tackle"
 				}
 			}
 		}

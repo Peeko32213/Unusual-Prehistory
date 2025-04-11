@@ -68,7 +68,7 @@ public class XiphactinusAttackGoal extends Goal {
         if (distance <= meleeRange) {
             xiphactinus.setAnimationState(21);
         }
-        else if (distance > meleeRange && this.ramCooldown <= 0 && !xiphactinus.isInWater()) {
+        else if (distance > meleeRange && this.ramCooldown <= 0) {
             xiphactinus.setAnimationState(22);
         }
     }
