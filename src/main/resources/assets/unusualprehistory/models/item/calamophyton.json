@@ -1,6 +1,6 @@
 {
   "parent" : "item/generated",
   "textures" : {
-    "layer0" : "unusualprehistory:block/calamophyton_top"
+    "layer0" : "unusualprehistory:item/calamophyton"
   }
 }
