@@ -535,10 +535,10 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.AUSTRO_IDLE, "Austroraptor coos");
         addSound(UPSounds.AUSTRO_PREEN, "Austroraptor preens");
 
-        addSound(UPSounds.HWACHA_DEATH, "Hwachavenator dies");
-        addSound(UPSounds.HWACHA_HURT, "Hwachavenator hurts");
-        addSound(UPSounds.HWACHA_IDLE, "Hwachavenator hums");
-        addSound(UPSounds.HWACHA_ROAR, "Hwachavenator screeches");
+        addSound(UPSounds.HWACHA_ACUTI_DEATH, "Hwachavenator dies");
+        addSound(UPSounds.HWACHA_ACUTI_HURT, "Hwachavenator hurts");
+        addSound(UPSounds.HWACHA_ACUTI_IDLE, "Hwachavenator groans");
+        addSound(UPSounds.HWACHA_ACUTI_ROAR, "Hwachavenator screeches");
         addSound(UPSounds.HWACHA_SHOOT, "Hwachavenator shoots");
 
         addSound(UPSounds.KENTRO_DEATH, "Kentrosaurus dies");

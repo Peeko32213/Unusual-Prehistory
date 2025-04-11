@@ -120,7 +120,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.PTERODAUSTRO)));
         event.registerEntityRenderer(UPEntities.TANY.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new TanystropheusModel()));
         event.registerEntityRenderer(UPEntities.TRICERATOPS.get(), e -> new PrehistoricRenderer<>(e, new TriceratopsModel()));
-        event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new AgeableMobRenderer<>(e, new TyrannosaurusModel()));
+        event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new PrehistoricRenderer<>(e, new TyrannosaurusModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e -> new PrehistoricRenderer<>(e, new UlughbegsaurusModel()));
         event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
         event.registerEntityRenderer(UPEntities.XIPH.get(), XiphactinusRenderer::new);

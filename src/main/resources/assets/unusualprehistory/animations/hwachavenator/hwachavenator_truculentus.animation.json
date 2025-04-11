@@ -1246,6 +1246,11 @@
 						"0.75": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.2083": {
+					"effect": "hwachavenator_bite"
+				}
 			}
 		},
 		"animation.hwachavenator.blend_bite_2": {
@@ -1319,6 +1324,11 @@
 						"0.75": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.2083": {
+					"effect": "hwachavenator_bite"
+				}
 			}
 		},
 		"animation.hwachavenator.blend_roar": {
@@ -1386,7 +1396,7 @@
 			},
 			"sound_effects": {
 				"0.25": {
-					"effect": "hwachavenator_roar"
+					"effect": "hwachavenator_truculentus_roar"
 				}
 			}
 		},

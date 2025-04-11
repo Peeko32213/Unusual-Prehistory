@@ -762,41 +762,139 @@
     "subtitle": "unusualprehistory.sound.subtitle.austro_preen"
   },
 
-  "hwachavenator_death": {
-    "sounds": [
-        "unusualprehistory:entity/hwachavenator/hwachavenator_death_0",
-        "unusualprehistory:entity/hwachavenator/hwachavenator_death_1"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_death"
-  },
-  "hwachavenator_hurt": {
-    "sounds": [
-        "unusualprehistory:entity/hwachavenator/hwachavenator_hurt_0",
-        "unusualprehistory:entity/hwachavenator/hwachavenator_hurt_1"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_hurt"
-  },
-  "hwachavenator_idle": {
-    "sounds": [
-        "unusualprehistory:entity/hwachavenator/hwachavenator_idle_0",
-        "unusualprehistory:entity/hwachavenator/hwachavenator_idle_1"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_idle"
-  },
-  "hwachavenator_roar": {
-    "sounds": [
-      "unusualprehistory:entity/hwachavenator/hwachavenator_roar_0",
-      "unusualprehistory:entity/hwachavenator/hwachavenator_roar_1",
-      "unusualprehistory:entity/hwachavenator/hwachavenator_roar_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_roar"
-  },
   "hwachavenator_shoot": {
     "sounds": [
-        "unusualprehistory:entity/hwachavenator/hwachavenator_shoot_0",
-        "unusualprehistory:entity/hwachavenator/hwachavenator_shoot_1"
+      "unusualprehistory:entity/hwachavenator/shoot_0",
+      "unusualprehistory:entity/hwachavenator/shoot_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_shoot"
+  },
+
+  "hwachavenator_acuti_death": {
+    "sounds": [
+        "unusualprehistory:entity/hwachavenator/acuti_death_0",
+        "unusualprehistory:entity/hwachavenator/acuti_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_death"
+  },
+  "hwachavenator_acuti_hurt": {
+    "sounds": [
+        "unusualprehistory:entity/hwachavenator/acuti_hurt_0",
+        "unusualprehistory:entity/hwachavenator/acuti_hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_hurt"
+  },
+  "hwachavenator_acuti_idle": {
+    "sounds": [
+        "unusualprehistory:entity/hwachavenator/acuti_idle_0",
+        "unusualprehistory:entity/hwachavenator/acuti_idle_1",
+        "unusualprehistory:entity/hwachavenator/acuti_idle_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_idle"
+  },
+  "hwachavenator_acuti_roar": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/acuti_roar_0",
+      "unusualprehistory:entity/hwachavenator/acuti_roar_1",
+      "unusualprehistory:entity/hwachavenator/acuti_roar_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_roar"
+  },
+
+  "hwachavenator_truculentus_death": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/truculentus_death_0",
+      "unusualprehistory:entity/hwachavenator/truculentus_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_death"
+  },
+  "hwachavenator_truculentus_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/truculentus_hurt_0",
+      "unusualprehistory:entity/hwachavenator/truculentus_hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_hurt"
+  },
+  "hwachavenator_truculentus_idle": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/truculentus_idle_0",
+      "unusualprehistory:entity/hwachavenator/truculentus_idle_1",
+      "unusualprehistory:entity/hwachavenator/truculentus_idle_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_idle"
+  },
+  "hwachavenator_truculentus_roar": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/truculentus_roar_0",
+      "unusualprehistory:entity/hwachavenator/truculentus_roar_1",
+      "unusualprehistory:entity/hwachavenator/truculentus_roar_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_roar"
+  },
+
+  "hwachavenator_venenum_death": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/venenum_death_0",
+      "unusualprehistory:entity/hwachavenator/venenum_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_death"
+  },
+  "hwachavenator_venenum_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/venenum_hurt_0",
+      "unusualprehistory:entity/hwachavenator/venenum_hurt_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_hurt"
+  },
+  "hwachavenator_venenum_idle": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/venenum_idle_0",
+      "unusualprehistory:entity/hwachavenator/venenum_idle_1",
+      "unusualprehistory:entity/hwachavenator/venenum_idle_2",
+      "unusualprehistory:entity/hwachavenator/venenum_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_idle"
+  },
+  "hwachavenator_venenum_roar": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/venenum_roar_0",
+      "unusualprehistory:entity/hwachavenator/venenum_roar_1",
+      "unusualprehistory:entity/hwachavenator/venenum_roar_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_roar"
+  },
+
+  "hwachavenator_fabulosa_idle": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/fabulosa_idle_0",
+      "unusualprehistory:entity/hwachavenator/fabulosa_idle_1",
+      "unusualprehistory:entity/hwachavenator/fabulosa_idle_2",
+      "unusualprehistory:entity/hwachavenator/fabulosa_idle_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_idle"
+  },
+  "hwachavenator_fabulosa_hurt": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/fabulosa_hurt_0",
+      "unusualprehistory:entity/hwachavenator/fabulosa_hurt_1",
+      "unusualprehistory:entity/hwachavenator/fabulosa_hurt_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_hurt"
+  },
+  "hwachavenator_fabulosa_death": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/fabulosa_death_0",
+      "unusualprehistory:entity/hwachavenator/fabulosa_death_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_death"
+  },
+  "hwachavenator_fabulosa_roar": {
+    "sounds": [
+      "unusualprehistory:entity/hwachavenator/fabulosa_roar_0",
+      "unusualprehistory:entity/hwachavenator/fabulosa_roar_1",
+      "unusualprehistory:entity/hwachavenator/fabulosa_roar_2"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_roar"
   },
 
   "kentro_death": {

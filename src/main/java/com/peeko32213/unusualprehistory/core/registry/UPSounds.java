@@ -141,11 +141,28 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> AUSTRO_IDLE = createSoundEvent("austro_idle");
     public static final RegistryObject<SoundEvent> AUSTRO_PREEN = createSoundEvent("austro_preen");
 
-    public static final RegistryObject<SoundEvent> HWACHA_DEATH = createSoundEvent("hwachavenator_death");
-    public static final RegistryObject<SoundEvent> HWACHA_HURT = createSoundEvent("hwachavenator_hurt");
-    public static final RegistryObject<SoundEvent> HWACHA_IDLE = createSoundEvent("hwachavenator_idle");
-    public static final RegistryObject<SoundEvent> HWACHA_ROAR = createSoundEvent("hwachavenator_roar");
+    // Hwachavenator
     public static final RegistryObject<SoundEvent> HWACHA_SHOOT = createSoundEvent("hwachavenator_shoot");
+
+    public static final RegistryObject<SoundEvent> HWACHA_ACUTI_DEATH = createSoundEvent("hwachavenator_acuti_death");
+    public static final RegistryObject<SoundEvent> HWACHA_ACUTI_HURT = createSoundEvent("hwachavenator_acuti_hurt");
+    public static final RegistryObject<SoundEvent> HWACHA_ACUTI_IDLE = createSoundEvent("hwachavenator_acuti_idle");
+    public static final RegistryObject<SoundEvent> HWACHA_ACUTI_ROAR = createSoundEvent("hwachavenator_acuti_roar");
+
+    public static final RegistryObject<SoundEvent> HWACHA_FABULOSA_ROAR = createSoundEvent("hwachavenator_fabulosa_roar");
+    public static final RegistryObject<SoundEvent> HWACHA_FABULOSA_IDLE = createSoundEvent("hwachavenator_fabulosa_idle");
+    public static final RegistryObject<SoundEvent> HWACHA_FABULOSA_HURT = createSoundEvent("hwachavenator_fabulosa_hurt");
+    public static final RegistryObject<SoundEvent> HWACHA_FABULOSA_DEATH = createSoundEvent("hwachavenator_fabulosa_death");
+
+    public static final RegistryObject<SoundEvent> HWACHA_TRUCULENTUS_ROAR = createSoundEvent("hwachavenator_truculentus_roar");
+    public static final RegistryObject<SoundEvent> HWACHA_TRUCULENTUS_IDLE = createSoundEvent("hwachavenator_truculentus_idle");
+    public static final RegistryObject<SoundEvent> HWACHA_TRUCULENTUS_HURT = createSoundEvent("hwachavenator_truculentus_hurt");
+    public static final RegistryObject<SoundEvent> HWACHA_TRUCULENTUS_DEATH = createSoundEvent("hwachavenator_truculentus_death");
+
+    public static final RegistryObject<SoundEvent> HWACHA_VENENUM_ROAR = createSoundEvent("hwachavenator_venenum_roar");
+    public static final RegistryObject<SoundEvent> HWACHA_VENENUM_IDLE = createSoundEvent("hwachavenator_venenum_idle");
+    public static final RegistryObject<SoundEvent> HWACHA_VENENUM_HURT = createSoundEvent("hwachavenator_venenum_hurt");
+    public static final RegistryObject<SoundEvent> HWACHA_VENENUM_DEATH = createSoundEvent("hwachavenator_venenum_death");
 
     public static final RegistryObject<SoundEvent> KENTRO_DEATH = createSoundEvent("kentro_death");
     public static final RegistryObject<SoundEvent> KENTRO_HURT = createSoundEvent("kentro_hurt");
