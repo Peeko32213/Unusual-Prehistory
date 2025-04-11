@@ -6,7 +6,7 @@
 				"identifier": "geometry.leedsichthys",
 				"texture_width": 512,
 				"texture_height": 512,
-				"visible_bounds_width": 23,
+				"visible_bounds_width": 24,
 				"visible_bounds_height": 11,
 				"visible_bounds_offset": [0, 2.5, 0]
 			},
@@ -194,6 +194,16 @@
 						{"origin": [-2, -28, 147], "size": [4, 71, 16], "uv": [0, 0]},
 						{"origin": [-2, -28, 163], "size": [4, 5, 6], "uv": [24, 0]}
 					]
+				},
+				{
+					"name": "tail_tip_rot",
+					"parent": "Tail",
+					"pivot": [0, 46, 147]
+				},
+				{
+					"name": "tail_rot",
+					"parent": "BackBody",
+					"pivot": [0, 52, 77]
 				}
 			]
 		}

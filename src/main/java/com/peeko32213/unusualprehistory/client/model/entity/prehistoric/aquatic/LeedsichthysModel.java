@@ -33,8 +33,8 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
     public void setCustomAnimations(LeedsichthysEntity entity, long instanceId, AnimationState<LeedsichthysEntity> animationState) {
         super.setCustomAnimations(entity, instanceId, animationState);
         if (animationState == null) return;
-        CoreGeoBone tail = this.getAnimationProcessor().getBone("BackBody");
-        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("Tail");
+        CoreGeoBone tail = this.getAnimationProcessor().getBone("tail_rot");
+        CoreGeoBone tailfin = this.getAnimationProcessor().getBone("tail_tip_rot");
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone root = this.getAnimationProcessor().getBone("root");
