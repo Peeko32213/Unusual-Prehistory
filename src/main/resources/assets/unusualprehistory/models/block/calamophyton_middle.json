@@ -1,5 +1,5 @@
 {
-    "parent": "block/cross",
+    "parent": "unusualprehistory:templates/block/wide_cross",
     "render_type": "minecraft:cutout",
     "textures": {
         "cross": "unusualprehistory:block/calamophyton_middle"
