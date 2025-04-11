@@ -229,56 +229,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         this.setIsShooting(pCompound.getBoolean("isShooting"));
     }
 
-    // Passenger
-    @Nullable
-    public LivingEntity getControllingPassenger() {
-        for (Entity passenger : this.getPassengers()) {
-            if (passenger instanceof Player) {
-                return (Player) passenger;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    protected void positionRider(Entity pPassenger, MoveFunction pCallback) {
-        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
-        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        if(!this.isInSittingPose()) {
-            pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.5F * yCos));
-            return;
-        }
-        pPassenger.setPos(this.getX() + (double) (0.5F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() - 1.0, this.getZ() - (double) (0.5F * yCos));
-
-    }
-
-    public double getPassengersRidingOffset() {
-        return 2.0D;
-    }
-
-    // Sounds
-    protected SoundEvent getAmbientSound() {
-        return UPSounds.HWACHA_IDLE.get();
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return UPSounds.HWACHA_HURT.get();
-    }
-
-    protected SoundEvent getDeathSound() {
-        return UPSounds.HWACHA_DEATH.get();
-    }
-
-    @Override
-    public float getSoundVolume() {
-        if(this.isBaby()){
-            return 0.8F;
-        }
-        else{
-            return 1.15F;
-        }
-    }
-
     // Mob interactions
     public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
         if(this.level().isClientSide) return InteractionResult.PASS;
@@ -296,11 +246,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
             }
 
             itemstack.shrink(1);
-            if(!player.isCreative()) {
-                if(!player.addItem(new ItemStack(Items.BOWL))){
-                    player.spawnAtLocation(Items.BOWL);
-                }
-            }
             return InteractionResult.SUCCESS;
         }
         if (isTame() && isOwnedBy(player)) {
@@ -328,47 +273,141 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             }
-            else {
-                if (!player.isShiftKeyDown() && !this.isBaby()) {
-                    if(!this.level().isClientSide) {
-                        player.startRiding(this);
+            if (!this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
+                if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() &&
+                        this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+                    this.doPlayerRide(player);
+                }
+                else {
+                    this.setCommand((this.getCommand() + 1) % 3);
+                    if (this.getCommand() == 3) {
+                        this.setCommand(0);
+                    }
 
-                        //Todo fix this: displayClientMessage not working!!
-                        player.sendSystemMessage(Component.translatable("dinosaur.start_riding.attack_key").withStyle(ChatFormatting.WHITE));
-                    }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    if(!this.level().isClientSide) {
-                        this.setCommand((this.getCommand() + 1));
-                    }
-                    if (this.getCommand() >= 3) {
-                        if(!this.level().isClientSide) {
-                            this.setCommand(0);
-                        }
-                    }
-                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + this.getCommand(), this.getName()), true);
+                    int var10001 = this.getCommand();
+                    player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
                     boolean sit = this.getCommand() == 2;
                     if (sit) {
-                        if(!this.level().isClientSide) {
-                            this.setInSittingPose(true);
+                        this.setOrderedToSit(true);
+                        if (!this.isInSittingPose() && this.onGround()){
+                            this.setSittingTime(20);
                         }
-                        return InteractionResult.SUCCESS;
                     } else {
-                        if(!this.level().isClientSide) {
-                            this.setOrderedToSit(false);
+                        if (this.isInSittingPose() && this.onGround()){
+                            this.setStandingTime(20);
                         }
-                        return InteractionResult.SUCCESS;
+                        this.setOrderedToSit(false);
                     }
                 }
+                return InteractionResult.SUCCESS;
             }
-
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS;
     }
 
     @Override
-    public boolean startRiding(Entity pVehicle) {
-        return super.startRiding(pVehicle);
+    public EntityDimensions getDimensions(Pose pPose) {
+        if (this.isInSittingPose()) {
+            return super.getDimensions(pPose).scale(1.0F, 0.8F);
+        } else {
+            return super.getDimensions(pPose);
+        }
+    }
+
+    protected void doPlayerRide(@NotNull Player player) {
+        if (!this.level().isClientSide) {
+            player.setYRot(this.getYRot());
+            player.setXRot(this.getXRot());
+            player.startRiding(this);
+        }
+    }
+
+    protected Vec3 getRiddenInput(Player player, Vec3 deltaIn) {
+        if (player.zza != 0) {
+            float f = player.zza < 0.0F ? 0.5F : 1.0F;
+            return new Vec3(player.xxa * 0.25F, 0.0D, player.zza * 0.5F * f);
+        } else {
+            this.setSprinting(false);
+        }
+        return Vec3.ZERO;
+    }
+
+    protected void tickRidden(Player player, Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if(player.zza != 0 || player.xxa != 0){
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+            this.setMaxUpStep(1.25F);
+            this.getNavigation().stop();
+            this.setTarget(null);
+        }
+    }
+
+    protected float getRiddenSpeed(Player pPlayer) {
+        float f = 0.0F;
+        if(pPlayer.isSprinting()) {
+            f = 0.2F;
+        }
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
+    }
+
+    // Controlling passenger
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                return player;
+            }
+        }
+        return null;
+    }
+
+    // Rider hitbox position
+    @Override
+    protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        pPassenger.setPos(this.getX() + (double) (0.15F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.15F * yCos));
+    }
+
+    public double getPassengersRidingOffset() {
+        return 1.95;
+    }
+
+    // Travel
+    @Override
+    public void travel(Vec3 travelVector) {
+        super.travel(travelVector);
+        this.tryCheckInsideBlocks();
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() && this.isVehicle();
+    }
+
+    // Sounds
+    protected SoundEvent getAmbientSound() {
+        return UPSounds.HWACHA_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return UPSounds.HWACHA_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return UPSounds.HWACHA_DEATH.get();
+    }
+
+    @Override
+    public float getSoundVolume() {
+        if(this.isBaby()){
+            return 0.8F;
+        }
+        else{
+            return 1.15F;
+        }
     }
 
     public boolean isHealingFood(ItemStack pStack) {
@@ -474,38 +513,6 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     }
 
     @Override
-    public void travel(@NotNull Vec3 pos) {
-        if (this.isAlive()) {
-            LivingEntity livingentity = this.getControllingPassenger();
-            if (this.isVehicle() && livingentity != null) {
-                this.setYRot(livingentity.getYRot());
-                this.yRotO = this.getYRot();
-                this.setXRot(livingentity.getXRot() * 0.5F);
-                this.setRot(this.getYRot(), this.getXRot());
-                this.yBodyRot = this.getYRot();
-                this.yHeadRot = this.yBodyRot;
-                float f = livingentity.xxa;
-                float f1 = livingentity.zza;
-                if (f1 <= 0.0F) {
-                    f1 *= 0.25F;
-                }
-                if(!this.isInSittingPose()) {
-                    if (this.isShooting() && this.isVehicle()) {
-                        this.setSpeed(0.0F);
-                    } else if (this.getControllingPassenger().isSprinting()) {
-                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 1.15F));
-                    } else {
-                        this.setSpeed(((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.5F));
-                    }
-                }
-                super.travel(new Vec3(f, pos.y, f1));
-            } else {
-                super.travel(pos);
-            }
-        }
-    }
-
-    @Override
     public void customServerAiStep() {
         if (this.getMoveControl().hasWanted()) {
             this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.25D);
@@ -516,12 +523,7 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     }
 
     protected void playStepSound(BlockPos p_28301_, BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.1F, 1.0F);
-    }
-
-    @Override
-    public float getStepHeight() {
-        return 1.25F;
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.2F, 1.3F);
     }
 
     public void killed() {

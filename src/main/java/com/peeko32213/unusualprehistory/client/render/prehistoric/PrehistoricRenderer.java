@@ -25,7 +25,7 @@ public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityR
 
     @Override
     public RenderType getRenderType(T animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        return RenderType.entityCutout(getTextureLocation(animatable));
+        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
     @Override
