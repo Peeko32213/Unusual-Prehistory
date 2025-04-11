@@ -20,7 +20,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.UnicornSkeleton;
-import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.common.entity.projectile.*;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
@@ -382,121 +381,8 @@ public class UPEntities {
                     .updateInterval(10)
                     .build(modPrefix("opalescent_shuriken").toString()));
 
-    public static final RegistryObject<EntityType<PalaeophisBookEntity>> BOOK_PALAEO = ENTITIES.register("palaeo_book_palaeo",
-            () -> EntityType.Builder.<PalaeophisBookEntity>of(PalaeophisBookEntity::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(2, 2)
-                    .build(modPrefix("palaeo_book_palaeo").toString()));
-
     // Eggs
     public static final RegistryObject<EntityType<TelecrexEgg>> TELECREX_EGG = ENTITIES.register("telecrex_egg", () -> registerEntity(EntityType.Builder.of(TelecrexEgg::new, MobCategory.MISC).sized(0.25F, 0.25F).setCustomClientFactory(TelecrexEgg::new).fireImmune(), "telecrex_egg"));
-
-    // Plants
-    public static final RegistryObject<EntityType<EntityPlant>> FOXXI_SAPLING = ENTITIES.register("foxxi_sapling",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(2, 2)
-                    .build(modPrefix("foxxi_sapling").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> HORSETAIL = ENTITIES.register("horsetail",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("horsetail").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> TALL_HORSETAIL = ENTITIES.register("tall_horsetail",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(2, 2)
-                    .build(modPrefix("tall_horsetail").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> LEEFRUCTUS = ENTITIES.register("leefructus",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("leefructus").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> BENNETTITALES = ENTITIES.register("bennett",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("bennett").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> ARCHAEOSIGILARIA = ENTITIES.register("archaeos",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("archaeos").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> SARACENIA = ENTITIES.register("sarracenia",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("sarracenia").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> TALL_SARACENIA = ENTITIES.register("tall_sarracenia",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(2, 2)
-                    .build(modPrefix("tall_sarracenia").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> GINKGO_SAPLING = ENTITIES.register("ginkgo_sapling",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("ginkgo_sapling").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> DRYO_SAPLING = ENTITIES.register("dryo_sapling",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("dryo_sapling").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> CLATHRODICTYON = ENTITIES.register("clathrodictyon",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("clathrodictyon").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> ARCHAEFRUCTUS = ENTITIES.register("archaefructus",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("archaefructus").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> NELUMBITES = ENTITIES.register("nelumbites",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("nelumbites").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> QUEREUXIA = ENTITIES.register("quereuxia",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(1, 1)
-                    .build(modPrefix("quereuxia").toString()));
-
-    public static final RegistryObject<EntityType<EntityPlant>> RAIGUENRAYUN = ENTITIES.register("raiguenrayun",
-            () -> EntityType.Builder.<EntityPlant>of(EntityPlant::new, MobCategory.MISC)
-                    .noSummon()
-                    .fireImmune()
-                    .sized(2, 2)
-                    .build(modPrefix("raiguenrayun").toString()));
 
     public static final RegistryObject<EntityType<PsittaccoArrow>> PSITTACCO_ARROW = ENTITIES.register("psittacco_arrow",
             () -> EntityType.Builder.<PsittaccoArrow>of(PsittaccoArrow::new, MobCategory.MISC)

@@ -14,7 +14,6 @@ public class ModelLocations {
     public static ModelData BARINASUCHUS = ModelLocationBuilder.create("barinasuchus").build();
     public static ModelData BEELZEBUFO = ModelLocationBuilder.create("beelzebufo").build();
     public static ModelData BABY_BEELZEBUFO = ModelLocationBuilder.create("beelze_baby").build();
-    public static ModelData BOOK_SNAKE = ModelLocationBuilder.create("palaeophis/palaeophis").build();
     public static ModelData ENCRUSTED = ModelLocationBuilder.create("encrusted").build();
     public static ModelData FURACACAUDA = ModelLocationBuilder.create("furacacauda").build();
     public static ModelData HWACHA_SPIKE = ModelLocationBuilder.create("pin").build();

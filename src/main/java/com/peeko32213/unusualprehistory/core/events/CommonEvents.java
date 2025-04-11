@@ -14,7 +14,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.EncrustedEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.monster.SludgeEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.semi_aquatic.*;
-import com.peeko32213.unusualprehistory.common.entity.plants.EntityPlant;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -101,28 +100,10 @@ public class CommonEvents {
         event.put(UPEntities.UNICORN_SKELETON.get(), SkeletonEntity.createAttributes().build());
 
         // Non-living mobs
-        event.put(UPEntities.BOOK_PALAEO.get(), PalaeophisBookEntity.createAttributes().build());
         event.put(UPEntities.ICEBERG_SMILODON.get(), WorldSpawnableEntity.bakeAttributes().build());
         event.put(UPEntities.ICEBERG_MAMMOTH.get(), WorldSpawnableEntity.bakeAttributes().build());
 
         // Eggs
         event.put(UPEntities.PREHISTORIC_EGG.get(), LivingEntity.createLivingAttributes().build());
-
-        // Plants
-        event.put(UPEntities.FOXXI_SAPLING.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.HORSETAIL.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.TALL_HORSETAIL.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.LEEFRUCTUS.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.BENNETTITALES.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.ARCHAEOSIGILARIA.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.SARACENIA.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.TALL_SARACENIA.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.GINKGO_SAPLING.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.DRYO_SAPLING.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.CLATHRODICTYON.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.ARCHAEFRUCTUS.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.NELUMBITES.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.QUEREUXIA.get(), EntityPlant.bakeAttributes().build());
-        event.put(UPEntities.RAIGUENRAYUN.get(), EntityPlant.bakeAttributes().build());
     }
 }
