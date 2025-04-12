@@ -32,10 +32,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
@@ -56,6 +53,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -90,11 +88,19 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
     private static final EntityDataAccessor<Boolean> SHAKE = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SCRATCH_1 = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SCRATCH_2 = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> SNAP = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> THREATEN = SynchedEntityData.defineId(BarinasuchusEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Starting predicates
     private static final Predicate<LivingEntity> BARINASUCHUS_STARTING_PREDICATE = (e -> {
         if(e instanceof BarinasuchusEntity entity) {
             return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && !entity.isRunning();
+        }
+        return false;
+    });
+    private static final Predicate<LivingEntity> BARINASUCHUS_THREATEN_PREDICATE = (e -> {
+        if(e instanceof BarinasuchusEntity entity) {
+            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && !entity.isRunning() && entity.getLookControl().isLookingAtTarget();
         }
         return false;
     });
@@ -139,6 +145,28 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                     .entityAction(BARINA_SCRATCH_2_ACTION)
                     .build();
 
+    private static final EntityAction BARINA_SNAP_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper BARINA_SNAP_STATE =
+            StateHelper.Builder.state(SNAP, "barinasuchus_snap")
+                    .playTime(60)
+                    .stopTime(150)
+                    .startingPredicate(BARINASUCHUS_STARTING_PREDICATE)
+                    .entityAction(BARINA_SNAP_ACTION)
+                    .build();
+
+    private static final EntityAction BARINA_THREATEN_ACTION = new EntityAction(0, (e) -> {}, 1);
+
+    private static final StateHelper BARINA_THREATEN_STATE =
+            StateHelper.Builder.state(THREATEN, "barinasuchus_threaten")
+                    .playTime(60)
+                    .stopTime(180)
+                    .affectsAI(true)
+                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                    .startingPredicate(BARINASUCHUS_THREATEN_PREDICATE)
+                    .entityAction(BARINA_THREATEN_ACTION)
+                    .build();
+
     // Idle states
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
@@ -146,7 +174,9 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                 BARINA_YAWN_STATE.getName(), BARINA_YAWN_STATE,
                 BARINA_SHAKE_STATE.getName(), BARINA_SHAKE_STATE,
                 BARINA_SCRATCH_1_STATE.getName(), BARINA_SCRATCH_1_STATE,
-                BARINA_SCRATCH_2_STATE.getName(), BARINA_SCRATCH_2_STATE
+                BARINA_SCRATCH_2_STATE.getName(), BARINA_SCRATCH_2_STATE,
+                BARINA_SNAP_STATE.getName(), BARINA_SNAP_STATE,
+                BARINA_THREATEN_STATE.getName(), BARINA_THREATEN_STATE
         );
     }
 
@@ -156,7 +186,9 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
                 WeightedState.of(BARINA_YAWN_STATE, 8),
                 WeightedState.of(BARINA_SHAKE_STATE, 9),
                 WeightedState.of(BARINA_SCRATCH_1_STATE, 7),
-                WeightedState.of(BARINA_SCRATCH_2_STATE, 7)
+                WeightedState.of(BARINA_SCRATCH_2_STATE, 7),
+                WeightedState.of(BARINA_SNAP_STATE, 7),
+                WeightedState.of(BARINA_THREATEN_STATE, 10)
         );
     }
 
@@ -189,8 +221,7 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
 
     // Attributes
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 36.0D).add(Attributes.MOVEMENT_SPEED, 0.18D).add(Attributes.ARMOR, 8.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.2D).add(Attributes.FOLLOW_RANGE, 32D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 36.0D).add(Attributes.MOVEMENT_SPEED, 0.18D).add(Attributes.ARMOR, 8.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.2D).add(Attributes.FOLLOW_RANGE, 32D);
     }
 
     @Override
@@ -313,6 +344,8 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
         this.entityData.define(SHAKE, false);
         this.entityData.define(SCRATCH_1, false);
         this.entityData.define(SCRATCH_2, false);
+        this.entityData.define(SNAP, false);
+        this.entityData.define(THREATEN, false);
         super.defineSynchedData();
     }
 
@@ -442,6 +475,14 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
         }
         if (getBooleanState(SCRATCH_2)) {
             event.getController().setAnimation(BARINA_SCRATCH_2);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(SNAP)) {
+            event.getController().setAnimation(BARINA_SNAP);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(THREATEN)) {
+            event.getController().setAnimation(BARINA_THREATEN);
             return PlayState.CONTINUE;
         }
         event.getController().forceAnimationReset();

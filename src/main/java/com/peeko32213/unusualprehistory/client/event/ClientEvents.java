@@ -126,7 +126,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.XIPH.get(), XiphactinusRenderer::new);
 
         // Ceno mobs
-        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.BARINASUCHUS)));
+        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.BARINASUCHUS, true)));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new AgeableMobRenderer<>(e, new GigantopithicusModel()));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new AgeableMobRenderer<>(e, new MammothModel()));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new AgeableMobRenderer<>(e, new MegalaniaModel()));

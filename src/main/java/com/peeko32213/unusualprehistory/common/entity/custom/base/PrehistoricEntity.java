@@ -50,12 +50,15 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     public boolean hasRunningAttributes = false;
     private float tailYaw;
+
     private float prevTailYaw;
     private float headLook;
     private float prevHeadLook;
 
     protected PrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
+        tailYaw = this.yBodyRot;
+        prevTailYaw = this.yBodyRot;
     }
 
     @Override
@@ -76,6 +79,8 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     @Override
     public void tick() {
         super.tick();
+        prevTailYaw = tailYaw;
+        prevHeadLook = headLook;
 
         if(playingAnimation()) {
             setAnimationTimer(getAnimationTimer() - 1);
@@ -85,7 +90,6 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
         if (this.isTame() && this.getSittingTime()==0 && this.getStandingTime()==0){
             refreshDimensions();
         }
-
         if (this.getSittingTime() > 0){
             if (!this.getNavigation().isDone()){
                 this.getNavigation().stop();
@@ -105,11 +109,9 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
             int prev = this.getSittingLag();
             this.setSittingLag(prev - 1);
         }
-
         if (this.isInSittingPose()){
             this.getNavigation().stop();
         }
-
         if (this.getStandingTime() > 0){
             if (!this.getNavigation().isDone()){
                 this.getNavigation().stop();
@@ -118,6 +120,15 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
             int prev = this.getStandingTime();
             this.setStandingTime(prev - 1);
         }
+
+        // Heal over time
+        if (this.tickCount % 100 == 0 && this.getHealth() < this.getMaxHealth()) {
+            this.heal(2);
+        }
+
+        // Queries
+        float yMov = (float) this.getDeltaMovement().y;
+        tickRotation(Mth.clamp(yMov, -1.0F, 1.0F) * -(float) (180F / (float) Math.PI));
     }
 
     public void checkDespawn() {
@@ -350,6 +361,51 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     public boolean isStillEnough() {
         return this.getDeltaMovement().horizontalDistance() < 0.05;
+    }
+
+    private void tickRotation(float yMov) {
+        float threshold = 1F;
+        float lookThreshold = 0.5F;
+        boolean flag2 = false;
+        boolean flag3 = false;
+
+        if (this.yRotO - this.getYRot() > threshold) {
+            tailYaw += 10;
+            flag2 = true;
+        }
+        if (this.yRotO - this.getYRot() < -threshold) {
+            tailYaw -= 10;
+            flag2 = true;
+        }
+        if (!flag2) {
+            if (tailYaw > 0) {
+                tailYaw = Math.max(tailYaw - 5, 0);
+            }
+            if (tailYaw < 0) {
+                tailYaw = Math.min(tailYaw + 5, 0);
+            }
+        }
+
+        if (this.yRotO - this.getYRot() > lookThreshold) {
+            headLook += 10;
+            flag3 = true;
+        }
+        if (this.yRotO - this.getYRot() < -lookThreshold) {
+            headLook -= 10;
+            flag3 = true;
+        }
+        if (!flag3) {
+            if (headLook > 0) {
+                headLook = Math.max(headLook - 5, 0);
+            }
+            if (headLook < 0) {
+                headLook = Math.min(headLook + 5, 0);
+            }
+        }
+
+        tailYaw = Mth.approachDegrees(this.tailYaw, yBodyRot, 8);
+        tailYaw = Mth.clamp(tailYaw, -60, 60);
+        headLook = Mth.clamp(headLook, -60, 60);
     }
 
     // Queries

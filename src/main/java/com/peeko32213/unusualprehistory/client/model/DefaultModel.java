@@ -20,13 +20,18 @@ public class DefaultModel<T extends Entity & GeoAnimatable & IVariantEntity> ext
     private ResourceLocation animation;
     private final float headScale;
     private final String headBone;
+    private final boolean turnsHead;
+    public DefaultModel(ModelLocations.ModelData modelData) {
+        this(modelData, false);
+    }
 
-    public DefaultModel(ModelLocations.ModelData modelData){
+    public DefaultModel(ModelLocations.ModelData modelData, boolean turnsHead) {
         this.model = modelData.getModel();
         this.textures = modelData.getTextures();
         this.animation = modelData.getAnimation();
         this.headBone = modelData.getHeadBone();
         this.headScale = modelData.getBabyHeadScale();
+        this.turnsHead = turnsHead;
     }
 
     @Override
@@ -68,5 +73,6 @@ public class DefaultModel<T extends Entity & GeoAnimatable & IVariantEntity> ext
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
 
+        if (animationState == null || !this.turnsHead);
     }
 }
