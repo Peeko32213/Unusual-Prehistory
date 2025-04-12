@@ -14,7 +14,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 import java.util.Map;
 
-public class DefaultModel<T extends Entity & GeoAnimatable & IVariantEntity> extends GeoModel<T> {
+public class DefaultModel<T extends Entity & GeoAnimatable & IVariantEntity> extends ExtendedMolangQueriesModel<T> {
     private ResourceLocation model;
     private Map<Integer, ResourceLocation> textures;
     private ResourceLocation animation;

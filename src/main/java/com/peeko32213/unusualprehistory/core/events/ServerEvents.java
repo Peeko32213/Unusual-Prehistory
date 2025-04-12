@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.client.animation.ServerResourceCache;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaJsonManager;
@@ -128,7 +127,6 @@ public class ServerEvents {
         event.addListener(new AnalyzerRecipeJsonManager());
         event.addListener(new LootFruitJsonManager());
         event.addListener(new EncyclopediaJsonManager());
-        event.addListener(ServerResourceCache::reload);
     }
 
     @SubscribeEvent

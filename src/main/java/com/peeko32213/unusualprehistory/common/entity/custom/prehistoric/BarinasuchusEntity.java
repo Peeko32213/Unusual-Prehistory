@@ -345,7 +345,6 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
 
     public void tick() {
         super.tick();
-
         if (isRunning() && !hasRunningAttributes) {
             hasRunningAttributes = true;
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.38D);

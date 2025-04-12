@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.part;
 
 import com.peeko32213.unusualprehistory.common.message.MultipartEntityMessage;
+import com.peeko32213.unusualprehistory.common.message.MultipartHurtMessage;
 import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

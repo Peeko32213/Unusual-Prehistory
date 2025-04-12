@@ -1163,33 +1163,33 @@
     "subtitle": "unusualprehistory.sound.subtitle.crocarina"
   },
 
-  "barina_death": {
+  "barinasuchus_death": {
     "sounds": [
-        "unusualprehistory:entity/barina/barina_death_0",
-        "unusualprehistory:entity/barina/barina_death_1"
+        "unusualprehistory:entity/barinasuchus/death_0",
+        "unusualprehistory:entity/barinasuchus/death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.barina_death"
+    "subtitle": "unusualprehistory.sound.subtitle.barinasuchus_death"
   },
-  "barina_hurt": {
+  "barinasuchus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/barina/barina_hurt_0",
-        "unusualprehistory:entity/barina/barina_hurt_1"
+        "unusualprehistory:entity/barinasuchus/hurt_0",
+        "unusualprehistory:entity/barinasuchus/hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.barina_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.barinasuchus_hurt"
   },
-  "barina_idle": {
+  "barinasuchus_idle": {
     "sounds": [
-        "unusualprehistory:entity/barina/barina_idle_0",
-        "unusualprehistory:entity/barina/barina_idle_1"
+        "unusualprehistory:entity/barinasuchus/idle_0",
+        "unusualprehistory:entity/barinasuchus/idle_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.barina_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.barinasuchus_idle"
   },
-  "barina_bite": {
+  "barinasuchus_bite": {
     "sounds": [
-      "unusualprehistory:entity/barina/barina_bite_0",
-      "unusualprehistory:entity/barina/barina_bite_1"
+      "unusualprehistory:entity/barinasuchus/bite_0",
+      "unusualprehistory:entity/barinasuchus/bite_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.barina_bite"
+    "subtitle": "unusualprehistory.sound.subtitle.barinasuchus_bite"
   },
 
   "megather_death": {

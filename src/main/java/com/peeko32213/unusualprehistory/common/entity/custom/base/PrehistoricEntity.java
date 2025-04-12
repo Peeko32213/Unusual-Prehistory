@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.base;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.IStateAction;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IHatchableEntity;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +29,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public abstract class PrehistoricEntity extends TamableAnimal implements GeoEntity, GeoAnimatable, IHatchableEntity, IBookEntity, IStateAction {
+public abstract class PrehistoricEntity extends TamableAnimal implements GeoEntity, GeoAnimatable, IHatchableEntity, IBookEntity, IStateAction, IVariantEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 

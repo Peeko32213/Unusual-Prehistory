@@ -17,6 +17,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import java.util.Locale;
 
 public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityRenderer<T> {
+    private int currentTick = -1;
 
     public PrehistoricRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
@@ -29,35 +30,28 @@ public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityR
     }
 
     @Override
-    public void preRender(PoseStack stackIn, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        super.preRender(stackIn, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
-
+    public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, T animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
+        super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
         if (animatable.isBaby()) {
-            stackIn.scale(0.5F, 0.5F, 0.5F);
+            poseStack.scale(0.5F, 0.5F, 0.5F);
         }
-
         if (animatable instanceof OviraptorEntity oviraptor) {
-
             if (oviraptor.hasCustomName() && "gigantoraptor".equals(oviraptor.getName().getString().toLowerCase(Locale.ROOT)) && !oviraptor.isBaby()) {
-                stackIn.scale(2F, 2F, 2F);
+                poseStack.scale(2F, 2F, 2F);
             }
         }
-
     }
 
-//    @Override
-//    public void renderRecursively(PoseStack poseStack, T animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-//        if(animatable.isAlive()) {
-//            super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
-//            return;
-//        }
-//
-//        if (bufferSource != null) {
-//            buffer = bufferSource.getBuffer(renderType);
-//        }
-//
-//        super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, OverlayTexture.pack(0,
-//                OverlayTexture.v(animatable.hurtTime > 0)), red, green, blue, alpha);
-//
-//    }
+    @Override
+    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    }
+
+    @Override
+    public void renderFinal(PoseStack poseStack, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        super.renderFinal(poseStack, animatable, model, bufferSource, buffer, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+        if (this.currentTick < 0 || this.currentTick != animatable.tickCount) {
+            this.currentTick = animatable.tickCount;
+        }
+    }
 }

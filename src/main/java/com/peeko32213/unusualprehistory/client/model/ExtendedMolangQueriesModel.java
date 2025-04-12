@@ -38,7 +38,6 @@ public abstract class ExtendedMolangQueriesModel<T extends GeoAnimatable> extend
             parser.setMemoizedValue(UPMolangQueries.IS_COLD_ENOUGH_TO_SNOW, () -> RenderUtils.booleanToFloat(entity.level().getBiome(entity.blockPosition()).value().coldEnoughToSnow(entity.blockPosition())));
             parser.setMemoizedValue(UPMolangQueries.IS_WARM_ENOUGH_TO_RAIN, () -> RenderUtils.booleanToFloat(entity.level().getBiome(entity.blockPosition()).value().warmEnoughToRain(entity.blockPosition())));
 
-
             parser.setMemoizedValue(UPMolangQueries.ANGLE_TO_CAMERA_X, () -> calculateAngle(calculateDotX(mc.gameRenderer.getMainCamera().getPosition(), entity.position())));
             parser.setMemoizedValue(UPMolangQueries.ANGLE_TO_CAMERA_Y, () -> calculateAngle(calculateDotY(mc.gameRenderer.getMainCamera().getPosition(), entity.position())));
             parser.setMemoizedValue(UPMolangQueries.ANGLE_TO_CAMERA_Z, () -> calculateAngle(calculateDotZ(mc.gameRenderer.getMainCamera().getPosition(), entity.position())));
@@ -53,7 +52,6 @@ public abstract class ExtendedMolangQueriesModel<T extends GeoAnimatable> extend
             parser.setMemoizedValue(UPMolangQueries.HAS_RIDER, () -> RenderUtils.booleanToFloat(entity.hasPassenger(e -> e instanceof Player)));
             parser.setMemoizedValue(UPMolangQueries.HAS_PLAYER_RIDER, () -> RenderUtils.booleanToFloat(entity.hasPassenger(e -> e instanceof LivingEntity)));
             parser.setMemoizedValue(UPMolangQueries.HAS_PLAYER_RIDER, () -> RenderUtils.booleanToFloat(entity.hasPassenger(e -> e instanceof LivingEntity)));
-
 
             parser.setValue(UPMolangQueries.RIDER_LOOK_ANGLE_X, () -> {
                 Entity pass = entity.getFirstPassenger();
@@ -76,7 +74,7 @@ public abstract class ExtendedMolangQueriesModel<T extends GeoAnimatable> extend
                 return pass.getYRot() * Mth.RAD_TO_DEG;});
 
             if (entity instanceof LivingEntity livingEntity) {
-                parser.setMemoizedValue(UPMolangQueries.HAS_MOB_EFFECTS, () -> RenderUtils.booleanToFloat((!livingEntity.getActiveEffects().isEmpty())));
+                //parser.setMemoizedValue(UPMolangQueries.HAS_MOB_EFFECTS, () -> RenderUtils.booleanToFloat((!livingEntity.getActiveEffects().isEmpty())));
                 parser.setMemoizedValue(UPMolangQueries.CAN_BREATHE_UNDERWATER, () -> {
                     boolean canBreathUnderWater = livingEntity.canBreatheUnderwater() || MobEffectUtil.hasWaterBreathing(livingEntity);
                     return RenderUtils.booleanToFloat((canBreathUnderWater));

@@ -126,7 +126,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.XIPH.get(), XiphactinusRenderer::new);
 
         // Ceno mobs
-        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new PrehistoricRenderer<>(e, new BarinasuchusModel()));
+        event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.BARINASUCHUS)));
         event.registerEntityRenderer(UPEntities.GIGANTOPITHICUS.get(), e -> new AgeableMobRenderer<>(e, new GigantopithicusModel()));
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new AgeableMobRenderer<>(e, new MammothModel()));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new AgeableMobRenderer<>(e, new MegalaniaModel()));
@@ -144,7 +144,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.UNICORN.get(), e -> new AgeableMobRenderer<>(e, new UnicornModel()));
 
         // Monsters
-        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
+        event.registerEntityRenderer(UPEntities.ENCRUSTED.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.ENCRUSTED)));
         event.registerEntityRenderer(UPEntities.SLUDGE.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new DefaultModel<>(ModelLocations.SLUDGE)));
 
         // Fossils

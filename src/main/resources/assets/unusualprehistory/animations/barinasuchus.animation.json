@@ -418,7 +418,7 @@
 				"tail": {
 					"rotation": [
 						"-10+math.sin(query.anim_time*180-60)*-5",
-						"math.sin(query.anim_time*180)*5+math.clamp(-query.net_head_yaw,-360,360)",
+						"math.sin(query.anim_time*180)*5+math.clamp(-query.net_head_yaw,-180,180)",
 						"math.sin(query.anim_time*180+90)*-5"
 					]
 				},

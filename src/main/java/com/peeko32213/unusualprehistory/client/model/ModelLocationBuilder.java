@@ -57,7 +57,6 @@ public class ModelLocationBuilder {
         );
     }
 
-
     public static ModelLocationBuilder create(String entityName) {
         return new ModelLocationBuilder(UnusualPrehistory.MODID, entityName, null);
     }
