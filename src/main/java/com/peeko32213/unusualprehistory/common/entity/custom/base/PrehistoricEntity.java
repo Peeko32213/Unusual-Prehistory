@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -47,6 +48,10 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
     private static final EntityDataAccessor<Integer> SITTING_LAG = SynchedEntityData.defineId(PrehistoricEntity.class, EntityDataSerializers.INT);
 
     public boolean hasRunningAttributes = false;
+    private float tailYaw;
+    private float prevTailYaw;
+    private float headLook;
+    private float prevHeadLook;
 
     protected PrehistoricEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
@@ -344,6 +349,17 @@ public abstract class PrehistoricEntity extends TamableAnimal implements GeoEnti
 
     public boolean isStillEnough() {
         return this.getDeltaMovement().horizontalDistance() < 0.05;
+    }
+
+    // Queries
+    public float getYaw(float partialTick) {
+        return (yBodyRotO + (yBodyRot - yBodyRotO) * partialTick);
+    }
+    public float getTailYaw(float partialTick) {
+        return (prevTailYaw + (tailYaw - prevTailYaw) * partialTick);
+    }
+    public float getHeadLook(float partialTick) {
+        return (prevHeadLook + (headLook - prevHeadLook) * partialTick);
     }
 
     @Nullable

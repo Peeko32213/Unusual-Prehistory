@@ -355,7 +355,6 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.18D);
         }
     }
-
     // Follow
     @Override
     public boolean shouldFollow() {

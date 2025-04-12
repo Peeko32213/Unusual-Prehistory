@@ -168,13 +168,8 @@
 					]
 				},
 				{
-					"name": "middle_rot",
-					"parent": "BodyBack",
-					"pivot": [0, 7, 8]
-				},
-				{
 					"name": "body_rot",
-					"parent": "BodyFront",
+					"parent": "BodyBack",
 					"pivot": [0, 7, 8]
 				},
 				{

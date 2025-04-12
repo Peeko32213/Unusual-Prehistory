@@ -188,7 +188,7 @@ public class TyrannosaurusAttackGoal extends Goal {
             animTime++;
             tyrannosaurus.setTackling(true);
             if (animTime == 10) {
-                HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.tackleOffSet, 0.9, 0.8, 0.9, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 0.8F, tyrannosaurus.damageSources().mobAttack(tyrannosaurus), 3.0F, true, false, false);
+                HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.tackleOffSet, 0.9, 0.8, 0.9, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 0.8F, tyrannosaurus.damageSources().mobAttack(tyrannosaurus), 3.0F, true, true, false);
             }
             if (animTime >= 39) {
                 animTime = 0;

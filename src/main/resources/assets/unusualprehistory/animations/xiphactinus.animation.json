@@ -478,6 +478,11 @@
 						"0.5": [1, 1, 1.2]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.1667": {
+					"effect": "xiphactinus_bite"
+				}
 			}
 		},
 		"animation.xiphactinus.holdingprey_blend": {

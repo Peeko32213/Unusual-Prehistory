@@ -1,11 +1,16 @@
 package com.peeko32213.unusualprehistory;
 
+import com.eliotlash.mclib.math.functions.Function;
+import com.peeko32213.unusualprehistory.client.animation.UPMolangFunctions;
+import com.peeko32213.unusualprehistory.client.animation.UPMolangQueries;
+import com.peeko32213.unusualprehistory.client.animation.functions.*;
 import com.peeko32213.unusualprehistory.client.event.ClientEvents;
 import com.peeko32213.unusualprehistory.common.capabilities.UPAnimalCapability;
 import com.peeko32213.unusualprehistory.common.capabilities.UPCapabilities;
 import com.peeko32213.unusualprehistory.common.capabilities.UPEntityCapability;
 import com.peeko32213.unusualprehistory.common.capabilities.UPPlayerCapability;
 import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
+import com.peeko32213.unusualprehistory.common.message.MultipartEntityMessage;
 import com.peeko32213.unusualprehistory.core.other.UPTabs;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockSubRegistryHelper;
@@ -55,11 +60,15 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.core.molang.LazyVariable;
+import software.bernie.geckolib.core.molang.MolangParser;
 
 import java.nio.file.Path;
 import java.util.Locale;
@@ -70,11 +79,18 @@ import java.util.function.UnaryOperator;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID)
 public class UnusualPrehistory {
 
-    public static final String MODID = "unusualprehistory";
-    private static int packetsRegistered;
-    public static final Logger LOGGER = LogManager.getLogger();
-    //public static final SimpleChannel NETWORK_WRAPPER;
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    private static final String PROTOCOL_VERSION = Integer.toString(1);
+    private static final ResourceLocation PACKET_NETWORK_NAME = new ResourceLocation("unusualprehistory:main_channel");
+    public static final SimpleChannel NETWORK_WRAPPER = NetworkRegistry.ChannelBuilder
+            .named(PACKET_NETWORK_NAME)
+            .clientAcceptedVersions(PROTOCOL_VERSION::equals)
+            .serverAcceptedVersions(PROTOCOL_VERSION::equals)
+            .networkProtocolVersion(() -> PROTOCOL_VERSION)
+            .simpleChannel();
+
+    public static final String MODID = "unusualprehistory";
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MODID, helper -> helper.putSubHelper(ForgeRegistries.BLOCKS, new UPBlockSubRegistryHelper(helper)));
 
     public static ResourceLocation modPrefix(String name) {
@@ -144,6 +160,59 @@ public class UnusualPrehistory {
         //bus.addListener(UPAnimalCapability::tickAnimal);
         //bus.addListener(UPAnimalCapability::tickWaterAnimal);
 
+        // Queries
+        registerMolangQuery(UPMolangQueries.FLYING_DOWN, 0);
+        registerMolangQuery(UPMolangQueries.FLYING_UP, 0);
+        registerMolangQuery(UPMolangQueries.IS_SLIPPERY, 0);
+        registerMolangQuery(UPMolangQueries.IS_UNDERGROUND, 0);
+        registerMolangQuery(UPMolangQueries.IS_BABY, 0);
+        registerMolangQuery(UPMolangQueries.IS_UNDERWATER, 0);
+        registerMolangQuery(UPMolangQueries.CAN_BREATHE_UNDERWATER, 0);
+        registerMolangQuery(UPMolangQueries.HAS_MOB_EFFECTS, 0);
+        registerMolangQuery(UPMolangQueries.IS_SILENT, 0);
+        registerMolangQuery(UPMolangQueries.HAS_PLAYER_RIDER, 0);
+        registerMolangQuery(UPMolangQueries.FLIGHT_ROLL, 0);
+        registerMolangQuery(UPMolangQueries.FLIGHT_PITCH, 0);
+        registerMolangQuery(UPMolangQueries.HEAD_LOOK, 0);
+        registerMolangQuery(UPMolangQueries.TAIL_YAW, 0);
+        registerMolangQuery(UPMolangQueries.TAIL_YAW2, 0);
+        registerMolangQuery(UPMolangQueries.YAW, 0);
+        registerMolangQuery(UPMolangQueries.HAS_RIDER, 0);
+        registerMolangQuery(UPMolangQueries.IN_BUBBLE_COLUMN, 0);
+        registerMolangQuery(UPMolangQueries.TEMPERATURE, 0);
+        registerMolangQuery(UPMolangQueries.IS_WARM_ENOUGH_TO_RAIN, 0);
+        registerMolangQuery(UPMolangQueries.IS_COLD_ENOUGH_TO_SNOW, 0);
+        registerMolangQuery(UPMolangQueries.HAS_TARGET, 0);
+        registerMolangQuery(UPMolangQueries.DISTANCE_TO_TARGET, 0);
+        registerMolangQuery(UPMolangQueries.TARGET_ARMOR, 0);
+        registerMolangQuery(UPMolangQueries.TARGET_HEALTH, 0);
+        registerMolangQuery(UPMolangQueries.TARGET_MAX_HEALTH, 0);
+        registerMolangQuery(UPMolangQueries.IS_FALL_FLYING, 0);
+        registerMolangQuery(UPMolangQueries.IS_INVISIBLE, 0);
+        registerMolangQuery(UPMolangQueries.IS_IN_POWDER_SNOW, 0);
+        registerMolangQuery(UPMolangQueries.IS_GLOWING, 0);
+        registerMolangQuery(UPMolangQueries.HAS_ITEM_IN_HAND, 0);
+        registerMolangQuery(UPMolangQueries.IS_HUNGRY, 0);
+        registerMolangQuery(UPMolangQueries.IS_IN_LAVA, 0);
+        registerMolangQuery(UPMolangQueries.IS_END, 0);
+        registerMolangQuery(UPMolangQueries.IS_NETHER, 0);
+        registerMolangQuery(UPMolangQueries.IS_OVERWORLD, 0);
+        registerMolangQuery(UPMolangQueries.BODY_X_ROTATION, 0);
+        registerMolangQuery(UPMolangQueries.BODY_Y_ROTATION, 0);
+        registerMolangQuery(UPMolangQueries.RIDER_BODY_X_ROTATION, 0);
+        registerMolangQuery(UPMolangQueries.RIDER_BODY_Y_ROTATION, 0);
+        registerMolangQuery(UPMolangQueries.NET_HEAD_YAW, 0);
+        registerMolangQuery(UPMolangQueries.HEAD_PITCH, 0);
+        registerMolangQuery(UPMolangQueries.RIDER_LOOK_ANGLE_Y, 0);
+        registerMolangQuery(UPMolangQueries.RIDER_LOOK_ANGLE_X, 0);
+        registerMolangQuery(UPMolangQueries.ANGLE_TO_CAMERA_X, 0);
+        registerMolangQuery(UPMolangQueries.ANGLE_TO_CAMERA_Y, 0);
+        registerMolangQuery(UPMolangQueries.ANGLE_TO_CAMERA_Z, 0);
+        registerMolangQuery(UPMolangQueries.DISTANCE_TO_GROUND, 0);
+        registerMolangFunction(UPMolangFunctions.MATH_INVERSE, MathInverse.class);
+        registerMolangFunction(UPMolangFunctions.MATH_COMPARE, MathCompare.class);
+        registerMolangFunction(UPMolangFunctions.SELECT, SelectFunction.class);
+        registerMolangFunction(UPMolangFunctions.OR, OrFunction.class);
 
     }
 
@@ -151,7 +220,15 @@ public class UnusualPrehistory {
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
         });
+
+        int packetsRegistered = 0;
+        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MultipartEntityMessage.class, MultipartEntityMessage::write, MultipartEntityMessage::read, MultipartEntityMessage::handle);
+
         UPMessages.register();
+    }
+
+    public static <MSG> void sendMSGToServer(MSG message) {
+        NETWORK_WRAPPER.sendToServer(message);
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
@@ -277,5 +354,14 @@ public class UnusualPrehistory {
     private static UnaryOperator<Component> decorateWithSource() {
         Component component = Component.translatable("pack.source.builtin");
         return (name) -> Component.translatable("pack.nameAndSource", name, component).withStyle(ChatFormatting.GRAY);
+    }
+
+    public static void registerMolangQuery(String string, double val) {
+        MolangParser.INSTANCE.register(new LazyVariable(string, val));
+    }
+
+
+    public static void registerMolangFunction(String string, Class<? extends Function> val) {
+        MolangParser.INSTANCE.functions.put(string, val);
     }
 }

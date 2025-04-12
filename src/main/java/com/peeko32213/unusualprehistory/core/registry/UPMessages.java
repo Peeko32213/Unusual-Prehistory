@@ -63,11 +63,6 @@ public class UPMessages {
                 MultipartHurtMessage::read,
                 MultipartHurtMessage.Handler::handle);
 
-        net.registerMessage(id(), MultipartEntityMessage.class,
-                MultipartEntityMessage::write,
-                MultipartEntityMessage::read,
-                MultipartEntityMessage::handle);
-
         net.registerMessage(id(), LootFruitTierPacketS2C.class,
                 LootFruitTierPacketS2C::encode,
                 LootFruitTierPacketS2C::decode,

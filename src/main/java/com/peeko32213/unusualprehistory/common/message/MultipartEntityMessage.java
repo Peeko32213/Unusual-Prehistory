@@ -23,6 +23,8 @@ public class MultipartEntityMessage {
         this.damage = damage;
     }
 
+    public MultipartEntityMessage() {}
+
     public static MultipartEntityMessage read(FriendlyByteBuf buf) {
         return new MultipartEntityMessage(buf.readInt(), buf.readInt(), buf.readInt(), buf.readDouble());
     }

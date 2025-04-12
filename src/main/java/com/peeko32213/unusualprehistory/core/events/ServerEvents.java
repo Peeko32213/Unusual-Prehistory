@@ -1,6 +1,7 @@
 package com.peeko32213.unusualprehistory.core.events;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.client.animation.ServerResourceCache;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaCodec;
 import com.peeko32213.unusualprehistory.common.data.encyclopedia.EncyclopediaJsonManager;
@@ -43,6 +44,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -119,6 +121,24 @@ public class ServerEvents {
                UPMessages.sendToPlayer(new EncyclopediaRootPageS2C(rootPage), player1);
            }
        }
+
+//        ServerPlayer player = event.getPlayer();
+//        List<ServerPlayer> playerList = event.getPlayerList().getPlayers();
+//        Map<ResourceLocation, JsonObject> modelObjects = ServerResourceCache.getModelObjects();
+//
+//
+//        if (player != null) {
+//            SMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getModelObjects(), true), PacketDistributor.PLAYER.with(player));
+//            SMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getAnimationObject(), false), PacketDistributor.PLAYER.with(player));
+//        }
+//
+//
+//        if (playerList != null && !playerList.isEmpty()) {
+//            for (ServerPlayer player1 : playerList) {
+//                SMessages.send(new SynchResourceObjectToClientPacket<>(player1.getId(), ServerResourceCache.getModelObjects(), true), PacketDistributor.PLAYER.with(player1));
+//                SMessages.send(new SynchResourceObjectToClientPacket<>(player1.getId(), ServerResourceCache.getAnimationObject(), false), PacketDistributor.PLAYER.with(player1));
+//            }
+//        }
     }
 
     @SubscribeEvent
@@ -126,6 +146,7 @@ public class ServerEvents {
         event.addListener(new AnalyzerRecipeJsonManager());
         event.addListener(new LootFruitJsonManager());
         event.addListener(new EncyclopediaJsonManager());
+        event.addListener(ServerResourceCache::reload);
     }
 
     @SubscribeEvent
@@ -279,6 +300,15 @@ public class ServerEvents {
             event.setCanceled(true);
         }
     }
+
+//    @SubscribeEvent
+//    public static void synchResources(PlayerEvent.PlayerLoggedInEvent event) {
+//        if (event.getEntity() == null || event.getEntity().level().isClientSide) return;
+//        ServerLevel level = (ServerLevel) event.getEntity().level();
+//        ServerPlayer player = (ServerPlayer) event.getEntity();
+//        UPMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getModelObjects(), true), PacketDistributor.PLAYER.with(player));
+//        UPMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getAnimationObject(), false), PacketDistributor.PLAYER.with(player));
+//    }
 }
 
 

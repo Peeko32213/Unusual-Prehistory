@@ -37,17 +37,15 @@ public class XiphactinusModel extends GeoModel<XiphactinusEntity> {
         CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
         CoreGeoBone head = this.getAnimationProcessor().getBone("head_rot");
         CoreGeoBone body = this.getAnimationProcessor().getBone("body_rot");
-        CoreGeoBone middleBody = this.getAnimationProcessor().getBone("middle_rot");
         CoreGeoBone tailBody = this.getAnimationProcessor().getBone("tail_rot");
 
-        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 2));
-        head.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 8));
-        body.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 8));
-        middleBody.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
-        tailBody.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
+        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F / 2))));
+        head.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
+        body.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F)) / 2));
+        tailBody.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F))));
 
-        body.setRotY(animatable.currentRoll / 2);
-        middleBody.setRotY(-animatable.currentRoll);
+        body.setRotY(-animatable.currentRoll / 2);
+        tailBody.setRotY(-animatable.currentRoll);
         tailBody.setRotY(-animatable.currentRoll);
     }
 }

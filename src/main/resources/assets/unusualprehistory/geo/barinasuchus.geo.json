@@ -79,6 +79,11 @@
 					]
 				},
 				{
+					"name": "tail_rot",
+					"parent": "tail",
+					"pivot": [-0.5, 25, 18]
+				},
+				{
 					"name": "arm_control",
 					"parent": "body_main",
 					"pivot": [0, 17, -7]
