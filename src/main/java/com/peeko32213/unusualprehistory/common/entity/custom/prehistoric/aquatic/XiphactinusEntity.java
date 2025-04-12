@@ -272,6 +272,7 @@ public class XiphactinusEntity extends PrehistoricAquaticEntity {
 
             this.setPartPosition(this.headPart, f3 * -1.8F, -pitch * 0.8F, -f18 * -1.8F);
             this.setPartPosition(this.tail1Part, f3 * 1.8F, pitch * 0.3F, f18 * -1.8F);
+            this.setPartPosition(this.tail2Part, f3 * 3.6F, pitch * 0.3F, f18 * -3.6F);
 
             for (int l = 0; l < this.allParts.length; ++l) {
                 this.allParts[l].xo = avector3d[l].x;

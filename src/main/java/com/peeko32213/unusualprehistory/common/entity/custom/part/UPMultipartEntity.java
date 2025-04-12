@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.part;
 
-import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.message.MultipartEntityMessage;
+import com.peeko32213.unusualprehistory.core.registry.UPMessages;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -31,7 +31,7 @@ public abstract class UPMultipartEntity<T extends Entity> extends PartEntity<T> 
             return InteractionResult.PASS;
         } else {
             if (player.level().isClientSide) {
-                UnusualPrehistory.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0, 0));
+                UPMessages.sendToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0, 0));
             }
             return parent.interact(player, hand);
         }
@@ -60,7 +60,7 @@ public abstract class UPMultipartEntity<T extends Entity> extends PartEntity<T> 
         if (!this.isInvulnerableTo(source) && parent != null) {
             Entity player = source.getEntity();
             if (player != null && player.level().isClientSide) {
-                UnusualPrehistory.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1, amount));
+                UPMessages.sendToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1, amount));
             }
         }
         return false;

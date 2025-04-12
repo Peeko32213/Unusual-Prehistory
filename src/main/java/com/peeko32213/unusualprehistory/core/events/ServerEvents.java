@@ -121,24 +121,6 @@ public class ServerEvents {
                UPMessages.sendToPlayer(new EncyclopediaRootPageS2C(rootPage), player1);
            }
        }
-
-//        ServerPlayer player = event.getPlayer();
-//        List<ServerPlayer> playerList = event.getPlayerList().getPlayers();
-//        Map<ResourceLocation, JsonObject> modelObjects = ServerResourceCache.getModelObjects();
-//
-//
-//        if (player != null) {
-//            SMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getModelObjects(), true), PacketDistributor.PLAYER.with(player));
-//            SMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getAnimationObject(), false), PacketDistributor.PLAYER.with(player));
-//        }
-//
-//
-//        if (playerList != null && !playerList.isEmpty()) {
-//            for (ServerPlayer player1 : playerList) {
-//                SMessages.send(new SynchResourceObjectToClientPacket<>(player1.getId(), ServerResourceCache.getModelObjects(), true), PacketDistributor.PLAYER.with(player1));
-//                SMessages.send(new SynchResourceObjectToClientPacket<>(player1.getId(), ServerResourceCache.getAnimationObject(), false), PacketDistributor.PLAYER.with(player1));
-//            }
-//        }
     }
 
     @SubscribeEvent
@@ -300,15 +282,6 @@ public class ServerEvents {
             event.setCanceled(true);
         }
     }
-
-//    @SubscribeEvent
-//    public static void synchResources(PlayerEvent.PlayerLoggedInEvent event) {
-//        if (event.getEntity() == null || event.getEntity().level().isClientSide) return;
-//        ServerLevel level = (ServerLevel) event.getEntity().level();
-//        ServerPlayer player = (ServerPlayer) event.getEntity();
-//        UPMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getModelObjects(), true), PacketDistributor.PLAYER.with(player));
-//        UPMessages.send(new SynchResourceObjectToClientPacket<>(player.getId(), ServerResourceCache.getAnimationObject(), false), PacketDistributor.PLAYER.with(player));
-//    }
 }
 
 

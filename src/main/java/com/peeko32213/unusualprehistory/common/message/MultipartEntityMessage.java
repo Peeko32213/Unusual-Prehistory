@@ -36,24 +36,26 @@ public class MultipartEntityMessage {
         buf.writeDouble(message.damage);
     }
 
-    public static void handle(MultipartEntityMessage message, Supplier<NetworkEvent.Context> context) {
-        context.get().enqueueWork(() -> {
-            Player playerSided = context.get().getSender();
-            if (context.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                playerSided = UnusualPrehistory.PROXY.getClientSidePlayer();
-            }
-            Entity parent = playerSided.level().getEntity(message.parentId);
-            Entity interacter = playerSided.level().getEntity(message.playerId);
-            if (interacter != null && parent != null && parent.isMultipartEntity() && interacter.distanceTo(parent) < 16) {
-                if (message.type == 0) {
-                    if (interacter instanceof Player player) {
-                        parent.interact(player, player.getUsedItemHand());
-                    }
-                } else if (message.type == 1) {
-                    parent.hurt(parent.damageSources().generic(), (float) message.damage);
+    public static class Handler {
+        public static void handle(MultipartEntityMessage message, Supplier<NetworkEvent.Context> context) {
+            context.get().enqueueWork(() -> {
+                Player playerSided = context.get().getSender();
+                if (context.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {
+                    playerSided = UnusualPrehistory.PROXY.getClientSidePlayer();
                 }
-            }
-        });
-        context.get().setPacketHandled(true);
+                Entity parent = playerSided.level().getEntity(message.parentId);
+                Entity interacter = playerSided.level().getEntity(message.playerId);
+                if (interacter != null && parent != null && parent.isMultipartEntity() && interacter.distanceTo(parent) < 16) {
+                    if (message.type == 0) {
+                        if (interacter instanceof Player player) {
+                            parent.interact(player, player.getUsedItemHand());
+                        }
+                    } else if (message.type == 1) {
+                        parent.hurt(parent.damageSources().generic(), (float) message.damage);
+                    }
+                }
+            });
+            context.get().setPacketHandled(true);
+        }
     }
 }

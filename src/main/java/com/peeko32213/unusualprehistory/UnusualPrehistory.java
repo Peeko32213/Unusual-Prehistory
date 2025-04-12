@@ -80,14 +80,6 @@ import java.util.function.UnaryOperator;
 public class UnusualPrehistory {
 
     public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-    private static final String PROTOCOL_VERSION = Integer.toString(1);
-    private static final ResourceLocation PACKET_NETWORK_NAME = new ResourceLocation("unusualprehistory:main_channel");
-    public static final SimpleChannel NETWORK_WRAPPER = NetworkRegistry.ChannelBuilder
-            .named(PACKET_NETWORK_NAME)
-            .clientAcceptedVersions(PROTOCOL_VERSION::equals)
-            .serverAcceptedVersions(PROTOCOL_VERSION::equals)
-            .networkProtocolVersion(() -> PROTOCOL_VERSION)
-            .simpleChannel();
 
     public static final String MODID = "unusualprehistory";
     public static final Logger LOGGER = LogManager.getLogger();
@@ -213,22 +205,13 @@ public class UnusualPrehistory {
         registerMolangFunction(UPMolangFunctions.MATH_COMPARE, MathCompare.class);
         registerMolangFunction(UPMolangFunctions.SELECT, SelectFunction.class);
         registerMolangFunction(UPMolangFunctions.OR, OrFunction.class);
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
         });
-
-        int packetsRegistered = 0;
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MultipartEntityMessage.class, MultipartEntityMessage::write, MultipartEntityMessage::read, MultipartEntityMessage::handle);
-
         UPMessages.register();
-    }
-
-    public static <MSG> void sendMSGToServer(MSG message) {
-        NETWORK_WRAPPER.sendToServer(message);
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

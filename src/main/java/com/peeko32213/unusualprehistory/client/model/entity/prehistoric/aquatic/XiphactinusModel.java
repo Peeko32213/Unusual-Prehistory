@@ -39,9 +39,9 @@ public class XiphactinusModel extends GeoModel<XiphactinusEntity> {
         CoreGeoBone body = this.getAnimationProcessor().getBone("body_rot");
         CoreGeoBone tailBody = this.getAnimationProcessor().getBone("tail_rot");
 
-        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F / 2))));
+        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F))));
         head.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
-        body.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F)) / 2));
+        body.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F))));
         tailBody.setRotX(-((entityData.headPitch() * ((float) Math.PI / 180F))));
 
         body.setRotY(-animatable.currentRoll / 2);
