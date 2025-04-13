@@ -85,7 +85,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.DIPLOCAULUS.get(), e -> new PrehistoricRenderer<>(e, new DiplocaulusModel()));
         event.registerEntityRenderer(UPEntities.DUNK.get(), e -> new PrehistoricAquaticRenderer<>(e, new DunkleosteusModel()));
         event.registerEntityRenderer(UPEntities.EDAPHOSAURUS.get(), e -> new PrehistoricRenderer<>(e, new EdaphosaurusModel()));
-        event.registerEntityRenderer(UPEntities.ESTEMMENOSUCHUS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new EstemmenosuchusModel()));
+        event.registerEntityRenderer(UPEntities.ESTEMMENOSUCHUS.get(), e -> new PrehistoricRenderer<>(e, new EstemmenosuchusModel()));
         event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
         event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new AgeableMobRenderer<>(e, new HynerpetonModel()));
         event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));

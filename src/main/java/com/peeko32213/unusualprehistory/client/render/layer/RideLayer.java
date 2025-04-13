@@ -85,8 +85,6 @@ public class RideLayer<T extends PrehistoricEntity> extends GeoRenderLayer<T> {
             poseStack.mulPose(Axis.XP.rotation(bone.getRotX()));
     }
 
-
-
     public static <E extends Entity> void renderPassenger(E entityIn, double x, double y, double z, float yaw, float partialTicks, PoseStack matrixStack, MultiBufferSource bufferIn, int packedLight) {
         EntityRenderer<? super E> render = null;
         EntityRenderDispatcher manager = Minecraft.getInstance().getEntityRenderDispatcher();

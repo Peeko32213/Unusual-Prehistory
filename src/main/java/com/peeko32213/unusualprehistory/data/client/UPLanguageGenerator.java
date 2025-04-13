@@ -443,6 +443,8 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ESTEMME_IDLE, "Estemmenosuchus groans");
         addSound(UPSounds.ESTEMME_HURT, "Estemmenosuchus hurts");
         addSound(UPSounds.ESTEMME_DEATH, "Estemmenosuchus dies");
+        addSound(UPSounds.ESTEMME_BELLOW, "Estemmenosuchus bellows");
+        addSound(UPSounds.ESTEMME_WARN, "Estemmenosuchus warns");
 
         addSound(UPSounds.UNICORN_IDLE, "Unicorn groans");
         addSound(UPSounds.UNICORN_HURT, "Unicorn hurts");
@@ -552,8 +554,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ULUGH_DEATH, "Ulughbegsaurus dies");
         addSound(UPSounds.ULUGH_HURT, "Ulughbegsaurus hurts");
         addSound(UPSounds.ULUGH_IDLE, "Ulughbegsaurus groans");
-
-        addSound(UPSounds.ULUGH_STEP, "Heavy footsteps");
 
         addSound(UPSounds.ANTARCTO_DEATH, "Antarctopelta dies");
         addSound(UPSounds.ANTARCTO_HURT, "Antarctopelta hurts");

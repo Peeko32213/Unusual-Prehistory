@@ -69,7 +69,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity, GeoAnimatable, IVariantEntity, ICustomFollower {
+public class UlughbegsaurusEntity extends PrehistoricEntity implements ICustomFollower {
 
     public IKSolver TailKinematics;
 
@@ -108,7 +108,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     // Starting predicates
     private static final Predicate<LivingEntity> ULUGHBEGSAURUS_STARTING_PREDICATE = (e -> {
         if(e instanceof UlughbegsaurusEntity entity) {
-            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater();
+            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && !entity.isRunning();
         }
         return false;
     });
@@ -166,7 +166,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
         helper.bodyLagMoving = 0.5F;
-        helper.bodyLagStill = 0.15F;
+        helper.bodyLagStill = 0.2F;
         return helper;
     }
 
@@ -183,14 +183,14 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 60.0D).add(Attributes.MOVEMENT_SPEED, 0.2D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.25D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 60.0D).add(Attributes.MOVEMENT_SPEED, 0.2D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.2D).add(Attributes.FOLLOW_RANGE, 32.0D);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new UlughbegsaurusAttackGoal(this, 1.5F, true));
+        this.goalSelector.addGoal(1, new UlughbegsaurusAttackGoal(this));
         this.goalSelector.addGoal(3, new BabyPanicGoal(this, 2.0D));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
@@ -200,8 +200,13 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
     }
 
+    @Override
+    protected float getWaterSlowDown() {
+        return 0.94F;
+    }
+
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.15F, 1.0F);
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.2F, 1.15F);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -243,23 +248,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     }
 
     @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean shouldHurt;
-        float damage = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float knockback = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        if (shouldHurt = target.hurt(this.damageSources().mobAttack(this), damage)) {
-            if (knockback > 0.0f && target instanceof LivingEntity) {
-                ((LivingEntity) target).knockback(knockback * 0.5f, Mth.sin(this.getYRot() * ((float) Math.PI / 180)), -Mth.cos(this.getYRot() * ((float) Math.PI / 180)));
-                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
-            }
-            this.doEnchantDamageEffects(this, target);
-            this.setLastHurtMob(target);
-        }
-        this.level().broadcastEntityEvent(this, (byte) 4);
-        return shouldHurt;
-    }
-
-    @Override
     public int getMaxHeadYRot() {
         return 15;
     }
@@ -290,20 +278,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             }
-            else if (itemstack.getItem() == Items.SADDLE && !this.isSaddled()) {
-                this.usePlayerItem(player, hand, itemstack);
-                this.playSound(SoundEvents.HORSE_SADDLE, 1.0F, 1.0F);
-                this.setSaddled(true);
-                return InteractionResult.SUCCESS;
-            }
-            else if (itemstack.getItem() == Items.SHEARS && this.isSaddled()) {
-                this.setSaddled(false);
-                this.playSound(SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F);
-                this.spawnAtLocation(Items.SADDLE);
-                return InteractionResult.SUCCESS;
-            }
-            else if (!player.isShiftKeyDown() && !this.isBaby() && this.isSaddled() && !this.isInSittingPose() &&
-                    this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+            else if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
                 player.startRiding(this);
             }
             else {
@@ -330,7 +305,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         }
         return InteractionResult.PASS;
     }
-
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -380,7 +354,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     protected void tickRidden(Player player, Vec3 vec3) {
         super.tickRidden(player, vec3);
-        if(player.zza != 0 || player.xxa != 0){
+        if (player.zza != 0 || player.xxa != 0){
             this.setRot(player.getYRot(), player.getXRot() * 0.25F);
             this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
             this.setMaxUpStep(1.25F);
@@ -391,8 +365,8 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     protected float getRiddenSpeed(Player pPlayer) {
         float f = 0.0F;
-        if(pPlayer.isSprinting()) {
-            f = 0.25F;
+        if (pPlayer.isSprinting()) {
+            f = 0.225F;
         }
         return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
     }
@@ -413,11 +387,11 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
     protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
         float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
         float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
-        pPassenger.setPos(this.getX() + (double) (0.35F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.35F, this.getZ() - (double) (0.35F * yCos));
+        pPassenger.setPos(this.getX() + (double) (-0.05F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + (-0.05F), this.getZ() - (double) (-0.05F * yCos));
     }
 
     public double getPassengersRidingOffset() {
-        return 1.85;
+        return 2.3F;
     }
 
     public void tick() {
@@ -446,6 +420,15 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         }
 
         this.TailKinematics.calculateTailAngles(this);
+
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.34D);
+        }
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        }
     }
 
     @Override
@@ -517,10 +500,6 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    private void attack(LivingEntity entity) {
-        entity.hurt(this.damageSources().mobAttack(this), 5.0F);
-    }
-
     public boolean hurt(@NotNull DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
@@ -559,7 +538,8 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
 
     private void soundListener(SoundKeyframeEvent<UlughbegsaurusEntity> event) {
         UlughbegsaurusEntity ulughbegsaurus = event.getAnimatable();
-        if (ulughbegsaurus.level().isClientSide) {
+        if (event.getKeyframeData().getSound().equals("ulughbegsaurus_bite")) {
+            ulughbegsaurus.level().playLocalSound(ulughbegsaurus.getX(), ulughbegsaurus.getY(), ulughbegsaurus.getZ(), UPSounds.ULUGH_BITE.get(), ulughbegsaurus.getSoundSource(), 1.0F, ulughbegsaurus.getVoicePitch(), false);
         }
     }
 
@@ -587,7 +567,7 @@ public class UlughbegsaurusEntity extends PrehistoricEntity implements GeoEntity
         }
 
         else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.hasControllingPassenger() && !this.isInSittingPose()){
-            if(this.isSprinting() && !this.isBaby()) {
+            if(this.isSprinting() || this.isRunning()) {
                 event.setAndContinue(ULUGH_SPRINT);
                 event.getController().setAnimationSpeed(1.0F);
             } else {

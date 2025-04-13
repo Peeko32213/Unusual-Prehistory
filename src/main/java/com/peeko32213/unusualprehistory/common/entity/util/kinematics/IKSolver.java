@@ -20,13 +20,11 @@ public class IKSolver {
     private final int nodeCount;
     private final double stiffness = 60;
 
-
     private Vec3[] nodes = {};
     private Vec3[] coreNodes = {};
     private enum nodeLimits {POS_LIMIT, NEG_LIMIT}
     private int nodeDist;
     private int bodyLength;
-
 
     private double bodyPitch = 0;
     private double currentBodyPitch = 0;
@@ -34,7 +32,6 @@ public class IKSolver {
     private double[] tailPitches = {};
     private double[] currentTailYaws = {};
     private double[] currentTailPitches = {};
-
 
     private Vec3 torsoFront;
     private Vec3 torsoFrontOffset = new Vec3(0, 0, -1);;
@@ -81,7 +78,6 @@ public class IKSolver {
         downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
         torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYHeadRot());
         torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYHeadRot());
-
 
         initTailPoints();
     }
@@ -176,10 +172,6 @@ public class IKSolver {
                 prevChain.add(nodes[i]);
             }
 
-
-
-
-
             // Update Geckolib - usable bone angles for each node.
             tailYaws[0] = Math.toRadians(MathHelpers.angleTo(entity.position(), torsoBack).y - MathHelpers.angleTo(torsoBack, nodes[0]).y);
             tailYaws[1] = Math.toRadians(MathHelpers.angleTo(torsoBack, nodes[0]).y - MathHelpers.angleTo(nodes[0], nodes[1]).y);
@@ -194,7 +186,6 @@ public class IKSolver {
                 tailYaws[i] = ((MathHelpers.getAngleForLinkTopDownFlat(this.nodes[i - 1], this.nodes[i], this.nodes[i + 1], this.leftRefPoint, this.rightRefPoint)));
             }
             //Pitch
-
 
             //side refs don't move vertically
             leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
@@ -239,7 +230,6 @@ public class IKSolver {
             }
             //Pitch
 
-
             //side refs don't move vertically
             leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
             rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
@@ -247,7 +237,6 @@ public class IKSolver {
             downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
             //END of IK
         }
-
     }
 
     private boolean isSuspectedCompletedRotation(float lastRotation) {
@@ -295,5 +284,4 @@ public class IKSolver {
             }
         }
     }
-
 }

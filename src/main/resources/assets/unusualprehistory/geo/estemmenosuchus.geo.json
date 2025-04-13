@@ -130,6 +130,11 @@
 					]
 				},
 				{
+					"name": "Rider",
+					"parent": "Body",
+					"pivot": [0, 55.25, 3.5]
+				},
+				{
 					"name": "ArmControl",
 					"parent": "root",
 					"pivot": [0, 15, -10.7]

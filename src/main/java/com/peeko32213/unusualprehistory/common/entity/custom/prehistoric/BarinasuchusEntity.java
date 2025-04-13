@@ -25,6 +25,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,6 +45,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -256,13 +258,9 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
         if (itemstack.is(UPItems.ENCYLOPEDIA.get())) {
             return super.mobInteract(player, hand);
         }
-        if (hand == InteractionHand.MAIN_HAND && !this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
-            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-                this.heal((float)itemstack.getFoodProperties(this).getNutrition());
-                this.gameEvent(GameEvent.EAT, this);
+        if (!this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
+            if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+                this.doPlayerRide(player);
             }
             else {
                 this.setCommand((this.getCommand() + 1) % 3);
@@ -288,6 +286,79 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
+    }
+
+    protected void doPlayerRide(@NotNull Player player) {
+        if (!this.level().isClientSide) {
+            player.setYRot(this.getYRot());
+            player.setXRot(this.getXRot());
+            player.startRiding(this);
+        }
+    }
+
+    protected Vec3 getRiddenInput(Player player, Vec3 deltaIn) {
+        if (player.zza != 0) {
+            float f = player.zza < 0.0F ? 0.5F : 1.0F;
+            return new Vec3(player.xxa * 0.25F, 0.0D, player.zza * 0.5F * f);
+        } else {
+            this.setSprinting(false);
+        }
+        return Vec3.ZERO;
+    }
+
+    protected void tickRidden(Player player, Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if(player.zza != 0 || player.xxa != 0){
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+            this.setMaxUpStep(1.25F);
+            this.getNavigation().stop();
+            this.setTarget(null);
+        }
+    }
+
+    protected float getRiddenSpeed(Player pPlayer) {
+        float f = 0.0F;
+        if(pPlayer.isSprinting()) {
+            f = 0.3F;
+        }
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
+    }
+
+    // Controlling passenger
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                return player;
+            }
+        }
+        return null;
+    }
+
+    // Rider hitbox position
+    @Override
+    protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        pPassenger.setPos(this.getX() + (double) (0.15F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + 0.4F, this.getZ() - (double) (0.15F * yCos));
+    }
+
+    public double getPassengersRidingOffset() {
+        return 1.5;
+    }
+
+    // Travel
+    @Override
+    public void travel(Vec3 travelVector) {
+        super.travel(travelVector);
+        this.tryCheckInsideBlocks();
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() && this.isVehicle();
     }
 
     @Override
@@ -442,12 +513,24 @@ public class BarinasuchusEntity extends PrehistoricEntity implements ICustomFoll
             }
 
             else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
-                if(this.isSprinting() || this.isRunning()) {
-                    event.setAndContinue(BARINA_SPRINT);
-                } else {
-                    event.setAndContinue(BARINA_WALK);
+                if (this.hasControllingPassenger()) {
+                    if (this.getControllingPassenger().isSprinting()) {
+                        event.setAndContinue(BARINA_SPRINT);
+                        event.getController().setAnimationSpeed(1.2F);
+                    } else {
+                        event.setAndContinue(BARINA_WALK);
+                        event.getController().setAnimationSpeed(1.15F);
+                    }
                 }
-                event.getController().setAnimationSpeed(1.0F);
+                else {
+                    if (this.isSprinting() || this.isRunning()) {
+                        event.setAndContinue(BARINA_SPRINT);
+                        event.getController().setAnimationSpeed(1.0F);
+                    } else {
+                        event.setAndContinue(BARINA_WALK);
+                        event.getController().setAnimationSpeed(1.0F);
+                    }
+                }
                 return PlayState.CONTINUE;
             }
 

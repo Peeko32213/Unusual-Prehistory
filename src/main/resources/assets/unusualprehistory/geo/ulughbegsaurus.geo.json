@@ -110,24 +110,6 @@
 					]
 				},
 				{
-					"name": "left_reins",
-					"parent": "jaw",
-					"pivot": [4.5, 42, -26],
-					"rotation": [0, 0, -25],
-					"cubes": [
-						{"origin": [4.5, 28, -28], "size": [0, 14, 19], "uv": [127, 58]}
-					]
-				},
-				{
-					"name": "right_reins",
-					"parent": "jaw",
-					"pivot": [-4.5, 42, -26],
-					"rotation": [0, 0, 25],
-					"cubes": [
-						{"origin": [-4.5, 28, -28], "size": [0, 14, 19], "uv": [127, 58], "mirror": true}
-					]
-				},
-				{
 					"name": "left_arm_overlay",
 					"parent": "body",
 					"pivot": [9.5, 22, -16]
@@ -186,19 +168,19 @@
 					]
 				},
 				{
-					"name": "saddle",
-					"parent": "body",
-					"pivot": [0, 26, 0],
-					"cubes": [
-						{"origin": [-8.5, 19, -22], "size": [17, 19, 32], "inflate": 0.1, "uv": [119, 0]},
-						{"origin": [-6.5, 37, -9], "size": [13, 4, 0], "uv": [99, 88]},
-						{"origin": [-6.5, 38, -9], "size": [13, 4, 13], "uv": [97, 93]}
-					]
+					"name": "tailrot2",
+					"parent": "tail2",
+					"pivot": [0.5, 34.5, 32]
+				},
+				{
+					"name": "tailrot1",
+					"parent": "tail1",
+					"pivot": [0.5, 32.5, 10]
 				},
 				{
 					"name": "Rider",
-					"parent": "saddle",
-					"pivot": [0, 44, -3]
+					"parent": "body",
+					"pivot": [0, 44.5, -1]
 				},
 				{
 					"name": "leg_control",

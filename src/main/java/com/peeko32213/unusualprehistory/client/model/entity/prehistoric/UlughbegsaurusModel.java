@@ -62,14 +62,7 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone neck = this.getAnimationProcessor().getBone("neck");
-        CoreGeoBone saddle = this.getAnimationProcessor().getBone("saddle");
-        CoreGeoBone reins1 = this.getAnimationProcessor().getBone("left_reins");
-        CoreGeoBone reins2 = this.getAnimationProcessor().getBone("right_reins");
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
-
-        saddle.setHidden(!entity.isSaddled());
-        reins1.setHidden(!entity.isSaddled());
-        reins2.setHidden(!entity.isSaddled());
 
         if (entity.isBaby()) {
             head.setScaleX(1.5F);
@@ -85,14 +78,13 @@ public class UlughbegsaurusModel extends GeoModel<UlughbegsaurusEntity>
             neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
 
-        CoreGeoBone tail = this.getAnimationProcessor().getBone("tail1_overlay");
-        CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail2_overlay");
+        CoreGeoBone tail = this.getAnimationProcessor().getBone("tailrot1");
+        CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tailrot2");
 
         tail.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1))));
         tail2.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1))));
         entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1);
         entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1);
-
     }
 }
 

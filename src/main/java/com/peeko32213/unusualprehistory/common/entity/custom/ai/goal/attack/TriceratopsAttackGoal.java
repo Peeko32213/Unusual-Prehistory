@@ -72,7 +72,7 @@ public class TriceratopsAttackGoal extends Goal {
         int meleeRange = 36;
         int r = (triceratops.getRandom().nextInt(100) + 1);
         if (distance <= meleeRange) {
-            if (r <= 33) {
+            if (r <= 50) {
                 triceratops.setAnimationState(21);
             }
             else {

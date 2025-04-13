@@ -70,7 +70,7 @@
 				{
 					"name": "tail",
 					"parent": "tail_overlay",
-					"pivot": [-0.5, 25, 38],
+					"pivot": [-0.5, 25, 19],
 					"cubes": [
 						{"origin": [-0.5, 27, 17], "size": [0, 8, 47], "inflate": 0.0025, "uv": [0, 66]},
 						{"origin": [-3, 16, 17], "size": [5, 11, 48], "uv": [0, 0]},
@@ -79,9 +79,9 @@
 					]
 				},
 				{
-					"name": "tail_rot",
-					"parent": "tail",
-					"pivot": [-0.5, 25, 18]
+					"name": "Rider",
+					"parent": "body",
+					"pivot": [0, 40, 0]
 				},
 				{
 					"name": "arm_control",

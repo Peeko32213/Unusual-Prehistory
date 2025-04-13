@@ -77,7 +77,7 @@ public class BarinasuchusAttackGoal extends Goal {
         if(animTime==9) {
             HitboxAttacks.pivotedPolyHitCheck(barinasuchus, barinasuchus, this.biteOffSet, 0.45, 0.5, 0.25, (ServerLevel) barinasuchus.level(), (float) barinasuchus.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (barinasuchus.damageSources().mobAttack(barinasuchus)), 0.1F, false, true, false);
         }
-        if(animTime>=10) {
+        if(animTime>=14) {
             animTime=0;
             this.barinasuchus.setAnimationState(0);
         }

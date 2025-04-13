@@ -696,7 +696,6 @@
 			}
 		},
 		"animation.estemmenosuchus.ramming_start": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 1.5,
 			"bones": {
 				"Body": {
@@ -1001,6 +1000,11 @@
 						"0.9167": [1, 1, 1]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.0417": {
+					"effect": "estemmenosuchus_warn"
+				}
 			}
 		},
 		"animation.estemmenosuchus.ramming": {
@@ -1244,6 +1248,11 @@
 						"3.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.3333": {
+					"effect": "estemmenosuchus_bellow"
+				}
 			}
 		},
 		"animation.estemmenosuchus.yawn_blend": {
@@ -1370,6 +1379,11 @@
 						"1.0": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.625": {
+					"effect": "estemmenosuchus_bite"
+				}
 			}
 		},
 		"animation.estemmenosuchus.attack2_blend": {
@@ -1448,6 +1462,11 @@
 						"0.5833": ["math.sin(query.anim_time*180/2)*-25", 0, "math.sin(query.anim_time*180/2+60)*5"],
 						"1.0": [0, 0, 0]
 					}
+				}
+			},
+			"sound_effects": {
+				"0.625": {
+					"effect": "estemmenosuchus_bite"
 				}
 			}
 		},

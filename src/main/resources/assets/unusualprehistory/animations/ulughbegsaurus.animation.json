@@ -1,52 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.ulughbegsaurus.pose": {
-			"loop": true,
-			"bones": {
-				"body_main": {
-					"rotation": [0, -12.5, 0]
-				},
-				"left_arm": {
-					"rotation": [34.13554, 16.76559, 11.06517]
-				},
-				"right_arm": {
-					"rotation": [33.12598, -10.51794, -6.79286]
-				},
-				"tail1": {
-					"rotation": [-12.92276, 16.81224, 7.56831]
-				},
-				"tail2": {
-					"rotation": [5.56373, 34.92547, 18.32889]
-				},
-				"neck": {
-					"rotation": [27.22765, -31.63886, -7.85085]
-				},
-				"head": {
-					"rotation": [0, 0, 0]
-				},
-				"jaw": {
-					"rotation": [7.5, 0, 0]
-				},
-				"left_leg1": {
-					"rotation": [-12.5, -5, -5],
-					"position": [0, 2, 0]
-				},
-				"left_leg3": {
-					"rotation": [14.4867, -21.5458, -0.29477]
-				},
-				"right_leg1": {
-					"rotation": [9.91615, -1.29876, 7.38733],
-					"position": [0, 0, 2]
-				},
-				"right_leg3": {
-					"rotation": [-10.15108, 9.84655, -9.25378]
-				},
-				"upper_jaw": {
-					"rotation": [-20, 0, 0]
-				}
-			}
-		},
 		"animation.ulughbegsaurus.vocal_blend": {
 			"animation_length": 3,
 			"bones": {
@@ -2641,6 +2595,11 @@
 						"0.75": [0, 0, 0]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.4583": {
+					"effect": "ulughbegsaurus_bite"
+				}
 			}
 		},
 		"animation.ulughbegsaurus.attack_blend2": {
@@ -2850,6 +2809,11 @@
 						"0.3333": ["math.sin(query.anim_time*720-30)*10", "math.sin(query.anim_time*720-30)*-15", "math.sin(query.anim_time*720-120)*10"],
 						"0.75": [0, 0, 0]
 					}
+				}
+			},
+			"sound_effects": {
+				"0.4583": {
+					"effect": "ulughbegsaurus_bite"
 				}
 			}
 		}

@@ -116,24 +116,42 @@
 
   "estemmenosuchus_idle": {
     "sounds": [
-      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_idle_0",
-      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_idle_1"
+      "unusualprehistory:entity/estemmenosuchus/idle_0",
+      "unusualprehistory:entity/estemmenosuchus/idle_1",
+      "unusualprehistory:entity/estemmenosuchus/idle_2",
+      "unusualprehistory:entity/estemmenosuchus/idle_3"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_idle"
   },
   "estemmenosuchus_hurt": {
     "sounds": [
-      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_hurt_0",
-      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_hurt_1"
+      "unusualprehistory:entity/estemmenosuchus/hurt_0",
+      "unusualprehistory:entity/estemmenosuchus/hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_hurt"
   },
   "estemmenosuchus_death": {
     "sounds": [
-      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_death_0",
-      "unusualprehistory:entity/estemmenosuchus/estemmenosuchus_death_1"
+      "unusualprehistory:entity/estemmenosuchus/death_0",
+      "unusualprehistory:entity/estemmenosuchus/death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_death"
+  },
+  "estemmenosuchus_bellow": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/bellow_0",
+      "unusualprehistory:entity/estemmenosuchus/bellow_1",
+      "unusualprehistory:entity/estemmenosuchus/bellow_2",
+      "unusualprehistory:entity/estemmenosuchus/bellow_3"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_bellow"
+  },
+  "estemmenosuchus_warn": {
+    "sounds": [
+      "unusualprehistory:entity/estemmenosuchus/warn_0",
+      "unusualprehistory:entity/estemmenosuchus/warn_1"
+    ],
+    "subtitle": "unusualprehistory.sound.subtitle.estemmenosuchus_warn"
   },
 
   "dunk_attack": {
@@ -937,43 +955,34 @@
     "subtitle": "unusualprehistory.sound.subtitle.tail_swipe"
   },
 
-  "ulugh_bite": {
+  "ulughbegsaurus_bite": {
     "sounds": [
-        "unusualprehistory:entity/ulugh/ulugh_bite_0",
-        "unusualprehistory:entity/ulugh/ulugh_bite_1"
+        "unusualprehistory:entity/ulughbegsaurus/bite_0",
+        "unusualprehistory:entity/ulughbegsaurus/bite_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.ulugh_bite"
+    "subtitle": "unusualprehistory.sound.subtitle.ulughbegsaurus_bite"
   },
-  "ulugh_death": {
+  "ulughbegsaurus_death": {
     "sounds": [
-        "unusualprehistory:entity/ulugh/ulugh_death_0",
-        "unusualprehistory:entity/ulugh/ulugh_death_1"
+        "unusualprehistory:entity/ulughbegsaurus/death_0",
+        "unusualprehistory:entity/ulughbegsaurus/death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.ulugh_death"
+    "subtitle": "unusualprehistory.sound.subtitle.ulughbegsaurus_death"
   },
-  "ulugh_hurt": {
+  "ulughbegsaurus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/ulugh/ulugh_hurt_0",
-        "unusualprehistory:entity/ulugh/ulugh_hurt_1"
+        "unusualprehistory:entity/ulughbegsaurus/hurt_0",
+        "unusualprehistory:entity/ulughbegsaurus/hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.ulugh_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.ulughbegsaurus_hurt"
   },
-  "ulugh_idle": {
+  "ulughbegsaurus_idle": {
     "sounds": [
-        "unusualprehistory:entity/ulugh/ulugh_idle_0",
-        "unusualprehistory:entity/ulugh/ulugh_idle_1",
-        "unusualprehistory:entity/ulugh/ulugh_idle_2"
+        "unusualprehistory:entity/ulughbegsaurus/idle_0",
+        "unusualprehistory:entity/ulughbegsaurus/idle_1",
+        "unusualprehistory:entity/ulughbegsaurus/idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.ulugh_idle"
-  },
-  "ulugh_step": {
-    "sounds": [
-        "unusualprehistory:entity/ulugh/ulugh_step_0",
-        "unusualprehistory:entity/ulugh/ulugh_step_1",
-        "unusualprehistory:entity/ulugh/ulugh_step_2",
-        "unusualprehistory:entity/ulugh/ulugh_step_3"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.ulugh_step"
+    "subtitle": "unusualprehistory.sound.subtitle.ulughbegsaurus_idle"
   },
 
   "antarcto_death": {

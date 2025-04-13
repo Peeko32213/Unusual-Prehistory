@@ -309,8 +309,7 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
                 return InteractionResult.SUCCESS;
             }
             if (!this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
-                if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() &&
-                        this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+                if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
                     this.doPlayerRide(player);
                 }
                 else {

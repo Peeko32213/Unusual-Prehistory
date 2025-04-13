@@ -6,63 +6,60 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityActi
 import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.EstemmenosuchusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
+import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.DifficultyInstance;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
-public class EstemmenosuchusEntity extends PrehistoricEntity {
+public class EstemmenosuchusEntity extends PrehistoricEntity implements ICustomFollower {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPItemTags.ESTEMME_FOOD_ITEMS);
-
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
-    private static final EntityDataAccessor<Integer> CHARGE_COOLDOWN_TICKS = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> HAS_TARGET = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
-    private boolean canBePushed = true;
-
-    private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> COMBAT_STATE = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> ENTITY_STATE = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> RAMMING = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Movement animations
     private static final RawAnimation ESTEMME_WALK = RawAnimation.begin().thenLoop("animation.estemmenosuchus.walk");
@@ -77,91 +74,76 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
     private static final RawAnimation ESTEMME_SLEEP = RawAnimation.begin().thenLoop("animation.estemmenosuchus.sleep");
 
     // Attack animations
-    private static final RawAnimation BITE_1 = RawAnimation.begin().thenPlay("animation.estemmenosuchus.attack1_blend");
-    private static final RawAnimation BITE_2 = RawAnimation.begin().thenPlay("animation.estemmenosuchus.attack2_blend");
-    private static final RawAnimation RAMMING_START = RawAnimation.begin().thenPlay("animation.estemmenosuchus.ramming_start");
-    private static final RawAnimation RAMMING = RawAnimation.begin().thenLoop("animation.estemmenosuchus.ramming");
+    private static final RawAnimation ESTEMME_BITE_1 = RawAnimation.begin().thenPlay("animation.estemmenosuchus.attack1_blend");
+    private static final RawAnimation ESTEMME_BITE_2 = RawAnimation.begin().thenPlay("animation.estemmenosuchus.attack2_blend");
+    private static final RawAnimation ESTEMME_RAMMING = RawAnimation.begin().thenPlay("animation.estemmenosuchus.ramming_start").thenLoop("animation.estemmenosuchus.ramming");
 
     // Misc animations
     private static final RawAnimation CRUSH = RawAnimation.begin().thenPlay("animation.estemmenosuchus.crush_blend");
 
     // Idle accessors
-    private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> BELLOW = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> YAWN = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Starting predicates
+    private static final Predicate<LivingEntity> ESTEMME_STARTING_PREDICATE = (e -> {
+        if(e instanceof EstemmenosuchusEntity entity) {
+            return !entity.isRunning() && !entity.isSprinting() && !entity.isInWater();
+        }
+        return false;
+    });
 
     // Idle actions
-    private static final EntityAction ESTEMME_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction ESTEMME_BELLOW_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper ESTEMME_IDLE_1_STATE =
-            StateHelper.Builder.state(IDLE_1_AC, "estemmenosuchus_bellow")
+    private static final StateHelper ESTEMME_BELLOW_STATE =
+            StateHelper.Builder.state(BELLOW, "estemmenosuchus_bellow")
                 .playTime(60)
                 .stopTime(120)
-                .entityAction(ESTEMME_IDLE_1_ACTION)
+                .startingPredicate(ESTEMME_STARTING_PREDICATE)
+                .entityAction(ESTEMME_BELLOW_ACTION)
                 .build();
 
-    private static final EntityAction ESTEMME_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final EntityAction ESTEMME_YAWN_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-    private static final StateHelper ESTEMME_IDLE_2_STATE =
-            StateHelper.Builder.state(IDLE_2_AC, "estemmenosuchus_yawn")
+    private static final StateHelper ESTEMME_YAWN_STATE =
+            StateHelper.Builder.state(YAWN, "estemmenosuchus_yawn")
                 .playTime(60)
                 .stopTime(140)
-                .entityAction(ESTEMME_IDLE_2_ACTION)
-                .build();
-
-    private static final EntityAction ESTEMME_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper ESTEMME_IDLE_3_STATE =
-            StateHelper.Builder.state(IDLE_3_AC, "estemmenosuchus_sit")
-                .playTime(160)
-                .stopTime(200)
-                .affectsAI(true)
-                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                .entityAction(ESTEMME_IDLE_3_ACTION)
-                .build();
-
-    private static final EntityAction ESTEMME_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper ESTEMME_IDLE_4_STATE =
-            StateHelper.Builder.state(IDLE_4_AC, "estemmenosuchus_sleep")
-                .playTime(320)
-                .stopTime(400)
-                .affectsAI(true)
-                .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
-                .entityAction(ESTEMME_IDLE_4_ACTION)
+                .startingPredicate(ESTEMME_STARTING_PREDICATE)
+                .entityAction(ESTEMME_YAWN_ACTION)
                 .build();
 
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
-                ESTEMME_IDLE_1_STATE.getName(), ESTEMME_IDLE_1_STATE,
-                ESTEMME_IDLE_2_STATE.getName(), ESTEMME_IDLE_2_STATE,
-                ESTEMME_IDLE_3_STATE.getName(), ESTEMME_IDLE_3_STATE,
-                ESTEMME_IDLE_4_STATE.getName(), ESTEMME_IDLE_4_STATE
+                ESTEMME_BELLOW_STATE.getName(), ESTEMME_BELLOW_STATE,
+                ESTEMME_YAWN_STATE.getName(), ESTEMME_YAWN_STATE
         );
     }
 
     @Override
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
-                WeightedState.of(ESTEMME_IDLE_1_STATE, 20),
-                WeightedState.of(ESTEMME_IDLE_2_STATE, 18),
-                WeightedState.of(ESTEMME_IDLE_3_STATE, 8),
-                WeightedState.of(ESTEMME_IDLE_4_STATE, 4)
+                WeightedState.of(ESTEMME_BELLOW_STATE, 8),
+                WeightedState.of(ESTEMME_YAWN_STATE, 10)
         );
     }
 
+    // Body control / navigation
     @Override
-    public boolean getAction() {
-        return false;
+    protected @NotNull BodyRotationControl createBodyControl() {
+        return new SmartBodyHelper(this);
     }
 
     @Override
-    public void setAction(boolean action) {}
+    protected @NotNull PathNavigation createNavigation(Level levelIn) {
+        return new SmoothGroundNavigation(this, levelIn);
+    }
 
     public EstemmenosuchusEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
         super(entityType, level);
+        this.setMaxUpStep(1.25F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -170,27 +152,24 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
             .add(Attributes.ARMOR, 8.0)
             .add(Attributes.MOVEMENT_SPEED, 0.14D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
-            .add(Attributes.FOLLOW_RANGE, 12.0D)
+            .add(Attributes.FOLLOW_RANGE, 24.0D)
             .add(Attributes.ATTACK_DAMAGE, 12.0D);
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
+        this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1, new EstemmenosuchusAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F, 30));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(3, new EstemmenosuchusEntity.EstemmeMeleeAttackGoal(this, 1.25F, false));
-//        this.goalSelector.addGoal(1, new EstemmenosuchusEntity.EstemmePrepareChargeGoal(this));
-//        this.goalSelector.addGoal(2, new EstemmenosuchusEntity.EstemmeChargeGoal(this, 2.0F));
-        this.targetSelector.addGoal(7, new HurtByTargetGoal(this));
-    }
-
-    @Override
-    public float getStepHeight() {
-        return 1.25F;
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.1D, 5.0F, 2.0F, false));
+        this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(7, new OwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
     }
 
     @Nullable
@@ -202,369 +181,193 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(IDLE_1_AC, false);
-        this.entityData.define(IDLE_2_AC, false);
-        this.entityData.define(IDLE_3_AC, false);
-        this.entityData.define(IDLE_4_AC, false);
-        this.entityData.define(ANIMATION_STATE, 0);
-        this.entityData.define(COMBAT_STATE, 0);
-        this.entityData.define(ENTITY_STATE, 0);
-        this.entityData.define(CHARGE_COOLDOWN_TICKS, 0);
-        this.entityData.define(HAS_TARGET, false);
+        this.entityData.define(BELLOW, false);
+        this.entityData.define(YAWN, false);
+        this.entityData.define(RAMMING, false);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("Ramming", this.isRamming());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setRamming(compound.getBoolean("Ramming"));
+    }
+
+    @Override
+    public boolean canBeLeashed(Player player) {
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !this.isInSittingPose() && !(this.getSittingTime() > 0 || this.getStandingTime() > 0) && !this.isVehicle();
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+        if (this.isInSittingPose()) {
+            return super.getDimensions(pPose).scale(1.0F, 0.85F);
+        } else {
+            return super.getDimensions(pPose);
+        }
+    }
+
+    // Ramming
+    public void setRamming(boolean ramming) {
+        this.entityData.set(RAMMING, ramming);
+    }
+    public boolean isRamming() {
+        return this.entityData.get(RAMMING);
     }
 
     public void tick() {
         super.tick();
-    }
 
-    public int getAnimationState() {
-        return this.entityData.get(ANIMATION_STATE);
-    }
+        // Float while being ridden
+        boolean ridden = !this.getPassengers().isEmpty();
+        boolean water = this.isInWater();
+        if(ridden && water) {
+            boolean waterBelow = this.level().isWaterAt(this.blockPosition().below());
 
-    public void setAnimationState(int anim) {
-        this.entityData.set(ANIMATION_STATE, anim);
-    }
+            if(waterBelow) {
+                this.move(MoverType.PLAYER, new Vec3(0, 0.08, 0));
+            }
+        }
 
-    public int getCombatState() {
-        return this.entityData.get(COMBAT_STATE);
-    }
-
-    public void setCombatState(int anim) {
-        this.entityData.set(COMBAT_STATE, anim);
-    }
-
-    public int getEntityState() {
-        return this.entityData.get(ENTITY_STATE);
-    }
-
-    public void setEntityState(int anim) {
-        this.entityData.set(ENTITY_STATE, anim);
+        if (isRunning() && !hasRunningAttributes) {
+            hasRunningAttributes = true;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+        }
+        if (!isRunning() && hasRunningAttributes) {
+            hasRunningAttributes = false;
+            this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.14D);
+        }
     }
 
     public boolean isFood(ItemStack stack) {
         return stack.is(UPItemTags.ESTEMME_FOOD_ITEMS);
     }
 
-    // Heal mob
+    // Mob interactions
     public @NotNull InteractionResult mobInteract(Player player, @NotNull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(hand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-
-        if (isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
-
-            if (!player.getAbilities().instabuild) {
+        if (isFood(itemstack) && !isTame()) {
+            if(!this.level().isClientSide) {
+                this.level().broadcastEntityEvent(this, (byte) 7);
+                this.tame(player);
                 itemstack.shrink(1);
             }
-            if(!this.level().isClientSide) {
-                this.heal(10);
-            }
-
-            this.level().broadcastEntityEvent(this, (byte) 18);
             this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-            this.gameEvent(GameEvent.EAT, this);
-
             return InteractionResult.SUCCESS;
+        }
+        if (isTame() && isOwnedBy(player)) {
+            if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
+                if (!player.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+                if(!this.level().isClientSide) {
+                    this.heal((float) Objects.requireNonNull(itemstack.getFoodProperties(this)).getNutrition());
+                }
+                this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                this.level().broadcastEntityEvent(this, (byte) 7);
+                this.gameEvent(GameEvent.EAT, this);
+                return InteractionResult.SUCCESS;
+            }
+            else if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+                player.startRiding(this);
+            }
+            else {
+                this.setCommand((this.getCommand() + 1) % 3);
+                if (this.getCommand() == 3) {
+                    this.setCommand(0);
+                }
+                int var10001 = this.getCommand();
+                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
+                boolean sit = this.getCommand() == 2;
+                if (sit) {
+                    this.setOrderedToSit(true);
+                    if (!this.isInSittingPose() && this.onGround()){
+                        this.setSittingTime(20);
+                    }
+                } else {
+                    if (this.isInSittingPose() && this.onGround()){
+                        this.setStandingTime(20);
+                    }
+                    this.setOrderedToSit(false);
+                }
+            }
         }
         return InteractionResult.PASS;
     }
 
-    // Bite attack goal
-    class EstemmeMeleeAttackGoal extends Goal {
-
-        protected final EstemmenosuchusEntity mob;
-        private final double speedModifier;
-        private final boolean followingTargetEvenIfNotSeen;
-        private Path path;
-        private double pathedTargetX;
-        private double pathedTargetY;
-        private double pathedTargetZ;
-        private int ticksUntilNextPathRecalculation;
-        private int ticksUntilNextAttack;
-        private long lastCanUseCheck;
-        private int failedPathFindingPenalty = 0;
-        private boolean canPenalize = false;
-        private int animTime = 0;
-
-        public EstemmeMeleeAttackGoal(EstemmenosuchusEntity p_i1636_1_, double p_i1636_2_, boolean p_i1636_4_) {
-            this.mob = p_i1636_1_;
-            this.speedModifier = p_i1636_2_;
-            this.followingTargetEvenIfNotSeen = p_i1636_4_;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
-
-        public boolean canUse() {
-            long i = this.mob.level().getGameTime();
-
-            if (i - this.lastCanUseCheck < 20L) {
-                return false;
-            } else {
-                this.lastCanUseCheck = i;
-                LivingEntity livingentity = this.mob.getTarget();
-                if (livingentity == null) {
-                    return false;
-                } else if (!livingentity.isAlive()) {
-                    return false;
-                } else {
-                    if (canPenalize) {
-                        if (--this.ticksUntilNextPathRecalculation <= 0) {
-                            this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                            this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                            return this.path != null;
-                        } else {
-                            return true;
-                        }
-                    }
-                    this.path = this.mob.getNavigation().createPath(livingentity, 0);
-                    if (this.path != null) {
-                        return true;
-                    } else {
-                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-                    }
-                }
-            }
-        }
-
-        public boolean canContinueToUse() {
-
-            LivingEntity livingentity = this.mob.getTarget();
-
-            if (livingentity == null) {
-                return false;
-            }
-            else if (!livingentity.isAlive()) {
-                return false;
-            }
-            else if (!this.followingTargetEvenIfNotSeen) {
-                return !this.mob.getNavigation().isDone();
-            }
-            else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
-                return false;
-            }
-            else {
-                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative();
-            }
-        }
-
-        public void start() {
-            this.mob.getNavigation().moveTo(this.path, this.speedModifier);
-            this.mob.setAggressive(true);
-            this.ticksUntilNextPathRecalculation = 0;
-            this.ticksUntilNextAttack = 0;
-            this.animTime = 0;
-            this.mob.setAnimationState(0);
-        }
-
-        public void stop() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget(null);
-            }
-            this.mob.setAggressive(false);
-            this.mob.getNavigation().stop();
-            this.mob.setAnimationState(0);
-        }
-
-        public void tick() {
-
-            LivingEntity target = this.mob.getTarget();
-            double distance = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
-            double reach = this.getAttackReachSqr(target);
-            int animState = this.mob.getAnimationState();
-
-            if (animState == 1) {
-                tickBiteAttack();
-            }
-
-            else {
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                this.doMovement(target, distance);
-                this.checkForCloseRangeAttack(distance, reach);
-            }
-        }
-
-        protected void doMovement(LivingEntity livingentity, Double d0) {
-
-            this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-
-            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D || this.mob.getRandom().nextFloat() < 0.05F)) {
-                this.pathedTargetX = livingentity.getX();
-                this.pathedTargetY = livingentity.getY();
-                this.pathedTargetZ = livingentity.getZ();
-                this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                if (this.canPenalize) {
-                    this.ticksUntilNextPathRecalculation += failedPathFindingPenalty;
-                    if (this.mob.getNavigation().getPath() != null) {
-                        Node finalPathPoint = this.mob.getNavigation().getPath().getEndNode();
-                        if (finalPathPoint != null && livingentity.distanceToSqr(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
-                        else
-                            failedPathFindingPenalty += 10;
-                    } else {
-                        failedPathFindingPenalty += 10;
-                    }
-                }
-                if (d0 > 1024.0D) {
-                    this.ticksUntilNextPathRecalculation += 10;
-                } else if (d0 > 256.0D) {
-                    this.ticksUntilNextPathRecalculation += 5;
-                }
-                if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                    this.ticksUntilNextPathRecalculation += 15;
-                }
-            }
-
-        }
-
-        protected void checkForCloseRangeAttack(double distance, double reach) {
-            if (distance <= reach && this.ticksUntilNextAttack <= 0) {
-                this.mob.setAnimationState(1);
-            }
-        }
-
-        protected boolean getRangeCheck() {
-            return this.mob.distanceToSqr(Objects.requireNonNull(this.mob.getTarget()).getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ()) <= 2.0F * this.getAttackReachSqr(this.mob.getTarget());
-        }
-
-        protected void tickBiteAttack () {
-
-            triggerAnim("attack", "bite_1");
-
-            animTime++;
-
-            if (animTime <= 3) {
-                this.mob.lookAt(Objects.requireNonNull(this.mob.getTarget()), 100000, 100000);
-                this.mob.yBodyRot = this.mob.yHeadRot;
-            }
-
-            if(animTime==9) {
-                preformBiteAttack();
-            }
-
-            if(animTime>=12) {
-                animTime=0;
-                this.mob.setAnimationState(0);
-                this.resetAttackCooldown();
-                this.ticksUntilNextPathRecalculation = 0;
-            }
-        }
-
-        protected void preformBiteAttack () {
-            Vec3 pos = mob.position();
-            this.mob.playSound(UPSounds.MEGALANIA_BITE.get(), 1.0F, 1.0F);
-            this.mob.swing(InteractionHand.MAIN_HAND);
-            HitboxAttacks.largeAttackWithTargetCheck(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 0.15f, mob, pos,  5.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, false);
-        }
-
-        protected void resetAttackCooldown () {
-            this.ticksUntilNextAttack = 0;
-        }
-
-        protected boolean isTimeToAttack () {
-            return this.ticksUntilNextAttack <= 0;
-        }
-
-        protected int getTicksUntilNextAttack () {
-            return this.ticksUntilNextAttack;
-        }
-
-        protected int getAttackInterval () {
-            return 5;
-        }
-
-        protected double getAttackReachSqr(LivingEntity p_179512_1_) {
-            return this.mob.getBbWidth() * 2.5F * this.mob.getBbWidth() * 2.0F + p_179512_1_.getBbWidth();
-        }
-    }
-
-    @Override
-    public void customServerAiStep() {
-        if (this.getMoveControl().hasWanted()) {
-            this.setSprinting(this.getMoveControl().getSpeedModifier() >= 1.5D);
+    protected Vec3 getRiddenInput(Player player, Vec3 deltaIn) {
+        if (player.zza != 0) {
+            float f = player.zza < 0.0F ? 0.5F : 1.0F;
+            return new Vec3(player.xxa * 0.25F, 0.0D, player.zza * 0.5F * f);
         } else {
             this.setSprinting(false);
         }
-        super.customServerAiStep();
+        return Vec3.ZERO;
     }
 
-    // Animation controllers
+    protected void tickRidden(Player player, Vec3 vec3) {
+        super.tickRidden(player, vec3);
+        if (player.zza != 0 || player.xxa != 0){
+            this.setRot(player.getYRot(), player.getXRot() * 0.25F);
+            this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+            this.setMaxUpStep(1.25F);
+            this.getNavigation().stop();
+            this.setTarget(null);
+        }
+    }
+
+    protected float getRiddenSpeed(Player pPlayer) {
+        float f = 0.0F;
+        if (pPlayer.isSprinting()) {
+            f = 0.27F;
+        }
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f;
+    }
+
+    // Controlling passenger
+    @Nullable
+    public LivingEntity getControllingPassenger() {
+        for (Entity passenger : this.getPassengers()) {
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                return player;
+            }
+        }
+        return null;
+    }
+
     @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "normal", 5, this::controller));
-        controllers.add(new AnimationController<>(this, "blend", 5, this::controller)
-            .triggerableAnim("bellow", ESTEMME_BELLOW)
-            .triggerableAnim("yawn", ESTEMME_YAWN));
-        controllers.add(new AnimationController<>(this, "attack", 5, this::controller)
-            .triggerableAnim("bite_1", BITE_1)
-            .triggerableAnim("bite_2", BITE_2));
+    protected void positionRider(Entity pPassenger, @NotNull MoveFunction pCallback) {
+        float ySin = Mth.sin(this.yBodyRot * ((float) Math.PI / 180F));
+        float yCos = Mth.cos(this.yBodyRot * ((float) Math.PI / 180F));
+        pPassenger.setPos(this.getX() + (double) (0.21F * ySin), this.getY() + this.getPassengersRidingOffset() + pPassenger.getMyRidingOffset() + (0.21F), this.getZ() - (double) (0.21F * yCos));
     }
 
-    protected <E extends EstemmenosuchusEntity> PlayState controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+    public double getPassengersRidingOffset() {
+        return 2.8F;
+    }
 
-        if(this.isFromBook()) {
-            return event.setAndContinue(ESTEMME_IDLE);
-        }
+    // Follow owner
+    @Override
+    public boolean shouldFollow() {
+        return this.getCommand() == 1;
+    }
 
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isInWater() && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC)) {
-
-            event.setAndContinue(ESTEMME_WALK);
-
-            if(this.isSprinting()){
-                event.setAndContinue(RAMMING);
-                event.getController().setAnimationSpeed(1.0F);
-            }
-//            else if (this.hasChargeCooldown() && this.hasTarget()) {
-//                event.setAndContinue(RAMMING_START);
-//                event.getController().setAnimationSpeed(1.0F);
-//                return PlayState.CONTINUE;
-//            }
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isInWater() && !getBooleanState(IDLE_3_AC) && !getBooleanState(IDLE_4_AC)) {
-            event.setAndContinue(ESTEMME_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-
-        if (!this.isInWater()) {
-            if (getBooleanState(IDLE_1_AC)) {
-                event.setControllerSpeed(1.0F);
-                triggerAnim("blend", "bellow");
-                return PlayState.CONTINUE;
-            }
-            if (getBooleanState(IDLE_2_AC)) {
-                event.setControllerSpeed(1.0F);
-                triggerAnim("blend", "yawn");
-                return PlayState.CONTINUE;
-            }
-            if (getBooleanState(IDLE_3_AC)) {
-                event.setControllerSpeed(1.0F);
-//                event.setControllerSpeed(0.35F);
-                return event.setAndContinue(ESTEMME_SIT);
-            }
-            if (getBooleanState(IDLE_4_AC)) {
-                event.setControllerSpeed(1.0F);
-//                event.setControllerSpeed(0.35F);
-                return event.setAndContinue(ESTEMME_SLEEP);
-            }
-            event.setControllerSpeed(1.0F);
-            return event.setAndContinue(ESTEMME_IDLE);
-        }
-
-        event.setControllerSpeed(1.0F);
-        return PlayState.CONTINUE;
+    // Command
+    @Override
+    public boolean canOwnerCommand(Player ownerPlayer) {
+        return true;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -580,7 +383,7 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
     }
 
     protected void playStepSound(@NotNull BlockPos p_28301_, @NotNull BlockState p_28302_) {
-        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.3F, 1.0F);
+        this.playSound(UPSounds.MAJUNGA_STEP.get(), 0.3F, 0.85F);
     }
 
     @Override
@@ -588,33 +391,142 @@ public class EstemmenosuchusEntity extends PrehistoricEntity {
         return 1.0F;
     }
 
+    // TODO: make sounds.json change pitch instead, and make sounds datagen so its less messy
+    @Override
+    public float getVoicePitch() {
+        return 0.75F;
+    }
+
     @Override
     public int getAmbientSoundInterval() {
         return 135;
     }
 
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasCustomName();
-    }
-
-    public boolean removeWhenFarAway(double d) {
-        return !this.hasCustomName();
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
+    // Animation sounds
+    private void soundListener(SoundKeyframeEvent<EstemmenosuchusEntity> event) {
+        EstemmenosuchusEntity estemmenosuchus = event.getAnimatable();
+        if (event.getKeyframeData().getSound().equals("estemmenosuchus_bellow")) {
+            estemmenosuchus.level().playLocalSound(estemmenosuchus.getX(), estemmenosuchus.getY(), estemmenosuchus.getZ(), UPSounds.ESTEMME_BELLOW.get(), estemmenosuchus.getSoundSource(), 1.25F, estemmenosuchus.getVoicePitch() * 0.85F, false);
         }
-        return p_28137_;
+        if (event.getKeyframeData().getSound().equals("estemmenosuchus_warn")) {
+            estemmenosuchus.level().playLocalSound(estemmenosuchus.getX(), estemmenosuchus.getY(), estemmenosuchus.getZ(), UPSounds.ESTEMME_WARN.get(), estemmenosuchus.getSoundSource(), 1.5F, estemmenosuchus.getVoicePitch() * 1.2F, false);
+        }
+        if (event.getKeyframeData().getSound().equals("estemmenosuchus_bite")) {
+            estemmenosuchus.level().playLocalSound(estemmenosuchus.getX(), estemmenosuchus.getY(), estemmenosuchus.getZ(), UPSounds.BARINA_BITE.get(), estemmenosuchus.getSoundSource(), 1.0F, estemmenosuchus.getVoicePitch() * 0.85F, false);
+        }
+    }
+
+    // Animation controllers
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<EstemmenosuchusEntity> controller = new AnimationController<>(this, "controller", 10, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<EstemmenosuchusEntity> idle = new AnimationController<>(this, "idleController", 0, this::idlePredicate);
+        idle.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(idle);
+
+        AnimationController<EstemmenosuchusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        attack.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(attack);
+
+        AnimationController<EstemmenosuchusEntity> sit = new AnimationController<>(this, "sitController", 0, this::sitPredicate);
+        controllers.add(sit);
+    }
+
+    protected <E extends EstemmenosuchusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.isFromBook()) {
+            return event.setAndContinue(ESTEMME_IDLE);
+        }
+
+        if (this.isInWater() || this.isSwimming()) {
+            event.setAndContinue(ESTEMME_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+
+        else if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.isInSittingPose() && !this.isRamming()) {
+            if(this.hasControllingPassenger()) {
+                if (this.getControllingPassenger().isSprinting()) {
+                    event.setAndContinue(ESTEMME_RUN);
+                    event.getController().setAnimationSpeed(1.0F);
+                } else {
+                    event.setAndContinue(ESTEMME_WALK);
+                    event.getController().setAnimationSpeed(1.15F);
+                }
+            }
+            else {
+                if (this.isSprinting() || this.isRunning()) {
+                    event.setAndContinue(ESTEMME_RUN);
+                    event.getController().setAnimationSpeed(1.0F);
+                } else {
+                    event.setAndContinue(ESTEMME_WALK);
+                    event.getController().setAnimationSpeed(1.0F);
+                }
+            }
+            return PlayState.CONTINUE;
+        }
+
+        else if (!this.isInWater()) {
+            return event.setAndContinue(ESTEMME_IDLE);
+        }
+
+        return PlayState.CONTINUE;
+    }
+    // Idle animations
+    protected <E extends EstemmenosuchusEntity> PlayState idlePredicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (getBooleanState(BELLOW)) {
+            event.getController().setAnimation(ESTEMME_BELLOW);
+            return PlayState.CONTINUE;
+        }
+        if (getBooleanState(YAWN)) {
+            event.getController().setAnimation(ESTEMME_YAWN);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
+    }
+
+    // Attack animations
+    protected <E extends EstemmenosuchusEntity> PlayState attackPredicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        int animState = this.getAnimationState();
+        if (animState == 21) {
+            event.setAndContinue(ESTEMME_BITE_1);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 22) {
+            event.setAndContinue(ESTEMME_BITE_2);
+            return PlayState.CONTINUE;
+        }
+        else if (this.isRamming() && animState == 23) {
+            event.setAndContinue(ESTEMME_RAMMING);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
+    }
+
+    // Sitting animations
+    protected <E extends EstemmenosuchusEntity> PlayState sitPredicate(AnimationState<E> event) {
+        if (this.isInSittingPose() || (this.getSittingLag() < 7 && this.getSittingLag() > 0)){
+            event.setAndContinue(ESTEMME_SIT);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getSittingTime() > 0) {
+            event.setAndContinue(ESTEMME_IDLE);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getStandingTime() > 0) {
+            event.setAndContinue(ESTEMME_IDLE);
+            return PlayState.CONTINUE;
+        }
+        else {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
-
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.EstemmenosuchusEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +50,5 @@ public class EstemmenosuchusModel extends GeoModel<EstemmenosuchusEntity>
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
     }
-
 }
 

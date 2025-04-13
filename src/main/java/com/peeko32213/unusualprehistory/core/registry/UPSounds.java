@@ -32,10 +32,11 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> EDAPHO_HURT = createSoundEvent("edaphosaurus_hurt");
     public static final RegistryObject<SoundEvent> EDAPHO_DEATH = createSoundEvent("edaphosaurus_death");
 
-    // TODO: needs bellow sound and yawn sound
     public static final RegistryObject<SoundEvent> ESTEMME_IDLE = createSoundEvent("estemmenosuchus_idle");
     public static final RegistryObject<SoundEvent> ESTEMME_HURT = createSoundEvent("estemmenosuchus_hurt");
     public static final RegistryObject<SoundEvent> ESTEMME_DEATH = createSoundEvent("estemmenosuchus_death");
+    public static final RegistryObject<SoundEvent> ESTEMME_BELLOW = createSoundEvent("estemmenosuchus_bellow");
+    public static final RegistryObject<SoundEvent> ESTEMME_WARN = createSoundEvent("estemmenosuchus_warn");
 
     public static final RegistryObject<SoundEvent> UNICORN_IDLE = createSoundEvent("unicorn_idle");
     public static final RegistryObject<SoundEvent> UNICORN_HURT = createSoundEvent("unicorn_hurt");
@@ -170,11 +171,10 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> KENTRO_IDLE = createSoundEvent("kentro_idle");
     public static final RegistryObject<SoundEvent> TAIL_SWIPE = createSoundEvent("tail_swipe");
 
-    public static final RegistryObject<SoundEvent> ULUGH_BITE = createSoundEvent("ulugh_bite");
-    public static final RegistryObject<SoundEvent> ULUGH_DEATH = createSoundEvent("ulugh_death");
-    public static final RegistryObject<SoundEvent> ULUGH_HURT = createSoundEvent("ulugh_hurt");
-    public static final RegistryObject<SoundEvent> ULUGH_IDLE = createSoundEvent("ulugh_idle");
-    public static final RegistryObject<SoundEvent> ULUGH_STEP = createSoundEvent("ulugh_step");
+    public static final RegistryObject<SoundEvent> ULUGH_BITE = createSoundEvent("ulughbegsaurus_bite");
+    public static final RegistryObject<SoundEvent> ULUGH_DEATH = createSoundEvent("ulughbegsaurus_death");
+    public static final RegistryObject<SoundEvent> ULUGH_HURT = createSoundEvent("ulughbegsaurus_hurt");
+    public static final RegistryObject<SoundEvent> ULUGH_IDLE = createSoundEvent("ulughbegsaurus_idle");
 
     public static final RegistryObject<SoundEvent> ANTARCTO_DEATH = createSoundEvent("antarcto_death");
     public static final RegistryObject<SoundEvent> ANTARCTO_HURT = createSoundEvent("antarcto_hurt");
