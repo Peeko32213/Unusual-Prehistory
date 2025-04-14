@@ -30,10 +30,6 @@ public class AmberGummyItem extends Item {
                 UPMessages.sendToPlayer(new AmberProtectionSyncS2CPacket(capability.amberProtection), serverPlayer);
             });
         }
-
-
         return itemStack;
     }
-
-
 }
