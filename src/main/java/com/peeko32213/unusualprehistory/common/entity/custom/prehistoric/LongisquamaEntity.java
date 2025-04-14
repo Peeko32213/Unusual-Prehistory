@@ -133,9 +133,6 @@
      public InteractionResult mobInteract(Player player, InteractionHand hand) {
          ItemStack itemstack = player.getItemInHand(hand);
          InteractionResult type = super.mobInteract(player, hand);
-         if (itemstack.is(UPItems.ENCYLOPEDIA.get())) {
-             InteractionResult interactionresult = itemstack.interactLivingEntity(player, this, hand);
-         }
          if (itemstack.is(Items.SPIDER_EYE)) {
              if (!isTame()) {
                  this.usePlayerItem(player, hand, itemstack);

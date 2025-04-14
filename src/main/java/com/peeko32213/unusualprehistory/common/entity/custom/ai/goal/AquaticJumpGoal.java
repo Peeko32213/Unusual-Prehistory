@@ -22,10 +22,6 @@ public class AquaticJumpGoal extends JumpGoal {
         this.interval = reducedTickDelay(pInterval);
     }
 
-    /**
-     * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-     * method as well.
-     */
     public boolean canUse() {
         if (this.entity.getRandom().nextInt(this.interval) != 0) {
             return false;
@@ -33,30 +29,26 @@ public class AquaticJumpGoal extends JumpGoal {
             Direction direction = this.entity.getMotionDirection();
             int i = direction.getStepX();
             int j = direction.getStepZ();
-            BlockPos blockpos = this.entity.blockPosition();
+            BlockPos pos = this.entity.blockPosition();
 
             for(int k : STEPS_TO_CHECK) {
-                if (!this.waterIsClear(blockpos, i, j, k) || !this.surfaceIsClear(blockpos, i, j, k)) {
+                if (!this.waterIsClear(pos, i, j, k) || !this.surfaceIsClear(pos, i, j, k)) {
                     return false;
                 }
             }
-
             return true;
         }
     }
 
     private boolean waterIsClear(BlockPos pPos, int pDx, int pDz, int pScale) {
-        BlockPos blockpos = pPos.offset(pDx * pScale, 0, pDz * pScale);
-        return this.entity.level().getFluidState(blockpos).is(FluidTags.WATER) && !this.entity.level().getBlockState(blockpos).blocksMotion();
+        BlockPos $$4 = pPos.offset(pDx * pScale, 0, pDz * pScale);
+        return this.entity.level().getFluidState($$4).is(FluidTags.WATER) && !this.entity.level().getBlockState($$4).blocksMotion();
     }
 
     private boolean surfaceIsClear(BlockPos pPos, int pDx, int pDz, int pScale) {
         return this.entity.level().getBlockState(pPos.offset(pDx * pScale, 1, pDz * pScale)).isAir() && this.entity.level().getBlockState(pPos.offset(pDx * pScale, 2, pDz * pScale)).isAir();
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     public boolean canContinueToUse() {
         double d0 = this.entity.getDeltaMovement().y;
         return (!(d0 * d0 < (double)0.03F) || this.entity.getXRot() == 0.0F || !(Math.abs(this.entity.getXRot()) < 10.0F) || !this.entity.isInWater()) && !this.entity.onGround();
@@ -66,26 +58,16 @@ public class AquaticJumpGoal extends JumpGoal {
         return false;
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     public void start() {
         Direction direction = this.entity.getMotionDirection();
-        float scale = (float) 1.2;
-        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add((double)direction.getStepX() * scale, 1.0D, (double)direction.getStepZ() * 0.6D));
+        this.entity.setDeltaMovement(this.entity.getDeltaMovement().add((double) direction.getStepX() * 0.6D, 0.7D, (double) direction.getStepZ() * 0.6D));
         this.entity.getNavigation().stop();
     }
 
-    /**
-     * Reset the task's internal state. Called when this task is interrupted by another one
-     */
     public void stop() {
         this.entity.setXRot(0.0F);
     }
 
-    /**
-     * Keep ticking a continuous task that has already been started
-     */
     public void tick() {
         boolean flag = this.breached;
         if (!flag) {
@@ -98,13 +80,12 @@ public class AquaticJumpGoal extends JumpGoal {
         }
 
         Vec3 vec3 = this.entity.getDeltaMovement();
-        if (vec3.y * vec3.y < (double)0.03F && this.entity.getXRot() != 0.0F) {
+        if (vec3.y * vec3.y < (double) 0.03F && this.entity.getXRot() != 0.0F) {
             this.entity.setXRot(Mth.rotLerp(0.2F, this.entity.getXRot(), 0.0F));
-        } else if (vec3.length() > (double)1.0E-5F) {
+        } else if (vec3.length() > (double) 1.0E-5F) {
             double d0 = vec3.horizontalDistance();
-            double d1 = Math.atan2(-vec3.y, d0) * (double)(180F / (float)Math.PI);
-            this.entity.setXRot((float)d1);
+            double d1 = Math.atan2(-vec3.y, d0) * (double) (180F / (float) Math.PI);
+            this.entity.setXRot((float) d1);
         }
-
     }
 }

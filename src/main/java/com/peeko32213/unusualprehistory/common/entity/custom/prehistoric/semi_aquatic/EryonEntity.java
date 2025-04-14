@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -212,7 +213,7 @@ public class EryonEntity extends PrehistoricEntity implements IVariantEntity, IS
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (itemstack.getItem() == UPItems.GOLDEN_SCAU.get() && !this.passive) {
+        if (itemstack.getItem() == UPItems.ADORNED_STAFF.get() && !this.passive) {
 
             if (!this.level().isClientSide) {
 
@@ -225,8 +226,7 @@ public class EryonEntity extends PrehistoricEntity implements IVariantEntity, IS
                 this.passive = true;
                 return InteractionResult.SUCCESS;
             }
-        } else
-        if (itemstack.getItem() == UPItems.RAW_SCAU.get() && this.passive) {
+        } else if (itemstack.getItem() == Items.SALMON && this.passive) {
 
             if (!this.level().isClientSide) {
 

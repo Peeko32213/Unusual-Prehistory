@@ -2,8 +2,11 @@ package com.peeko32213.unusualprehistory.client.model.entity.prehistoric.aquatic
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.PanacanthocarisEntity;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 
 public class PanacanthocarisModel extends GeoModel<PanacanthocarisEntity> {
 
@@ -33,5 +36,11 @@ public class PanacanthocarisModel extends GeoModel<PanacanthocarisEntity> {
     @Override
     public void setCustomAnimations(PanacanthocarisEntity animatable, long instanceId, AnimationState<PanacanthocarisEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
+
+        CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
+        EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+
+        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F))));
+        swimControl.setRotZ(-((entityData.netHeadYaw() * ((float) Math.PI / 180F)) / 2));
     }
 }

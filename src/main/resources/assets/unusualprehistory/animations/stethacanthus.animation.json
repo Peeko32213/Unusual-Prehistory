@@ -215,6 +215,11 @@
 						"1.0": [0, "math.sin(query.anim_time*720)*-40", "math.sin(query.anim_time*720-90)*10"]
 					}
 				}
+			},
+			"sound_effects": {
+				"0.5": {
+					"effect": "stethacanthus_bite"
+				}
 			}
 		}
 	}

@@ -3,8 +3,12 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquati
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AquaticJumpGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricPanicGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.StethacanthusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.nbt.CompoundTag;
@@ -22,21 +26,19 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -57,6 +59,16 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
     // Attack animations
     private static final RawAnimation STETHA_ATTACK = RawAnimation.begin().thenLoop("animation.stethacanthus.attack");
 
+    // States
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return null;
+    }
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return List.of();
+    }
+
     // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
@@ -66,31 +78,50 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return helper;
     }
 
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        return new WaterBoundPathNavigation(this, level);
-    }
-
     public StethacanthusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 4, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D);
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .add(Attributes.FOLLOW_RANGE, 16.0F);
     }
 
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, DunkleosteusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 3.0D, true));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D, 1.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.5D, 1.0D, entity -> entity.getType().is(UPEntityTypeTags.STETHA_AVOIDS)));
+        this.goalSelector.addGoal(1, new StethacanthusAttackGoal(this));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 20));
+        this.goalSelector.addGoal(6, new StethacanthusEntity.StethacanthusFleeGoal());
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 180, true, true, entity -> entity.getType().is(UPEntityTypeTags.STETHA_TARGETS)));
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+        return pSize.height * 0.55F;
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), pTravelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
+        } else {
+            super.travel(pTravelVector);
+        }
     }
 
     // Flop
@@ -106,32 +137,49 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         super.aiStep();
     }
 
+    @Override
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted()) {
+            this.setRunning(this.getMoveControl().getSpeedModifier() >= 1.38D);
+        } else {
+            super.customServerAiStep();
+        }
+    }
+
     // Sounds
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.COD_AMBIENT;
+        return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.COD_DEATH;
+        return SoundEvents.TROPICAL_FISH_DEATH;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_28281_) {
-        return SoundEvents.COD_HURT;
+        return SoundEvents.TROPICAL_FISH_HURT;
     }
 
     protected SoundEvent getFlopSound() {
-        return SoundEvents.COD_FLOP;
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
+    // Synched data
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
     }
 
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
+    // Save data
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("FromBucket", this.isFromBucket());
+        compound.putBoolean("Bucketed", this.fromBucket());
+    }
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setFromBucket(compound.getBoolean("FromBucket"));
+        this.setFromBucket(compound.getBoolean("Bucketed"));
     }
 
     public boolean requiresCustomPersistence() {
@@ -142,17 +190,17 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return !this.fromBucket() && !this.hasCustomName();
     }
 
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
     private boolean isFromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
 
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag compound) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compound);
     }
 
     @Override
@@ -166,6 +214,16 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
     }
 
     @Override
+    public void loadFromBucketTag(CompoundTag compound) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compound);
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(UPItems.STETHA_BUCKET.get());
+    }
+
+    @Override
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_EMPTY_FISH;
     }
@@ -174,52 +232,12 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
     }
 
-    @Override
-    public ItemStack getBucketItemStack() {
-        return new ItemStack(UPItems.STETHA_BUCKET.get());
-    }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("FromBucket", this.isFromBucket());
-        compound.putBoolean("Bucketed", this.fromBucket());
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-        this.setFromBucket(compound.getBoolean("Bucketed"));
-    }
-
-    protected <E extends StethacanthusEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isFromBook()) {
-            return event.setAndContinue(STETHA_SWIM);
-        }
-        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            event.setAndContinue(STETHA_SWIM);
-            return PlayState.CONTINUE;
-        }
-        else if (this.isInWater()) {
-            event.setAndContinue(STETHA_IDLE);
-        }
-        else event.setAndContinue(STETHA_FLOP);
-
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
         Level level = p_28134_.getLevel();
         if (level instanceof ServerLevel) {
-            {
-                this.setPersistenceRequired();
-            }
+            this.setPersistenceRequired();
         }
         return p_28137_;
     }
@@ -230,13 +248,69 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return UPEntities.STETHACANTHUS.get().create(serverLevel);
     }
 
+    // Animation control
     @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<StethacanthusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
+
+        AnimationController<StethacanthusEntity> attack = new AnimationController<>(this, "attackController", 5, this::attackPredicate);
+        controllers.add(attack);
     }
 
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
+    protected <E extends StethacanthusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.isFromBook()) {
+            return event.setAndContinue(STETHA_SWIM);
+        }
+        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+            if (this.isRunning()) {
+                event.setAndContinue(STETHA_SWIM);
+                event.getController().setAnimationSpeed(1.6F);
+            }
+            else {
+                event.setAndContinue(STETHA_SWIM);
+                event.getController().setAnimationSpeed(1.0F);
+            }
+            return PlayState.CONTINUE;
+        }
+        else if (this.isInWater()) {
+            event.setAndContinue(STETHA_IDLE);
+        }
+        else event.setAndContinue(STETHA_FLOP);
+        return PlayState.CONTINUE;
+    }
+
+    // Attack animations
+    protected <E extends StethacanthusEntity> PlayState attackPredicate(final AnimationState<E> event) {
+        int animState = this.getAnimationState();
+        if (animState == 21) {
+            event.setAndContinue(STETHA_ATTACK);
+            return PlayState.CONTINUE;
+        }
+        else if (animState == 0) {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
+        else return PlayState.CONTINUE;
+    }
+
+    class StethacanthusFleeGoal extends PrehistoricPanicGoal {
+
+        public StethacanthusFleeGoal() {
+            super(StethacanthusEntity.this, 1.4D);
+        }
+
+        @Override
+        protected boolean findRandomPosition() {
+            Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 12, 10);
+            if (vec3 == null) {
+                return false;
+            } else {
+                this.posX = vec3.x;
+                this.posY = vec3.y;
+                this.posZ = vec3.z;
+                return true;
+            }
+        }
     }
 }

@@ -224,6 +224,7 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> ZULOGAE_DISC = createSoundEvent("zulogae_disc");
     public static final RegistryObject<SoundEvent> ENCASED_DISC = createSoundEvent("encased_disc");
     public static final RegistryObject<SoundEvent> OPALESENCE_DISC = createSoundEvent("opalescence_disc");
+    public static final RegistryObject<SoundEvent> TARIFYING_DISC = createSoundEvent("tarifying_disc");
 
     public static final RegistryObject<SoundEvent> PALAEO_DEATH = createSoundEvent("palaeo_death");
     public static final RegistryObject<SoundEvent> PALAEO_BITE = createSoundEvent("palaeo_bite");

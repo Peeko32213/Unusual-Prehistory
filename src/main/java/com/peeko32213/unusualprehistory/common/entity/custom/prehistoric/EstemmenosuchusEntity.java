@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class EstemmenosuchusEntity extends PrehistoricEntity implements ICustomFollower {
+public class EstemmenosuchusEntity extends PrehistoricEntity {
 
     private static final Ingredient FOOD_ITEMS = Ingredient.of(UPItemTags.ESTEMME_FOOD_ITEMS);
     private static final EntityDataAccessor<Boolean> RAMMING = SynchedEntityData.defineId(EstemmenosuchusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -159,14 +159,12 @@ public class EstemmenosuchusEntity extends PrehistoricEntity implements ICustomF
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new EstemmenosuchusAttackGoal(this));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0F));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(3, new PrehistoricFollowOwnerGoal(this, 1.1D, 5.0F, 2.0F, false));
         this.targetSelector.addGoal(7, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(7, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(8, (new HurtByTargetGoal(this)));
@@ -279,28 +277,8 @@ public class EstemmenosuchusEntity extends PrehistoricEntity implements ICustomF
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             }
-            else if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() && this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
+            else if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInWater()) {
                 player.startRiding(this);
-            }
-            else {
-                this.setCommand((this.getCommand() + 1) % 3);
-                if (this.getCommand() == 3) {
-                    this.setCommand(0);
-                }
-                int var10001 = this.getCommand();
-                player.displayClientMessage(Component.translatable("entity.unusualprehistory.all.command_" + var10001, new Object[]{this.getName()}), true);
-                boolean sit = this.getCommand() == 2;
-                if (sit) {
-                    this.setOrderedToSit(true);
-                    if (!this.isInSittingPose() && this.onGround()){
-                        this.setSittingTime(20);
-                    }
-                } else {
-                    if (this.isInSittingPose() && this.onGround()){
-                        this.setStandingTime(20);
-                    }
-                    this.setOrderedToSit(false);
-                }
             }
         }
         return InteractionResult.PASS;
@@ -356,18 +334,6 @@ public class EstemmenosuchusEntity extends PrehistoricEntity implements ICustomF
 
     public double getPassengersRidingOffset() {
         return 2.8F;
-    }
-
-    // Follow owner
-    @Override
-    public boolean shouldFollow() {
-        return this.getCommand() == 1;
-    }
-
-    // Command
-    @Override
-    public boolean canOwnerCommand(Player ownerPlayer) {
-        return true;
     }
 
     protected SoundEvent getAmbientSound() {

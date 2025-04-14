@@ -9,16 +9,16 @@ import javax.annotation.Nullable;
 
 public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
-    PathfinderMob fims;
+    PathfinderMob entity;
     Vec3 wantedPos;
 
     int radius;
     int height;
     int prox;
 
-    public CustomizableRandomSwimGoal(PathfinderMob fi, double spdmultiplier, int interval, int radius, int height, int proximity) {
-        super(fi, spdmultiplier, interval);
-        this.fims = fi;
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double spdmultiplier, int interval, int radius, int height, int proximity) {
+        super(entity, spdmultiplier, interval);
+        this.entity = entity;
         this.radius = radius;
         this.height = height;
         this.prox = proximity;
@@ -26,18 +26,17 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && fims.isInWater();
+        return super.canUse() && entity.isInWater();
     }
 
     @Override
     public boolean canContinueToUse() {
         wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        return super.canContinueToUse() && fims.isInWater() && !(this.wantedPos.distanceTo(this.fims.position()) <= this.fims.getBbWidth() * prox);
+        return super.canContinueToUse() && entity.isInWater() && !(this.wantedPos.distanceTo(this.entity.position()) <= this.entity.getBbWidth() * prox);
         //second part cancels the goal if the animal gets close enough
     }
 
-    public void tick() {
-    }
+    public void tick() {}
 
     @Override
     public void start() {
@@ -53,5 +52,4 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
     protected Vec3 getPosition() {
         return MathHelpers.getRandomSwimmablePosThatIsntTheSameDepth(this.mob, radius, height);
     }
-    //previously 32 and 12
 }

@@ -111,6 +111,7 @@ public class UPTabs {
                         entries.accept(UPItems.ZULOGAE_DISC.get());
                         entries.accept(UPItems.ENCASED_DISC.get());
                         entries.accept(UPItems.OPALESENCE_DISC.get());
+                        entries.accept(UPItems.TARIFYING_DISC.get());
 
                         // Science gadgets and stuff
                         entries.accept(UPBlocks.ANALYZER.get());
@@ -136,18 +137,11 @@ public class UPTabs {
                         entries.accept(UPItems.SMILO_FUR.get());
 
                         // Foods
-                        entries.accept(UPItems.RAW_COTY.get());
-                        entries.accept(UPItems.COOKED_COTY.get());
-                        entries.accept(UPItems.RAW_SCAU.get());
-                        entries.accept(UPItems.COOKED_SCAU.get());
-                        entries.accept(UPItems.GOLDEN_SCAU.get());
                         entries.accept(UPItems.LEEDS_CAVIAR.get());
                         entries.accept(UPItems.RAW_GINKGO_SEEDS.get());
                         entries.accept(UPItems.COOKED_GINKGO_SEEDS.get());
                         entries.accept(UPItems.GINKGO_FRUIT.get());
                         entries.accept(UPItems.DRYO_NUTS.get());
-                        entries.accept(UPItems.RAW_MAMMOTH.get());
-                        entries.accept(UPItems.COOKED_MAMMOTH.get());
                         entries.accept(UPItems.MAMMOTH_MEATBALL.get());
 
                         // Gambling fruit
@@ -187,11 +181,12 @@ public class UPTabs {
 
                         // Buckets
                         entries.accept(UPItems.AMMON_BUCKET.get());
+                        entries.accept(UPItems.BEELZE_BUCKET.get());
                         entries.accept(UPItems.JAWLESS_FISH_BUCKET.get());
+                        entries.accept(UPItems.PALAEO_BUCKET.get());
+                        entries.accept(UPItems.PANACAN_BUCKET.get());
                         entries.accept(UPItems.SCAU_BUCKET.get());
                         entries.accept(UPItems.STETHA_BUCKET.get());
-                        entries.accept(UPItems.BEELZE_BUCKET.get());
-                        entries.accept(UPItems.PALAEO_BUCKET.get());
 
                         // Rex blocks
                         entries.accept(UPBlocks.REX_BOOMBOX.get());

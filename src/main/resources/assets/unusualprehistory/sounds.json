@@ -1100,29 +1100,29 @@
 
   "talpanas_death": {
     "sounds": [
-        "unusualprehistory:entity/talpanas/talpanas_death_0",
-        "unusualprehistory:entity/talpanas/talpanas_death_1"
+        "unusualprehistory:entity/talpanas/death_0",
+        "unusualprehistory:entity/talpanas/death_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_death"
   },
   "talpanas_hurt": {
     "sounds": [
-        "unusualprehistory:entity/talpanas/talpanas_hurt_0",
-        "unusualprehistory:entity/talpanas/talpanas_hurt_1"
+        "unusualprehistory:entity/talpanas/hurt_0",
+        "unusualprehistory:entity/talpanas/hurt_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_hurt"
   },
   "talpanas_panic": {
     "sounds": [
-        "unusualprehistory:entity/talpanas/talpanas_panic_0"
+        "unusualprehistory:entity/talpanas/panic_0"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_panic"
   },
   "talpanas_idle": {
     "sounds": [
-        "unusualprehistory:entity/talpanas/talpanas_idle_0",
-        "unusualprehistory:entity/talpanas/talpanas_idle_1",
-        "unusualprehistory:entity/talpanas/talpanas_idle_2"
+        "unusualprehistory:entity/talpanas/idle_0",
+        "unusualprehistory:entity/talpanas/idle_1",
+        "unusualprehistory:entity/talpanas/idle_2"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.talpanas_idle"
   },
@@ -1267,6 +1267,14 @@
     "sounds": [
       {
         "name": "unusualprehistory:music/opalescence_disc",
+        "stream": true
+      }
+    ]
+  },
+  "tarifying_disc": {
+    "sounds": [
+      {
+        "name": "unusualprehistory:music/tarifying_disc",
         "stream": true
       }
     ]

@@ -3,12 +3,12 @@
  import com.google.common.collect.ImmutableList;
  import com.google.common.collect.ImmutableMap;
  import com.peeko32213.unusualprehistory.MathHelpers;
- import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AquaticJumpGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.LeedsichthysJumpGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
@@ -35,8 +35,6 @@
  import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
  import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
- import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
- import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
  import net.minecraft.world.entity.animal.WaterAnimal;
@@ -51,8 +49,6 @@
  import net.minecraft.world.level.pathfinder.BlockPathTypes;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
- import software.bernie.geckolib.animatable.GeoEntity;
- import software.bernie.geckolib.core.animatable.GeoAnimatable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
  import software.bernie.geckolib.core.animation.AnimationState;
@@ -63,8 +59,9 @@
  import javax.annotation.Nonnull;
  import javax.annotation.Nullable;
  import java.util.List;
+ import java.util.function.Predicate;
 
- public class LeedsichthysEntity extends PrehistoricAquaticEntity implements GeoEntity, GeoAnimatable {
+ public class LeedsichthysEntity extends PrehistoricAquaticEntity {
      //START of necessary IK shit
 
      public double prevYHeadRot;
@@ -114,87 +111,94 @@
      public double tail1Pitch;
      public double tail2Pitch;
      //END of necessary IK shit
-     private static final EntityDataAccessor<Integer> ANIMATION_STATE = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.INT);
-     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
 
      // Movement animations
      private static final RawAnimation LEEDS_SWIM = RawAnimation.begin().thenLoop("animation.leedsichthys.swim");
-     private static final RawAnimation LEEDS_SWIM_FAST = RawAnimation.begin().thenLoop("animation.leedsichthys.swimfast");
-     private static final RawAnimation LEEDS_FREEFALL_1 = RawAnimation.begin().thenLoop("animation.leedsichthys.freefall1");
-     private static final RawAnimation LEEDS_FREEFALL_2 = RawAnimation.begin().thenLoop("animation.leedsichthys.freefall2");
-     private static final RawAnimation LEEDS_BEACHED_1 = RawAnimation.begin().thenLoop("animation.leedsichthys.beached1");
-     private static final RawAnimation LEEDS_BEACHED_2 = RawAnimation.begin().thenLoop("animation.leedsichthys.beached2");
+     private static final RawAnimation LEEDS_BEACHED = RawAnimation.begin().thenLoop("animation.leedsichthys.beached");
+     private static final RawAnimation LEEDS_FREEFALL = RawAnimation.begin().thenLoop("animation.leedsichthys.freefall");
 
      // Idle animations
      private static final RawAnimation LEEDS_GULP = RawAnimation.begin().thenPlay("animation.leedsichthys.biggulp_blend");
      private static final RawAnimation LEEDS_ROLL_1 = RawAnimation.begin().thenPlay("animation.leedsichthys.roll_blend1");
-     private static final RawAnimation LEEDS_ROLL_2 = RawAnimation.begin().thenPlay("animation.leedsichthys.roll_blend2");
+     private static final RawAnimation LEEDS_ROLL_2 = RawAnimation.begin().thenPlay("animation.leedsichthys.roll_blend1");
      private static final RawAnimation LEEDS_YAWN = RawAnimation.begin().thenPlay("animation.leedsichthys.yawn_blend");
 
      // Attack animations
      private static final RawAnimation LEEDS_BUMP = RawAnimation.begin().thenLoop("animation.leedsichthys.bump_blend");
 
      // Idle accessors
-     private static final EntityDataAccessor<Boolean> IDLE_1_AC = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> IDLE_2_AC = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> IDLE_3_AC = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> IDLE_4_AC = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> GULP = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> ROLL_1 = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> ROLL_2 = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> YAWN = SynchedEntityData.defineId(LeedsichthysEntity.class, EntityDataSerializers.BOOLEAN);
+
+     // Starting predicates
+     private static final Predicate<LivingEntity> LEEDS_STARTING_PREDICATE = (e -> {
+         if(e instanceof LeedsichthysEntity entity) {
+             return entity.isInWater();
+         }
+         return false;
+     });
 
      // Idle actions
-     private static final EntityAction LEEDS_IDLE_1_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final EntityAction LEEDS_GULP_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-     private static final StateHelper LEEDS_IDLE_1_STATE =
-             StateHelper.Builder.state(IDLE_1_AC, "leeds_gulp")
+     private static final StateHelper LEEDS_GULP_STATE =
+             StateHelper.Builder.state(GULP, "leedsichthys_gulp")
                      .playTime(160)
                      .stopTime(400)
-                     .entityAction(LEEDS_IDLE_1_ACTION)
+                     .startingPredicate(LEEDS_STARTING_PREDICATE)
+                     .entityAction(LEEDS_GULP_ACTION)
                      .build();
 
-     private static final EntityAction LEEDS_IDLE_2_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final EntityAction LEEDS_ROLL_1_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-     private static final StateHelper LEEDS_IDLE_2_STATE =
-             StateHelper.Builder.state(IDLE_2_AC, "leeds_roll_1")
+     private static final StateHelper LEEDS_ROLL_1_STATE =
+             StateHelper.Builder.state(ROLL_1, "leedsichthys_roll_1")
                      .playTime(160)
                      .stopTime(350)
-                     .entityAction(LEEDS_IDLE_2_ACTION)
+                     .startingPredicate(LEEDS_STARTING_PREDICATE)
+                     .entityAction(LEEDS_ROLL_1_ACTION)
                      .build();
 
-     private static final EntityAction LEEDS_IDLE_3_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final EntityAction LEEDS_ROLL_2_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-     private static final StateHelper LEEDS_IDLE_3_STATE =
-             StateHelper.Builder.state(IDLE_3_AC, "leeds_roll_2")
+     private static final StateHelper LEEDS_ROLL_2_STATE =
+             StateHelper.Builder.state(ROLL_2, "leedsichthys_roll_2")
                      .playTime(160)
                      .stopTime(350)
-                     .entityAction(LEEDS_IDLE_3_ACTION)
+                     .startingPredicate(LEEDS_STARTING_PREDICATE)
+                     .entityAction(LEEDS_ROLL_2_ACTION)
                      .build();
 
-     private static final EntityAction LEEDS_IDLE_4_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final EntityAction LEEDS_YAWN_ACTION = new EntityAction(0, (e) -> {}, 1);
 
-     private static final StateHelper LEEDS_IDLE_4_STATE =
-             StateHelper.Builder.state(IDLE_4_AC, "leeds_yawn")
+     private static final StateHelper LEEDS_YAWN_STATE =
+             StateHelper.Builder.state(YAWN, "leedsichthys_yawn")
                      .playTime(160)
                      .stopTime(250)
-                     .entityAction(LEEDS_IDLE_4_ACTION)
+                     .startingPredicate(LEEDS_STARTING_PREDICATE)
+                     .entityAction(LEEDS_YAWN_ACTION)
                      .build();
 
      // States
      @Override
      public ImmutableMap<String, StateHelper> getStates() {
          return ImmutableMap.of(
-                 LEEDS_IDLE_1_STATE.getName(), LEEDS_IDLE_1_STATE,
-                 LEEDS_IDLE_2_STATE.getName(), LEEDS_IDLE_2_STATE,
-                 LEEDS_IDLE_3_STATE.getName(), LEEDS_IDLE_3_STATE,
-                 LEEDS_IDLE_4_STATE.getName(), LEEDS_IDLE_4_STATE
+                 LEEDS_GULP_STATE.getName(), LEEDS_GULP_STATE,
+                 LEEDS_ROLL_1_STATE.getName(), LEEDS_ROLL_1_STATE,
+                 LEEDS_ROLL_2_STATE.getName(), LEEDS_ROLL_2_STATE,
+                 LEEDS_YAWN_STATE.getName(), LEEDS_YAWN_STATE
          );
      }
 
      @Override
      public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
          return ImmutableList.of(
-                 WeightedState.of(LEEDS_IDLE_1_STATE, 10),
-                 WeightedState.of(LEEDS_IDLE_2_STATE, 8),
-                 WeightedState.of(LEEDS_IDLE_3_STATE, 8),
-                 WeightedState.of(LEEDS_IDLE_4_STATE, 11)
+                 WeightedState.of(LEEDS_GULP_STATE, 7),
+                 WeightedState.of(LEEDS_ROLL_1_STATE, 8),
+                 WeightedState.of(LEEDS_ROLL_2_STATE, 8),
+                 WeightedState.of(LEEDS_YAWN_STATE, 9)
          );
      }
 
@@ -208,10 +212,7 @@
 
      public LeedsichthysEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
          super(entityType, level);
-         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-         this.lookControl = new SmoothSwimmingLookControl(this, 10);
          this.moveControl = new SmoothSwimmingMoveControl(this, 3600, 2, 0.02F, 0.1F, false);
-
 
          leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
          rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
@@ -223,7 +224,6 @@
          tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
          tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
          tail3Point = MathHelpers.rotateAroundCenterFlatDeg(tail2Point, tail2Point.subtract(tail3Offset), (double) -this.getYRot());
-
      }
 
      // Attributes
@@ -232,18 +232,26 @@
              .add(Attributes.MAX_HEALTH, 500.0D)
              .add(Attributes.ATTACK_DAMAGE, 10.0D)
              .add(Attributes.KNOCKBACK_RESISTANCE, 4.0D)
-             .add(Attributes.MOVEMENT_SPEED, 0.5D)
+             .add(Attributes.MOVEMENT_SPEED, 0.5F)
              .add(Attributes.FOLLOW_RANGE, 12.0D);
      }
 
      // Goals
      @Override
      protected void registerGoals() {
-         super.registerGoals();
-         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
-         this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1.8D, 10));
-         this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 50));
+         this.goalSelector.addGoal(2, new RandomStateGoal<>(this));
+         this.goalSelector.addGoal(4, new LeedsichthysJumpGoal(this, 50));
          this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.25, 1, 70, 70, 2));
+     }
+
+     @Override
+     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+         return pSize.height * 0.45F;
+     }
+
+     @Override
+     public boolean isNoGravity() {
+         return this.isInWater();
      }
 
      @Override
@@ -300,18 +308,15 @@
 
      protected void defineSynchedData() {
          super.defineSynchedData();
-         this.entityData.define(IDLE_1_AC, false);
-         this.entityData.define(IDLE_2_AC, false);
-         this.entityData.define(IDLE_3_AC, false);
-         this.entityData.define(IDLE_4_AC, false);
-         this.entityData.define(ANIMATION_STATE, 0);
-         this.entityData.define(FROM_BOOK, false);
+         this.entityData.define(GULP, false);
+         this.entityData.define(ROLL_1, false);
+         this.entityData.define(ROLL_2, false);
+         this.entityData.define(YAWN, false);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
          super.addAdditionalSaveData(compound);
      }
-
      public void readAdditionalSaveData(CompoundTag compound) {
          super.readAdditionalSaveData(compound);
      }
@@ -371,78 +376,51 @@
 
      @Override
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-         AnimationController<LeedsichthysEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
-            controllers.add(controller);
-         AnimationController<LeedsichthysEntity> blend = new AnimationController<>(this, "blend", 5, this::predicate)
-                 .triggerableAnim("gulp", LEEDS_GULP)
-                 .triggerableAnim("roll_1", LEEDS_ROLL_1)
-                 .triggerableAnim("roll_2", LEEDS_ROLL_2)
-                 .triggerableAnim("yawn", LEEDS_YAWN)
-                 .triggerableAnim("bump", LEEDS_BUMP);
-         blend.setSoundKeyframeHandler(this::soundListener);
-            controllers.add(blend);
+        AnimationController<LeedsichthysEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
 
-         AnimationController<LeedsichthysEntity> jump = new AnimationController<>(this, "jump", 5, this::jumpPredicate);
-            controllers.add(jump);
+        AnimationController<LeedsichthysEntity> idle = new AnimationController<>(this, "idleController", 5, this::predicate);
+        idle.setSoundKeyframeHandler(this::soundListener);
+        controllers.add(idle);
      }
 
      protected <E extends LeedsichthysEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-         if (this.isFromBook()) {
+         if (this.isInWater()) {
              return event.setAndContinue(LEEDS_SWIM);
          }
-
-         int animState = this.getAnimationState();
-
-         if (!this.isFromBook()) {
-
-             if (animState == 21) {
-                 return event.setAndContinue(LEEDS_BUMP);
+         if (!this.isInWater()) {
+             if (this.onGround()) {
+                 event.setAndContinue(LEEDS_BEACHED);
              }
              else {
-                 if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-                     event.setAndContinue(LEEDS_SWIM);
-                     return PlayState.CONTINUE;
-                 }
-                 if (this.onGround() && !this.isUnderWater()) {
-                     event.setAndContinue(LEEDS_BEACHED_1);
-                     return PlayState.CONTINUE;
-                 }
-
-                 // Idle states
-                 if (this.isInWater()) {
-                     if (getBooleanState(IDLE_1_AC)) {
-                         triggerAnim("blend", "gulp");
-                         return PlayState.CONTINUE;
-                     }
-                     if (getBooleanState(IDLE_2_AC)) {
-                         triggerAnim("blend", "roll_1");
-                         return PlayState.CONTINUE;
-                     }
-                     if (getBooleanState(IDLE_3_AC)) {
-                         triggerAnim("blend", "roll_2");
-                         return PlayState.CONTINUE;
-                     }
-                     if (getBooleanState(IDLE_4_AC)) {
-                         triggerAnim("blend", "yawn");
-                         return PlayState.CONTINUE;
-                     }
-                     return event.setAndContinue(LEEDS_SWIM);
-                 }
-                 return PlayState.CONTINUE;
+                 event.setAndContinue(LEEDS_FREEFALL);
              }
+             return PlayState.CONTINUE;
          }
          return PlayState.CONTINUE;
      }
 
-     protected <E extends LeedsichthysEntity> PlayState jumpPredicate(final AnimationState<E> event) {
-         if (!this.onGround() && !this.isInWater()) {
-             event.getController().setAnimation(LEEDS_FREEFALL_1);
-             event.getController().setAnimationSpeed(1.0D);
-             return PlayState.CONTINUE;
+     // Idle animations
+     protected <E extends LeedsichthysEntity> PlayState idlePredicate(final AnimationState<E> event) {
+         if (!this.isRunning() || !this.onGround()) {
+             if (getBooleanState(GULP)) {
+                 event.getController().setAnimation(LEEDS_GULP);
+                 return PlayState.CONTINUE;
+             }
+             if (getBooleanState(ROLL_1)) {
+                 event.getController().setAnimation(LEEDS_ROLL_1);
+                 return PlayState.CONTINUE;
+             }
+             if (getBooleanState(ROLL_2)) {
+                 event.getController().setAnimation(LEEDS_ROLL_2);
+                 return PlayState.CONTINUE;
+             }
+             if (getBooleanState(YAWN)) {
+                 event.getController().setAnimation(LEEDS_YAWN);
+                 return PlayState.CONTINUE;
+             }
          }
          event.getController().forceAnimationReset();
-
          return PlayState.STOP;
      }
 

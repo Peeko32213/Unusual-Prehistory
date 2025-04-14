@@ -35,7 +35,8 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
         if (animationState == null) return;
         CoreGeoBone tail = this.getAnimationProcessor().getBone("tail_rot");
         CoreGeoBone tailfin = this.getAnimationProcessor().getBone("tail_tip_rot");
-        EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+        CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
+        EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         if (entity.isInWaterOrBubble()) {
             tail.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.01))));
@@ -54,11 +55,9 @@ public class LeedsichthysModel extends GeoModel<LeedsichthysEntity> {
             entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
 
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
-
-
         }
 
+        swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F)) / 4));
     }
-
 }
 

@@ -96,7 +96,7 @@
 					"rotation": ["30+Math.cos((query.anim_time-0.1)*180)*10", 0, 0]
 				},
 				"fin4": {
-					"rotation": ["30+Math.cos((query.anim_time-0.w)*180)*10", 0, 0]
+					"rotation": ["30+Math.cos(query.anim_time*180)*10", 0, 0]
 				},
 				"fin5": {
 					"rotation": ["30+Math.cos((query.anim_time-0.3)*180)*10", 0, 0]
@@ -127,7 +127,7 @@
 					"rotation": [
 						"-5.9831+Math.cos((query.anim_time-0.2)*720)*10",
 						"-7.8127+Math.cos((query.anim_time)*720)*-25",
-						"35++Math.clamp(Math.cos((query.anim_time-0.2)*720)*-25, 0, 30)"
+						"35+Math.clamp(Math.cos((query.anim_time-0.2)*720)*-25, 0, 30)"
 					]
 				},
 				"rightfin2": {
@@ -137,7 +137,7 @@
 					"rotation": [
 						"-5.9831+Math.cos((query.anim_time-0.2)*720)*10",
 						"-7.8127+Math.cos((query.anim_time)*720)*-25",
-						"-35++Math.clamp(Math.cos((query.anim_time-0.2)*720)*-25, -30, 0)"
+						"-35+Math.clamp(Math.cos((query.anim_time-0.2)*720)*-25, -30, 0)"
 					]
 				},
 				"leftfin2": {
@@ -150,7 +150,7 @@
 					"rotation": ["30+Math.cos((query.anim_time-0.1)*720)*10", 0, 0]
 				},
 				"fin4": {
-					"rotation": ["30+Math.cos((query.anim_time-0.w)*720)*10", 0, 0]
+					"rotation": ["30+Math.cos((query.anim_time-0)*720)*10", 0, 0]
 				},
 				"fin5": {
 					"rotation": ["30+Math.cos((query.anim_time-0.3)*720)*10", 0, 0]

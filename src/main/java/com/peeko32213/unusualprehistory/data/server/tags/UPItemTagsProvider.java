@@ -134,11 +134,11 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
         );
 
         this.tag(UPItemTags.MAJUNGA_FOOD).add(
-                RAW_COTY.get()
+                Items.BEEF
         );
 
         this.tag(UPItemTags.ULUGH_FOOD).add(
-                RAW_COTY.get()
+                Items.BEEF
         );
 
         this.tag(UPItemTags.TRICERATOPS_FOOD).add(
@@ -195,16 +195,11 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
 
         this.tag(UPItemTags.MEGATHERIUM_FOOD).addTag(ItemTags.LEAVES);
 
-        this.tag(UPItemTags.DUNK_FOOD_PACIFY).add(
-                GOLDEN_SCAU.get()
-        );
+        this.tag(UPItemTags.DUNK_FOOD_PACIFY);
 
-        this.tag(UPItemTags.DUNK_FOOD).add(
-                RAW_SCAU.get()
-        );
+        this.tag(UPItemTags.DUNK_FOOD);
 
         this.tag(UPItemTags.ESTEMME_FOOD_ITEMS).add(
-                RAW_COTY.get(),
                 GINKGO_FRUIT.get(),
                 UPBlocks.HORSETAIL.get().asItem(),
                 UPBlocks.TALL_HORSETAIL.get().asItem(),
@@ -256,16 +251,11 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
                 UPBlocks.FOSSIL_ORES.get().asItem()
         );
 
-        this.tag(ItemTags.FISHES).add(
-                RAW_SCAU.get(),
-                COOKED_SCAU.get(),
-                GOLDEN_SCAU.get()
-        );
-
         this.tag(ItemTags.MUSIC_DISCS).add(
                 ZULOGAE_DISC.get(),
                 ENCASED_DISC.get(),
-                OPALESENCE_DISC.get()
+                OPALESENCE_DISC.get(),
+                TARIFYING_DISC.get()
         );
 
         this.tag(ItemTags.ARROWS).add(

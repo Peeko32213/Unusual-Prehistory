@@ -16,8 +16,13 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "FrontBody",
+					"name": "swim_control",
 					"parent": "root",
+					"pivot": [0, 33, 7]
+				},
+				{
+					"name": "FrontBody",
+					"parent": "swim_control",
 					"pivot": [0, 30, 0]
 				},
 				{

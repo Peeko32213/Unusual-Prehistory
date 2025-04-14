@@ -416,6 +416,21 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
                 UPEntities.HWACHA.get()
         );
 
+        tag(UPEntityTypeTags.STETHA_AVOIDS).add(
+                UPEntities.DUNK.get(),
+                UPEntities.LEEDSICHTHYS.get(),
+                UPEntities.GLOBIDENS.get(),
+                UPEntities.KAPROSUCHUS.get()
+        );
+
+        tag(UPEntityTypeTags.STETHA_TARGETS).add(
+                UPEntities.SCAU.get(),
+                UPEntities.JAWLESS_FISH.get(),
+                EntityType.SALMON,
+                EntityType.COD,
+                EntityType.TROPICAL_FISH
+        );
+
         tag(UPEntityTypeTags.HERBIVORES)
                 .add(UPEntities.ANTARCO.get())
                 .add(UPEntities.BRACHI.get())

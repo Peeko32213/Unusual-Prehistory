@@ -132,7 +132,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.QUARTZ_ENGRAVED_ASPHALT, "Quartz Engraved Asphalt");
 
         // Untranslated items
-
         addItem(UPItems.DRYO_BOAT.getFirst(), "Dryophyllum Boat");
         addItem(UPItems.DRYO_BOAT.getSecond(), "Dryophyllum Chest Boat");
         addItem(UPItems.FOXII_BOAT.getFirst(), "Foxii Boat");
@@ -143,6 +142,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addMusicDisc(UPItems.ZULOGAE_DISC, "Shroomy - Zulogae");
         addMusicDisc(UPItems.ENCASED_DISC, "TheValiantSquidward - Encased");
         addMusicDisc(UPItems.OPALESENCE_DISC, "ChipsTheCat - Opalesence");
+        addMusicDisc(UPItems.TARIFYING_DISC, "Dylanvhs - Tar-ifying");
 
         addItem(UPItems.ANIMAL_DNA_BOTTLES, "Bottle of Prehistoric Animal DNA");
         addItem(UPItems.PLANT_DNA_BOTTLES, "Bottle of Prehistoric Plant DNA");
@@ -150,9 +150,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         // Foods
         addItem(UPItems.GROG, "Bottle of Grog");
         addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
-        addItem(UPItems.RAW_COTY, "Raw Cotylorhynchus");
-        addItem(UPItems.RAW_SCAU, "Raw Scaumenacia");
-        addItem(UPItems.RAW_MAMMOTH, "Raw Mammoth");
 
         // Buckets
         addBucketItem(UPItems.BEELZE_BUCKET.get());
@@ -161,6 +158,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBucketItem(UPItems.SCAU_BUCKET.get());
         addBucketItem(UPItems.PALAEO_BUCKET.get());
         addBucketItem(UPItems.JAWLESS_FISH_BUCKET.get());
+        addBucketItem(UPItems.PANACAN_BUCKET.get());
 
         // Entity Eggs
         addPrehistoricEgg(UPEntities.COTY, "Cotylorhynchus Egg");
@@ -595,6 +593,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addSound(UPSounds.ZULOGAE_DISC, "Music Disc");
         addSound(UPSounds.ENCASED_DISC, "Music Disc");
         addSound(UPSounds.OPALESENCE_DISC, "Music Disc");
+        addSound(UPSounds.TARIFYING_DISC, "Music Disc");
 
         addSound(UPSounds.MEGATHER_DEATH, "Megatherium dies");
         addSound(UPSounds.MEGATHER_HURT, "Megatherium hurts");

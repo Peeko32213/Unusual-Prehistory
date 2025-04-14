@@ -58,10 +58,6 @@ public class XiphactinusEntity extends PrehistoricAquaticEntity {
 
     private int passiveFor = 0;
 
-    public float prevTilt;
-    public float tilt;
-    public float currentRoll = 0.0F;
-
     // Idle animations
     private static final RawAnimation XIPH_IDLE = RawAnimation.begin().thenLoop("animation.xiphactinus.idle");
     private static final RawAnimation XIPH_INSPECT = RawAnimation.begin().thenPlay("animation.xiphactinus.inspect_blend");
@@ -216,33 +212,6 @@ public class XiphactinusEntity extends PrehistoricAquaticEntity {
     public void tick() {
         super.tick();
         this.tickMultipart();
-
-        // Tilt
-        prevTilt = tilt;
-        if (this.isInWater() && !this.onGround()) {
-            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
-            if (Math.abs(v) > 1) {
-                if (Math.abs(tilt) < 25) {
-                    tilt -= Math.signum(v);
-                }
-            } else {
-                if (Math.abs(tilt) > 0) {
-                    final float tiltSign = Math.signum(tilt);
-                    tilt -= tiltSign * 0.85F;
-                    if (tilt * tiltSign < 0) {
-                        tilt = 0;
-                    }
-                }
-            }
-        } else {
-            tilt = 0;
-        }
-
-        // Roll
-        float prevRoll =  this.currentRoll;
-        float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
-        targetRoll = -targetRoll;
-        this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
     }
 
     private void tickMultipart() {
