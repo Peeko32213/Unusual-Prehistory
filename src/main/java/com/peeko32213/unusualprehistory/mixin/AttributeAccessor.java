@@ -16,7 +16,4 @@ public interface AttributeAccessor {
 
     @Accessor("dirtyAttributes")
     Set<AttributeInstance> unusualprehistory$getDirtyAttributes();
-
-
-
 }

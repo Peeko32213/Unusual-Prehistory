@@ -9,7 +9,8 @@
     "ChangeLivingEntityParticleMixin"
   ],
   "client": [
-    "client.ClientPacketListenerMixin"
+    "client.ClientPacketListenerMixin",
+    "client.GuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1

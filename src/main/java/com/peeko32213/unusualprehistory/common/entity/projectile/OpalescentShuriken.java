@@ -124,7 +124,7 @@ public class OpalescentShuriken extends AbstractArrow implements ItemSupplier {
 
     @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return SoundEvents.WOOD_BREAK;
+        return SoundEvents.AMETHYST_BLOCK_HIT;
     }
 
     protected float getWaterInertia() {

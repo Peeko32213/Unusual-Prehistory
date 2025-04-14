@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(LivingEntity.class)
 public abstract class ChangeLivingEntityParticleMixin {
 
-
     @Redirect(method = "tickEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V", ordinal = 0))
     private void UnusualPrehistory$changeLivingEntityParticleEvent(Level instance, ParticleOptions pParticleData, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
         LivingEntity entity = (LivingEntity) (Object) this;
@@ -44,5 +43,4 @@ public abstract class ChangeLivingEntityParticleMixin {
                 event.getZSpeed()
         );
     }
-
 }

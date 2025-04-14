@@ -42,7 +42,6 @@ public class UPDrinkItem extends UPConsumableItem {
                 return InteractionResultHolder.fail(heldStack);
             }
         }
-
         return ItemUtils.startUsingInstantly(level, player, hand);
     }
 }

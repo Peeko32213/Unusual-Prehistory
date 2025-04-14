@@ -15,7 +15,6 @@ public class UPEffects {
     public static final RegistryObject<MobEffect> BRACHI_PROTECTION = EFFECT_DEF_REG.register("brachi_protection", BrachisProtectionEffect::new);
     public static final RegistryObject<MobEffect> PACHYS_MIGHT = EFFECT_DEF_REG.register("pachys_might", PachysMightEffect::new);
     public static final RegistryObject<MobEffect> SCREEN_SHAKE = EFFECT_DEF_REG.register("screen_shake", ScreenShakeEffect::new);
-    public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("prevent_click", PreventClickEffect::new);
-    public static final RegistryObject<MobEffect> HEALTH_REDUCTION = EFFECT_DEF_REG.register("health_reduction", HealthReductionEffect::new);
-
+    public static final RegistryObject<MobEffect> PREVENT_CLICK = EFFECT_DEF_REG.register("debilitating_toxin", PreventClickEffect::new);
+    public static final RegistryObject<MobEffect> HEALTH_REDUCTION = EFFECT_DEF_REG.register("draining_venom", HealthReductionEffect::new);
 }

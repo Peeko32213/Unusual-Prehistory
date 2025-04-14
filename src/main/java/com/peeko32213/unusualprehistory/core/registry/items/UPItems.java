@@ -30,13 +30,6 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UPItems {
 
-    public static Item.Properties drinkItem() {
-        return new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16);
-    }
-
-    public static Item.Properties soupItem() {
-        return new Item.Properties().craftRemainder(Items.BOWL).stacksTo(8);
-    }
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory.MODID);
     public static final ItemSubRegistryHelper HELPER = UnusualPrehistory.REGISTRY_HELPER.getItemSubHelper();
     public static List<RegistryObject<? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
@@ -77,7 +70,7 @@ public class UPItems {
     public static final RegistryObject<Item> VELOCI_SHIELD = item("veloci_shield", () -> new VelociraptorShieldItem(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = translatedItem("majungasaurus_scute", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADORNED_STAFF = translatedItem("adorned_staff", () -> new Item(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> GROG = item("grog_bottle", () -> new UPDrinkItem(drinkItem().food(UPFood.GROG), true, false));
+    public static final RegistryObject<Item> GROG = translatedItem("grog_bottle", () -> new UPDrinkItem(new Item.Properties().food(UPFood.GROG).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
     public static final RegistryObject<Item> CAPTURED_KIMMER_BOTTLE = item("kimmeridgebrachypteraeschnidium_bottle", () -> new CaptureBottleItem(UPEntities.KIMMER::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
 
     // Fossil skeletons
@@ -304,7 +297,7 @@ public class UPItems {
 
     public static final RegistryObject<Item> DRYO_NUTS = translatedItem("dryophyllum_nuts", () -> new IncreaseAgeItem(new Item.Properties().food(UPFood.DRYO_NUTS), UPEntityTypeTags.HERBIVORES,10));
 
-    public static final RegistryObject<Item> MAMMOTH_MEATBALL = translatedItem("mammoth_meatball", () -> new UPDrinkItem(soupItem().food(UPFood.MAMMOTH_MEATBALL).stacksTo(16), true, false));
+    public static final RegistryObject<Item> MAMMOTH_MEATBALL = translatedItem("mammoth_meatball", () -> new UPConsumableItem(new Item.Properties().food(UPFood.MAMMOTH_MEATBALL).craftRemainder(Items.BOWL).stacksTo(16)));
 
     public static final RegistryObject<Item> ZULOGAE_DISC = ITEMS.register("zulogae_disc", () -> new RecordItem(15, UPSounds.ZULOGAE_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 157 * 20));
     public static final RegistryObject<Item> ENCASED_DISC = ITEMS.register("encased_disc", () -> new RecordItem(15, UPSounds.ENCASED_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2100));
