@@ -101,6 +101,11 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
         if(playingAnimation()) {
             setAnimationTimer(getAnimationTimer() - 1);
         }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
 
         // Credit:
         // Fintastic https://github.com/VoidArkana/Fintastic/tree/master

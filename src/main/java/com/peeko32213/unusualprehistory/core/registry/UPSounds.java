@@ -166,9 +166,9 @@ public class UPSounds {
     public static final RegistryObject<SoundEvent> HWACHA_VENENUM_HURT = createSoundEvent("hwachavenator_venenum_hurt");
     public static final RegistryObject<SoundEvent> HWACHA_VENENUM_DEATH = createSoundEvent("hwachavenator_venenum_death");
 
-    public static final RegistryObject<SoundEvent> KENTRO_DEATH = createSoundEvent("kentro_death");
-    public static final RegistryObject<SoundEvent> KENTRO_HURT = createSoundEvent("kentro_hurt");
-    public static final RegistryObject<SoundEvent> KENTRO_IDLE = createSoundEvent("kentro_idle");
+    public static final RegistryObject<SoundEvent> KENTRO_DEATH = createSoundEvent("kentrosaurus_death");
+    public static final RegistryObject<SoundEvent> KENTRO_HURT = createSoundEvent("kentrosaurus_hurt");
+    public static final RegistryObject<SoundEvent> KENTRO_IDLE = createSoundEvent("kentrosaurus_idle");
     public static final RegistryObject<SoundEvent> TAIL_SWIPE = createSoundEvent("tail_swipe");
 
     public static final RegistryObject<SoundEvent> ULUGH_BITE = createSoundEvent("ulughbegsaurus_bite");

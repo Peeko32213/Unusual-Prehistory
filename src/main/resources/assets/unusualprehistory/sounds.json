@@ -923,27 +923,27 @@
     "subtitle": "unusualprehistory.sound.subtitle.hwachavenator_acuti_roar"
   },
 
-  "kentro_death": {
+  "kentrosaurus_death": {
     "sounds": [
-        "unusualprehistory:entity/kentro/kentro_death_0",
-        "unusualprehistory:entity/kentro/_death_1"
+        "unusualprehistory:entity/kentrosaurus/death_0",
+        "unusualprehistory:entity/kentrosaurus/death_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.kentro_death"
+    "subtitle": "unusualprehistory.sound.subtitle.kentrosaurus_death"
   },
-  "kentro_hurt": {
+  "kentrosaurus_hurt": {
     "sounds": [
-        "unusualprehistory:entity/kentro/_hurt_0",
-        "unusualprehistory:entity/kentro/_hurt_1"
+        "unusualprehistory:entity/kentrosaurus/hurt_0",
+        "unusualprehistory:entity/kentrosaurus/hurt_1"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.kentro_hurt"
+    "subtitle": "unusualprehistory.sound.subtitle.kentrosaurus_hurt"
   },
-  "kentro_idle": {
+  "kentrosaurus_idle": {
     "sounds": [
-        "unusualprehistory:entity/kentro/_idle_0",
-        "unusualprehistory:entity/kentro/_idle_1",
-        "unusualprehistory:entity/kentro/_idle_2"
+        "unusualprehistory:entity/kentrosaurus/idle_0",
+        "unusualprehistory:entity/kentrosaurus/idle_1",
+        "unusualprehistory:entity/kentrosaurus/idle_2"
     ],
-    "subtitle": "unusualprehistory.sound.subtitle.kentro_idle"
+    "subtitle": "unusualprehistory.sound.subtitle.kentrosaurus_idle"
   },
 
   "tail_swipe": {

@@ -70,7 +70,7 @@ public class UPItems {
     public static final RegistryObject<Item> VELOCI_SHIELD = item("veloci_shield", () -> new VelociraptorShieldItem(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = translatedItem("majungasaurus_scute", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADORNED_STAFF = translatedItem("adorned_staff", () -> new Item(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> GROG = translatedItem("grog_bottle", () -> new UPDrinkItem(new Item.Properties().food(UPFood.GROG).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
+    public static final RegistryObject<Item> GROG = item("grog_bottle", () -> new UPDrinkItem(new Item.Properties().food(UPFood.GROG).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
     public static final RegistryObject<Item> CAPTURED_KIMMER_BOTTLE = item("kimmeridgebrachypteraeschnidium_bottle", () -> new CaptureBottleItem(UPEntities.KIMMER::get, Items.GLASS_BOTTLE, false, new Item.Properties().stacksTo(1)));
 
     // Fossil skeletons
