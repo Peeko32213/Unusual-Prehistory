@@ -71,6 +71,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
 import software.bernie.geckolib.core.object.PlayState;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -93,26 +94,29 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
 
     // Idle animations
     private static final RawAnimation HWACHA_IDLE = RawAnimation.begin().thenLoop("animation.hwachavenator.idle");
-    private static final RawAnimation HWACHA_SIT = RawAnimation.begin().thenLoop("animation.hwachavenator.sit");
-    private static final RawAnimation HWACHA_SLEEP = RawAnimation.begin().thenLoop("animation.hwachavenator.sleep");
     private static final RawAnimation HWACHA_ROAR = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_roar");
-    private static final RawAnimation HWACHA_YAWN = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_yawn");
-    private static final RawAnimation HWACHA_DANCE1 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_dance1");
-    private static final RawAnimation HWACHA_DANCE2 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_dance2");
+    private static final RawAnimation HWACHA_QUIRK = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_quirk");
+    private static final RawAnimation HWACHA_DANCE = RawAnimation.begin().thenPlay("animation.hwachavenator.dance");
+    private static final RawAnimation HWACHA_SIT_START = RawAnimation.begin().thenLoop("animation.hwachavenator.sit_start");
+    private static final RawAnimation HWACHA_SIT = RawAnimation.begin().thenLoop("animation.hwachavenator.sit");
+    private static final RawAnimation HWACHA_SIT_END = RawAnimation.begin().thenLoop("animation.hwachavenator.sit_end");
+    private static final RawAnimation HWACHA_SLEEP = RawAnimation.begin().thenLoop("animation.hwachavenator.sleep");
 
     // Attack animations
-    private static final RawAnimation HWACHA_TURRET_FIRE = RawAnimation.begin().thenLoop("animation.hwachavenator.blent_shake_attack");
-    private static final RawAnimation HWACHA_BITE_1 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_bite_1");
-    private static final RawAnimation HWACHA_BITE_2 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_bite_2");
+    private static final RawAnimation HWACHA_BITE1 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_bite_1");
+    private static final RawAnimation HWACHA_BITE2 = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_bite_2");
+    private static final RawAnimation HWACHA_SPIKE_ATTACK_START = RawAnimation.begin().thenPlay("animation.hwachavenator.spike_attack_start");
+    private static final RawAnimation HWACHA_SPIKE_ATTACK = RawAnimation.begin().thenLoop("animation.hwachavenator.spike_attack");
+    private static final RawAnimation HWACHA_SPIKE_IDLE = RawAnimation.begin().thenLoop("animation.hwachavenator.spike_attack_idle");
+    private static final RawAnimation HWACHA_SPIKE_ATTACK_END = RawAnimation.begin().thenPlay("animation.hwachavenator.spike_attack_end");
 
     // Misc animations
     private static final RawAnimation HWACHA_EAT = RawAnimation.begin().thenPlay("animation.hwachavenator.blend_eat");
 
     // Idle accessors
     private static final EntityDataAccessor<Boolean> ROAR = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> YAWN = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DANCE1 = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DANCE2 = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> QUIRK = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DANCE = SynchedEntityData.defineId(HwachavenatorEntity.class, EntityDataSerializers.BOOLEAN);
 
     // Starting predicates
     private static final Predicate<LivingEntity> HWACHAVENATOR_STARTING_PREDICATE = (e -> {
@@ -122,10 +126,15 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         return false;
     });
 
+    private static final Predicate<LivingEntity> HWACHAVENATOR_DANCE_PREDICATE = (e -> {
+        if(e instanceof HwachavenatorEntity entity) {
+            return !entity.getMoveControl().hasWanted() && !entity.isSprinting() && !entity.isInWater() && !entity.isRunning() && !entity.hasControllingPassenger() && !entity.isInSittingPose();
+        }
+        return false;
+    });
 
     // Idle actions
     private static final EntityAction HWACHA_ROAR_ACTION = new EntityAction(0, (e) -> {}, 1);
-
     private static final StateHelper HWACHA_ROAR_STATE =
             StateHelper.Builder.state(ROAR, "hwachavenator_roar")
                     .playTime(60)
@@ -134,32 +143,24 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
                     .entityAction(HWACHA_ROAR_ACTION)
                     .build();
 
-    private static final EntityAction HWACHA_YAWN_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper HWACHA_YAWN_STATE =
-            StateHelper.Builder.state(YAWN, "hwachavenator_yawn")
+    private static final EntityAction HWACHA_QUIRK_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final StateHelper HWACHA_QUIRK_STATE =
+            StateHelper.Builder.state(QUIRK, "hwachavenator_quirk")
                     .playTime(100)
                     .stopTime(200)
                     .startingPredicate(HWACHAVENATOR_STARTING_PREDICATE)
-                    .entityAction(HWACHA_YAWN_ACTION)
+                    .entityAction(HWACHA_QUIRK_ACTION)
                     .build();
 
-    private static final EntityAction HWACHA_DANCE1_ACTION = new EntityAction(0, (e) -> {}, 1);
-
-    private static final StateHelper HWACHA_DANCE1_STATE =
-            StateHelper.Builder.state(DANCE1, "hwachavenator_dance1")
+    private static final EntityAction HWACHA_DANCE_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final StateHelper HWACHA_DANCE_STATE =
+            StateHelper.Builder.state(DANCE, "hwachavenator_dance")
                     .playTime(80)
                     .stopTime(240)
-                    .startingPredicate(HWACHAVENATOR_STARTING_PREDICATE)
-                    .entityAction(HWACHA_DANCE1_ACTION)
-                    .build();
-
-    private static final StateHelper HWACHA_DANCE2_STATE =
-            StateHelper.Builder.state(DANCE2, "hwachavenator_dance2")
-                    .playTime(80)
-                    .stopTime(240)
-                    .startingPredicate(HWACHAVENATOR_STARTING_PREDICATE)
-                    .entityAction(HWACHA_DANCE1_ACTION)
+                    .affectsAI(true)
+                    .affectedFlags(EnumSet.of(Goal.Flag.MOVE))
+                    .startingPredicate(HWACHAVENATOR_DANCE_PREDICATE)
+                    .entityAction(HWACHA_DANCE_ACTION)
                     .build();
 
     // States
@@ -167,9 +168,8 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     public ImmutableMap<String, StateHelper> getStates() {
         return ImmutableMap.of(
                 HWACHA_ROAR_STATE.getName(), HWACHA_ROAR_STATE,
-                HWACHA_YAWN_STATE.getName(), HWACHA_YAWN_STATE,
-                HWACHA_DANCE1_STATE.getName(), HWACHA_DANCE1_STATE,
-                HWACHA_DANCE2_STATE.getName(), HWACHA_DANCE2_STATE
+                HWACHA_QUIRK_STATE.getName(), HWACHA_QUIRK_STATE,
+                HWACHA_DANCE_STATE.getName(), HWACHA_DANCE_STATE
         );
     }
 
@@ -177,9 +177,8 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return ImmutableList.of(
                 WeightedState.of(HWACHA_ROAR_STATE, 9),
-                WeightedState.of(HWACHA_YAWN_STATE, 10),
-                WeightedState.of(HWACHA_DANCE1_STATE, 7),
-                WeightedState.of(HWACHA_DANCE2_STATE, 7)
+                WeightedState.of(HWACHA_QUIRK_STATE, 10),
+                WeightedState.of(HWACHA_DANCE_STATE, 7)
         );
     }
 
@@ -239,9 +238,8 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ROAR, false);
-        this.entityData.define(YAWN, false);
-        this.entityData.define(DANCE1, false);
-        this.entityData.define(DANCE2, false);
+        this.entityData.define(QUIRK, false);
+        this.entityData.define(DANCE, false);
         this.entityData.define(SHOOTING, false);
     }
 
@@ -838,19 +836,8 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
             return PlayState.CONTINUE;
         }
 
-        else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && this.hasControllingPassenger() && !this.isInSittingPose()){
-
-            return PlayState.CONTINUE;
-        }
-
         if (isShooting() && !this.isInSittingPose() && !this.isInWater() && !this.isSwimming()) {
-            event.setAndContinue(HWACHA_TURRET_FIRE);
-            return PlayState.CONTINUE;
-        }
-
-        if (this.isInSittingPose() && !isShooting()) {
-            event.setAndContinue(HWACHA_SIT);
-            event.getController().setAnimationSpeed(1.0F);
+            event.setAndContinue(HWACHA_SPIKE_ATTACK);
             return PlayState.CONTINUE;
         }
 
@@ -872,16 +859,12 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
             event.getController().setAnimation(HWACHA_ROAR);
             return PlayState.CONTINUE;
         }
-        if (getBooleanState(YAWN)) {
-            event.getController().setAnimation(HWACHA_YAWN);
+        if (getBooleanState(QUIRK)) {
+            event.getController().setAnimation(HWACHA_QUIRK);
             return PlayState.CONTINUE;
         }
-        if (getBooleanState(DANCE1)) {
-            event.getController().setAnimation(HWACHA_DANCE1);
-            return PlayState.CONTINUE;
-        }
-        if (getBooleanState(DANCE2)) {
-            event.getController().setAnimation(HWACHA_DANCE2);
+        if (getBooleanState(DANCE)) {
+            event.getController().setAnimation(HWACHA_DANCE);
             return PlayState.CONTINUE;
         }
         event.getController().forceAnimationReset();
@@ -892,11 +875,11 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
     protected <E extends HwachavenatorEntity> PlayState attackPredicate(final AnimationState<E> event) {
         int animState = this.getAnimationState();
         if (animState == 21) {
-            event.setAndContinue(HWACHA_BITE_1);
+            event.setAndContinue(HWACHA_BITE1);
             return PlayState.CONTINUE;
         }
         else if (animState == 22) {
-            event.setAndContinue(HWACHA_BITE_2);
+            event.setAndContinue(HWACHA_BITE2);
             return PlayState.CONTINUE;
         }
         else if (animState == 0) {
@@ -906,8 +889,23 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         else return PlayState.CONTINUE;
     }
 
-    // Sit animations
-    protected <E extends HwachavenatorEntity> PlayState sitPredicate(final AnimationState<E> event) {
-        return PlayState.CONTINUE;
+    // Sitting animations
+    protected <E extends HwachavenatorEntity> PlayState sitPredicate(AnimationState<E> event) {
+        if (this.isInSittingPose() || (this.getSittingLag() < 7 && this.getSittingLag() > 0)){
+            event.setAndContinue(HWACHA_SIT);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getSittingTime() > 0) {
+            event.setAndContinue(HWACHA_SIT_START);
+            return PlayState.CONTINUE;
+        }
+        else if (this.getStandingTime() > 0) {
+            event.setAndContinue(HWACHA_SIT_END);
+            return PlayState.CONTINUE;
+        }
+        else {
+            event.getController().forceAnimationReset();
+            return PlayState.STOP;
+        }
     }
 }

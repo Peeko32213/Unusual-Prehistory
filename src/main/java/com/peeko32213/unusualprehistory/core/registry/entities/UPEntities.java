@@ -1,7 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry.entities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PalaeophisBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
@@ -23,7 +22,6 @@ import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.UnicornSke
 import com.peeko32213.unusualprehistory.common.entity.projectile.*;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.fml.common.Mod;
@@ -321,7 +319,7 @@ public class UPEntities {
                     .build(modPrefix("palaeophis_hatchling").toString()));
 
     public static final RegistryObject<EntityType<ParaceratheriumEntity>> PARACERATHERIUM = ENTITIES.register("paraceratherium",
-            () -> EntityType.Builder.of(ParaceratheriumEntity::new, MobCategory.CREATURE).sized(4.25F, 7.5F)
+            () -> EntityType.Builder.of(ParaceratheriumEntity::new, MobCategory.CREATURE).sized(3.5F, 6.5F)
                     .build(modPrefix("paraceratherium").toString()));
 
     public static final RegistryObject<EntityType<PsilopterusEntity>> PSILOPTERUS = registerPrehistoricCreatureWithEgg("psilopterus",

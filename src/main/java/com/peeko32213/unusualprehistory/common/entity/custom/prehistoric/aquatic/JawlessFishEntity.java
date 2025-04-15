@@ -16,6 +16,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -25,10 +27,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -109,9 +113,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
 
     public JawlessFishEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public void travel(@NotNull Vec3 travelVector) {
@@ -141,7 +142,7 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1.0, 1, 20, 20, 3));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
     }
 
 //    @Override
@@ -149,9 +150,9 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
 //        return 15;
 //    }
 
-//    protected @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
-//        return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
-//    }
+    public @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
+        return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
+    }
 
     @Override
     public @NotNull ItemStack getBucketItemStack() {

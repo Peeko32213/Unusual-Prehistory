@@ -261,19 +261,19 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         if (this.isFromBook()) {
             return event.setAndContinue(STETHA_SWIM);
         }
-        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            if (this.isRunning()) {
-                event.setAndContinue(STETHA_SWIM);
-                event.getController().setAnimationSpeed(1.6F);
+        if (this.getAnimationState() != 21) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+                if (this.isRunning()) {
+                    event.setAndContinue(STETHA_SWIM);
+                    event.getController().setAnimationSpeed(1.6F);
+                } else {
+                    event.setAndContinue(STETHA_SWIM);
+                    event.getController().setAnimationSpeed(1.0F);
+                }
+                return PlayState.CONTINUE;
+            } else if (this.isInWater()) {
+                event.setAndContinue(STETHA_IDLE);
             }
-            else {
-                event.setAndContinue(STETHA_SWIM);
-                event.getController().setAnimationSpeed(1.0F);
-            }
-            return PlayState.CONTINUE;
-        }
-        else if (this.isInWater()) {
-            event.setAndContinue(STETHA_IDLE);
         }
         else event.setAndContinue(STETHA_FLOP);
         return PlayState.CONTINUE;

@@ -16,8 +16,13 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "Body_SIdeways",
+					"name": "swim_control",
 					"parent": "root",
+					"pivot": [0, 1, 0]
+				},
+				{
+					"name": "Body_SIdeways",
+					"parent": "swim_control",
 					"pivot": [0, 2, 0]
 				},
 				{
@@ -26,9 +31,9 @@
 					"pivot": [0, 2, 0],
 					"cubes": [
 						{"origin": [-2.5, 0, -2.5], "size": [5, 2, 5], "uv": [0, 0]},
-						{"origin": [1.5, 1.5, 1.5], "size": [5, 0, 3], "uv": [0, 12]},
+						{"origin": [1.5, 1.5, 1.5], "size": [5, 0, 3], "inflate": 0.0025, "uv": [0, 12]},
 						{"origin": [-1.5, 1.5, -7.5], "size": [3, 0, 5], "uv": [10, 0]},
-						{"origin": [-6.5, 1.5, 1.5], "size": [5, 0, 3], "uv": [0, 12], "mirror": true}
+						{"origin": [-6.5, 1.5, 1.5], "size": [5, 0, 3], "inflate": 0.0025, "uv": [0, 12], "mirror": true}
 					]
 				},
 				{
@@ -41,7 +46,7 @@
 					"parent": "TailPart",
 					"pivot": [0, 1, 2.5],
 					"cubes": [
-						{"origin": [0, -0.5, 2.5], "size": [0, 3, 9], "uv": [0, 0]}
+						{"origin": [0, -0.5, 2.5], "size": [0, 3, 9], "inflate": 0.0025, "uv": [0, 0]}
 					]
 				}
 			]

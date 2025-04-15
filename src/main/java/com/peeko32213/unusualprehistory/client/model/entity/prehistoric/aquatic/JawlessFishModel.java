@@ -17,14 +17,13 @@
      private static final ResourceLocation MODEL_FURCACAUDA = new ResourceLocation(UnusualPrehistory.MODID, "geo/jawless_fish/furcacauda.geo.json");
      private static final ResourceLocation MODEL_SACAMAMBASPIS = new ResourceLocation(UnusualPrehistory.MODID, "geo/jawless_fish/sacabambaspis.geo.json");
 
-
      private static final ResourceLocation TEXTURE_CEPHALAPIS = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/jawless_fish/cephalaspis.png");
      private static final ResourceLocation TEXTURE_DORYASPIS = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/jawless_fish/doryaspis.png");
      private static final ResourceLocation TEXTURE_FURCACAUDA = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/jawless_fish/furacacauda.png");
      private static final ResourceLocation TEXTURE_SACAMAMBASPIS = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/jawless_fish/sacabambaspis.png");
+
      @Override
-     public ResourceLocation getModelResource(JawlessFishEntity object)
-     {
+     public ResourceLocation getModelResource(JawlessFishEntity object) {
          return switch (object.getVariant()) {
              case 1 -> MODEL_DORYASPIS;
              case 2 -> MODEL_CEPHALAPIS;
@@ -44,18 +43,18 @@
      }
 
      @Override
-     public ResourceLocation getAnimationResource(JawlessFishEntity object)
-     {
+     public ResourceLocation getAnimationResource(JawlessFishEntity object) {
          return new ResourceLocation(UnusualPrehistory.MODID, "animations/jawless_fish.animation.json");
      }
 
      @Override
      public void setCustomAnimations(JawlessFishEntity animatable, long instanceId, AnimationState<JawlessFishEntity> animationState) {
          super.setCustomAnimations(animatable, instanceId, animationState);
+         CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
 
-         CoreGeoBone core = this.getAnimationProcessor().getBone("root");
-         EntityModelData extraData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
+         EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-         core.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
+         swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F))));
+         swimControl.setRotZ(-((entityData.netHeadYaw() * ((float) Math.PI / 180F))/2));
      }
  }

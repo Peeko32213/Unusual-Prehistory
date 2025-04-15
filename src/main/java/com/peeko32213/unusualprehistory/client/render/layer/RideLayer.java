@@ -30,7 +30,7 @@ public class RideLayer<T extends PrehistoricEntity> extends GeoRenderLayer<T> {
     public void renderForBone(PoseStack poseStack, T entity, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer bufferIn, float partialTicks, int packedLight, int packedOverlay) {
         super.renderForBone(poseStack, entity, bone, renderType, bufferSource, bufferIn, partialTicks, packedLight, packedOverlay);
         if(entity instanceof PrehistoricEntity) {
-            if (entity.isVehicle() && bone.getName().equals("Rider")) {
+            if (entity.isVehicle() && (bone.getName().equals("Rider") || bone.getName().equals("rider"))) {
                 for (Entity passenger : entity.getPassengers()) {
                     if (passenger == Minecraft.getInstance().player && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
                         continue;
@@ -43,9 +43,6 @@ public class RideLayer<T extends PrehistoricEntity> extends GeoRenderLayer<T> {
                     poseStack.mulPose(Axis.YP.rotationDegrees(passenger.getYRot()));
                     poseStack.mulPose(Axis.YP.rotationDegrees(180F));
                     poseStack.translate(0, -1F, 0);
-                    ////RenderUtils.translateAndRotateMatrixForBone(poseStack, bone);
-                    ////RenderUtils.rotateMatrixAroundBone(poseStack, bone);
-//
                     renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
 
                     bufferIn = bufferSource.getBuffer(renderType);
@@ -56,22 +53,20 @@ public class RideLayer<T extends PrehistoricEntity> extends GeoRenderLayer<T> {
 
             if (bone.getName().equals("Passenger")) {
                 for (Entity passenger : entity.getPassengers()) {
-                        ClientUtils.releaseRenderingEntity(passenger.getUUID());
-                        poseStack.pushPose();
-                        RenderUtils.translateToPivotPoint(poseStack, bone);
-                        RenderUtils.translateMatrixToBone(poseStack, bone);
-                        rotateMatrixAroundBone(poseStack, bone);
-                        poseStack.mulPose(Axis.YP.rotationDegrees(passenger.getYRot()));
-                        poseStack.mulPose(Axis.YP.rotationDegrees(180F));
-                        poseStack.translate(0, -passenger.getBbHeight(), 0);
-                        ////RenderUtils.translateAndRotateMatrixForBone(poseStack, bone);
-                        ////RenderUtils.rotateMatrixAroundBone(poseStack, bone);
+                    ClientUtils.releaseRenderingEntity(passenger.getUUID());
+                    poseStack.pushPose();
+                    RenderUtils.translateToPivotPoint(poseStack, bone);
+                    RenderUtils.translateMatrixToBone(poseStack, bone);
+                    rotateMatrixAroundBone(poseStack, bone);
+                    poseStack.mulPose(Axis.YP.rotationDegrees(passenger.getYRot()));
+                    poseStack.mulPose(Axis.YP.rotationDegrees(180F));
+                    poseStack.translate(0, -passenger.getBbHeight(), 0);
 
-                        renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
+                    renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferSource, packedLight);
 
-                        bufferIn = bufferSource.getBuffer(renderType);
-                        poseStack.popPose();
-                        ClientUtils.blockRenderingEntity(passenger.getUUID());
+                    bufferIn = bufferSource.getBuffer(renderType);
+                    poseStack.popPose();
+                    ClientUtils.blockRenderingEntity(passenger.getUUID());
                 }
             }
         }

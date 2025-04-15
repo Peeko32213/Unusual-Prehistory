@@ -1,0 +1,182 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 512,
+				"texture_height": 512,
+				"visible_bounds_width": 9,
+				"visible_bounds_height": 9.5,
+				"visible_bounds_offset": [0, 4.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Paraceratherium",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Paracer_Upper_Body",
+					"parent": "Paraceratherium",
+					"pivot": [-0.5, 45, 21.5],
+					"cubes": [
+						{"origin": [-19.5, 45, -36], "size": [39, 54, 38], "uv": [0, 0]},
+						{"origin": [-16.5, 45, 2], "size": [33, 42, 32], "uv": [154, 0]}
+					]
+				},
+				{
+					"name": "Paracer_Back_Moss",
+					"parent": "Paracer_Upper_Body",
+					"pivot": [7.5, 106, -16],
+					"cubes": [
+						{"origin": [-19.5, 45, -36], "size": [39, 54, 38], "inflate": 0.1, "uv": [0, 92]},
+						{"origin": [-16.5, 45, 2], "size": [33, 42, 32], "inflate": 0.1, "uv": [154, 74]}
+					]
+				},
+				{
+					"name": "Paracer_Sprouts",
+					"parent": "Paracer_Back_Moss",
+					"pivot": [10.5, 99, -27],
+					"cubes": [
+						{"origin": [11.5, 99, -34], "size": [0, 9, 17], "pivot": [11.5, 99, -25.5], "rotation": [0, -45, 0], "uv": [39, 288]},
+						{"origin": [11.5, 99, -34], "size": [0, 9, 17], "pivot": [11.5, 99, -25.5], "rotation": [0, 45, 0], "uv": [39, 288]},
+						{"origin": [-11.5, 99, -16], "size": [0, 9, 17], "pivot": [-11.5, 99, -7.5], "rotation": [0, -45, 0], "uv": [39, 288]},
+						{"origin": [8.5, 87, 2], "size": [0, 9, 17], "pivot": [8.5, 87, 10.5], "rotation": [0, -45, 0], "uv": [43, 317]},
+						{"origin": [-11.5, 99, -16], "size": [0, 9, 17], "pivot": [-11.5, 99, -7.5], "rotation": [0, 45, 0], "uv": [39, 288]},
+						{"origin": [8.5, 87, 2], "size": [0, 9, 17], "pivot": [8.5, 87, 10.5], "rotation": [0, 45, 0], "uv": [43, 317]},
+						{"origin": [-0.5, 99, -21], "size": [0, 9, 17], "pivot": [-0.5, 99, -12.5], "rotation": [0, -45, 0], "uv": [43, 317]},
+						{"origin": [-0.5, 99, -21], "size": [0, 9, 17], "pivot": [-0.5, 99, -12.5], "rotation": [0, 45, 0], "uv": [43, 317]},
+						{"origin": [-0.5, 99, -32], "size": [0, 7, 13], "pivot": [-0.5, 99, -25.5], "rotation": [0, -45, 0], "uv": [113, 314]},
+						{"origin": [-0.5, 99, -32], "size": [0, 7, 13], "pivot": [-0.5, 99, -25.5], "rotation": [0, 45, 0], "uv": [113, 314]},
+						{"origin": [-0.5, 99, -9], "size": [0, 7, 13], "pivot": [-0.5, 99, -2.5], "rotation": [0, 45, 0], "uv": [113, 314]},
+						{"origin": [-0.5, 99, -9], "size": [0, 7, 13], "pivot": [-0.5, 99, -2.5], "rotation": [0, -45, 0], "uv": [113, 314]},
+						{"origin": [-0.5, 87, 16], "size": [0, 7, 13], "pivot": [-0.5, 87, 22.5], "rotation": [0, 45, 0], "uv": [113, 314]},
+						{"origin": [-0.5, 87, 16], "size": [0, 7, 13], "pivot": [-0.5, 87, 22.5], "rotation": [0, -45, 0], "uv": [113, 314]},
+						{"origin": [11.5, 99, -16], "size": [0, 9, 17], "pivot": [11.5, 99, -7.5], "rotation": [0, -45, 0], "uv": [39, 302]},
+						{"origin": [11.5, 99, -16], "size": [0, 9, 17], "pivot": [11.5, 99, -7.5], "rotation": [0, 45, 0], "uv": [39, 302]},
+						{"origin": [-8.5, 87, 2], "size": [0, 9, 17], "pivot": [-8.5, 87, 10.5], "rotation": [0, -45, 0], "uv": [39, 302]},
+						{"origin": [-8.5, 87, 2], "size": [0, 9, 17], "pivot": [-8.5, 87, 10.5], "rotation": [0, 45, 0], "uv": [39, 302]},
+						{"origin": [-11.5, 99, -34], "size": [0, 9, 17], "pivot": [-11.5, 99, -25.5], "rotation": [0, -45, 0], "uv": [39, 302]},
+						{"origin": [-11.5, 99, -34], "size": [0, 9, 17], "pivot": [-11.5, 99, -25.5], "rotation": [0, 45, 0], "uv": [39, 302]}
+					]
+				},
+				{
+					"name": "Paracer_Neck",
+					"parent": "Paracer_Upper_Body",
+					"pivot": [-0.5, 80, -36],
+					"cubes": [
+						{"origin": [-6.5, 63, -55], "size": [13, 58, 22], "uv": [154, 148]},
+						{"origin": [-6.5, 63, -55], "size": [13, 58, 22], "inflate": 0.1, "uv": [0, 184]}
+					]
+				},
+				{
+					"name": "Paracer_Head",
+					"parent": "Paracer_Neck",
+					"pivot": [0.5, 113, -49],
+					"cubes": [
+						{"origin": [-4.5, 112, -73], "size": [9, 9, 13], "uv": [0, 264]},
+						{"origin": [-4.5, 105, -73], "size": [9, 7, 4], "uv": [44, 264]},
+						{"origin": [-7.5, 107.01, -60], "size": [15, 14, 17], "uv": [70, 248]},
+						{"origin": [-7.5, 107.01, -60], "size": [15, 14, 17], "inflate": 0.01, "uv": [263, 300]}
+					]
+				},
+				{
+					"name": "Paracer_Ear_Left",
+					"parent": "Paracer_Head",
+					"pivot": [7.5, 121, -49],
+					"cubes": [
+						{"origin": [4.08158, 118.49867, -50], "size": [4, 7, 2], "pivot": [6, 119, -49], "rotation": [0, 0, 35], "uv": [202, 263]}
+					]
+				},
+				{
+					"name": "Paracer_Ear_Right2",
+					"parent": "Paracer_Head",
+					"pivot": [-7.5, 121, -49],
+					"cubes": [
+						{"origin": [-8.08158, 118.49867, -50], "size": [4, 7, 2], "pivot": [-6, 119, -49], "rotation": [0, 0, -35], "uv": [202, 263], "mirror": true}
+					]
+				},
+				{
+					"name": "Paracer_Mouth",
+					"parent": "Paracer_Head",
+					"pivot": [0, 112, -60],
+					"cubes": [
+						{"origin": [-4.5, 107, -69], "size": [9, 5, 9], "uv": [202, 276]}
+					]
+				},
+				{
+					"name": "Paracer_Arm_Left",
+					"parent": "Paracer_Upper_Body",
+					"pivot": [11, 45, -17.5],
+					"cubes": [
+						{"origin": [2.5, 0, -28], "size": [3, 5, 3], "uv": [44, 275]},
+						{"origin": [11.5, 0, -28], "size": [4, 7, 3], "uv": [138, 207]},
+						{"origin": [6.5, 0, -28], "size": [4, 7, 3], "uv": [138, 207]},
+						{"origin": [16.5, 0, -28], "size": [3, 5, 3], "uv": [56, 275]},
+						{"origin": [3.5, 0.01, -27], "size": [15, 45, 19], "uv": [70, 184]},
+						{"origin": [3.5, 0.01, -27], "size": [15, 45, 19], "inflate": 0.1, "uv": [224, 148]}
+					]
+				},
+				{
+					"name": "Paracer_Arm_Right",
+					"parent": "Paracer_Upper_Body",
+					"pivot": [-11, 45, -17.5],
+					"cubes": [
+						{"origin": [-5.5, 0, -28], "size": [3, 5, 3], "uv": [44, 275], "mirror": true},
+						{"origin": [-15.5, 0, -28], "size": [4, 7, 3], "uv": [138, 207], "mirror": true},
+						{"origin": [-10.5, 0, -28], "size": [4, 7, 3], "uv": [138, 207], "mirror": true},
+						{"origin": [-19.5, 0, -28], "size": [3, 5, 3], "uv": [56, 275], "mirror": true},
+						{"origin": [-18.5, 0.01, -27], "size": [15, 45, 19], "uv": [70, 184], "mirror": true},
+						{"origin": [-18.5, 0.01, -27], "size": [15, 45, 19], "inflate": 0.1, "uv": [224, 148], "mirror": true}
+					]
+				},
+				{
+					"name": "Paracer_Tail",
+					"parent": "Paracer_Upper_Body",
+					"pivot": [-0.5, 77, 34],
+					"rotation": [10, 0, 0],
+					"cubes": [
+						{"origin": [-2.5, 52, 33], "size": [5, 10, 5], "uv": [202, 228]},
+						{"origin": [-1.5, 59, 34], "size": [3, 20, 3], "uv": [138, 184]}
+					]
+				},
+				{
+					"name": "Paracer_Leg_Left",
+					"parent": "Paraceratherium",
+					"pivot": [9, 45, 21.5],
+					"cubes": [
+						{"origin": [2.5, 0, 12], "size": [13, 45, 19], "uv": [224, 212]},
+						{"origin": [2.5, 0, 12], "size": [13, 45, 19], "inflate": 0.1, "uv": [138, 228]},
+						{"origin": [13.5, 0, 11], "size": [3, 5, 3], "uv": [56, 275]},
+						{"origin": [9.5, 0, 11], "size": [3, 7, 3], "uv": [202, 243]},
+						{"origin": [1.5, 0, 11], "size": [3, 5, 3], "uv": [44, 275]},
+						{"origin": [5.5, 0, 11], "size": [3, 7, 3], "uv": [202, 243]}
+					]
+				},
+				{
+					"name": "Paracer_Leg_Right",
+					"parent": "Paraceratherium",
+					"pivot": [-9, 45, 21.5],
+					"cubes": [
+						{"origin": [-15.5, 0, 12], "size": [13, 45, 19], "uv": [224, 212], "mirror": true},
+						{"origin": [-15.5, 0, 12], "size": [13, 45, 19], "inflate": 0.1, "uv": [138, 228], "mirror": true},
+						{"origin": [-16.5, 0, 11], "size": [3, 5, 3], "uv": [56, 275], "mirror": true},
+						{"origin": [-12.5, 0, 11], "size": [3, 7, 3], "uv": [202, 243], "mirror": true},
+						{"origin": [-4.5, 0, 11], "size": [3, 5, 3], "uv": [44, 275], "mirror": true},
+						{"origin": [-8.5, 0, 11], "size": [3, 7, 3], "uv": [202, 243], "mirror": true}
+					]
+				},
+				{
+					"name": "Paracer_Upper_Body2",
+					"parent": "Paraceratherium",
+					"pivot": [0.5, 45, 21.5]
+				},
+				{
+					"name": "Paracer_Back_Moss2",
+					"parent": "Paracer_Upper_Body2",
+					"pivot": [-7.5, 106, -16]
+				}
+			]
+		}
+	]
+}

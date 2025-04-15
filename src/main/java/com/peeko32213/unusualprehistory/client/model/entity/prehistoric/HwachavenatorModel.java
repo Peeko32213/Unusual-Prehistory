@@ -66,8 +66,8 @@ public class HwachavenatorModel extends GeoModel<HwachavenatorEntity> {
         if (animationState == null) return;
 
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone neck = this.getAnimationProcessor().getBone("Hwacha_Neck");
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Hwacha_Head");
+        CoreGeoBone neck = this.getAnimationProcessor().getBone("neck");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (animatable.isBaby()) {
             head.setScaleX(1.5F);

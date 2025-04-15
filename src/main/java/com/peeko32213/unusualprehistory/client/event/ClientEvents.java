@@ -88,10 +88,10 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.ESTEMMENOSUCHUS.get(), e -> new PrehistoricRenderer<>(e, new EstemmenosuchusModel()));
         event.registerEntityRenderer(UPEntities.HYNERIA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new HyneriaModel()));
         event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new AgeableMobRenderer<>(e, new HynerpetonModel()));
-        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new JawlessFishModel()));
+        event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new PrehistoricAquaticRenderer<>(e, new JawlessFishModel()));
         event.registerEntityRenderer(UPEntities.PTERYGOTUS.get(), e -> new AgeableMobRenderer<>(e, new PterygotusModel()));
         event.registerEntityRenderer(UPEntities.SCAU.get(), e -> new LivingEntityFishRenderer<>(e, new ScaumenaciaModel()));
-        event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), StethacanthusRenderer::new);
+        event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new PrehistoricAquaticRenderer<>(e, new StethacanthusModel()));
         event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.TARTUOSTEUS)));
 
         // Meso mobs
@@ -114,7 +114,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.MAJUNGA.get(), e -> new AgeableMobRenderer<>(e, new MajungasaurusModel()));
         event.registerEntityRenderer(UPEntities.OVIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new OviraptorModel()));
         event.registerEntityRenderer(UPEntities.PACHY.get(), e -> new AgeableMobRenderer<>(e, new PachycephalosaurusModel()));
-        event.registerEntityRenderer(UPEntities.PANACANTHOCARIS.get(), PanacanthocarisRenderer::new);
+        event.registerEntityRenderer(UPEntities.PANACANTHOCARIS.get(), e -> new PrehistoricAquaticRenderer<>(e, new PanacanthocarisModel()));
         event.registerEntityRenderer(UPEntities.PROTOSPHYRAENA.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new ProtosphyraenaModel()));
         event.registerEntityRenderer(UPEntities.PSITTACO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PsittacosaurusModel()));
         event.registerEntityRenderer(UPEntities.PTERODAUSTRO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.PTERODAUSTRO)));
@@ -123,7 +123,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.TYRANNOSAURUS.get(), e -> new PrehistoricRenderer<>(e, new TyrannosaurusModel()));
         event.registerEntityRenderer(UPEntities.ULUG.get(), e -> new PrehistoricRenderer<>(e, new UlughbegsaurusModel()));
         event.registerEntityRenderer(UPEntities.VELOCIRAPTOR.get(), e -> new PrehistoricRenderer<>(e, new VelociraptorModel()));
-        event.registerEntityRenderer(UPEntities.XIPH.get(), XiphactinusRenderer::new);
+        event.registerEntityRenderer(UPEntities.XIPH.get(), e -> new PrehistoricAquaticRenderer<>(e, new XiphactinusModel()));
 
         // Ceno mobs
         event.registerEntityRenderer(UPEntities.BARINASUCHUS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.BARINASUCHUS, true)));

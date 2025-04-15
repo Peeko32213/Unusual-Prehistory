@@ -17,7 +17,7 @@ public class StethacanthusAttackGoal extends Goal {
     protected final StethacanthusEntity stethacanthus;
     private int animTime = 0;
 
-    Vec3 biteOffSet = new Vec3(0, 0.3, 0.5);
+    Vec3 biteOffSet = new Vec3(0, 0.3, 0.65);
 
     public StethacanthusAttackGoal(StethacanthusEntity pMob) {
         this.stethacanthus = pMob;
@@ -49,7 +49,7 @@ public class StethacanthusAttackGoal extends Goal {
 
             if (animState == 21) {
                 tickBiteAttack();
-                this.stethacanthus.getNavigation().moveTo(target, 1.4D);
+                this.stethacanthus.getNavigation().moveTo(target, 0.75D);
             } else {
                 this.stethacanthus.getNavigation().moveTo(target, 1.4D);
                 this.checkForCloseRangeAttack(distance);
@@ -58,7 +58,7 @@ public class StethacanthusAttackGoal extends Goal {
     }
 
     protected void checkForCloseRangeAttack (double distance){
-        if (distance <= 11) {
+        if (distance <= 4) {
             stethacanthus.setAnimationState(21);
         }
     }

@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
-
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.ParaceratheriumEntity;
 import net.minecraft.client.renderer.RenderType;
@@ -12,25 +11,20 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-
-public class ParaceratheriumModel extends GeoModel<ParaceratheriumEntity>
-{
+public class ParaceratheriumModel extends GeoModel<ParaceratheriumEntity> {
     @Override
-    public ResourceLocation getModelResource(ParaceratheriumEntity paraceratherium)
-    {
-        return new ResourceLocation(UnusualPrehistory.MODID, "geo/paraceratherium/paraceratherium.geo.json");
+    public ResourceLocation getModelResource(ParaceratheriumEntity paraceratherium) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "geo/paraceratherium.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(ParaceratheriumEntity paraceratherium)
-    {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/paraceratherium/paraceratherium.png");
+    public ResourceLocation getTextureResource(ParaceratheriumEntity paraceratherium) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/paraceratherium.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(ParaceratheriumEntity paraceratherium)
-    {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/paraceratherium/paraceratherium.animation.json");
+    public ResourceLocation getAnimationResource(ParaceratheriumEntity paraceratherium) {
+        return new ResourceLocation(UnusualPrehistory.MODID, "animations/paraceratherium.animation.json");
     }
 
     public RenderType getRenderType(ParaceratheriumEntity animatable, ResourceLocation texture) {
@@ -42,7 +36,7 @@ public class ParaceratheriumModel extends GeoModel<ParaceratheriumEntity>
         super.setCustomAnimations(animatable, instanceId, animationState);
         if (animationState == null) return;
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("Paracer_Neck");
         if (animatable.isBaby()) {
             head.setScaleX(1.5F);
             head.setScaleY(1.5F);
@@ -56,6 +50,5 @@ public class ParaceratheriumModel extends GeoModel<ParaceratheriumEntity>
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
     }
-
 }
 
