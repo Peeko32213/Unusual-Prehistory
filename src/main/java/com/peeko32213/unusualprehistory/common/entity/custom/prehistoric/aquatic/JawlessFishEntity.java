@@ -19,9 +19,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -58,31 +56,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     private static final RawAnimation JAWLESS_FISH_SWIM = RawAnimation.begin().thenLoop("animation.jawless_fish.swim");
     private static final RawAnimation JAWLESS_FISH_FLOP = RawAnimation.begin().thenLoop("animation.jawless_fish.flop");
 
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-    }
-
-    // Animation control
-    protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            return event.setAndContinue(JAWLESS_FISH_SWIM);
-        }
-
-        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
-            event.setAndContinue(JAWLESS_FISH_SWIM);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-        else if (!this.isInWater()) {
-            event.setAndContinue(JAWLESS_FISH_FLOP);
-            event.getController().setAnimationSpeed(1.0F);
-            return PlayState.CONTINUE;
-        }
-        return PlayState.CONTINUE;
-    }
-
     // States
     @Override
     public ImmutableMap<String, StateHelper> getStates() {
@@ -93,15 +66,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
         return List.of();
     }
-
-    // Actions
-    @Override
-    public boolean getAction() {
-        return false;
-    }
-
-    @Override
-    public void setAction(boolean action) {}
 
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
@@ -115,34 +79,47 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         super(entityType, level);
     }
 
-    public void travel(@NotNull Vec3 travelVector) {
-        super.travel(travelVector);
-    }
-
-    protected @NotNull PathNavigation createNavigation(@NotNull Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
-    }
-
-    @Override
-    public void aiStep() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-        }
-        super.aiStep();
-    }
-
     // Attributes
     public static AttributeSupplier.@NotNull Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.5F);
     }
 
     // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+    }
+
+    // Flop
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F, 0.4F, (this.random.nextFloat() * 2.0F - 1.0F) * 0.05F));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
+        }
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), pTravelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+            }
+        } else {
+            super.travel(pTravelVector);
+        }
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+        return pSize.height * 0.4F;
     }
 
 //    @Override
@@ -254,5 +231,30 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         else {
             this.setVariant(0);
         }
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
+    }
+
+    // Animation control
+    protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+
+        if (this.isFromBook()) {
+            return event.setAndContinue(JAWLESS_FISH_SWIM);
+        }
+
+        if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+            event.setAndContinue(JAWLESS_FISH_SWIM);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        else if (!this.isInWater()) {
+            event.setAndContinue(JAWLESS_FISH_FLOP);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        return PlayState.CONTINUE;
     }
 }

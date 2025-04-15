@@ -106,11 +106,6 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return pSize.height * 0.55F;
     }
 
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
     public void travel(Vec3 pTravelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), pTravelVector);

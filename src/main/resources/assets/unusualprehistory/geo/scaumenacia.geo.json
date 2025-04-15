@@ -12,7 +12,17 @@
 			},
 			"bones": [
 				{
+					"name": "root",
+					"pivot": [-0.5, 0, 0]
+				},
+				{
+					"name": "swim_control",
+					"parent": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "Scaumenacia",
+					"parent": "swim_control",
 					"pivot": [-0.5, 0, 0],
 					"cubes": [
 						{"origin": [-1.5, 0, -6], "size": [3, 3, 2], "uv": [26, 22]},

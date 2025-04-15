@@ -240,7 +240,7 @@ public class UPItems {
     public static final RegistryObject<Item> STETHA_SPAWN_EGG = spawnEgg("stethacanthus", UPEntities.STETHACANTHUS , 0x853028, 0xffc400);
     public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = spawnEgg("talpanas", UPEntities.TALPANAS , 0x30241a, 0xb2dee0);
     public static final RegistryObject<Item> TANY_SPAWN_EGG = spawnEgg("tanystropheus", UPEntities.TANY , 0x08090d, 0xf2f6f8);
-    public static final RegistryObject<Item> TARTUOSTEUS_SPAWN_EGG = spawnEgg("tartuosteus", UPEntities.TARTUOSTEUS , 0x12352f, 0x73a658);
+    public static final RegistryObject<Item> TARTUOSTEUS_SPAWN_EGG = spawnEgg("tartuosteus", UPEntities.TARTUOSTEUS , 0x508b38, 0x852525);
     public static final RegistryObject<Item> TELECREX_SPAWN_EGG = spawnEgg("telecrex", UPEntities.TELECREX , 0x221d37, 0x770f38);
     public static final RegistryObject<Item> TRICERATOPS_SPAWN_EGG = spawnEgg("triceratops", UPEntities.TRICERATOPS, 0x45452a, 0x9c2f2f);
     public static final RegistryObject<Item> TYRANNOSAURUS_SPAWN_EGG = spawnEgg("tyrannosaurus", UPEntities.TYRANNOSAURUS, 0x3e2025, 0xa23a47);

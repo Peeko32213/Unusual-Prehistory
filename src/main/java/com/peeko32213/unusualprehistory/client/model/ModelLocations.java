@@ -17,7 +17,6 @@ public class ModelLocations {
     public static ModelData HWACHA_SPIKE = ModelLocationBuilder.create("pin").build();
     public static ModelData SLUDGE = ModelLocationBuilder.create("sludge").build();
     public static ModelData TALPANAS = ModelLocationBuilder.create("talpanas").build();
-    public static ModelData TARTUOSTEUS = ModelLocationBuilder.create("tartuosteus").build();
     public static ModelData ANTARCTOPELTA = ModelLocationBuilder.create("antarctopelta").build();
     public static ModelData AUSTRORAPTOR = ModelLocationBuilder.create("austroraptor").build();
     public static ModelData ERYON = ModelLocationBuilder.create("eryon").build();

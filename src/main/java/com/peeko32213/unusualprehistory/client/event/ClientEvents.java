@@ -90,9 +90,9 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.HYNERPETON.get(), e -> new AgeableMobRenderer<>(e, new HynerpetonModel()));
         event.registerEntityRenderer(UPEntities.JAWLESS_FISH.get(), e -> new PrehistoricAquaticRenderer<>(e, new JawlessFishModel()));
         event.registerEntityRenderer(UPEntities.PTERYGOTUS.get(), e -> new AgeableMobRenderer<>(e, new PterygotusModel()));
-        event.registerEntityRenderer(UPEntities.SCAU.get(), e -> new LivingEntityFishRenderer<>(e, new ScaumenaciaModel()));
+        event.registerEntityRenderer(UPEntities.SCAU.get(), e -> new PrehistoricAquaticRenderer<>(e, new ScaumenaciaModel()));
         event.registerEntityRenderer(UPEntities.STETHACANTHUS.get(), e -> new PrehistoricAquaticRenderer<>(e, new StethacanthusModel()));
-        event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.TARTUOSTEUS)));
+        event.registerEntityRenderer(UPEntities.TARTUOSTEUS.get(), e -> new PrehistoricAquaticRenderer<>(e, new TartuosteusModel()));
 
         // Meso mobs
         event.registerEntityRenderer(UPEntities.ANTARCO.get(), e -> new AgeableMobRenderer<>(e, new DefaultModel<>(ModelLocations.ANTARCTOPELTA)));

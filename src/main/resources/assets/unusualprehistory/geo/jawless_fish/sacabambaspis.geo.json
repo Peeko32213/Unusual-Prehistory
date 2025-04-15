@@ -18,17 +18,17 @@
 				{
 					"name": "swim_control",
 					"parent": "root",
-					"pivot": [0, 1.5, -2]
+					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "Body_Sideways",
 					"parent": "swim_control",
-					"pivot": [0, 2, -3]
+					"pivot": [0, 1.5, -2]
 				},
 				{
 					"name": "Body",
 					"parent": "Body_Sideways",
-					"pivot": [0, 2, -3],
+					"pivot": [0, 1.5, -2],
 					"cubes": [
 						{"origin": [-2.5, 0, -4], "size": [5, 3, 4], "uv": [0, 0]}
 					]

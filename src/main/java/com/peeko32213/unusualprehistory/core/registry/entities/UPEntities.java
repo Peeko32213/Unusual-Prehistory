@@ -114,7 +114,7 @@ public class UPEntities {
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0x140f0e, 0xc8b523);
 
     public static final RegistryObject<EntityType<JawlessFishEntity>> JAWLESS_FISH = ENTITIES.register("jawless_fish",
-            () -> EntityType.Builder.of(JawlessFishEntity::new, MobCategory.WATER_AMBIENT).sized(0.6f, 0.6f)
+            () -> EntityType.Builder.of(JawlessFishEntity::new, MobCategory.WATER_AMBIENT).sized(0.35f, 0.35f)
                     .build(modPrefix("jawless_fish").toString()));
 
     public static final RegistryObject<EntityType<PanacanthocarisEntity>> PANACANTHOCARIS = ENTITIES.register("panacanthocaris",
@@ -134,7 +134,7 @@ public class UPEntities {
                     .build(modPrefix("stethacanthus").toString()));
 
     public static final RegistryObject<EntityType<TartuosteusEntity>> TARTUOSTEUS = ENTITIES.register("tartuosteus",
-            () -> EntityType.Builder.of(TartuosteusEntity::new, MobCategory.WATER_CREATURE).sized(2.0f, 0.8f)
+            () -> EntityType.Builder.of(TartuosteusEntity::new, MobCategory.WATER_CREATURE).sized(1.5f, 0.75f)
                     .build(modPrefix("tartuosteus").toString()));
 
     // Meso mobs

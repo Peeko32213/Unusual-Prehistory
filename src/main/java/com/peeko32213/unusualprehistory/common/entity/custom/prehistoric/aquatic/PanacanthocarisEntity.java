@@ -90,11 +90,6 @@ public class PanacanthocarisEntity extends PrehistoricAquaticEntity implements B
         this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1.0D, 50, 4, 8, 0.01));
     }
 
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
     public void travel(Vec3 pTravelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), pTravelVector);
