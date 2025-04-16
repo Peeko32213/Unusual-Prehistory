@@ -1,0 +1,9 @@
+{
+  "type": "unusualprehistory:fossil_skeleton",
+  "config": {
+    "structures": [
+      "unusualprehistory:fossil_skeleton"
+    ],
+    "sink_by": -2
+  }
+}

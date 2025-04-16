@@ -76,7 +76,7 @@
 
      protected void registerGoals() {
          this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-         this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1.0D, 75, 12, 12, 0.05));
+         this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1.0D, 75, 12, 12, 0.01));
      }
 
      // Flop

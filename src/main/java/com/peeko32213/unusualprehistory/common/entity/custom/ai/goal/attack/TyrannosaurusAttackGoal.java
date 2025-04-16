@@ -2,7 +2,6 @@ package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.helper.HitboxAttacks;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -48,13 +47,14 @@ public class TyrannosaurusAttackGoal extends Goal {
         tyrannosaurus.setTackling(false);
         tyrannosaurus.setStomping(false);
         tyrannosaurus.setSwiping(false);
-//        tyrannosaurus.setAnimationState(0);
+        tyrannosaurus.setAnimationState(0);
     }
 
     public void tick() {
         LivingEntity target = tyrannosaurus.getTarget();
         if (target != null) {
-            tyrannosaurus.lookAt(EntityAnchorArgument.Anchor.EYES, target.getEyePosition());
+            tyrannosaurus.lookAt(tyrannosaurus.getTarget(), 30F, 30F);
+            tyrannosaurus.getLookControl().setLookAt(tyrannosaurus.getTarget(), 30F, 30F);
             double distance = tyrannosaurus.distanceToSqr(target.getX(), target.getY(), target.getZ());
             int animState = tyrannosaurus.getAnimationState();
 
@@ -119,6 +119,7 @@ public class TyrannosaurusAttackGoal extends Goal {
 
     protected void tickBiteAttack () {
         animTime++;
+
         if (animTime == 11) {
             HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.biteOffSet, 0.7, 0.8, 0.7, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (tyrannosaurus.damageSources().mobAttack(tyrannosaurus)), 0.75F, false, true, false);
         }
@@ -130,7 +131,8 @@ public class TyrannosaurusAttackGoal extends Goal {
 
     protected void tickStompAttack () {
         animTime++;
-        tyrannosaurus.getNavigation().stop();
+        tyrannosaurus.setDeltaMovement(0, tyrannosaurus.getDeltaMovement().y, 0);
+
         tyrannosaurus.setStomping(true);
         if (animTime == 18) {
             HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.stompOffset, 3.4, -0.1, 3.4, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.2F, (tyrannosaurus.damageSources().mobAttack(tyrannosaurus)), 2.25F, true, false, false);
@@ -144,7 +146,8 @@ public class TyrannosaurusAttackGoal extends Goal {
 
     protected void tickTailSwipeAttack () {
         animTime++;
-        tyrannosaurus.getNavigation().stop();
+        tyrannosaurus.setDeltaMovement(0, tyrannosaurus.getDeltaMovement().y, 0);
+
         tyrannosaurus.setSwiping(true);
         if (animTime == 11) {
             HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.swipeOffset, 1.6, 0.8, 1.6, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (tyrannosaurus.damageSources().mobAttack(tyrannosaurus)), 2.5F, true, true, false);
@@ -158,10 +161,9 @@ public class TyrannosaurusAttackGoal extends Goal {
 
     protected void tickTackleAttack () {
         tackleTime++;
-        tyrannosaurus.getNavigation().stop();
+        tyrannosaurus.setDeltaMovement(0, tyrannosaurus.getDeltaMovement().y, 0);
 
         Entity target = tyrannosaurus.getTarget();
-        tyrannosaurus.lookAt(target, 360, 30);
         tyrannosaurus.yBodyRot = tyrannosaurus.getYRot();
 
         double distance = tyrannosaurus.distanceToSqr(target.getX(), target.getY(), target.getZ());

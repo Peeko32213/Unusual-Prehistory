@@ -48,6 +48,13 @@ public class TelecrexModel extends GeoModel<TelecrexEntity> {
         if (!animatable.isSprinting() && !animatable.isFlying()) {
             head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
         }
+
+        if (animatable.isFlying()) {
+            CoreGeoBone flightControl = this.getAnimationProcessor().getBone("flight_control");
+
+            flightControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F))));
+            flightControl.setRotZ(-((entityData.netHeadYaw() * ((float) Math.PI / 180F)) / 2));
+        }
     }
 
 }

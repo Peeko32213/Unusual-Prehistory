@@ -1,7 +1,9 @@
 package com.peeko32213.unusualprehistory.core.registry.world;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.world.feature.FossilSkeletonFeature;
 import com.peeko32213.unusualprehistory.common.world.feature.IceFossilFeature;
+import com.peeko32213.unusualprehistory.common.world.feature.configs.FossilSkeletonConfig;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.PetrifiedTreeFeature;
 import com.peeko32213.unusualprehistory.common.world.feature.TarPitFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -19,6 +21,8 @@ public class UPFeatures {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> PETRIFIED_WOOD_FOREST = FEATURES.register(PETRIFIED_WOOD_FOREST_FEATURE_NAME, () -> new PetrifiedTreeFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> TAR_PIT = FEATURES.register(TAR_PIT_FEATURE_NAME, () -> new TarPitFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> ICE_FOSSIL_ICEBERG = FEATURES.register(ICE_FOSSIL_ICEBERG_NAME, () -> new IceFossilFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final RegistryObject<Feature<FossilSkeletonConfig>> FOSSIL_SKELETON = FEATURES.register("fossil_skeleton", () -> new FossilSkeletonFeature(FossilSkeletonConfig.CODEC));
 
 }
 

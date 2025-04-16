@@ -16,8 +16,13 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "body_main",
+					"name": "flight_control",
 					"parent": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "body_main",
+					"parent": "flight_control",
 					"pivot": [0, 8.5, 0]
 				},
 				{

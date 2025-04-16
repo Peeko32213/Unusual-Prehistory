@@ -131,7 +131,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.MAMMOTH.get(), e -> new AgeableMobRenderer<>(e, new MammothModel()));
         event.registerEntityRenderer(UPEntities.MEGALANIA.get(), e -> new AgeableMobRenderer<>(e, new MegalaniaModel()));
         event.registerEntityRenderer(UPEntities.MEGATHERIUM.get(), e -> new PrehistoricRenderer<>(e, new MegatheriumModel()));
-        event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OphiodonModel()));
+        event.registerEntityRenderer(UPEntities.OPHIODON.get(), e -> new PrehistoricAquaticRenderer<>(e, new OphiodonModel()));
         event.registerEntityRenderer(UPEntities.OTAROCYON.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new OtarocyonModel()));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisModel()));
         event.registerEntityRenderer(UPEntities.PALAEOPHIS_PART.get(), PalaeophisPartRender::new);

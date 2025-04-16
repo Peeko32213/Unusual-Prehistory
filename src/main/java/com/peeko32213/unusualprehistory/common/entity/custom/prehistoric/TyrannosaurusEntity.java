@@ -70,7 +70,7 @@ import java.util.function.Predicate;
 
 public class TyrannosaurusEntity extends PrehistoricEntity implements ICustomFollower {
 
-    public IKSolver rexIK;
+//    public IKSolver rexIK;
     private static final EntityDataAccessor<Boolean> TACKLING = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> STOMPING = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SWIPING = SynchedEntityData.defineId(TyrannosaurusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -203,7 +203,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements ICustomFol
         super(entityType, level);
         this.setMaxUpStep(1.25F);
 
-        this.rexIK = new IKSolver(this, 3, 3);
+//        this.rexIK = new IKSolver(this, 3, 3);
     }
 
     // Attributes
@@ -272,7 +272,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements ICustomFol
             }
             return InteractionResult.SUCCESS;
         }
-        if (isTame() && isOwnedBy(player) && player.getStringUUID().equals("97399daf-aecd-45c9-a6f2-c18e9c9b18a2")) {
+        if (isTame() && isOwnedBy(player) /*&& player.getStringUUID().equals("97399daf-aecd-45c9-a6f2-c18e9c9b18a2")*/) {
             if (!this.level().isClientSide && this.isTame() && this.isOwnedBy(player) && this.getStandingTime()==0 && this.getSittingTime()==0) {
                 if (!player.isShiftKeyDown() && !this.isBaby() && !this.isInSittingPose() &&
                         this.getStandingTime() == 0 && this.getSittingTime() == 0 && !this.isInWater()) {
@@ -504,8 +504,8 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements ICustomFol
 //            }
 //        }
 //        shakeCooldown--;
-        this.rexIK.calculateTailAngles(this);
-        this.rexIK.visualizeNodes(this.level());
+//        this.rexIK.calculateTailAngles(this);
+//        this.rexIK.visualizeNodes(this.level());
 
         if (isRunning() && !hasRunningAttributes) {
             hasRunningAttributes = true;
