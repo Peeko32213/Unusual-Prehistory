@@ -167,7 +167,7 @@ public class ServerEvents {
                 if(tag == null || !tag.contains("megalania_damage")) return;;
                 int count = tag.getInt("megalania_damage");
                 float amount = event.getAmount();
-                amount *= 0.75;
+                amount *= 0.75F;
                 int hpReduction = 0;
 
                 if(entity.hasEffect(UPEffects.HEALTH_REDUCTION.get())){

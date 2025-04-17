@@ -11,56 +11,55 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
+    private static final ResourceLocation REX = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
+    private static final ResourceLocation REX_ENRAGED = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_enraged.png");
+    private static final ResourceLocation REX_EEPY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_eepy.png");
+
+    private static final ResourceLocation MCRAEENSIS = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
+    private static final ResourceLocation MCRAEENSIS_ENRAGED = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis_enraged.png");
+    private static final ResourceLocation MCRAEENSIS_EEPY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis_eepy.png");
+
+    private static final ResourceLocation SKELETON = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
+    private static final ResourceLocation SKELETON_ENRAGED = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton_enraged.png");
+    private static final ResourceLocation SKELETON_EEPY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton_eepy.png");
+
+    private static final ResourceLocation MODEL_REX = new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
+    private static final ResourceLocation MODEL_MCRAEENSIS = new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
+    private static final ResourceLocation MODEL_SKELETON = new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
+
+
+    private static final ResourceLocation ANIM_REX = new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_rex.animation.json");
+    private static final ResourceLocation ANIM_MCRAEENSIS = new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_mcraeensis.animation.json");
+
 
     @Override
     public ResourceLocation getModelResource(TyrannosaurusEntity tyranno) {
-        if (!tyranno.isSkeletal()) {
-            if (tyranno.getVariant() == 1) {
-                return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
-            }
-            else return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
+        if (tyranno.isSkeletal()) {
+            return MODEL_SKELETON;
         }
-        else return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
-    }
-
-    @Override
-    public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
-        if (!tyranno.isEepy()) {
-            if (!tyranno.isAngry()) {
-                if (!tyranno.isSkeletal()) {
-                    if (tyranno.getVariant() == 1) {
-                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
-                    } else
-                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
-                }
-                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
-            } else {
-                if (!tyranno.isSkeletal()) {
-                    if (tyranno.getVariant() == 1) {
-                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis_enraged.png");
-                    } else
-                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_enraged.png");
-                }
-                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton_enraged.png");
-            }
-        }
-        else {
-            if (!tyranno.isSkeletal()) {
-                if (tyranno.getVariant() == 1) {
-                    return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis_eepy.png");
-                } else
-                    return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_eepy.png");
-            }
-            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton_eepy.png");
-        }
+        return tyranno.getVariant() == 1 ? MODEL_MCRAEENSIS : MODEL_REX;
     }
 
     @Override
     public ResourceLocation getAnimationResource(TyrannosaurusEntity tyranno) {
-        if (tyranno.getVariant() == 1) {
-            return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_mcraeensis.animation.json");
+        return tyranno.getVariant() == 1 ? ANIM_MCRAEENSIS : ANIM_REX;
+    }
+
+
+
+    @Override
+    public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
+        if (tyranno.isSkeletal()) {
+            if (tyranno.isEepy()) return SKELETON_EEPY;
+            if (tyranno.isAngry()) return SKELETON_ENRAGED;
+            return SKELETON;
         }
-        else return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_rex.animation.json");
+
+        boolean isMcraeensis = tyranno.getVariant() == 1;
+
+        if (tyranno.isEepy()) return isMcraeensis ? MCRAEENSIS_EEPY : REX_EEPY;
+        if (tyranno.isAngry()) return isMcraeensis ? MCRAEENSIS_ENRAGED : REX_ENRAGED;
+        return isMcraeensis ? MCRAEENSIS : REX;
     }
 
     @Override

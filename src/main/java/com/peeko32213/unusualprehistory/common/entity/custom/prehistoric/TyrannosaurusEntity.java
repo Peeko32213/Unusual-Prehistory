@@ -276,7 +276,7 @@ public class TyrannosaurusEntity extends PrehistoricEntity implements ICustomFol
                 if (player.getStringUUID().equals("97399daf-aecd-45c9-a6f2-c18e9c9b18a2")) {
                     this.tame(player);
                 }
-                player.displayClientMessage(Component.translatable("entity.tyrannosaurus.revive.message" + this.getDisplayName().getString()).withStyle(ChatFormatting.GOLD), true);
+                player.displayClientMessage(Component.translatable("entity.tyrannosaurus.revive.message" , this.getDisplayName().getString()).withStyle(ChatFormatting.GOLD), true);
             }
             return InteractionResult.SUCCESS;
         }

@@ -13,8 +13,10 @@ import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEn
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.common.entity.util.ranged.CustomAbstractRangedAttack;
+import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
+import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -23,6 +25,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -35,7 +38,10 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FrostedIceBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -188,6 +194,33 @@ public class EncrustedEntity extends PrehistoricMonsterEntity implements IVarian
         }
         super.customServerAiStep();
     }
+
+
+    //@Override
+    //protected void onChangedBlock(BlockPos pPos) {
+    //    if (this.onGround()) {
+    //        BlockState blockstate = UPBlocks.AMBER_BLOCK.get().defaultBlockState();
+    //        int i = 7;
+    //        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+//
+    //        for(BlockPos blockpos : BlockPos.betweenClosed(pPos.offset(-i, -1, -i), pPos.offset(i, -1, i))) {
+    //            if (blockpos.closerToCenterThan(this.position(), (double)i)) {
+    //                blockpos$mutableblockpos.set(blockpos.getX(), blockpos.getY() + 1, blockpos.getZ());
+    //                BlockState blockstate1 = this.level().getBlockState(blockpos$mutableblockpos);
+    //                if (blockstate1.isAir()) {
+    //                    BlockState blockstate2 = this.level().getBlockState(blockpos);
+    //                    if (blockstate2 == Blocks.WATER.defaultBlockState() && blockstate.canSurvive(this.level(), blockpos) && this.level().isUnobstructed(blockstate, blockpos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(this, net.minecraftforge.common.util.BlockSnapshot.create(this.level().dimension(), this.level(), blockpos), net.minecraft.core.Direction.UP)) {
+    //                        this.level().setBlockAndUpdate(blockpos, blockstate);
+    //                        this.level().scheduleTick(blockpos, UPBlocks.AMBER_BLOCK.get(), Mth.nextInt(this.level().getRandom(), 60, 120));
+    //                    }
+    //                }
+    //            }
+    //        }
+//
+    //    }
+//
+    //    super.onChangedBlock(pPos);
+    //}
 
     // Sounds
     protected SoundEvent getAmbientSound() {
