@@ -6,6 +6,7 @@ import com.peeko32213.unusualprehistory.client.render.layer.RideLayer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.OviraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.PanacanthocarisEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.ScaumenaciaEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.StethacanthusEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -41,6 +42,9 @@ public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityR
             }
             if (animatable instanceof StethacanthusEntity) {
                 poseStack.scale(1.2F, 1.2F, 1.2F);
+            }
+            if (animatable instanceof ScaumenaciaEntity) {
+                poseStack.scale(1.15F, 1.15F, 1.15F);
             }
         }
         if (animatable instanceof OviraptorEntity oviraptor) {

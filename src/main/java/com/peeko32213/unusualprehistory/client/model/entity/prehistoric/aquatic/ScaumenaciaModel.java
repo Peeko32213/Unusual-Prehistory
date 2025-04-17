@@ -31,6 +31,7 @@ public class ScaumenaciaModel extends ExtendedMolangQueriesModel<ScaumenaciaEnti
     @Override
     public void setCustomAnimations(ScaumenaciaEntity animatable, long instanceId, AnimationState<ScaumenaciaEntity> animationState) {
         super.setCustomAnimations(animatable, instanceId, animationState);
+
         CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
 
         EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);

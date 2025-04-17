@@ -42,7 +42,8 @@ public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucke
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ScaumenaciaEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.move");
+    private static final RawAnimation SCAU_SWIM = RawAnimation.begin().thenLoop("animation.scaumenacia.swim");
+    private static final RawAnimation SCAU_IDLE = RawAnimation.begin().thenLoop("animation.scaumenacia.idle");
     private static final RawAnimation SCAU_FLOP = RawAnimation.begin().thenLoop("animation.scaumenacia.flop");
 
     @Override
@@ -230,16 +231,13 @@ public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucke
     }
 
     protected <E extends ScaumenaciaEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.isFromBook()) {
-            return event.setAndContinue(SCAU_SWIM);
-        }
-
-        if(!this.isFromBook()) {
-            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
+        if(this.isInWater()) {
+            if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F)) {
                 event.setAndContinue(SCAU_SWIM);
-                return PlayState.CONTINUE;
             }
+            else event.setAndContinue(SCAU_IDLE);
         }
+        else event.setAndContinue(SCAU_FLOP);
         return PlayState.CONTINUE;
     }
 }
