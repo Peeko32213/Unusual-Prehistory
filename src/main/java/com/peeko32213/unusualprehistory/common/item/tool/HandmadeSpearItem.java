@@ -2,9 +2,6 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.peeko32213.unusualprehistory.client.model.tool.HandmadeSpearModel;
-import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,24 +17,14 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.constant.DefaultAnimations;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
-public class HandmadeSpearItem extends SwordItem implements GeoItem {
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+public class HandmadeSpearItem extends SwordItem {
 
     private static final UUID RANGE = UUID.fromString("20D3EB3F-226F-4325-873E-9B0932E4E5C6");
 
@@ -57,25 +44,8 @@ public class HandmadeSpearItem extends SwordItem implements GeoItem {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private final ToolRenderer<HandmadeSpearItem> renderer = new ToolRenderer<>(new HandmadeSpearModel());
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return this.renderer;
-            }
-        });
-    }
-
-    @Override
     public boolean canPerformAction(@NotNull ItemStack stack, @NotNull ToolAction toolAction) {
         return toolAction != ToolActions.SWORD_SWEEP && super.canPerformAction(stack, toolAction);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "idle", state -> PlayState.CONTINUE).triggerableAnim("animation.handmade_spear.idle", DefaultAnimations.IDLE));
     }
 
     @Override
@@ -119,10 +89,5 @@ public class HandmadeSpearItem extends SwordItem implements GeoItem {
                 && enchantment != Enchantments.FIRE_ASPECT
                 && enchantment != Enchantments.SWEEPING_EDGE
         ;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
     }
 }

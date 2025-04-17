@@ -1,6 +1,5 @@
 package com.peeko32213.unusualprehistory.client.model.entity.prehistoric;
 
-import com.peeko32213.unusualprehistory.MathHelpers;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -15,31 +14,53 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
 
     @Override
     public ResourceLocation getModelResource(TyrannosaurusEntity tyranno) {
-        if(!tyranno.isSkeletal()) {
+        if (!tyranno.isSkeletal()) {
             if (tyranno.getVariant() == 1) {
                 return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
-            } else {
-                return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
             }
+            else return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_rex.geo.json");
         }
         else return new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
-        if(!tyranno.isSkeletal()) {
-            if (tyranno.getVariant() == 1) {
-                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
+        if (!tyranno.isEepy()) {
+            if (!tyranno.isAngry()) {
+                if (!tyranno.isSkeletal()) {
+                    if (tyranno.getVariant() == 1) {
+                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis.png");
+                    } else
+                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
+                }
+                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
             } else {
-                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
+                if (!tyranno.isSkeletal()) {
+                    if (tyranno.getVariant() == 1) {
+                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis_enraged.png");
+                    } else
+                        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_enraged.png");
+                }
+                return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton_enraged.png");
             }
         }
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton.png");
+        else {
+            if (!tyranno.isSkeletal()) {
+                if (tyranno.getVariant() == 1) {
+                    return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_mcraeensis_eepy.png");
+                } else
+                    return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_eepy.png");
+            }
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_skeleton_eepy.png");
+        }
     }
 
     @Override
     public ResourceLocation getAnimationResource(TyrannosaurusEntity tyranno) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus.animation.json");
+        if (tyranno.getVariant() == 1) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_mcraeensis.animation.json");
+        }
+        else return new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_rex.animation.json");
     }
 
     @Override
@@ -49,10 +70,6 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
-
-//        CoreGeoBone eyes = this.getAnimationProcessor().getBone("eepy");
-//
-//        eyes.setHidden(!entity.hasEepy());
 
         if (entity.isBaby()) {
             head.setScaleX(1.5F);
@@ -67,30 +84,6 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         if (!entity.isSprinting()) {
             head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
         }
-
-
-//        if (entity.getAnimationState() == 0) {
-//            CoreGeoBone tail = this.getAnimationProcessor().getBone("tail1_overlay");
-//            CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail2_overlay");
-//
-//            tail.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.1))));
-//            tail2.setRotY((float) ((MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.1))));
-//            entity.rexIK.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[0], (float) entity.rexIK.getTailYaws()[0], 0.1);
-//            entity.rexIK.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailYaws()[1], (float) entity.rexIK.getTailYaws()[1], 0.1);
-//            //this runs BETWEEN TICKS
-//            //0.25 means it interpolates to a quarter of the way to the target
-//            //setRotY takes RADIANS
-//
-//            //No deg to rad because the arccos function used to return the angle
-//            //gotta set up UNIQUE NODES FOR EACH BONE
-//            //tail.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[0], (float) entity.rexIK.getTailPitches()[0], 0.01), -Mth.PI*0.1, Mth.PI*0.1));
-//            //tail2.setRotX((float) Mth.clamp(MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[1], (float) entity.rexIK.getTailPitches()[1], 0.01), -Mth.PI*0.1, Mth.PI*0.1));
-//            //entity.rexIK.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[0], (float) entity.rexIK.getTailPitches()[0], 0.01);
-//            //entity.rexIK.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees((float) entity.rexIK.getCurrentTailPitches()[1], (float) entity.rexIK.getTailPitches()[1], 0.01);
-//
-//            //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
-//        }
-
     }
 }
 

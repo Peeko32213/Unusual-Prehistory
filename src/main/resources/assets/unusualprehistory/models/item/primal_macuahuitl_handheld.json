@@ -1,0 +1,6 @@
+{
+  "parent": "unusualprehistory:item/handheld_large",
+  "textures": {
+    "layer0": "unusualprehistory:item/primal_macuahuitl_huge"
+  }
+}

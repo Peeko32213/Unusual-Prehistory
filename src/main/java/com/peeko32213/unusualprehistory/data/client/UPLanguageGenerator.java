@@ -955,6 +955,9 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.racing_stripe", "Racing Stripe");
         add("unusualprehistory.kimmeridgebrachypteraeschnidium_pattern.large_racing_stripe", "Large Racing Stripe");
 
+        // Boss bars
+        add("bar.unusualprehistory.tyrannosaurus", "%s");
+
         // Effects
         addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");

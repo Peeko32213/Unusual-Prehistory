@@ -32,7 +32,7 @@ public class TyrannosaurusAttackGoal extends Goal {
     }
 
     public boolean canUse() {
-        return tyrannosaurus.getTarget() != null && tyrannosaurus.getTarget().isAlive() && !tyrannosaurus.hasEepy();
+        return tyrannosaurus.getTarget() != null && tyrannosaurus.getTarget().isAlive() && !tyrannosaurus.isEepy();
     }
 
     public void start() {
@@ -47,6 +47,7 @@ public class TyrannosaurusAttackGoal extends Goal {
         tyrannosaurus.setTackling(false);
         tyrannosaurus.setStomping(false);
         tyrannosaurus.setSwiping(false);
+        tyrannosaurus.setRoaring(false);
         tyrannosaurus.setAnimationState(0);
     }
 
@@ -66,6 +67,7 @@ public class TyrannosaurusAttackGoal extends Goal {
                 case 23, 24 -> tickStompAttack();
                 case 25-> tickTailSwipeAttack();
                 case 26 -> tickTackleAttack();
+                case 27 -> tickRoar();
                 default -> {
                     this.tackleCooldown = Math.max(this.tackleCooldown - 1, 0);
                     this.tyrannosaurus.getLookControl().setLookAt(target, 30.0F, 30.0F);
@@ -81,34 +83,26 @@ public class TyrannosaurusAttackGoal extends Goal {
         if (distance <= this.meleeRange) {
             if (r <= 10) {
                 tyrannosaurus.setAnimationState(23);
-            }
-            else if (r <= 20) {
+            } else if (r <= 20) {
                 tyrannosaurus.setAnimationState(24);
-            }
-            else if (r <= 30) {
+            } else if (r <= 30) {
                 tyrannosaurus.setAnimationState(25);
-            }
-            else if (r <= 80) {
+            } else if (r <= 80) {
                 tyrannosaurus.setAnimationState(21);
-            }
-            else {
+            } else {
                 tyrannosaurus.setAnimationState(22);
             }
         }
         else if (distance <= 28) {
             if (r <= 10) {
                 tyrannosaurus.setAnimationState(21);
-            }
-            else if (r <= 20) {
+            } else if (r <= 20) {
                 tyrannosaurus.setAnimationState(22);
-            }
-            else if (r <= 30) {
+            } else if (r <= 30) {
                 tyrannosaurus.setAnimationState(23);
-            }
-            else if (r <= 60) {
+            } else if (r <= 60) {
                 tyrannosaurus.setAnimationState(24);
-            }
-            else {
+            } else {
                 tyrannosaurus.setAnimationState(25);
             }
         }
@@ -152,7 +146,7 @@ public class TyrannosaurusAttackGoal extends Goal {
         if (animTime == 11) {
             HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.swipeOffset, 1.6, 0.8, 1.6, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (tyrannosaurus.damageSources().mobAttack(tyrannosaurus)), 2.5F, true, true, false);
         }
-        if (animTime >= 38) {
+        if (animTime >= 36) {
             animTime = 0;
             tyrannosaurus.setSwiping(false);
             this.tyrannosaurus.setAnimationState(0);
@@ -183,7 +177,10 @@ public class TyrannosaurusAttackGoal extends Goal {
                 tackleTime = 0;
                 tyrannosaurus.setTackling(false);
                 tyrannosaurus.setAnimationState(0);
-                this.tackleCooldown = tyrannosaurus.getRandom().nextInt(100) + 50;
+                if (tyrannosaurus.isAngry()) {
+                    this.tackleCooldown = tyrannosaurus.getRandom().nextInt(50) + 50;
+                }
+                else this.tackleCooldown = tyrannosaurus.getRandom().nextInt(100) + 50;
             }
         }
         else {
@@ -197,8 +194,26 @@ public class TyrannosaurusAttackGoal extends Goal {
                 tackleTime = 0;
                 tyrannosaurus.setTackling(false);
                 tyrannosaurus.setAnimationState(0);
-                this.tackleCooldown = tyrannosaurus.getRandom().nextInt(100) + 50;
+                if (tyrannosaurus.isAngry()) {
+                    this.tackleCooldown = tyrannosaurus.getRandom().nextInt(50) + 50;
+                }
+                else this.tackleCooldown = tyrannosaurus.getRandom().nextInt(100) + 50;
             }
+        }
+    }
+
+    protected void tickRoar () {
+        animTime++;
+        tyrannosaurus.setDeltaMovement(0, tyrannosaurus.getDeltaMovement().y, 0);
+
+        tyrannosaurus.setRoaring(true);
+        if (animTime == 11) {
+            HitboxAttacks.pivotedPolyHitCheck(tyrannosaurus, tyrannosaurus, this.swipeOffset, 1.6, 0.8, 1.6, (ServerLevel) tyrannosaurus.level(), (float) tyrannosaurus.getAttribute(Attributes.ATTACK_DAMAGE).getValue(), (tyrannosaurus.damageSources().mobAttack(tyrannosaurus)), 2.5F, true, true, false);
+        }
+        if (animTime >= 36) {
+            animTime = 0;
+            tyrannosaurus.setRoaring(false);
+            this.tyrannosaurus.setAnimationState(0);
         }
     }
 }

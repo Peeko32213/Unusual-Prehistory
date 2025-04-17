@@ -2,11 +2,8 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.peeko32213.unusualprehistory.client.model.tool.HandmadeClubModel;
-import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
 import com.peeko32213.unusualprehistory.common.entity.projectile.ThrowableFallingBlockEntity;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -25,22 +22,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.GeoItem;
-import software.bernie.geckolib.constant.DefaultAnimations;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.function.Consumer;
-
-public class HandmadeClubItem extends SwordItem implements GeoItem {
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+public class HandmadeClubItem extends SwordItem {
 
     public HandmadeClubItem(Tier tier, int attackDamage, float attackSpeed) {
         super(tier, attackDamage, attackSpeed, new Properties()
@@ -86,29 +72,7 @@ public class HandmadeClubItem extends SwordItem implements GeoItem {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            private final ToolRenderer<HandmadeClubItem> renderer = new ToolRenderer<>(new HandmadeClubModel());
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return this.renderer;
-            }
-        });
-    }
-
-    @Override
     public boolean canPerformAction(@NotNull ItemStack stack, @NotNull ToolAction toolAction) {
         return toolAction != ToolActions.SWORD_SWEEP && super.canPerformAction(stack, toolAction);
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", state -> PlayState.CONTINUE).triggerableAnim("animation.handmade_club.idle", DefaultAnimations.IDLE));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
     }
 }
