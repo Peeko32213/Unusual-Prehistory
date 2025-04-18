@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.tartuosteus",
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 6,
@@ -21,15 +21,20 @@
 					"pivot": [0, 4, 0]
 				},
 				{
-					"name": "body",
+					"name": "body_overlay",
 					"parent": "swim_control",
-					"pivot": [0, 4, 0],
+					"pivot": [0, 5, 0]
+				},
+				{
+					"name": "body",
+					"parent": "body_overlay",
+					"pivot": [0, 5, 0],
 					"cubes": [
 						{"origin": [-10, 0, -9], "size": [20, 8, 18], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "fin_left",
+					"name": "left_fin",
 					"parent": "body",
 					"pivot": [10, 7, 5],
 					"cubes": [
@@ -37,7 +42,7 @@
 					]
 				},
 				{
-					"name": "fin_right",
+					"name": "right_fin",
 					"parent": "body",
 					"pivot": [-10, 7, 5],
 					"cubes": [

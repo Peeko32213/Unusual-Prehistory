@@ -1,13 +1,20 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
+ import com.google.common.collect.ImmutableList;
  import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.GroundseekingRandomSwimGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
+ import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
  import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
@@ -18,18 +25,18 @@
  import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
  import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
  import org.jetbrains.annotations.Nullable;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
+ import software.bernie.geckolib.core.animation.AnimationState;
  import software.bernie.geckolib.core.animation.RawAnimation;
  import software.bernie.geckolib.core.object.PlayState;
 
  import java.util.List;
-
- //TODO LIST
- // - Burrowing At Night
+ import java.util.function.Predicate;
 
  public class TartuosteusEntity extends PrehistoricAquaticEntity {
 
@@ -40,18 +47,55 @@
      // Idle animations
      private static final RawAnimation TARTUO_IDLE = RawAnimation.begin().thenLoop("animation.tartuosteus.idle");
      private static final RawAnimation TARTUO_REST = RawAnimation.begin().thenLoop("animation.tartuosteus.rest");
-     private static final RawAnimation TARTUO_BURROW_START = RawAnimation.begin().thenLoop("animation.tartuosteus.burrow_start");
-     private static final RawAnimation TARTUO_BURROW_HOLD = RawAnimation.begin().thenLoop("animation.tartuosteus.burrow_hold");
-     private static final RawAnimation TARTUO_BURROW_END = RawAnimation.begin().thenLoop("animation.tartuosteus.burrow_end");
+     private static final RawAnimation TARTUO_FLIP1 = RawAnimation.begin().thenPlay("animation.tartuosteus.flip_blend1");
+     private static final RawAnimation TARTUO_FLIP2 = RawAnimation.begin().thenPlay("animation.tartuosteus.flip_blend2");
 
+     // Idle accessors
+     private static final EntityDataAccessor<Boolean> FLIP1 = SynchedEntityData.defineId(TartuosteusEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> FLIP2 = SynchedEntityData.defineId(TartuosteusEntity.class, EntityDataSerializers.BOOLEAN);
+
+     // Starting predicates
+     private static final Predicate<LivingEntity> TARTUO_FLIPPING_PREDICATE = (e -> {
+         if(e instanceof TartuosteusEntity entity) {
+             return entity.isInWater() && !entity.isStillEnough() && entity.level().getBlockState(entity.blockPosition().below()).is(Blocks.WATER);
+         }
+         return false;
+     });
+
+     // Idle actions
+     private static final EntityAction TARTUO_FLIP1_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper TARTUO_FLIP1_STATE =
+             StateHelper.Builder.state(FLIP1, "tartuosteus_flip_1")
+                     .playTime(40)
+                     .stopTime(180)
+                     .startingPredicate(TARTUO_FLIPPING_PREDICATE)
+                     .entityAction(TARTUO_FLIP1_ACTION)
+                     .build();
+
+     private static final EntityAction TARTUO_FLIP2_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper TARTUO_FLIP2_STATE =
+             StateHelper.Builder.state(FLIP2, "tartuosteus_flip_2")
+                     .playTime(40)
+                     .stopTime(180)
+                     .startingPredicate(TARTUO_FLIPPING_PREDICATE)
+                     .entityAction(TARTUO_FLIP2_ACTION)
+                     .build();
+
+     // States
      @Override
      public ImmutableMap<String, StateHelper> getStates() {
-         return null;
+         return ImmutableMap.of(
+                 TARTUO_FLIP1_STATE.getName(), TARTUO_FLIP1_STATE,
+                 TARTUO_FLIP2_STATE.getName(), TARTUO_FLIP2_STATE
+         );
      }
 
      @Override
      public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-         return List.of();
+         return ImmutableList.of(
+                 WeightedState.of(TARTUO_FLIP1_STATE, 8),
+                 WeightedState.of(TARTUO_FLIP2_STATE, 8)
+         );
      }
 
      // Body control / navigation
@@ -71,10 +115,11 @@
          return Mob.createMobAttributes()
                  .add(Attributes.MAX_HEALTH, 16.0D)
                  .add(Attributes.ARMOR, 10.0D)
-                 .add(Attributes.MOVEMENT_SPEED, 0.5F);
+                 .add(Attributes.MOVEMENT_SPEED, 0.75F);
      }
 
      protected void registerGoals() {
+         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
          this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1.0D, 75, 12, 12, 0.01));
      }
@@ -139,6 +184,8 @@
 
      protected void defineSynchedData() {
          super.defineSynchedData();
+         this.entityData.define(FLIP1, false);
+         this.entityData.define(FLIP2, false);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
@@ -164,6 +211,9 @@
      public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
          AnimationController<TartuosteusEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
          controllers.add(controller);
+
+         AnimationController<TartuosteusEntity> idle = new AnimationController<>(this, "idleController", 5, this::idlePredicate);
+         controllers.add(idle);
      }
 
      protected <E extends TartuosteusEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
@@ -176,21 +226,31 @@
              event.setAndContinue(TARTUO_SWIM);
              return PlayState.CONTINUE;
          }
-         if (!this.isInWater()) {
-             event.setAndContinue(TARTUO_FLOP);
-             event.getController().setAnimationSpeed(2.0F);
-             return PlayState.CONTINUE;
-         }
-
-         if(playingAnimation())
-         {
-             return PlayState.CONTINUE;
-         }
-
-         if (isStillEnough() && this.isInWater()) {
+         if (this.isInWater()) {
              event.setAndContinue(TARTUO_IDLE);
              return PlayState.CONTINUE;
          }
+         if (!this.isInWater()) {
+             event.setAndContinue(TARTUO_FLOP);
+             return PlayState.CONTINUE;
+         }
+         event.getController().setAnimationSpeed(1.0F);
          return PlayState.CONTINUE;
+     }
+
+     // Idle animations
+     protected <E extends TartuosteusEntity> PlayState idlePredicate(final AnimationState<E> event) {
+         if (!this.isRunning() || !this.onGround()) {
+             if (getBooleanState(FLIP1)) {
+                 event.getController().setAnimation(TARTUO_FLIP1);
+                 return PlayState.CONTINUE;
+             }
+             if (getBooleanState(FLIP2)) {
+                 event.getController().setAnimation(TARTUO_FLIP2);
+                 return PlayState.CONTINUE;
+             }
+         }
+         event.getController().forceAnimationReset();
+         return PlayState.STOP;
      }
  }
