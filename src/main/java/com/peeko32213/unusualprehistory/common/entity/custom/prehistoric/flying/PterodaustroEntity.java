@@ -1,17 +1,19 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying;
 
+ import com.google.common.collect.ImmutableList;
  import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.UPBlockPos;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.pterodaustro.PterodaustroFlightGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.MajungasaurusEntity;
- import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TyrannosaurusEntity;
- import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
- import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
- import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;
- import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
- import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
+ import com.peeko32213.unusualprehistory.common.entity.util.navigator.*;
+ import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
+ import com.peeko32213.unusualprehistory.core.other.util.UPMath;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+ import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import net.minecraft.core.BlockPos;
  import net.minecraft.nbt.CompoundTag;
  import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,8 +22,6 @@
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.util.Mth;
- import net.minecraft.world.Difficulty;
- import net.minecraft.world.DifficultyInstance;
  import net.minecraft.world.damagesource.DamageSource;
  import net.minecraft.world.damagesource.DamageTypes;
  import net.minecraft.world.entity.*;
@@ -29,65 +29,148 @@
  import net.minecraft.world.entity.ai.attributes.Attributes;
  import net.minecraft.world.entity.ai.control.BodyRotationControl;
  import net.minecraft.world.entity.ai.control.MoveControl;
- import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
- import net.minecraft.world.entity.ai.goal.FloatGoal;
- import net.minecraft.world.entity.ai.goal.Goal;
- import net.minecraft.world.entity.ai.goal.PanicGoal;
- import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
- import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+ import net.minecraft.world.entity.ai.goal.*;
  import net.minecraft.world.entity.ai.navigation.PathNavigation;
  import net.minecraft.world.entity.monster.Monster;
+ import net.minecraft.world.entity.player.Player;
  import net.minecraft.world.level.ClipContext;
  import net.minecraft.world.level.Level;
- import net.minecraft.world.level.ServerLevelAccessor;
  import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.block.state.BlockState;
+ import net.minecraft.world.level.pathfinder.BlockPathTypes;
+ import net.minecraft.world.phys.AABB;
  import net.minecraft.world.phys.HitResult;
  import net.minecraft.world.phys.Vec3;
  import org.jetbrains.annotations.NotNull;
- import software.bernie.geckolib.animatable.GeoEntity;
- import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
  import software.bernie.geckolib.core.animation.AnimatableManager;
  import software.bernie.geckolib.core.animation.AnimationController;
+ import software.bernie.geckolib.core.animation.AnimationState;
  import software.bernie.geckolib.core.animation.RawAnimation;
+ import software.bernie.geckolib.core.keyframe.event.SoundKeyframeEvent;
  import software.bernie.geckolib.core.object.PlayState;
- import software.bernie.geckolib.util.GeckoLibUtil;
 
  import javax.annotation.Nullable;
  import java.util.EnumSet;
  import java.util.List;
+ import java.util.function.Predicate;
 
- public class PterodaustroEntity extends PrehistoricEntity implements GeoEntity, IBookEntity, IVariantEntity {
+ public class PterodaustroEntity extends PrehistoricEntity {
 
-     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-     @Nullable
      private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
-     private static final EntityDataAccessor<Boolean> FROM_BOOK = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
-     public final float[] ringBuffer = new float[64];
+
+     public float currentRoll = 0.0F;
+     public float prevTilt;
+     public float tilt;
+
      public float prevFlyProgress;
      public float flyProgress;
-     public int ringBufferIndex = -1;
      private boolean isLandNavigator;
-     private int timeFlying;
+     public int timeFlying;
+     public BlockPos orbitPos = null;
+     public double orbitDist = 5D;
+     public boolean orbitClockwise = false;
+     public float prevSwoopProgress;
+     public float swoopProgress;
+     public float prevFlapAmount;
+     public float flapAmount;
+     public float flightPitch = 0;
+     public float prevFlightPitch = 0;
 
-     private static final RawAnimation PTERODAUSTRO_IDLE = RawAnimation.begin().thenPlay("animation.pterodaustro.idle");
-     private static final RawAnimation PTERODAUSTRO_SIT = RawAnimation.begin().thenPlay("animation.pterodaustro.sit");
-     private static final RawAnimation PTERODAUSTRO_SLEEP = RawAnimation.begin().thenPlay("animation.pterodaustro.sleep");
-     private static final RawAnimation PTERODAUSTRO_WALK = RawAnimation.begin().thenPlay("animation.pterodaustro.walk");
-     private static final RawAnimation PTERODAUSTRO_SWIM = RawAnimation.begin().thenPlay("animation.pterodaustro.swim");
-     private static final RawAnimation PTERODAUSTRO_FLY = RawAnimation.begin().thenPlay("animation.pterodaustro.fly");
-     private static final RawAnimation PTERODAUSTRO_HOVER = RawAnimation.begin().thenPlay("animation.pterodaustro.hover");
-     private static final RawAnimation PTERODAUSTRO_FEED = RawAnimation.begin().thenPlay("animation.pterodaustro.feed");
+     // Movement animations
+     private static final RawAnimation PTERODAUSTRO_WALK = RawAnimation.begin().thenLoop("animation.pterodaustro.walk");
+     private static final RawAnimation PTERODAUSTRO_RUN = RawAnimation.begin().thenLoop("animation.pterodaustro.run");
+     private static final RawAnimation PTERODAUSTRO_SWIM = RawAnimation.begin().thenLoop("animation.pterodaustro.swim");
+     private static final RawAnimation PTERODAUSTRO_FLY = RawAnimation.begin().thenLoop("animation.pterodaustro.fly");
+     private static final RawAnimation PTERODAUSTRO_FLY_FAST = RawAnimation.begin().thenLoop("animation.pterodaustro.flyfast");
+
+     // Idle animations
+     private static final RawAnimation PTERODAUSTRO_IDLE = RawAnimation.begin().thenLoop("animation.pterodaustro.idle");
+     private static final RawAnimation PTERODAUSTRO_HOVER = RawAnimation.begin().thenLoop("animation.pterodaustro.hover");
      private static final RawAnimation PTERODAUSTRO_DISPLAY = RawAnimation.begin().thenPlay("animation.pterodaustro.display");
-     private static final RawAnimation PTERODAUSTRO_FLAP = RawAnimation.begin().thenPlay("animation.pterodaustro.flap");
-     private static final RawAnimation PTERODAUSTRO_NESTING = RawAnimation.begin().thenPlay("animation.pterodaustro.nesting");
+     private static final RawAnimation PTERODAUSTRO_FEED = RawAnimation.begin().thenPlay("animation.pterodaustro.feed_blend");
+     private static final RawAnimation PTERODAUSTRO_BROADCAST = RawAnimation.begin().thenPlay("animation.pterodaustro.broadcast_blend");
+
+     // Idle accessors
+     private static final EntityDataAccessor<Boolean> DISPLAY = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> FEED = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
+     private static final EntityDataAccessor<Boolean> BROADCAST = SynchedEntityData.defineId(PterodaustroEntity.class, EntityDataSerializers.BOOLEAN);
+
+     // Starting predicates
+     private static final Predicate<LivingEntity> PTERODAUSTRO_STARTING_PREDICATE = (e -> {
+         if(e instanceof PterodaustroEntity entity) {
+             return !entity.isFlying() && !entity.isSprinting() && !entity.isInWater() && entity.onGround();
+         }
+         return false;
+     });
+
+     private static final Predicate<LivingEntity> PTERODAUSTRO_EATING_PREDICATE = (e -> {
+         if(e instanceof PterodaustroEntity entity) {
+             return entity.isInWater() || entity.level().getBlockState(entity.blockPosition().below()).is(Blocks.WATER);
+         }
+         return false;
+     });
+
+     // Idle actions
+     private static final EntityAction PTERODAUSTRO_DISPLAY_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper PTERODAUSTRO_DISPLAY_STATE =
+             StateHelper.Builder.state(DISPLAY, "pterodaustro_display")
+                     .playTime(60)
+                     .stopTime(200)
+                     .startingPredicate(PTERODAUSTRO_STARTING_PREDICATE)
+                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                     .entityAction(PTERODAUSTRO_DISPLAY_ACTION)
+                     .build();
+
+     private static final EntityAction PTERODAUSTRO_FEED_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper PTERODAUSTRO_FEED_STATE =
+             StateHelper.Builder.state(FEED, "pterodaustro_feed")
+                     .playTime(60)
+                     .stopTime(150)
+                     .startingPredicate(PTERODAUSTRO_EATING_PREDICATE)
+                     .entityAction(PTERODAUSTRO_FEED_ACTION)
+                     .build();
+
+     private static final EntityAction PTERODAUSTRO_BROADCAST_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper PTERODAUSTRO_BROADCAST_STATE =
+             StateHelper.Builder.state(BROADCAST, "pterodaustro_broadcast")
+                     .playTime(60)
+                     .stopTime(190)
+                     .startingPredicate(PTERODAUSTRO_STARTING_PREDICATE)
+                     .entityAction(PTERODAUSTRO_BROADCAST_ACTION)
+                     .build();
+
+     @Override
+     public ImmutableMap<String, StateHelper> getStates() {
+         return ImmutableMap.of(
+                 PTERODAUSTRO_DISPLAY_STATE.getName(), PTERODAUSTRO_DISPLAY_STATE,
+                 PTERODAUSTRO_FEED_STATE.getName(), PTERODAUSTRO_FEED_STATE,
+                 PTERODAUSTRO_BROADCAST_STATE.getName(), PTERODAUSTRO_BROADCAST_STATE
+         );
+     }
+
+     @Override
+     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+         return ImmutableList.of(
+                 WeightedState.of(PTERODAUSTRO_DISPLAY_STATE, 7),
+                 WeightedState.of(PTERODAUSTRO_FEED_STATE, 9),
+                 WeightedState.of(PTERODAUSTRO_BROADCAST_STATE, 8)
+         );
+     }
 
      // Body control / navigation
      @Override
      protected @NotNull BodyRotationControl createBodyControl() {
          SmartBodyHelper helper = new SmartBodyHelper(this);
-         helper.bodyLagMoving = 0.4F;
-         helper.bodyLagStill = 0.3F;
+         if (this.isFlying()) {
+             helper.bodyLagMoving = 0.015F;
+             helper.bodyLagStill = 0.075F;
+         }
+         else {
+             helper.bodyLagMoving = 0.4F;
+             helper.bodyLagStill = 0.3F;
+         }
          return helper;
      }
 
@@ -99,12 +182,8 @@
      public PterodaustroEntity(EntityType<? extends PrehistoricEntity> entityType, Level level) {
          super(entityType, level);
          switchNavigator(true);
-     }
-
-     @org.jetbrains.annotations.Nullable
-     @Override
-     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-         return null;
+         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
      }
 
      public static AttributeSupplier.Builder createAttributes() {
@@ -112,122 +191,54 @@
                  .add(Attributes.MAX_HEALTH, 12.0D)
                  .add(Attributes.MOVEMENT_SPEED, 0.2F)
                  .add(Attributes.ATTACK_DAMAGE, 2.0F);
-
      }
 
      protected void registerGoals() {
-         super.registerGoals();
-         this.goalSelector.addGoal(0, new FloatGoal(this));
-         this.goalSelector.addGoal(3, new PanicGoal(this, 1D));
-         this.goalSelector.addGoal(1, new AIFlyIdle());
-         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, MajungasaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, TyrannosaurusEntity.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
+         this.goalSelector.addGoal(0, new FloatGoal(this) {
+             public boolean canUse() {
+                 return super.canUse() && (PterodaustroEntity.this.getAirSupply() < 150);
+             }
+         });
+         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+         this.goalSelector.addGoal(6, new PterodaustroFlightGoal(this));
      }
 
-     public void checkDespawn() {
-         if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-             this.discard();
-         } else {
-             this.noActionTime = 0;
-         }
+     @Nullable
+     @Override
+     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+         return UPEntities.PTERODAUSTRO.get().create(serverLevel);
      }
 
      private void switchNavigator(boolean onLand) {
          if (onLand) {
              this.moveControl = new MoveControl(this);
-             this.navigation = new GroundPathNavigation(this, level());
+             this.navigation = new SmoothGroundNavigation(this, level());
              this.isLandNavigator = true;
          } else {
-             this.moveControl = new FlyingMoveController(this, 0.6F, false, true);
-             this.navigation = new FlyingPathNavigation(this, level()) {
-                 public boolean isStableDestination(BlockPos pos) {
-                     return !this.level.getBlockState(pos.below(2)).isAir();
-                 }
-             };
-             navigation.setCanFloat(false);
+             this.moveControl = new MoveHelper(this);
+             this.navigation = new DirectPathNavigator(this, level());
              this.isLandNavigator = false;
          }
      }
+
+//     @Override
+//     public double getFluidJumpThreshold() {
+//         if (this.isBaby()) {
+//             return 0.15F;
+//         } else {
+//             return 0.25F;
+//         }
+//     }
 
      @Override
      protected void defineSynchedData() {
          super.defineSynchedData();
          this.entityData.define(FLYING, false);
-         this.entityData.define(FROM_BOOK, false);
-
-     }
-
-
-     public void tick() {
-         super.tick();
-         this.prevFlyProgress = flyProgress;
-         if (this.isFlying() && flyProgress < 5F) {
-             flyProgress++;
-         }
-         if (!this.isFlying() && flyProgress > 0F) {
-             flyProgress--;
-         }
-         if (this.ringBufferIndex < 0) {
-             //initial population of buffer
-             for (int i = 0; i < this.ringBuffer.length; ++i) {
-                 this.ringBuffer[i] = 15;
-             }
-         }
-         this.ringBufferIndex++;
-         if (this.ringBufferIndex == this.ringBuffer.length) {
-             this.ringBufferIndex = 0;
-         }
-         if (!level().isClientSide) {
-             if (isFlying() && this.isLandNavigator) {
-                 switchNavigator(false);
-             }
-             if (!isFlying() && !this.isLandNavigator) {
-                 switchNavigator(true);
-             }
-             if (this.isFlying()) {
-                 if (this.isFlying() && !this.onGround()) {
-                     if (!this.isInWaterOrBubble()) {
-                         this.setDeltaMovement(this.getDeltaMovement().multiply(1F, 0.6F, 1F));
-                     }
-                 }
-                 if (this.onGround() && timeFlying > 20) {
-                     this.setFlying(false);
-                 }
-                 this.timeFlying++;
-             } else {
-                 this.timeFlying = 0;
-             }
-         }
-     }
-
-     public boolean hurt(DamageSource source, float amount) {
-         boolean prev = super.hurt(source, amount);
-         return prev;
-     }
-
-     @Override
-     public boolean isInvulnerableTo(DamageSource source) {
-         return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
-     }
-
-     public boolean isFlying() {
-         return this.entityData.get(FLYING);
-     }
-
-     public void setFlying(boolean flying) {
-         if (flying && isBaby()) {
-             return;
-         }
-         this.entityData.set(FLYING, flying);
-     }
-
-     public boolean canBlockBeSeen(BlockPos pos) {
-         double x = pos.getX() + 0.5F;
-         double y = pos.getY() + 0.5F;
-         double z = pos.getZ() + 0.5F;
-         HitResult result = this.level().clip(new ClipContext(new Vec3(this.getX(), this.getY() + (double) this.getEyeHeight(), this.getZ()), new Vec3(x, y, z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-         double dist = result.getLocation().distanceToSqr(x, y, z);
-         return dist <= 1.0D || result.getType() == HitResult.Type.MISS;
+         this.entityData.define(DISPLAY, false);
+         this.entityData.define(FEED, false);
+         this.entityData.define(BROADCAST, false);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
@@ -240,6 +251,99 @@
          this.setFlying(compound.getBoolean("Flying"));
      }
 
+     public void tick() {
+         super.tick();
+
+         this.prevFlyProgress = flyProgress;
+         this.prevFlapAmount = flapAmount;
+         this.prevSwoopProgress = swoopProgress;
+         this.prevFlightPitch = flightPitch;
+         float yMot = (float) -((float) this.getDeltaMovement().y * Mth.RAD_TO_DEG);
+         this.flightPitch = yMot;
+
+         if (yMot < 0.1F) {
+             flapAmount = Math.min(-yMot * 0.2F, 1F);
+             if (swoopProgress > 0) {
+                 swoopProgress--;
+             }
+         } else {
+             if (flapAmount > 0.0F) {
+                 flapAmount -= Math.min(flapAmount, 0.1F);
+             } else {
+                 flapAmount = 0;
+             }
+             if (swoopProgress < yMot * 0.2F) {
+                 swoopProgress = Math.min(yMot * 0.2F, swoopProgress + 1);
+             }
+         }
+
+         if (isFlying()) {
+             if (flyProgress < 5F)
+                 flyProgress++;
+         } else {
+             if (flyProgress > 0F)
+                 flyProgress--;
+         }
+         if (!this.level().isClientSide) {
+             final boolean isFlying = isFlying();
+             if (isFlying && this.isLandNavigator) {
+                 switchNavigator(false);
+             }
+             if (!isFlying && !this.isLandNavigator) {
+                 switchNavigator(true);
+             }
+             if (isFlying) {
+                 timeFlying++;
+                 this.setNoGravity(true);
+                 if (this.onGround()) {
+                     this.setFlying(false);
+                 }
+             }
+             else {
+                 timeFlying = 0;
+                 this.setNoGravity(false);
+             }
+         }
+
+         prevTilt = tilt;
+         if (this.isFlying() && !this.onGround()) {
+             final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+             if (Math.abs(v) > 1) {
+                 if (Math.abs(tilt) < 25) {
+                     tilt -= Math.signum(v);
+                 }
+             } else {
+                 if (Math.abs(tilt) > 0) {
+                     final float tiltSign = Math.signum(tilt);
+                     tilt -= tiltSign * 0.85F;
+                     if (tilt * tiltSign < 0) {
+                         tilt = 0;
+                     }
+                 }
+             }
+         } else {
+             tilt = 0;
+         }
+
+         float prevRoll = this.currentRoll;
+         float targetRoll = Math.max(-0.45F, Math.min(0.45F, (this.getYRot() - this.yRotO) * 0.1F));
+         targetRoll = -targetRoll;
+         this.currentRoll = prevRoll + (targetRoll - prevRoll) * 0.05F;
+     }
+
+     @Override
+     public boolean isInvulnerableTo(DamageSource source) {
+         return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALL) || source.is(DamageTypes.CACTUS) || super.isInvulnerableTo(source);
+     }
+
+     public boolean isFlying() {
+         return this.entityData.get(FLYING);
+     }
+     public void setFlying(boolean flying) {
+         this.entityData.set(FLYING, flying);
+     }
+
+     // Sounds
      protected SoundEvent getAmbientSound() {
          return UPSounds.ANURO_IDLE.get();
      }
@@ -252,20 +356,60 @@
          return UPSounds.ANURO_DEATH.get();
      }
 
-     public void killed(ServerLevel world, LivingEntity entity) {
-         this.heal(10);
+     public boolean causeFallDamage(float distance, float damageMultiplier) {
+         return false;
      }
 
+     protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {}
 
-     public Vec3 getBlockGrounding(Vec3 fleePos) {
-         final float radius = 3.15F * -3 - this.getRandom().nextInt(24);
-         float neg = this.getRandom().nextBoolean() ? 1 : -1;
-         float renderYawOffset = this.yBodyRot;
-         float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
+     public boolean isTargetBlocked(Vec3 target) {
+         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
+         return this.level().clip(new ClipContext(Vector3d, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() != HitResult.Type.MISS;
+     }
+
+     @Override
+     public BlockPos getBlockPosBelowThatAffectsMyMovement() {
+         return this.getOnPos(0.500001F);
+     }
+
+     public Vec3 getBlockInViewAway(Vec3 fleePos, float radiusAdd) {
+         final float radius = 0.75F * (0.7F * 6) * -3 - this.getRandom().nextInt(24) - radiusAdd;
+         final float neg = this.getRandom().nextBoolean() ? 1 : -1;
+         final float renderYawOffset = this.yBodyRot;
+         final float angle = (UPMath.STARTING_ANGLE * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
          final double extraX = radius * Mth.sin(Mth.PI + angle);
          final double extraZ = radius * Mth.cos(angle);
-         final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
-         BlockPos ground = this.getAnuroGround(radialPos);
+         final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), 0, (int) (fleePos.z() + extraZ));
+         final BlockPos ground = getGround(radialPos);
+         final int distFromGround = (int) this.getY() - ground.getY();
+         final int flightHeight = 7 + this.getRandom().nextInt(10);
+         final BlockPos newPos = ground.above(distFromGround > 8 ? flightHeight : this.getRandom().nextInt(7) + 4);
+         if (!this.isTargetBlocked(Vec3.atCenterOf(newPos)) && this.distanceToSqr(Vec3.atCenterOf(newPos)) > 1) {
+             return Vec3.atCenterOf(newPos);
+         }
+         return null;
+     }
+
+     private BlockPos getGround(BlockPos in) {
+         BlockPos position = new BlockPos(in.getX(), (int) this.getY(), in.getZ());
+         while (position.getY() < 320 && !level().getFluidState(position).isEmpty()) {
+             position = position.above();
+         }
+         while (position.getY() > -64 && !level().getBlockState(position).isSolid()) {
+             position = position.below();
+         }
+         return position;
+     }
+
+     public Vec3 getBlockGrounding(Vec3 fleePos) {
+         final float radius = 0.75F * (0.7F * 6) * -3 - this.getRandom().nextInt(24);
+         final float neg = this.getRandom().nextBoolean() ? 1 : -1;
+         final float renderYawOffset = this.yBodyRot;
+         final float angle = (UPMath.STARTING_ANGLE * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
+         final double extraX = radius * Mth.sin(Mth.PI + angle);
+         final double extraZ = radius * Mth.cos(angle);
+         final BlockPos radialPos = UPBlockPos.fromCoords(fleePos.x() + extraX, getY(), fleePos.z() + extraZ);
+         BlockPos ground = this.getGround(radialPos);
          if (ground.getY() == -64) {
              return this.position();
          } else {
@@ -280,209 +424,132 @@
          return null;
      }
 
-     public boolean isTargetBlocked(Vec3 target) {
-         Vec3 Vector3d = new Vec3(this.getX(), this.getEyeY(), this.getZ());
-
-         return this.level().clip(new ClipContext(Vector3d, target, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() != HitResult.Type.MISS;
-     }
-
-     public Vec3 getBlockInViewAway(Vec3 fleePos, float radiusAdd) {
-         float radius = 5 + radiusAdd + this.getRandom().nextInt(5);
-         float neg = this.getRandom().nextBoolean() ? 1 : -1;
-         float renderYawOffset = this.yBodyRot;
-         float angle = (0.01745329251F * renderYawOffset) + 3.15F + (this.getRandom().nextFloat() * neg);
-         double extraX = radius * Mth.sin((float) (Math.PI + angle));
-         double extraZ = radius * Mth.cos(angle);
-         final BlockPos radialPos = new BlockPos((int) (fleePos.x() + extraX), (int) getY(), (int) (fleePos.z() + extraZ));
-         BlockPos ground = getAnuroGround(radialPos);
-         int distFromGround = (int) this.getY() - ground.getY();
-         int flightHeight = 5 + this.getRandom().nextInt(5);
-         int j = this.getRandom().nextInt(5) + 5;
-
-         BlockPos newPos = ground.above(distFromGround > 5 ? flightHeight : j);
-         if (!this.isTargetBlocked(Vec3.atCenterOf(newPos)) && this.distanceToSqr(Vec3.atCenterOf(newPos)) > 1) {
-             return Vec3.atCenterOf(newPos);
-         }
-         return null;
-     }
-
-     public boolean causeFallDamage(float distance, float damageMultiplier) {
-         return false;
-     }
-
-     protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-     }
-
-     private boolean isOverWaterOrVoid() {
-         BlockPos position = this.blockPosition();
-         while (position.getY() > -65 && level().isEmptyBlock(position)) {
-             position = position.below();
-         }
-         return !level().getFluidState(position).isEmpty() || level().getBlockState(position).is(Blocks.VINE) || position.getY() <= -65;
-     }
-
-     public BlockPos getAnuroGround(BlockPos in) {
-         BlockPos position = new BlockPos(in.getX(), (int) this.getY(), in.getZ());
-         while (position.getY() > -64 && !level().getBlockState(position).isSolid() && level().getFluidState(position).isEmpty()) {
-             position = position.below();
-         }
-         return position;
-     }
-
-
-     @Override
-     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-         controllers.add(new AnimationController<>(this, "Normal", 5, this::Controller));
-     }
-
-     protected <E extends PterodaustroEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-         if (this.isFromBook()) {
-             return event.setAndContinue(PTERODAUSTRO_IDLE);
-         }
-         if (this.isFlying()) {
-             return event.setAndContinue(PTERODAUSTRO_FLY);
-         }
-
-         if (event.isMoving() && this.onGround() && this.onGround()) {
-             return event.setAndContinue(PTERODAUSTRO_WALK);
-
-         }
-
-         if (this.isInWaterOrBubble()) {
-             return event.setAndContinue(PTERODAUSTRO_SWIM);
-         }
-
-         if (playingAnimation()) {
-             return PlayState.CONTINUE;
-         }
-
-
-         return event.setAndContinue(PTERODAUSTRO_IDLE);
-     }
-
-
-     @Override
-     public AnimatableInstanceCache getAnimatableInstanceCache() {
-         return this.cache;
-     }
-
-     @Override
-     public double getTick(Object o) {
-         return tickCount;
-     }
-
-     @Override
-     public void setFromBook(boolean fromBook) {
-         this.entityData.set(FROM_BOOK, fromBook);
-     }
-
-     @Override
-     public ImmutableMap<String, StateHelper> getStates() {
-         return null;
-     }
-
-     @Override
-     public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-         return List.of();
-     }
-
-     private class AIFlyIdle extends Goal {
-         protected double x;
-         protected double y;
-         protected double z;
-
-         public AIFlyIdle() {
-             super();
-             this.setFlags(EnumSet.of(Flag.MOVE));
-         }
-
-         @Override
-         public boolean canUse() {
-             if (PterodaustroEntity.this.isVehicle() || (PterodaustroEntity.this.getTarget() != null && PterodaustroEntity.this.getTarget().isAlive()) || PterodaustroEntity.this.isPassenger()) {
-                 return false;
-             } else {
-                 if (PterodaustroEntity.this.getRandom().nextInt(45) != 0 && !PterodaustroEntity.this.isFlying()) {
-                     return false;
-                 }
-
-                 Vec3 lvt_1_1_ = this.getPosition();
-                 if (lvt_1_1_ == null) {
-                     return false;
-                 } else {
-                     this.x = lvt_1_1_.x;
-                     this.y = lvt_1_1_.y;
-                     this.z = lvt_1_1_.z;
-                     return true;
-                 }
+     public Vec3 getOrbitVec(Vec3 vector3d, float gatheringCircleDist) {
+         final float angle = (UPMath.STARTING_ANGLE * (float) this.orbitDist * (orbitClockwise ? -tickCount : tickCount));
+         final double extraX = gatheringCircleDist * Mth.sin((angle));
+         final double extraZ = gatheringCircleDist * Mth.cos(angle);
+         if (this.orbitPos != null) {
+             final Vec3 pos = new Vec3(orbitPos.getX() + extraX, orbitPos.getY() + random.nextInt(2) - 2, orbitPos.getZ() + extraZ);
+             if (this.level().isEmptyBlock(UPBlockPos.fromVec3(pos))) {
+                 return pos;
              }
+         }
+         return null;
+     }
+
+     public boolean isOverWaterOrVoid() {
+         BlockPos position = this.blockPosition();
+         while (position.getY() > -64 && level().isEmptyBlock(position)) {
+             position = position.below();
+         }
+         return !level().getFluidState(position).isEmpty() || position.getY() <= -64;
+     }
+
+     static class MoveHelper extends MoveControl {
+         private final PterodaustroEntity pterodaustro;
+
+         public MoveHelper(PterodaustroEntity pterodaustro) {
+             super(pterodaustro);
+             this.pterodaustro = pterodaustro;
          }
 
          public void tick() {
-             PterodaustroEntity.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 3F);
-             if (isFlying() && PterodaustroEntity.this.onGround() && PterodaustroEntity.this.timeFlying > 10) {
-                 PterodaustroEntity.this.setFlying(false);
+             if (this.operation == MoveControl.Operation.MOVE_TO) {
+                 final Vec3 vector3d = new Vec3(this.wantedX - pterodaustro.getX(), this.wantedY - pterodaustro.getY(), this.wantedZ - pterodaustro.getZ());
+                 final double d5 = vector3d.length();
+                 if (d5 < 0.3) {
+                     this.operation = MoveControl.Operation.WAIT;
+                     pterodaustro.setDeltaMovement(pterodaustro.getDeltaMovement().scale(0.5D));
+                 } else {
+                     pterodaustro.setDeltaMovement(pterodaustro.getDeltaMovement().add(vector3d.scale(this.speedModifier * 0.05D / d5)));
+                     final Vec3 vector3d1 = pterodaustro.getDeltaMovement();
+                     pterodaustro.setYRot(-((float) Mth.atan2(vector3d1.x, vector3d1.z)) * Mth.RAD_TO_DEG);
+                     pterodaustro.yBodyRot = pterodaustro.getYRot();
+                 }
              }
          }
 
-         @Nullable
-         protected Vec3 getPosition() {
-             Vec3 vector3d = PterodaustroEntity.this.position();
-             if (PterodaustroEntity.this.timeFlying < 200 || PterodaustroEntity.this.isOverWaterOrVoid()) {
-                 return PterodaustroEntity.this.getBlockInViewAway(vector3d, 0);
-             } else {
-                 return PterodaustroEntity.this.getBlockGrounding(vector3d);
+         private boolean canReach(Vec3 p_220673_1_, int p_220673_2_) {
+             AABB axisalignedbb = this.pterodaustro.getBoundingBox();
+
+             for (int i = 1; i < p_220673_2_; ++i) {
+                 axisalignedbb = axisalignedbb.move(p_220673_1_);
+                 if (!this.pterodaustro.level().noCollision(this.pterodaustro, axisalignedbb)) {
+                     return false;
+                 }
+             }
+             return true;
+         }
+     }
+
+     // Animation sounds
+     private void soundListener(SoundKeyframeEvent<PterodaustroEntity> event) {
+         PterodaustroEntity pterodaustro = event.getAnimatable();
+         if (pterodaustro.level().isClientSide) {
+//             if (event.getKeyframeData().getSound().equals("pterodaustro_flap")) {
+//                 pterodaustro.level().playLocalSound(pterodaustro.getX(), pterodaustro.getY(), pterodaustro.getZ(), UPSounds.TELECREX_FLAP.get(), pterodaustro.getSoundSource(), 0.1F, pterodaustro.getVoicePitch(), false);
+//             }
+         }
+     }
+
+     // Animation control
+     @Override
+     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+         AnimationController<PterodaustroEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+         controllers.add(controller);
+         controller.setSoundKeyframeHandler(this::soundListener);
+
+         AnimationController<PterodaustroEntity> idle = new AnimationController<>(this, "idleController", 5, this::idlePredicate);
+         controllers.add(idle);
+     }
+
+     protected <E extends PterodaustroEntity> PlayState predicate(final AnimationState<E> event) {
+         if (!this.isInWater()) {
+             if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && this.onGround()) {
+                 if (this.isSprinting()) {
+                     event.setAndContinue(PTERODAUSTRO_RUN);
+                 }
+                 else event.setAndContinue(PTERODAUSTRO_WALK);
+                 return PlayState.CONTINUE;
+             }
+             else if (!this.isFlying()) {
+                 return event.setAndContinue(PTERODAUSTRO_IDLE);
+             }
+
+             if (this.isFlying() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
+                 if (this.isSprinting() || this.getMoveControl().hasWanted()) {
+                     event.setAndContinue(PTERODAUSTRO_FLY_FAST);
+                 }
+                 else event.setAndContinue(PTERODAUSTRO_FLY);
+                 return PlayState.CONTINUE;
+             }
+             else if (this.isFlying() && this.isStillEnough()) {
+                 event.setAndContinue(PTERODAUSTRO_HOVER);
+                 return PlayState.CONTINUE;
              }
          }
-
-         public boolean canContinueToUse() {
-             return PterodaustroEntity.this.isFlying() && PterodaustroEntity.this.distanceToSqr(x, y, z) > 5F;
+         if (this.isInWater()) {
+             event.setAndContinue(PTERODAUSTRO_SWIM);
          }
-
-         public void start() {
-             PterodaustroEntity.this.setFlying(true);
-             PterodaustroEntity.this.getMoveControl().setWantedPosition(this.x, this.y, this.z, 1F);
-         }
-
-         public void stop() {
-             PterodaustroEntity.this.getNavigation().stop();
-             x = 0;
-             y = 0;
-             z = 0;
-             super.stop();
-         }
-
+         return PlayState.CONTINUE;
      }
 
-     public boolean isFromBook() {
-         return this.entityData.get(FROM_BOOK).booleanValue();
-     }
-
-     public void setIsFromBook(boolean fromBook) {
-         this.entityData.set(FROM_BOOK, fromBook);
-     }
-
-     public boolean requiresCustomPersistence() {
-         return super.requiresCustomPersistence() || this.hasCustomName();
-     }
-
-     public boolean removeWhenFarAway(double d) {
-         return !this.hasCustomName();
-     }
-
-     @Nullable
-     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-         Level level = p_28134_.getLevel();
-         if (level instanceof ServerLevel) {
-             {
-                 this.setPersistenceRequired();
+     protected <E extends PterodaustroEntity> PlayState idlePredicate(final AnimationState<E> event) {
+         if(this.onGround() && !this.isFlying() && !getMoveControl().hasWanted()) {
+             if (getBooleanState(DISPLAY)) {
+                 event.getController().setAnimation(PTERODAUSTRO_DISPLAY);
+                 return PlayState.CONTINUE;
              }
+             if (getBooleanState(FEED)) {
+                 event.getController().setAnimation(PTERODAUSTRO_FEED);
+                 return PlayState.CONTINUE;
+             }
+             if (getBooleanState(BROADCAST)) {
+                 event.getController().setAnimation(PTERODAUSTRO_BROADCAST);
+                 return PlayState.CONTINUE;
+             }
+             event.getController().forceAnimationReset();
          }
-         return p_28137_;
+         return PlayState.STOP;
      }
-
-     //public static boolean checkSurfaceDinoSpawnRules(EntityType<? extends AgeableMob> p_186238_, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource p_186242_) {
-     //    return level.getBlockState(pos.below()).is(UPTags.DINO_NATURAL_SPAWNABLE)  && UnusualPrehistoryConfig.DINO_NATURAL_SPAWNING.get();
-     //}
-
  }

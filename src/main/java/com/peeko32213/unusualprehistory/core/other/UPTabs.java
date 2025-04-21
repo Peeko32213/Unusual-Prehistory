@@ -537,5 +537,4 @@ public class UPTabs {
             output.accept(istack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
-
 }

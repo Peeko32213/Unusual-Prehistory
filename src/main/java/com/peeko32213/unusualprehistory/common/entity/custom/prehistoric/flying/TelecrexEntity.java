@@ -7,8 +7,8 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStat
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TelecrexFlightGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TelecrexScatterGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.telecrex.TelecrexFlightGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.telecrex.TelecrexScatterGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.DirectPathNavigator;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.FlyingMoveController;

@@ -239,7 +239,7 @@ public class UPEntities {
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0xa04f2a, 0xe8d49b);
 
     public static final RegistryObject<EntityType<PterodaustroEntity>> PTERODAUSTRO = registerPrehistoricCreatureWithEgg("pterodaustro",
-            () -> EntityType.Builder.of(PterodaustroEntity::new, MobCategory.CREATURE).sized(0.8F, 0.8F)
+            () -> EntityType.Builder.of(PterodaustroEntity::new, MobCategory.CREATURE).sized(0.8F, 2.2F)
                     .build(modPrefix("pterodaustro").toString()),
             EggSize.SMALL, EggVariant.SPOTS, 1200, 0xc93660, 0xf9e3f9);
 

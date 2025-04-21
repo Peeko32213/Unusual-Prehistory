@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal;
+package com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.telecrex;
 
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.flying.TelecrexEntity;
 import net.minecraft.world.entity.ai.goal.Goal;

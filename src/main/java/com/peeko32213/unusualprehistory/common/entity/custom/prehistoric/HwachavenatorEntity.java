@@ -254,6 +254,13 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         this.setIsShooting(pCompound.getBoolean("isShooting"));
     }
 
+    public boolean isShooting() {
+        return this.entityData.get(SHOOTING);
+    }
+    public void setIsShooting(boolean shooting) {
+        this.entityData.set(SHOOTING, shooting);
+    }
+
     @Override
     protected float getWaterSlowDown() {
         if (this.getVariant() == 3) {
@@ -482,13 +489,9 @@ public class HwachavenatorEntity extends PrehistoricEntity implements RangedAtta
         return stack.is(UPItemTags.HWACHA_FOOD);
     }
 
-    public boolean isShooting() {
-        return this.entityData.get(SHOOTING);
-    }
 
-    public void setIsShooting(boolean shooting) {
-        this.entityData.set(SHOOTING, shooting);
-    }
+
+
 
     public void tick() {
         super.tick();
