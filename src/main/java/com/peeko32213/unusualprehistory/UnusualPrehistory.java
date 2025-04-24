@@ -133,6 +133,7 @@ public class UnusualPrehistory {
         UPSounds.DEF_REG.register(bus);
         UPEffects.EFFECT_DEF_REG.register(bus);
         UPRecipes.TYPE_DEF_REG.register(bus);
+        UPEnchantments.ENCHANTMENTS.register(bus);
 
         // Structures
         UPStructures.STRUCTURE_TYPES.register(bus);

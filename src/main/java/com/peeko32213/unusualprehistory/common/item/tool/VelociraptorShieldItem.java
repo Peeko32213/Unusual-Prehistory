@@ -2,6 +2,7 @@ package com.peeko32213.unusualprehistory.common.item.tool;
 
 import com.peeko32213.unusualprehistory.client.model.tool.VelociShieldModel;
 import com.peeko32213.unusualprehistory.client.render.tool.ToolRenderer;
+import com.peeko32213.unusualprehistory.core.registry.UPEnchantments;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.InteractionHand;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.Vec3;
@@ -38,7 +40,6 @@ public class VelociraptorShieldItem extends ShieldItem  implements GeoItem {
         return UseAnim.BLOCK;
     }
 
-
     @Override
     public int getEnchantmentValue() {
         return 12;
@@ -51,17 +52,31 @@ public class VelociraptorShieldItem extends ShieldItem  implements GeoItem {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player livingEntityIn, @NotNull InteractionHand hand) {
-        ItemStack itemstack = livingEntityIn.getItemInHand(hand);
-        Vec3 view = livingEntityIn.getViewVector(1.0F);
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player livingEntity, @NotNull InteractionHand hand) {
+        ItemStack itemstack = livingEntity.getItemInHand(hand);
 
-        livingEntityIn.setDeltaMovement(view.multiply(1.5D, 1.0D, 1.5D));
-        livingEntityIn.getCooldowns().addCooldown(this, 60);
+        int longDash = EnchantmentHelper.getItemEnchantmentLevel(UPEnchantments.LONG_DASH.get(), itemstack);
+        int shortDash = EnchantmentHelper.getItemEnchantmentLevel(UPEnchantments.SHORT_DASH.get(), itemstack);
 
-        itemstack.hurtAndBreak(1, livingEntityIn, (player) -> {
-            player.broadcastBreakEvent(livingEntityIn.getUsedItemHand());
-        });
-        return super.use(level, livingEntityIn, hand);
+        Vec3 view = livingEntity.getViewVector(1.0F);
+
+        if (!livingEntity.isFallFlying()) {
+            if (longDash > 0) {
+                livingEntity.setDeltaMovement(view.multiply(1.25D + (longDash / 1.5), 0.85D, 1.25D + (longDash / 1.5)));
+                livingEntity.getCooldowns().addCooldown(this, 50 + (longDash * 12));
+            } else if (shortDash > 0) {
+                livingEntity.setDeltaMovement(view.multiply(0.75D, 0.85D, 0.75D));
+                livingEntity.getCooldowns().addCooldown(this, 50 - (shortDash * 10));
+            } else {
+                livingEntity.setDeltaMovement(view.multiply(1.25D, 0.85D, 1.25D));
+                livingEntity.getCooldowns().addCooldown(this, 50);
+            }
+
+            itemstack.hurtAndBreak(1, livingEntity, (player) -> {
+                player.broadcastBreakEvent(livingEntity.getUsedItemHand());
+            });
+        }
+        return super.use(level, livingEntity, hand);
     }
 
     public boolean isValidRepairItem(ItemStack p_82789_1_, ItemStack p_82789_2_) {
