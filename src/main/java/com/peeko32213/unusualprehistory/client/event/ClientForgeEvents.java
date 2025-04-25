@@ -84,23 +84,23 @@ public final class ClientForgeEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
-        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
-            int duration = Objects.requireNonNull(Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get())).getDuration();
-            if(!(duration > 0)){
-                Minecraft.getInstance().player.removeEffect(UPEffects.SCREEN_SHAKE.get());
-                return;
-            }
-
-            int amplifier = Objects.requireNonNull(Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get())).getAmplifier();
-            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
-            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
-            RandomSource rng = Minecraft.getInstance().player.getRandom();
-            double totalAmp = (0.1 + 0.1 * amplifier);
-            event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
-        }
-    }
+//    @SubscribeEvent
+//    public static void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
+//        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
+//            int duration = Objects.requireNonNull(Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get())).getDuration();
+//            if(!(duration > 0)){
+//                Minecraft.getInstance().player.removeEffect(UPEffects.SCREEN_SHAKE.get());
+//                return;
+//            }
+//
+//            int amplifier = Objects.requireNonNull(Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get())).getAmplifier();
+//            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
+//            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
+//            RandomSource rng = Minecraft.getInstance().player.getRandom();
+//            double totalAmp = (0.1 + 0.1 * amplifier);
+//            event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
+//        }
+//    }
 
     @SubscribeEvent
     public static void preRenderLiving(RenderLivingEvent.Pre event) {

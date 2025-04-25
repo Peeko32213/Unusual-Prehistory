@@ -91,8 +91,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addBlock(UPBlocks.PETRIFIED_PRESSURE_PLATE, "Petrified Pressure Plate");
         addBlock(UPBlocks.PETRIFIED_BUTTON, "Petrified Button");
 
-        addBlock(UPBlocks.FOSSIL_ORES, "Fossils");
-
         // Block Eggs
         addBlock(UPBlocks.STETHA_EGGS, "Stethacanthus Eggs");
         addBlock(UPBlocks.BEELZE_EGGS, "Beelzebufo Spawn");
@@ -144,9 +142,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         addMusicDisc(UPItems.OPALESENCE_DISC, "ChipsTheCat - Opalesence");
         addMusicDisc(UPItems.TARIFYING_DISC, "Dylanvhs - Tar-ifying");
 
-        addItem(UPItems.ANIMAL_DNA_BOTTLES, "Bottle of Prehistoric Animal DNA");
-        addItem(UPItems.PLANT_DNA_BOTTLES, "Bottle of Prehistoric Plant DNA");
-
         // Foods
         addItem(UPItems.GROG, "Bottle of Grog");
         addItem(UPItems.MEAT_ON_A_STICK, "Meat on a Stick");
@@ -167,29 +162,22 @@ public class UPLanguageGenerator extends LanguageProvider {
         addPrehistoricEgg(UPEntities.HYNERPETON, "Hynerpeton Egg");
         addPrehistoricEgg(UPEntities.ANTARCO, "Antarctopelta Egg");
         addPrehistoricEgg(UPEntities.ANURO, "Anurognathus Egg");
-        addPrehistoricEgg(UPEntities.ARCHELON, "Archelon Egg");
         addPrehistoricEgg(UPEntities.AUSTRO, "Austroraptor Egg");
-        addPrehistoricEgg(UPEntities.BALAUR, "Balaur Egg");
         addPrehistoricEgg(UPEntities.BRACHI, "Brachiosauurs Egg");
         addPrehistoricEgg(UPEntities.ENCRUSTED, "Encrusted Sack");
-        addPrehistoricEgg(UPEntities.GLOBIDENS, "Globidens Egg");
         addPrehistoricEgg(UPEntities.HWACHA, "Hwachavenator Egg");
         addPrehistoricEgg(UPEntities.KAPROSUCHUS, "Kaprosuchus Egg");
         addPrehistoricEgg(UPEntities.KENTRO, "Kentrosaurus Egg");
-        addPrehistoricEgg(UPEntities.LONGISQUAMA, "Longisquama Egg");
         addPrehistoricEgg(UPEntities.MAJUNGA, "Majungasaurus Egg");
-        addPrehistoricEgg(UPEntities.OVIRAPTOR, "Oviraptor Egg");
         addPrehistoricEgg(UPEntities.PACHY, "Pachycephalosaurus Egg");
         addPrehistoricEgg(UPEntities.PSITTACO, "Psittacosaurus Egg");
         addPrehistoricEgg(UPEntities.PTERODAUSTRO, "Pterodaustro Egg");
-        addPrehistoricEgg(UPEntities.TANY, "Tanystropheus Egg");
         addPrehistoricEgg(UPEntities.TRICERATOPS, "Triceratops Egg");
         addPrehistoricEgg(UPEntities.TYRANNOSAURUS, "Tyrannosaurus Egg");
         addPrehistoricEgg(UPEntities.ULUG, "Ulughbegsaurus Egg");
         addPrehistoricEgg(UPEntities.VELOCIRAPTOR, "Velociraptor Egg");
         addPrehistoricEgg(UPEntities.BARINASUCHUS, "Barinasuchus Egg");
         addPrehistoricEgg(UPEntities.MEGALANIA, "Megalania Egg");
-        addPrehistoricEgg(UPEntities.PSILOPTERUS, "Psilopterus Egg");
         addPrehistoricEgg(UPEntities.TALPANAS, "Talpanas Egg");
 
         // Tyrant's crown
@@ -258,23 +246,13 @@ public class UPLanguageGenerator extends LanguageProvider {
         addDNAItem(UPItems.HYNERIA_DNA.get());
         addDNAItem(UPItems.OPHIO_DNA.get());
         addDNAItem(UPItems.ESTEMMENO_DNA.get());
-        addDNAItem(UPItems.XIPHACT_DNA.get());
-        addDNAItem(UPItems.PTERY_DNA.get());
         addDNAItem(UPItems.EDAPHO_DNA.get());
-        addDNAItem(UPItems.OVIRAPTOR_DNA.get());
-        addDNAItem(UPItems.GLOBIDENS_DNA.get());
-        addDNAItem(UPItems.OTAROCYON_DNA.get());
-        addDNAItem(UPItems.LONGI_DNA.get());
         addDNAItem(UPItems.JAWLESS_FISH_DNA.get());
         addDNAItem(UPItems.TARTUO_DNA.get());
-        addDNAItem(UPItems.TANY_DNA.get());
         addDNAItem(UPItems.PSITTACO_DNA.get());
-        addDNAItem(UPItems.PSILO_DNA.get());
         addDNAItem(UPItems.HYNERP_DNA.get());
-        addDNAItem(UPItems.BALAUR_DNA.get());
         addDNAItem(UPItems.LEEDS_DNA.get());
         addDNAItem(UPItems.PTERODAUSTRO_DNA.get());
-        addDNAItem(UPItems.ARCHELON_DNA.get());
         addDNAItem(UPItems.PROTOSPHYRAENA_DNA.get());
         addDNAItem(UPItems.PANACANTHOCARIS_DNA.get());
         addDNAItem(UPItems.KAPRO_DNA.get());
@@ -334,27 +312,18 @@ public class UPLanguageGenerator extends LanguageProvider {
         forEntity(UPEntities.HYNERIA);
         forEntity(UPEntities.HYNERPETON);
         forEntity(UPEntities.JAWLESS_FISH);
-        forEntity(UPEntities.PTERYGOTUS);
         forEntity(UPEntities.TARTUOSTEUS);
 
         // Meso mobs
-        forEntity(UPEntities.ARCHELON);
-        forEntity(UPEntities.BALAUR);
         forEntity(UPEntities.KAPROSUCHUS);
         forEntity(UPEntities.KIMMER);
         forEntity(UPEntities.LEEDSICHTHYS);
-        forEntity(UPEntities.LONGISQUAMA);
-        forEntity(UPEntities.OVIRAPTOR);
         forEntity(UPEntities.PROTOSPHYRAENA);
         forEntity(UPEntities.PSITTACO);
         forEntity(UPEntities.PTERODAUSTRO);
-        forEntity(UPEntities.TANY);
-        forEntity(UPEntities.XIPH);
 
         // Ceno mobs
         forEntity(UPEntities.OPHIODON);
-        forEntity(UPEntities.OTAROCYON);
-        forEntity(UPEntities.PSILOPTERUS);
         forEntity(UPEntities.TELECREX);
         forEntity(UPEntities.UNICORN);
 
@@ -959,7 +928,6 @@ public class UPLanguageGenerator extends LanguageProvider {
         add("bar.unusualprehistory.tyrannosaurus", "%s");
 
         // Effects
-        addEffect(UPEffects.SCREEN_SHAKE, "Screen Shake");
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");

@@ -229,7 +229,6 @@ public class UPTabs {
                         entries.accept(UPItems.HYNERIA_DNA.get());
                         entries.accept(UPItems.HYNERP_DNA.get());
                         entries.accept(UPItems.JAWLESS_FISH_DNA.get());
-                        entries.accept(UPItems.PTERY_DNA.get());
                         entries.accept(UPItems.SCAU_DNA.get());
                         entries.accept(UPItems.STETHA_DNA.get());
                         entries.accept(UPItems.TARTUO_DNA.get());
@@ -237,35 +236,26 @@ public class UPTabs {
                         // Meso DNA
                         entries.accept(UPItems.ANTARCTO_DNA.get());
                         entries.accept(UPItems.ANURO_DNA.get());
-                        entries.accept(UPItems.ARCHELON_DNA.get());
                         entries.accept(UPItems.AUSTRO_DNA.get());
-                        entries.accept(UPItems.BALAUR_DNA.get());
                         entries.accept(UPItems.BEELZ_DNA.get());
                         entries.accept(UPItems.BRACHI_DNA.get());
+                        entries.accept(UPItems.ENCRUSTED_DNA.get());
                         entries.accept(UPItems.ERYON_DNA.get());
-                        entries.accept(UPItems.GLOBIDENS_DNA.get());
+                        entries.accept(UPItems.HWACHA_DNA.get());
                         entries.accept(UPItems.KAPRO_DNA.get());
                         entries.accept(UPItems.KENTRO_DNA.get());
                         entries.accept(UPItems.KIMMER_DNA.get());
                         entries.accept(UPItems.LEEDS_DNA.get());
-                        entries.accept(UPItems.LONGI_DNA.get());
                         entries.accept(UPItems.MAJUNGA_DNA.get());
-                        entries.accept(UPItems.OVIRAPTOR_DNA.get());
                         entries.accept(UPItems.PACHY_DNA.get());
                         entries.accept(UPItems.PANACANTHOCARIS_DNA.get());
                         entries.accept(UPItems.PROTOSPHYRAENA_DNA.get());
                         entries.accept(UPItems.PSITTACO_DNA.get());
                         entries.accept(UPItems.PTERODAUSTRO_DNA.get());
-                        entries.accept(UPItems.TANY_DNA.get());
                         entries.accept(UPItems.TRIKE_DNA.get());
                         entries.accept(UPItems.TYRANNO_DNA.get());
                         entries.accept(UPItems.ULUGH_DNA.get());
                         entries.accept(UPItems.VELOCI_DNA.get());
-                        entries.accept(UPItems.XIPHACT_DNA.get());
-
-                        // Creatures of mesozoic fiction DNA
-                        entries.accept(UPItems.ENCRUSTED_DNA.get());
-                        entries.accept(UPItems.HWACHA_DNA.get());
 
                         // Ceno DNA
                         entries.accept(UPItems.BARINA_DNA.get());
@@ -274,10 +264,8 @@ public class UPTabs {
                         entries.accept(UPItems.MEGALANIA_DNA.get());
                         entries.accept(UPItems.MEGATHERIUM_DNA.get());
                         entries.accept(UPItems.OPHIO_DNA.get());
-                        entries.accept(UPItems.OTAROCYON_DNA.get());
                         entries.accept(UPItems.PALAEO_DNA.get());
                         entries.accept(UPItems.PARACER_DNA.get());
-                        entries.accept(UPItems.PSILO_DNA.get());
                         entries.accept(UPItems.SMILODON_DNA.get());
                         entries.accept(UPItems.TALPANAS_DNA.get());
                         entries.accept(UPItems.TELECREX_DNA.get());
@@ -330,7 +318,6 @@ public class UPTabs {
                         entries.accept(UPItems.GIGANTO_EMBRYO.get());
                         entries.accept(UPItems.MAMMOTH_EMBRYO.get());
                         entries.accept(UPItems.MEGATH_EMBRYO.get());
-                        entries.accept(UPItems.OTAROCYON_EMBRYO.get());
                         entries.accept(UPItems.PALAEO_EMBRYO.get());
                         entries.accept(UPItems.PARACER_EMBRYO.get());
                         entries.accept(UPItems.SMILODON_EMBRYO.get());

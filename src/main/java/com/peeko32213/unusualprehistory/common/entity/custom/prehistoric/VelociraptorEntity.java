@@ -7,9 +7,9 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStat
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.VelociraptorFleeGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.VelociraptorPushButtonsGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.VelociraptorAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.velociraptor.VelociraptorFleeGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.velociraptor.VelociraptorPushButtonsGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.velociraptor.VelociraptorAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
@@ -31,7 +31,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -49,7 +48,6 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 

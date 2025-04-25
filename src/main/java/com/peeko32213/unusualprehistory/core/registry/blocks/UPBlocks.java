@@ -37,9 +37,6 @@ public class UPBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, UnusualPrehistory.MODID);
     public static List<RegistryObject<? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
 
-    // Book stuff
-    public static final RegistryObject<Block> FOSSIL_ORES = registerBlock("fossil_ores", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(0.5F).sound(SoundType.STONE)));
-
     // Fossil ores
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));

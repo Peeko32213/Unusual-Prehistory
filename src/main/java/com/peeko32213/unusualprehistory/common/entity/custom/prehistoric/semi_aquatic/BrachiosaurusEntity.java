@@ -528,21 +528,6 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
                 headPeakCooldown = 5;
             }
         }
-        if(this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater() && !this.isBaby()) {
-            if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                int brachiShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_AMPLIFIER.get();
-                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(brachiShakeRange));
-                for (LivingEntity e : list) {
-                    if ((e instanceof Player)) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, brachiShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), 1.75F, 0.4F / (level().getRandom().nextFloat() * 0.4F + 0.8F));
-                    }
-                }
-                shakeCooldown = 23;
-            }
-        }
-        shakeCooldown--;
 
         this.TailKinematics.calculateTailAngles(this);
     }
@@ -885,17 +870,6 @@ public class BrachiosaurusEntity extends PrehistoricEntity implements ISemiAquat
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.BRACHI_STOMP.get(), 2.5F, 0.65F);
             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob), (float) Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getValue(), 1.4f, mob, pos,  8.5F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
-            if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI.get()) {
-                double brachiShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_BRACHI_RANGE.get();
-                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(brachiShakeRange));
-                for (LivingEntity e : list) {
-                    if (!(e instanceof BrachiosaurusEntity) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 15, 8, false, false, false));
-                    }
-                }
-                mob.shakeCooldown = 100;
-            }
-            mob.shakeCooldown--;
         }
 
         protected void resetAttackCooldown () {

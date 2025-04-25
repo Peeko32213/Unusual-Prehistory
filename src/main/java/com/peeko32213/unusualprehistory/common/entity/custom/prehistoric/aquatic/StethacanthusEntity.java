@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelpe
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AquaticJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.StethacanthusAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.stethacanthus.StethacanthusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;

@@ -49,7 +49,7 @@ public class HandmadeClubItem extends SwordItem {
 
         if(state.is(Blocks.BEDROCK) || !state.is(UPBlockTags.CLUB_WHITELIST_BLOCKS)) return InteractionResult.FAIL;
 
-        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos,state);
+        ThrowableFallingBlockEntity fallingBlockEntity = ThrowableFallingBlockEntity.fall(level, pos, state);
 
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BASALT_HIT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 

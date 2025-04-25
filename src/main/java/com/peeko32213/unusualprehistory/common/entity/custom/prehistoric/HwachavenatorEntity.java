@@ -9,7 +9,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedSt
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.BabyPanicGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomRideGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.HwachavenatorAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.hwachavenator.HwachavenatorAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.projectile.HwachavenatorSpikeEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IAttackEntity;

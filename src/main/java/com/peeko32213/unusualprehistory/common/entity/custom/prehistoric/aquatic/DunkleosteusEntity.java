@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.DunkleosteusAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.dunkleosteus.DunkleosteusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.kinematics.IKSolver;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;

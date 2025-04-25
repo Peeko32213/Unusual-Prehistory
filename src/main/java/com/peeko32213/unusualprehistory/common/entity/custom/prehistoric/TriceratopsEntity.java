@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.*;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableTempt;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.TriceratopsAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.triceratops.TriceratopsAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;

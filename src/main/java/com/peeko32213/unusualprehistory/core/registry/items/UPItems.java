@@ -34,10 +34,6 @@ public class UPItems {
     public static final ItemSubRegistryHelper HELPER = UnusualPrehistory.REGISTRY_HELPER.getItemSubHelper();
     public static List<RegistryObject<? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
 
-    // Book items
-    public static final RegistryObject<Item> ANIMAL_DNA_BOTTLES = item("animal_dna_bottles", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> PLANT_DNA_BOTTLES = item("plant_dna_bottles", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> ENCYLOPEDIA = translatedItem("encyclopedia", () -> new EncyclopediaItem(new Item.Properties().stacksTo(1)));
 
     // Fossils
@@ -88,7 +84,6 @@ public class UPItems {
     public static final RegistryObject<Item> HYNERIA_DNA = dnaItem("hyneria");
     public static final RegistryObject<Item> ESTEMMENO_DNA = dnaItem("estemmenosuchus");
     public static final RegistryObject<Item> EDAPHO_DNA = dnaItem("edaphosaurus");
-    public static final RegistryObject<Item> PTERY_DNA = dnaItem("pterygotus");
     public static final RegistryObject<Item> JAWLESS_FISH_DNA = dnaItem("jawless_fish");
     public static final RegistryObject<Item> TARTUO_DNA = dnaItem("tartuosteus");
     public static final RegistryObject<Item> HYNERP_DNA = dnaItem("hynerpeton");
@@ -97,12 +92,10 @@ public class UPItems {
     public static final RegistryObject<Item> ANTARCTO_DNA = dnaItem("antarctopelta");
     public static final RegistryObject<Item> ANURO_DNA = dnaItem("anurognathus");
     public static final RegistryObject<Item> AUSTRO_DNA = dnaItem("austroraptor");
-    public static final RegistryObject<Item> BALAUR_DNA = dnaItem("balaur");
     public static final RegistryObject<Item> BEELZ_DNA = dnaItem("beelzebufo");
     public static final RegistryObject<Item> BRACHI_DNA = dnaItem("brachiosaurus");
     public static final RegistryObject<Item> ENCRUSTED_DNA = dnaItem("encrusted");
     public static final RegistryObject<Item> ERYON_DNA = dnaItem("eryon");
-    public static final RegistryObject<Item> GLOBIDENS_DNA = dnaItem("globidens");
     public static final RegistryObject<Item> HWACHA_DNA = dnaItem("hwachavenator");
     public static final RegistryObject<Item> KENTRO_DNA = dnaItem("kentrosaurus");
     public static final RegistryObject<Item> KIMMER_DNA = dnaItem("kimmeridgebrachypteraeschnidium");
@@ -114,15 +107,10 @@ public class UPItems {
     public static final RegistryObject<Item> TYRANNO_DNA = dnaItem("tyrannosaurus");
     public static final RegistryObject<Item> ULUGH_DNA = dnaItem("ulughbegsaurus");
     public static final RegistryObject<Item> VELOCI_DNA = dnaItem("velociraptor");
-    public static final RegistryObject<Item> OVIRAPTOR_DNA = dnaItem("oviraptor");
     public static final RegistryObject<Item> LEEDS_DNA = dnaItem("leedsichthys");
-    public static final RegistryObject<Item> LONGI_DNA = dnaItem("longisquama");
     public static final RegistryObject<Item> KAPRO_DNA = dnaItem("kaprosuchus");
     public static final RegistryObject<Item> PTERODAUSTRO_DNA = dnaItem("pterodaustro");
-    public static final RegistryObject<Item> ARCHELON_DNA = dnaItem("archelon");
     public static final RegistryObject<Item> PSITTACO_DNA = dnaItem("psittacosaurus");
-    public static final RegistryObject<Item> TANY_DNA = dnaItem("tanystropheus");
-    public static final RegistryObject<Item> XIPHACT_DNA = dnaItem("xiphactinus");
 
     // Ceno dna
     public static final RegistryObject<Item> BARINA_DNA = dnaItem("barinasuchus");
@@ -136,8 +124,6 @@ public class UPItems {
     public static final RegistryObject<Item> SMILODON_DNA = dnaItem("smilodon");
     public static final RegistryObject<Item> TALPANAS_DNA = dnaItem("talpanas");
     public static final RegistryObject<Item> TELECREX_DNA = dnaItem("telecrex");
-    public static final RegistryObject<Item> OTAROCYON_DNA = dnaItem("otarocyon");
-    public static final RegistryObject<Item> PSILO_DNA = dnaItem("psilopterus");
 
     // Plant dna
     public static final RegistryObject<Item> ANOSTYLOSTRAMA_DNA = dnaItem("anostylostroma");
@@ -163,7 +149,6 @@ public class UPItems {
     public static final RegistryObject<Item> PALAEO_EMBRYO = translatedItem("palaeophis_embryo", () -> new AnimalAttacherItem(new Item.Properties(), UPEntityTypeTags.PALAEO_EMBRYO_ATTACH_TO, UPEntities.BABY_PALAEO, 1000));
     public static final RegistryObject<Item> PARACER_EMBRYO = translatedItem("paraceratherium_embryo", () -> new AnimalAttacherItem(new Item.Properties(), UPEntityTypeTags.PARACER_EMBRYO_ATTACH_TO, UPEntities.PARACERATHERIUM, 1000));
     public static final RegistryObject<Item> SMILODON_EMBRYO = translatedItem("smilodon_embryo", () -> new AnimalAttacherItem(new Item.Properties(), UPEntityTypeTags.SMILODON_EMBRYO_ATTACH_TO, UPEntities.SMILODON, 1000));
-    public static final RegistryObject<Item> OTAROCYON_EMBRYO = translatedItem("otarocyon_embryo", () -> new AnimalAttacherItem(new Item.Properties(), UPEntityTypeTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.OTAROCYON, 1000));
     public static final RegistryObject<Item> UNICORN_EMBRYO = translatedItem("unicorn_embryo", () -> new AnimalAttacherItem(new Item.Properties(), UPEntityTypeTags.OTAROCYON_EMBRYO_ATTACH_TO, UPEntities.UNICORN, 1000));
 
     public static final RegistryObject<Item> ORGANIC_OOZE = translatedItem("organic_ooze", () -> new Item(new Item.Properties()));
@@ -192,9 +177,7 @@ public class UPItems {
     public static final RegistryObject<Item> AMMON_SPAWN_EGG = spawnEgg("ammonite", UPEntities.AMMON , 0x402018, 0x99895c);
     public static final RegistryObject<Item> ANTARCO_SPAWN_EGG = spawnEgg("antarctopelta", UPEntities.ANTARCO , 0x39332d, 0xe6e1d4);
     public static final RegistryObject<Item> ANURO_SPAWN_EGG = spawnEgg("anurognathus", UPEntities.ANURO , 0x7d7968, 0xf4dd48);
-    public static final RegistryObject<Item> ARCHELON_SPAWN_EGG = spawnEgg("archelon", UPEntities.ARCHELON , 0x618b89, 0x171923);
     public static final RegistryObject<Item> AUSTRO_SPAWN_EGG = spawnEgg("austroraptor", UPEntities.AUSTRO , 0xa19d97, 0xdc4c39);
-    public static final RegistryObject<Item> BALAUR_SPAWN_EGG = spawnEgg("balaur", UPEntities.BALAUR , 0x1d1d28, 0x3b8a34);
     public static final RegistryObject<Item> BARINA_SPAWN_EGG = spawnEgg("barinasuchus", UPEntities.BARINASUCHUS , 0x0e0b03, 0xbea61e);
     public static final RegistryObject<Item> BEELZ_SPAWN_EGG = spawnEgg("beelzebufo", UPEntities.BEELZ , 0x5d9439, 0x7457c5);
     public static final RegistryObject<Item> BEELZ_TADPOLE_SPAWN_EGG = spawnEgg("beelzebufo_tadpole", UPEntities.BEELZE_TADPOLE , 0x71b460, 0xd2bd7e);
@@ -207,7 +190,6 @@ public class UPItems {
     public static final RegistryObject<Item> ERYON_SPAWN_EGG = spawnEgg("eryon", UPEntities.ERYON , 0x1d2110, 0xe4b423);
     public static final RegistryObject<Item> ESTEMMENOSUCHUS_SPAWN_EGG = spawnEgg("estemmenosuchus", UPEntities.ESTEMMENOSUCHUS , 0x1e202d, 0x7e4995);
     public static final RegistryObject<Item> GIGANTO_SPAWN_EGG = spawnEgg("gigantopithecus", UPEntities.GIGANTOPITHICUS , 0x7c3c23, 0x665f58);
-    public static final RegistryObject<Item> GLOBIDENS_SPAWN_EGG = spawnEgg("globidens", UPEntities.GLOBIDENS , 0x414f4a, 0xdbe4e1);
     public static final RegistryObject<Item> HWACHA_SPAWN_EGG = spawnEgg("hwachavenator", UPEntities.HWACHA , 0x2b554a, 0xffed18);
     public static final RegistryObject<Item> HYNERIA_SPAWN_EGG =spawnEgg("hyneria", UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
     public static final RegistryObject<Item> HYNERPETON_SPAWN_EGG = spawnEgg("hynerpeton", UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
@@ -216,37 +198,30 @@ public class UPItems {
     public static final RegistryObject<Item> KENTRO_SPAWN_EGG = spawnEgg("kentrosaurus", UPEntities.KENTRO , 0x657341, 0x181a14);
     public static final RegistryObject<Item> KIMMER_SPAWN_EGG = spawnEgg("kimmeridgebrachypteraeschnidium", UPEntities.KIMMER , 0xf77efc, 0x44b0ef);
     public static final RegistryObject<Item> LEEDS_SPAWN_EGG = spawnEgg("leedsichthys", UPEntities.LEEDSICHTHYS , 0x505b67, 0xd9dada);
-    public static final RegistryObject<Item> LONGISQUAMA_SPAWN_EGG = spawnEgg("longisquama", UPEntities.LONGISQUAMA , 0x5e4fa7, 0x7edbdd);
     public static final RegistryObject<Item> MAJUNGA_SPAWN_EGG = spawnEgg("majungasaurus", UPEntities.MAJUNGA , 0x1d600e, 0xacd35d);
     public static final RegistryObject<Item> MAMMOTH_SPAWN_EGG = spawnEgg("mammoth", UPEntities.MAMMOTH , 0x180a08, 0x5e5333);
     public static final RegistryObject<Item> MEGALANIA_SPAWN_EGG = spawnEgg("megalania", UPEntities.MEGALANIA , 0x4f432b, 0x3ae3fd);
     public static final RegistryObject<Item> MEGATH_SPAWN_EGG = spawnEgg("megatherium", UPEntities.MEGATHERIUM , 0x221e1b, 0xc9bfa1);
     public static final RegistryObject<Item> OPHIODON_SPAWN_EGG = spawnEgg("ophiodon", UPEntities.OPHIODON , 0x212d47, 0x467186);
-    public static final RegistryObject<Item> OTAROCYON_SPAWN_EGG = spawnEgg("otarocyon", UPEntities.OTAROCYON , 0x281b25, 0x681523);
-    public static final RegistryObject<Item> OVIRAPTOR_SPAWN_EGG = spawnEgg("oviraptor", UPEntities.OVIRAPTOR , 0x456a66, 0xe84560);
     public static final RegistryObject<Item> PACHY_SPAWN_EGG = spawnEgg("pachycephalosaurus", UPEntities.PACHY , 0x852d2d, 0xf8b209);
     public static final RegistryObject<Item> PALAEOPHIS_SPAWN_EGG = spawnEgg("palaeophis", UPEntities.PALAEOPHIS , 0x211d4b, 0xa1b7c1);
     public static final RegistryObject<Item> PALAEOPHIS_HATCHLING_SPAWN_EGG = spawnEgg("palaeophis_hatchling", UPEntities.BABY_PALAEO , 0x3a4172, 0x8da5b3);
     public static final RegistryObject<Item> PANACANTHOCARIS_SPAWN_EGG = spawnEgg("panacanthocaris", UPEntities.PANACANTHOCARIS , 0x6c7180, 0xefee49);
     public static final RegistryObject<Item> PARACER_SPAWN_EGG = spawnEgg("paraceratherium", UPEntities.PARACERATHERIUM , 0x4a4343, 0xaf9f4b);
     public static final RegistryObject<Item> PROTOSPHYRAENA_SPAWN_EGG = spawnEgg("protosphyraena", UPEntities.PROTOSPHYRAENA , 0x283545, 0x462828);
-    public static final RegistryObject<Item> PSILOPTERUS_SPAWN_EGG = spawnEgg("psilopterus", UPEntities.PSILOPTERUS , 0x3f3428, 0xe4ceb0);
     public static final RegistryObject<Item> PSITTACO_SPAWN_EGG = spawnEgg("psittacosaurus", UPEntities.PSITTACO , 0xa04f2a, 0xd6b560);
     public static final RegistryObject<Item> PTERODAUSTRO_SPAWN_EGG = spawnEgg("pterodaustro", UPEntities.PTERODAUSTRO , 0xf6887f, 0x1b1419);
-    public static final RegistryObject<Item> PTERYGOTUS_SPAWN_EGG = spawnEgg("pterygotus", UPEntities.PTERYGOTUS , 0xb88966, 0x664531);
     public static final RegistryObject<Item> SCAU_SPAWN_EGG = spawnEgg("scaumenacia", UPEntities.SCAU , 0x687076, 0x376f97);
     public static final RegistryObject<Item> SLUDGE_SPAWN_EGG = spawnEgg("sludge", UPEntities.SLUDGE , 0x0a090a, 0x282627);
     public static final RegistryObject<Item> SMILO_SPAWN_EGG = spawnEgg("smilodon", UPEntities.SMILODON , 0x704333, 0xc8c5c2);
     public static final RegistryObject<Item> STETHA_SPAWN_EGG = spawnEgg("stethacanthus", UPEntities.STETHACANTHUS , 0x853028, 0xffc400);
     public static final RegistryObject<Item> TALPANAS_SPAWN_EGG = spawnEgg("talpanas", UPEntities.TALPANAS , 0x30241a, 0xb2dee0);
-    public static final RegistryObject<Item> TANY_SPAWN_EGG = spawnEgg("tanystropheus", UPEntities.TANY , 0x08090d, 0xf2f6f8);
     public static final RegistryObject<Item> TARTUOSTEUS_SPAWN_EGG = spawnEgg("tartuosteus", UPEntities.TARTUOSTEUS , 0x508b38, 0x852525);
     public static final RegistryObject<Item> TELECREX_SPAWN_EGG = spawnEgg("telecrex", UPEntities.TELECREX , 0x221d37, 0x770f38);
     public static final RegistryObject<Item> TRICERATOPS_SPAWN_EGG = spawnEgg("triceratops", UPEntities.TRICERATOPS, 0x45452a, 0x9c2f2f);
     public static final RegistryObject<Item> TYRANNOSAURUS_SPAWN_EGG = spawnEgg("tyrannosaurus", UPEntities.TYRANNOSAURUS, 0x3e2025, 0xa23a47);
     public static final RegistryObject<Item> ULUG_SPAWN_EGG = spawnEgg("ulughbegsaurus", UPEntities.ULUG , 0x6e5953, 0x466dc2);
     public static final RegistryObject<Item> VELOCIRAPTOR_SPAWN_EGG = spawnEgg("velociraptor", UPEntities.VELOCIRAPTOR, 0xdfd9c7, 0x4a4242);
-    public static final RegistryObject<Item> XIPH_SPAWN_EGG = spawnEgg("xiphactinus", UPEntities.XIPH , 0x9eacbe, 0x21262a);
 
     // Eggs
     public static final RegistryObject<Item> TELECREX_EGG = translatedItem("telecrex_egg", () -> new ThrowableEggItem(new Item.Properties().stacksTo(16)));

@@ -76,14 +76,14 @@ public class RexBoomboxBlock extends Block {
         int i1 = pos.getZ();
         AABB aabb = (new AABB(pos)).inflate(16);
         List<Player> list = level.getEntitiesOfClass(Player.class, aabb);
-        if (!list.isEmpty()) {
-            for(Player player : list) {
-                if (pos.closerThan(player.blockPosition(), 16)) {
-                    player.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, true, true));
-                }
-            }
-
-        }
+//        if (!list.isEmpty()) {
+//            for(Player player : list) {
+//                if (pos.closerThan(player.blockPosition(), 16)) {
+//                    player.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 20, 0, true, true));
+//                }
+//            }
+//
+//        }
     }
 
 

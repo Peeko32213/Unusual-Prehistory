@@ -4,7 +4,7 @@
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.GroundseekingRandomSwimGoal;
- import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.OphiodonAttackGoal;
+ import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.ophiodon.OphiodonAttackGoal;
  import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
  import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
  import com.peeko32213.unusualprehistory.core.registry.UPSounds;

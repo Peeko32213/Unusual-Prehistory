@@ -92,26 +92,16 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
                 KIMMER_DNA.get(),
                 DIPLO_DNA.get(),
                 HYNERIA_DNA.get(),
-                OTAROCYON_DNA.get(),
-                LONGI_DNA.get(),
                 JAWLESS_FISH_DNA.get(),
                 TARTUO_DNA.get(),
-                TANY_DNA.get(),
                 PSITTACO_DNA.get(),
                 KAPRO_DNA.get(),
-                PSILO_DNA.get(),
                 OPHIO_DNA.get(),
                 HYNERP_DNA.get(),
-                BALAUR_DNA.get(),
-                PTERY_DNA.get(),
                 EDAPHO_DNA.get(),
                 HYNERP_DNA.get(),
                 LEEDS_DNA.get(),
                 PTERODAUSTRO_DNA.get(),
-                XIPHACT_DNA.get(),
-                OVIRAPTOR_DNA.get(),
-                GLOBIDENS_DNA.get(),
-                ARCHELON_DNA.get(),
                 ESTEMMENO_DNA.get(),
                 PANACANTHOCARIS_DNA.get()
         );
@@ -245,10 +235,7 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
 
         this.tag(UPItemTags.HIDDEN_ITEMS).add(
                 UNICORN_SKELETON.get(),
-                UNICORN_EMBRYO.get(),
-                PLANT_DNA_BOTTLES.get(),
-                ANIMAL_DNA_BOTTLES.get(),
-                UPBlocks.FOSSIL_ORES.get().asItem()
+                UNICORN_EMBRYO.get()
         );
 
         this.tag(ItemTags.MUSIC_DISCS).add(

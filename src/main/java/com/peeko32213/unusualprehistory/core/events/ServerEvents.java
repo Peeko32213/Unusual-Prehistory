@@ -210,28 +210,6 @@ public class ServerEvents {
 
     @SubscribeEvent
     //cant be canceled
-    public void axeOneHitWoodDestroy(PlayerInteractEvent.LeftClickBlock event) {
-        if(event.getEntity() != null && !event.getLevel().isClientSide){
-            Player player = event.getEntity();
-            ServerLevel serverLevel = (ServerLevel) event.getLevel();
-            ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if(!itemStack.is(UPItems.HANDMADE_BATTLEAXE.get())) return;
-            BlockPos pos = event.getPos();
-            BlockState state = serverLevel.getBlockState(pos);
-            RandomSource randomSource = serverLevel.random;
-            boolean giveDrops = randomSource.nextInt(100) < 10;
-            if(state.is(BlockTags.MINEABLE_WITH_AXE)) {
-                if(!giveDrops){
-                    serverLevel.destroyBlock(pos, false);
-                } else {
-                    serverLevel.destroyBlock(pos, true);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    //cant be canceled
     public void preventClick(PlayerInteractEvent.LeftClickEmpty event) {
         if (event.getEntity().hasEffect(UPEffects.PREVENT_CLICK.get())) {
             event.setCanceled(true);

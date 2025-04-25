@@ -106,24 +106,6 @@ public class ParaceratheriumEntity extends PrehistoricEntity {
         return temptationItems;
     }
 
-    public void tick() {
-        super.tick();
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isSwimming() && !this.isInWater()) {
-            if (this.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
-                double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
-                int paraceratheriumShakeAmp = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_AMPLIFIER.get();
-                List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(paraceratheriumShakeRange));
-                for (LivingEntity e : list) {
-                    if (e instanceof Player) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 6, paraceratheriumShakeAmp, false, false, false));
-                        this.playSound(UPSounds.BRACHI_STEP.get(), 1.25F, 1.0F);
-                    }
-                }
-                shakeCooldown = 40;
-            }
-        }
-    }
-
     protected SoundEvent getAmbientSound() {
         return UPSounds.PARACER_IDLE.get();
     }
@@ -365,17 +347,6 @@ public class ParaceratheriumEntity extends PrehistoricEntity {
             Vec3 pos = mob.position();
             this.mob.playSound(UPSounds.PARACER_STOMP.get(), 1.0F, 1.0F);
             HitboxAttacks.largeAttack(this.mob.damageSources().mobAttack(mob),20.0f, 0.7f, mob, pos,  7.0F, -Math.PI/2, Math.PI/2, -1.0f, 3.0f, true);
-            if(this.mob.shakeCooldown <= 0 && UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM.get()) {
-                double paraceratheriumShakeRange = UnusualPrehistoryConfig.SCREEN_SHAKE_PARACERATHERIUM_RANGE.get();
-                List<LivingEntity> list = this.mob.level().getEntitiesOfClass(LivingEntity.class, this.mob.getBoundingBox().inflate(paraceratheriumShakeRange));
-                for (LivingEntity e : list) {
-                    if (!(e instanceof ParaceratheriumEntity) && e.isAlive()) {
-                        e.addEffect(new MobEffectInstance(UPEffects.SCREEN_SHAKE.get(), 10, 4, false, false, false));
-                    }
-                }
-                mob.shakeCooldown = 100;
-            }
-            mob.shakeCooldown--;
         }
 
         protected void resetAttackCooldown() {

@@ -1,107 +1,110 @@
 {
-  "credit": "Made with Blockbench",
-  "parent": "builtin/entity",
-  "textures": {
-    "particle": "block/gold_block"
-  },
-  "texture_size": [
-    32,
-    32
-  ],
-  "display": {
-    "thirdperson_righthand": {
-      "rotation": [
-        90.0300000000002,
-        -85.13999999999987,
-        -0.4800000000000182
-      ],
-      "translation": [
-        3.25,
-        -1.5,
-        -2.5
-      ]
-    },
-    "thirdperson_lefthand": {
-      "rotation": [
-        90.0300000000002,
-        -85.13999999999987,
-        -0.4800000000000182
-      ],
-      "translation": [
-        3.25,
-        -1.5,
-        -2.5
-      ]
-    },
-    "firstperson_righthand": {
-      "rotation": [
-        0,
-        -16,
-        -7
-      ],
-      "translation": [
-        0,
-        -8.5,
-        0
-      ]
-    },
-    "firstperson_lefthand": {
-      "rotation": [
-        0,
-        -16,
-        -7
-      ],
-      "translation": [
-        0,
-        -8.5,
-        0
-      ]
-    },
-    "ground": {
-      "translation": [
-        0,
-        -3.25,
-        0
-      ]
-    },
-    "gui": {
-      "rotation": [
-        -10,
-        146,
-        11
-      ],
-      "translation": [
-        -0.5,
-        -5.25,
-        0
-      ]
-    },
-    "head": {
-      "translation": [
-        0,
-        -5,
-        -7.5
-      ]
-    },
-    "fixed": {
-      "rotation": [
-        -1,
-        -11,
-        7
-      ],
-      "translation": [
-        0.25,
-        -6,
-        0
-      ]
-    }
-  },
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "unusualprehistory:item/veloci_shield",
+		"particle": "unusualprehistory:item/veloci_shield"
+	},
+	"elements": [
+		{
+			"name": "sheild",
+			"from": [2.5, 0, 7],
+			"to": [13.5, 11, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [1, 1, 6.5, 6.5], "texture": "#0"},
+				"east": {"uv": [0, 1, 1, 6.5], "texture": "#0"},
+				"south": {"uv": [7.5, 1, 13, 6.5], "texture": "#0"},
+				"west": {"uv": [6.5, 1, 7.5, 6.5], "texture": "#0"},
+				"up": {"uv": [6.5, 1, 1, 0], "texture": "#0"},
+				"down": {"uv": [12, 0, 6.5, 1], "texture": "#0"}
+			}
+		},
+		{
+			"name": "sheild",
+			"from": [4.975, 3.975, 10.975],
+			"to": [11.025, 6.025, 11.025],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 8.5, 3, 9.5], "texture": "#0"},
+				"east": {"uv": [0, 8.5, 0, 9.5], "texture": "#0"},
+				"south": {"uv": [3, 8.5, 6, 9.5], "texture": "#0"},
+				"west": {"uv": [3, 8.5, 3, 9.5], "texture": "#0"},
+				"up": {"uv": [3, 8.5, 0, 8.5], "texture": "#0"},
+				"down": {"uv": [6, 8.5, 3, 8.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "sheild",
+			"from": [10.975, 3.975, 8.975],
+			"to": [11.025, 6.025, 11.025],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [7, 8.5, 7, 9.5], "texture": "#0"},
+				"east": {"uv": [6, 8.5, 7, 9.5], "texture": "#0"},
+				"south": {"uv": [8, 8.5, 8, 9.5], "texture": "#0"},
+				"west": {"uv": [7, 8.5, 8, 9.5], "texture": "#0"},
+				"up": {"uv": [7, 8.5, 7, 7.5], "texture": "#0"},
+				"down": {"uv": [7, 7.5, 7, 8.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "sheild",
+			"from": [4.975, 3.975, 8.975],
+			"to": [5.025, 6.025, 11.025],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [7, 8.5, 7, 9.5], "texture": "#0"},
+				"east": {"uv": [8, 8.5, 7, 9.5], "texture": "#0"},
+				"south": {"uv": [8, 8.5, 8, 9.5], "texture": "#0"},
+				"west": {"uv": [7, 8.5, 6, 9.5], "texture": "#0"},
+				"up": {"uv": [7, 8.5, 7, 7.5], "texture": "#0"},
+				"down": {"uv": [7, 7.5, 7, 8.5], "texture": "#0"}
+			}
+		}
+	],
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -90, -90],
+			"translation": [3.25, -2.25, 6]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, -90, -90],
+			"translation": [3.25, -2.25, 6]
+		},
+		"firstperson_righthand": {
+			"translation": [0, 1, 0]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, 1, 0]
+		},
+		"ground": {
+			"translation": [0, 4.5, 0]
+		},
+		"gui": {
+			"rotation": [15, 145, 5],
+			"translation": [0.25, 2.5, 0]
+		},
+		"fixed": {
+			"translation": [0, 5, 0.25],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "sheild",
+			"origin": [8, 0, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	],
   "overrides": [
-    {
-      "predicate": {
-        "blocking": 1
-      },
-      "model": "unusualprehistory:item/veloci_shield_blocking"
-    }
+      {
+        "predicate": {
+            "blocking": 1
+        },
+        "model": "unusualprehistory:item/veloci_shield_blocking"
+      }
   ]
 }

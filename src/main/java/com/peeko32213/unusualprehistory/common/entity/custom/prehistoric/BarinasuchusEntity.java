@@ -8,7 +8,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelpe
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricFollowOwnerGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.TameableTempt;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.attack.BarinasuchusAttackGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.barinasuchus.BarinasuchusAttackGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ICustomFollower;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
@@ -44,7 +44,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -62,21 +63,26 @@ public class HandmadeSpearItem extends SwordItem {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player livingEntityIn, @NotNull InteractionHand hand) {
-        if (!livingEntityIn.isInWater() && !livingEntityIn.isSwimming()) {
-            double xRatio = -Mth.sin(livingEntityIn.getYRot() * 0.017453292F);
-            double zRatio = Mth.cos(livingEntityIn.getYRot() * 0.017453292F);
-            float strength = -0.2F;
-            float f = Mth.sqrt((float) (xRatio * xRatio + zRatio * zRatio));
-            livingEntityIn.setDeltaMovement((livingEntityIn.getDeltaMovement().x / 2) - xRatio / (double) f * (double) strength, 0.68D * (1.0D - livingEntityIn.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)), (livingEntityIn.getDeltaMovement().z / 2) - zRatio / (double) f * (double) strength);
-            livingEntityIn.setOnGround(false);
-            ItemStack itemstack = livingEntityIn.getItemInHand(hand);
-            livingEntityIn.getCooldowns().addCooldown(this, 30);
-            itemstack.hurtAndBreak(1, livingEntityIn, (player) -> {
-                player.broadcastBreakEvent(livingEntityIn.getUsedItemHand());
-            });
-        }
-        return super.use(level, livingEntityIn, hand);
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player entity, @NotNull InteractionHand hand) {
+        ItemStack itemstack = entity.getItemInHand(hand);
+
+        entity.swing(hand);
+        entity.setOnGround(false);
+        entity.getCooldowns().addCooldown(this, 30);
+        double xRatio = -Mth.sin(entity.getYRot() * 0.017453292F);
+        double zRatio = Mth.cos(entity.getYRot() * 0.017453292F);
+        float strength = -0.2F;
+        float launchHeight = 0.68F;
+        float f = Mth.sqrt((float) (xRatio * xRatio + zRatio * zRatio));
+        entity.setDeltaMovement((entity.getDeltaMovement().x / 2) - xRatio / (double) f * (double) strength, launchHeight * (1.0D - entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)), (entity.getDeltaMovement().z / 2) - zRatio / (double) f * (double) strength);
+
+        itemstack.hurtAndBreak(1, entity, (player) -> player.broadcastBreakEvent(player.getUsedItemHand()));
+        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+    }
+
+    @Override
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack p_77661_1_) {
+        return UseAnim.BLOCK;
     }
 
     @Override

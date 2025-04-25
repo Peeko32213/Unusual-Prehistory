@@ -594,100 +594,6 @@
     "subtitle": "unusualprehistory.sound.subtitle.velociraptor_search"
   },
 
-  "nyctoraptor_chatter": {
-    "sounds": [
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_chatter_0",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_chatter_1",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_chatter_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_chatter"
-  },
-  "nyctoraptor_death": {
-    "sounds": [
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_death_0",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_death_1",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_death_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_death"
-  },
-  "nyctoraptor_hurt": {
-    "sounds": [
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_hurt_0",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_hurt_1",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_hurt_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_hurt"
-  },
-  "nyctoraptor_idle": {
-    "sounds": [
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_0",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_1",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_2",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_3",
-      "unusualprehistory:entity/nyctoraptor/nyctoraptor_idle_4"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.nyctoraptor_idle"
-  },
-
-  "oviraptor_idle": {
-    "sounds": [
-      "unusualprehistory:entity/oviraptor/oviraptor_idle_0",
-      "unusualprehistory:entity/oviraptor/oviraptor_idle_1",
-      "unusualprehistory:entity/oviraptor/oviraptor_idle_2",
-      "unusualprehistory:entity/oviraptor/oviraptor_idle_3",
-      "unusualprehistory:entity/oviraptor/oviraptor_idle_4",
-      "unusualprehistory:entity/oviraptor/oviraptor_idle_5"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.oviraptor_idle"
-  },
-  "oviraptor_death": {
-    "sounds": [
-      "unusualprehistory:entity/oviraptor/oviraptor_death_0",
-      "unusualprehistory:entity/oviraptor/oviraptor_death_1",
-      "unusualprehistory:entity/oviraptor/oviraptor_death_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.oviraptor_death"
-  },
-  "oviraptor_hurt": {
-    "sounds": [
-      "unusualprehistory:entity/oviraptor/oviraptor_hurt_0",
-      "unusualprehistory:entity/oviraptor/oviraptor_hurt_1",
-      "unusualprehistory:entity/oviraptor/oviraptor_hurt_2",
-      "unusualprehistory:entity/oviraptor/oviraptor_hurt_3"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.oviraptor_hurt"
-  },
-
-  "balaur_idle": {
-    "sounds": [
-      "unusualprehistory:entity/balaur/balaur_idle_0",
-      "unusualprehistory:entity/balaur/balaur_idle_1",
-      "unusualprehistory:entity/balaur/balaur_idle_2",
-      "unusualprehistory:entity/balaur/balaur_idle_3",
-      "unusualprehistory:entity/balaur/balaur_idle_4",
-      "unusualprehistory:entity/balaur/balaur_idle_5"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.balaur_idle"
-  },
-  "balaur_death": {
-    "sounds": [
-      "unusualprehistory:entity/balaur/balaur_death_0",
-      "unusualprehistory:entity/balaur/balaur_death_1",
-      "unusualprehistory:entity/balaur/balaur_death_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.balaur_death"
-  },
-  "balaur_hurt": {
-    "sounds": [
-      "unusualprehistory:entity/balaur/balaur_hurt_0",
-      "unusualprehistory:entity/balaur/balaur_hurt_1",
-      "unusualprehistory:entity/balaur/balaur_hurt_2",
-      "unusualprehistory:entity/balaur/balaur_hurt_3",
-      "unusualprehistory:entity/balaur/balaur_hurt_4"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.balaur_hurt"
-  },
-
   "pachycephalosaurus_death": {
     "sounds": [
         "unusualprehistory:entity/pachycephalosaurus/death_0",
@@ -1351,32 +1257,6 @@
       "unusualprehistory:entity/megalania/megalania_bite_1"
     ],
     "subtitle": "unusualprehistory.sound.subtitle.megalania_bite"
-  },
-
-  "globidens_idle": {
-    "sounds": [
-        "unusualprehistory:entity/globidens/globidens_idle_0",
-        "unusualprehistory:entity/globidens/globidens_idle_1",
-        "unusualprehistory:entity/globidens/globidens_idle_2",
-        "unusualprehistory:entity/globidens/globidens_idle_3"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.globidens_idle"
-  },
-  "globidens_hurt": {
-    "sounds": [
-        "unusualprehistory:entity/globidens/globidens_hurt_0",
-        "unusualprehistory:entity/globidens/globidens_hurt_1",
-        "unusualprehistory:entity/globidens/globidens_hurt_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.globidens_hurt"
-  },
-  "globidens_death": {
-    "sounds": [
-        "unusualprehistory:entity/globidens/globidens_death_0",
-        "unusualprehistory:entity/globidens/globidens_death_1",
-        "unusualprehistory:entity/globidens/globidens_death_2"
-    ],
-    "subtitle": "unusualprehistory.sound.subtitle.globidens_death"
   },
 
   "sludge_death": {

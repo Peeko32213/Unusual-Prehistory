@@ -43,8 +43,6 @@ public class UPRecipeGenerator extends UPRecipeProvider implements IConditionBui
 
         // cultivating
         cultivating(consumer, UPItems.KIMMER_DNA.get(), UPBlocks.KIMMER_EGGS.get().asItem());
-
-        cultivating(consumer, UPItems.BALAUR_DNA.get(), UPEntities.BALAUR.get());
     }
 
 

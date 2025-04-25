@@ -397,7 +397,7 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
         tag(UPEntityTypeTags.OTAROCYON_EMBRYO_ATTACH_TO)
                 .add(EntityType.OCELOT)
                 .add(EntityType.FOX)
-                .add(UPEntities.OTAROCYON.get());
+        ;
 
         tag(UPEntityTypeTags.TAR_WALKABLE_ON_MOBS)
                 .add(EntityType.RABBIT)
@@ -419,7 +419,6 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
         tag(UPEntityTypeTags.STETHA_AVOIDS).add(
                 UPEntities.DUNK.get(),
                 UPEntities.LEEDSICHTHYS.get(),
-                UPEntities.GLOBIDENS.get(),
                 UPEntities.KAPROSUCHUS.get()
         );
 
@@ -454,8 +453,6 @@ public class UPEntityTagsProvider extends EntityTypeTagsProvider {
                 .add(UPEntities.VELOCIRAPTOR.get())
                 .add(UPEntities.MAJUNGA.get())
                 .add(UPEntities.SLUDGE.get())
-                .add(UPEntities.OTAROCYON.get())
-                .add(UPEntities.LONGISQUAMA.get())
         ;
 
         tag(UPEntityTypeTags.PISCIVORE_DIET)

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.render.layer.RideLayer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.OviraptorEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.PanacanthocarisEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.ScaumenaciaEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.StethacanthusEntity;
@@ -45,11 +44,6 @@ public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityR
             }
             if (animatable instanceof ScaumenaciaEntity) {
                 poseStack.scale(1.15F, 1.15F, 1.15F);
-            }
-        }
-        if (animatable instanceof OviraptorEntity oviraptor) {
-            if (oviraptor.hasCustomName() && "gigantoraptor".equals(oviraptor.getName().getString().toLowerCase(Locale.ROOT))) {
-                poseStack.scale(2F, 2F, 2F);
             }
         }
     }

@@ -167,23 +167,13 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaItem(UPItems.HYNERIA_DNA);
         dnaItem(UPItems.OPHIO_DNA);
         dnaItem(UPItems.PROTOSPHYRAENA_DNA);
-        dnaItem(UPItems.PTERY_DNA);
         dnaItem(UPItems.EDAPHO_DNA);
-        dnaItem(UPItems.XIPHACT_DNA);
-        dnaItem(UPItems.OVIRAPTOR_DNA);
-        dnaItem(UPItems.GLOBIDENS_DNA);
         dnaItem(UPItems.ESTEMMENO_DNA);
-        dnaItem(UPItems.OTAROCYON_DNA);
-        dnaItem(UPItems.LONGI_DNA);
         dnaItem(UPItems.TARTUO_DNA);
-        dnaItem(UPItems.TANY_DNA);
         dnaItem(UPItems.PSITTACO_DNA);
         dnaItem(UPItems.KAPRO_DNA);
-        dnaItem(UPItems.PSILO_DNA);
         dnaItem(UPItems.HYNERP_DNA);
-        dnaItem(UPItems.BALAUR_DNA);
         dnaItem(UPItems.PTERODAUSTRO_DNA);
-        dnaItem(UPItems.ARCHELON_DNA);
         dnaItem(UPItems.JAWLESS_FISH_DNA);
         dnaItem(UPItems.LEEDS_DNA);
         dnaItem(UPItems.AMMONITE_DNA);
@@ -228,8 +218,6 @@ public class UPItemModelGenerator extends ItemModelProvider {
         dnaItem(UPItems.QUEREUXIA_DNA);
         dnaItem(UPItems.SARR_DNA);
         dnaItem(UPItems.PANACANTHOCARIS_DNA);
-        dnaItem(UPItems.ANIMAL_DNA_BOTTLES);
-        dnaItem(UPItems.PLANT_DNA_BOTTLES);
 
         // Eggs
         eggItem(UPItems.TELECREX_EGG);
@@ -241,7 +229,6 @@ public class UPItemModelGenerator extends ItemModelProvider {
         embryoItem(UPItems.GIGANTO_EMBRYO);
         embryoItem(UPItems.PARACER_EMBRYO);
         embryoItem(UPItems.PALAEO_EMBRYO);
-        embryoItem(UPItems.OTAROCYON_EMBRYO);
         embryoItem(UPItems.UNICORN_EMBRYO);
 
         // Eggs
