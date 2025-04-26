@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.peeko32213.unusualprehistory.client.render.layer.RideLayer;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.TalpanasEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.PanacanthocarisEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.ScaumenaciaEntity;
 import com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic.StethacanthusEntity;
@@ -16,7 +17,6 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-import java.util.Locale;
 
 public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityRenderer<T> {
     private int currentTick = -1;
@@ -44,6 +44,9 @@ public class PrehistoricRenderer<T extends PrehistoricEntity> extends GeoEntityR
             }
             if (animatable instanceof ScaumenaciaEntity) {
                 poseStack.scale(1.15F, 1.15F, 1.15F);
+            }
+            if (animatable instanceof TalpanasEntity) {
+                poseStack.scale(1.2F, 1.2F, 1.2F);
             }
         }
     }

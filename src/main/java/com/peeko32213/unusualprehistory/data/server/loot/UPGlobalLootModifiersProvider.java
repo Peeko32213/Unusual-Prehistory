@@ -16,7 +16,6 @@ public class UPGlobalLootModifiersProvider extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        add("add_encyclopedia_bonus_chest", new AddItemModifier(new LootItemCondition[] {
-                new LootTableIdCondition.Builder(new ResourceLocation("chests/spawn_bonus_chest")).build() }, UPItems.ENCYLOPEDIA.get(), 1));
+        add("add_encyclopedia_bonus_chest", new AddItemModifier(new LootItemCondition[] {new LootTableIdCondition.Builder(new ResourceLocation("chests/spawn_bonus_chest")).build() }, UPItems.ENCYLOPEDIA.get(), 1));
     }
 }

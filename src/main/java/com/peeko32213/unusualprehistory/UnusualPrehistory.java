@@ -30,7 +30,6 @@ import com.peeko32213.unusualprehistory.data.server.loot.UPGlobalLootModifiersPr
 import com.peeko32213.unusualprehistory.data.server.loot.UPLootProvider;
 import com.peeko32213.unusualprehistory.data.server.recipes.UPRecipeGenerator;
 import com.peeko32213.unusualprehistory.data.server.tags.*;
-import com.peeko32213.unusualprehistory.data.server.world.UPChunkGeneratorModifierProvider;
 import com.teamabnormals.blueprint.core.Blueprint;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;
@@ -243,7 +242,6 @@ public class UnusualPrehistory {
         generator.addProvider(server, UPLootProvider.create(output));
         generator.addProvider(server, new UPInstrumentTagsProvider(output, provider,helper));
         generator.addProvider(server, new UPGlobalLootModifiersProvider(output));
-        generator.addProvider(server, new UPChunkGeneratorModifierProvider(output, provider));
 //        generator.addProvider(true,new AdvancementProvider(packOutput, provider, helper));
 //        generator.addProvider(event.includeServer(), new DamageTypeTagsGenerator(packOutput, lookupProvider, helper));
 

@@ -36,17 +36,13 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class ShedscaleArmorItem extends ArmorItem implements GeoItem {
+
     private static final Map<MobEffect, MobEffect> TO_CHANGE_MAP = new HashMap<>() {{
         put(MobEffects.POISON, MobEffects.REGENERATION);
         put(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.MOVEMENT_SPEED);
         put(MobEffects.BLINDNESS, MobEffects.NIGHT_VISION);
         put(MobEffects.WITHER, MobEffects.REGENERATION);
         put(MobEffects.LEVITATION, MobEffects.SLOW_FALLING);
-//        put(MobEffects.DIG_SLOWDOWN, MobEffects.DIG_SPEED);
-//        put(MobEffects.HARM, MobEffects.HEAL);
-//        put(MobEffects.CONFUSION, MobEffects.NIGHT_VISION);
-//        put(MobEffects.HUNGER, MobEffects.SATURATION);
-//        put(MobEffects.UNLUCK, MobEffects.LUCK);
     }};
 
     private static final UUID[] SWIM_SPEED_MOD_UUID = new UUID[]{UUID.fromString("480d87c2-2f0a-11ee-be56-0242ac120002"), UUID.fromString("480d8ad8-2f0a-11ee-be56-0242ac120002"), UUID.fromString("480d8c36-2f0a-11ee-be56-0242ac120002"), UUID.fromString("480d8da8-2f0a-11ee-be56-0242ac120002")};

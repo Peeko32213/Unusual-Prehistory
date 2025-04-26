@@ -129,7 +129,7 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.BABY_PALAEO.get(), e -> new LivingCutoutNoCullEntityRenderer<>(e, new PalaeophisHatchlingModel()));
         event.registerEntityRenderer(UPEntities.PARACERATHERIUM.get(), e -> new AgeableMobRenderer<>(e, new ParaceratheriumModel()));
         event.registerEntityRenderer(UPEntities.SMILODON.get(), e -> new PrehistoricRenderer<>(e, new SmilodonModel()));
-        event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new PrehistoricRenderer<>(e, new DefaultModel<>(ModelLocations.TALPANAS)));
+        event.registerEntityRenderer(UPEntities.TALPANAS.get(), e -> new PrehistoricRenderer<>(e, new TalpanasModel()));
         event.registerEntityRenderer(UPEntities.TELECREX.get(), TelecrexRenderer::new);
         event.registerEntityRenderer(UPEntities.UNICORN.get(), e -> new AgeableMobRenderer<>(e, new UnicornModel()));
 
@@ -159,7 +159,8 @@ public final class ClientEvents {
         event.registerEntityRenderer(UPEntities.PREHISTORIC_EGG.get(), e -> new PrehistoricEggRenderer(e, new PrehistoricEggModel()));
 
         try {
-            ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, p_239421_1_, p_239421_2_, j) -> p_239421_2_ != null && p_239421_2_.isUsingItem() && p_239421_2_.getUseItem() == stack ? 1.0F : 0.0F);
+            ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, clientLevel, livingEntity, j) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
+            ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, clientLevel, livingEntity, j) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
         } catch (Exception e) {
             UnusualPrehistory.LOGGER.warn("Could not load item models for weapons");
         }

@@ -1,5 +1,4 @@
-// 1.20.1	2025-04-24T16:29:23.6758723	Registries
-6549ffc9a26aa9804b226f396c63fd95017f7cc9 data/unusualprehistory/blueprint/modded_biome_slices/petrified_forest.json
+// 1.20.1	2025-04-26T13:24:27.7492576	Registries
 8075763f0638ab44cdc90cacf395765d691fd015 data/unusualprehistory/damage_type/opalescent_shuriken.json
 75d9d26aad2a3544b4543e21f77c538a4891610a data/unusualprehistory/damage_type/tar_suffocation.json
 3b008e63ebcad01394f8d49bbf6f1dcf57455e68 data/unusualprehistory/unusualprehistory/prehistoric_egg/antarctopelta_egg.json
@@ -25,4 +24,3 @@ f9a819705bba20418736e79e91e1de3da3dad800 data/unusualprehistory/unusualprehistor
 051f95f1460d53bea70bd4522513e8d18dd64282 data/unusualprehistory/unusualprehistory/prehistoric_egg/trike_egg.json
 fb1f85514eec4dab9870240b568ab5260189104b data/unusualprehistory/unusualprehistory/prehistoric_egg/ulughbegsaurus_egg.json
 3c1813d968fbeb898ac0c91a5337697fc95d365c data/unusualprehistory/unusualprehistory/prehistoric_egg/veloci_egg.json
-282c4304ff996bf105298d99121c9282660eaf5f data/unusualprehistory/worldgen/biome/petrified_forest.json

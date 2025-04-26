@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.talpanas",
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 3,
@@ -12,28 +12,35 @@
 			},
 			"bones": [
 				{
-					"name": "Talpanas",
-					"pivot": [0, 8, -4]
+					"name": "root",
+					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "Talp_Upper_Body",
-					"parent": "Talpanas",
-					"pivot": [0, 6, -1],
+					"name": "body_main",
+					"parent": "root",
+					"pivot": [0, 6, 0]
+				},
+				{
+					"name": "body_overlay",
+					"parent": "body_main",
+					"pivot": [0, 6, 0]
+				},
+				{
+					"name": "body",
+					"parent": "body_overlay",
+					"pivot": [0, 6, 0],
 					"cubes": [
 						{"origin": [-4, 3, -5], "size": [8, 8, 10], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "Talp_Tail",
-					"parent": "Talp_Upper_Body",
-					"pivot": [0, 9, 5],
-					"cubes": [
-						{"origin": [-2.5, 9, 5.01], "size": [5, 4, 5], "uv": [0, 18]}
-					]
+					"name": "head_overlay",
+					"parent": "body",
+					"pivot": [0, 11, -3.5]
 				},
 				{
-					"name": "Talp_Head",
-					"parent": "Talp_Upper_Body",
+					"name": "head",
+					"parent": "head_overlay",
 					"pivot": [0, 11, -3.5],
 					"cubes": [
 						{"origin": [-2, 11, -5], "size": [4, 3, 3], "uv": [20, 18]},
@@ -42,24 +49,52 @@
 					]
 				},
 				{
-					"name": "Talp_Wing_Left",
-					"parent": "Talp_Upper_Body",
+					"name": "tail_overlay",
+					"parent": "body",
+					"pivot": [0, 9, 5]
+				},
+				{
+					"name": "tail",
+					"parent": "tail_overlay",
+					"pivot": [0, 9, 5],
+					"cubes": [
+						{"origin": [-2.5, 9, 5.01], "size": [5, 4, 5], "uv": [0, 18]}
+					]
+				},
+				{
+					"name": "left_wing_overlay",
+					"parent": "body",
+					"pivot": [4, 9, -1]
+				},
+				{
+					"name": "left_wing",
+					"parent": "left_wing_overlay",
 					"pivot": [4, 9, -1],
 					"cubes": [
 						{"origin": [4, 6, -2], "size": [1, 3, 5], "uv": [20, 24]}
 					]
 				},
 				{
-					"name": "Talp_Wing_Right",
-					"parent": "Talp_Upper_Body",
+					"name": "right_wing_overlay",
+					"parent": "body",
+					"pivot": [-4, 9, -1]
+				},
+				{
+					"name": "right_wing",
+					"parent": "right_wing_overlay",
 					"pivot": [-4, 9, -1],
 					"cubes": [
 						{"origin": [-5, 6, -2], "size": [1, 3, 5], "uv": [20, 24], "mirror": true}
 					]
 				},
 				{
-					"name": "Talp_Leg_Left",
-					"parent": "Talpanas",
+					"name": "leg_control",
+					"parent": "body_main",
+					"pivot": [2.5, 3, 3]
+				},
+				{
+					"name": "left_leg",
+					"parent": "leg_control",
 					"pivot": [2.5, 3, 3],
 					"cubes": [
 						{"origin": [2, 0, 3], "size": [1, 4, 0], "inflate": 0.0025, "uv": [20, 33]},
@@ -67,8 +102,8 @@
 					]
 				},
 				{
-					"name": "Talp_Leg_Right",
-					"parent": "Talpanas",
+					"name": "right_leg",
+					"parent": "leg_control",
 					"pivot": [-2.5, 3, 3],
 					"cubes": [
 						{"origin": [-3, 0, 3], "size": [1, 4, 0], "inflate": 0.0025, "uv": [20, 33], "mirror": true},

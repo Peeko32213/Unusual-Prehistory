@@ -247,7 +247,7 @@ public class UPItemModelGenerator extends ItemModelProvider {
         // Animal items
         singleTex(UPItems.BEELZ_SALIVA);
         singleTex(UPItems.AUSTRO_FEATHER);
-        singleTex(UPItems.VELOCI_FEATHERS);
+        singleTex(UPItems.VELOCI_FEATHER);
         singleTex(UPItems.ANTARCTO_PLATE);
         singleTex(UPItems.MAJUNGA_SCUTE);
         singleTex(UPItems.SMILO_FUR);

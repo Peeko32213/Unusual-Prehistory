@@ -46,7 +46,7 @@ public class VelociraptorPushButtonsGoal extends MoveToBlockGoal {
             if (this.ticksWaited >= 60) {
                 this.onReachedTarget();
                 if (r <= 0.05F) {
-                    entity.spawnAtLocation(UPItems.VELOCI_FEATHERS.get());
+                    entity.spawnAtLocation(UPItems.VELOCI_FEATHER.get());
                 }
             } else {
                 ++this.ticksWaited;

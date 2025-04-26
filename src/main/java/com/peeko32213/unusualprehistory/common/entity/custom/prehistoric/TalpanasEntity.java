@@ -1,15 +1,18 @@
 package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
-import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IVariantEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmoothGroundNavigation;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -22,7 +25,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -36,7 +38,6 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
@@ -57,34 +58,115 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
-public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity {
+public class TalpanasEntity extends PrehistoricEntity {
 
     private static final EntityDataAccessor<Optional<BlockPos>> FEEDING_POS = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
     private static final EntityDataAccessor<Integer> FEEDING_TIME = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.INT);
+
     public static final ResourceLocation TALPANAS_REWARD = new ResourceLocation("unusualprehistory", "gameplay/talpanas_reward");
+
     private Ingredient temptationItems;
     public float prevFeedProgress;
     public float feedProgress;
     private int rideCooldown = 0;
     public int soundTimer = 0;
+
+    public float flap;
+    public float flapSpeed;
+    public float oFlapSpeed;
+    public float oFlap;
+    public float flapping = 1.0F;
+    private float nextFlap = 1.0F;
+
+    // Movement animations
     private static final RawAnimation TALPANAS_WALK = RawAnimation.begin().thenLoop("animation.talpanas.walk");
-    private static final RawAnimation TALPANAS_IDLE = RawAnimation.begin().thenLoop("animation.talpanas.idle");
+    private static final RawAnimation TALPANAS_RUN = RawAnimation.begin().thenLoop("animation.talpanas.run");
     private static final RawAnimation TALPANAS_SWIM = RawAnimation.begin().thenLoop("animation.talpanas.swim");
-    private static final RawAnimation TALPANAS_SIT = RawAnimation.begin().thenLoop("animation.talpanas.sit");
-    private static final RawAnimation TALPANAS_FORGE = RawAnimation.begin().thenLoop("animation.talpanas.forge");
+    private static final RawAnimation TALPANAS_FALL = RawAnimation.begin().thenLoop("animation.talpanas.fall");
+
+    // Idle animations
+    private static final RawAnimation TALPANAS_IDLE = RawAnimation.begin().thenLoop("animation.talpanas.idle");
+    private static final RawAnimation TALPANAS_SHAKE = RawAnimation.begin().thenPlay("animation.talpanas.shake_blend");
+    private static final RawAnimation TALPANAS_LOOKOUT = RawAnimation.begin().thenPlay("animation.talpanas.lookout_blend");
+    private static final RawAnimation TALPANAS_PECK = RawAnimation.begin().thenPlay("animation.talpanas.peck_blend");
+    private static final RawAnimation TALPANAS_SIT = RawAnimation.begin().thenPlay("animation.talpanas.sit");
+
+    // Misc animations
+    private static final RawAnimation TALPANAS_PANIC = RawAnimation.begin().thenLoop("animation.talpanas.panic_blend");
+
+    // Idle accessors
+    private static final EntityDataAccessor<Boolean> SHAKE = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> LOOKOUT = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PECK = SynchedEntityData.defineId(TalpanasEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // Starting predicates
+    private static final Predicate<LivingEntity> TALPANAS_STARTING_PREDICATE = (e -> {
+        if(e instanceof TalpanasEntity entity) {
+            return !entity.isRunning() && !entity.isSprinting() && !entity.isInWater() && entity.onGround();
+        }
+        return false;
+    });
+
+    // Idle actions
+    private static final EntityAction TALPANAS_SHAKE_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final StateHelper TALPANAS_SHAKE_STATE =
+            StateHelper.Builder.state(SHAKE, "talpanas_shake")
+                    .playTime(20)
+                    .stopTime(120)
+                    .startingPredicate(TALPANAS_STARTING_PREDICATE)
+                    .entityAction(TALPANAS_SHAKE_ACTION)
+                    .build();
+
+    private static final EntityAction TALPANAS_LOOKOUT_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final StateHelper TALPANAS_LOOKOUT_STATE =
+            StateHelper.Builder.state(LOOKOUT, "talpanas_lookout")
+                    .playTime(40)
+                    .stopTime(180)
+                    .startingPredicate(TALPANAS_STARTING_PREDICATE)
+                    .entityAction(TALPANAS_LOOKOUT_ACTION)
+                    .build();
+
+    private static final EntityAction TALPANAS_PECK_ACTION = new EntityAction(0, (e) -> {}, 1);
+    private static final StateHelper TALPANAS_PECK_STATE =
+            StateHelper.Builder.state(LOOKOUT, "talpanas_peck")
+                    .playTime(40)
+                    .stopTime(210)
+                    .startingPredicate(TALPANAS_STARTING_PREDICATE)
+                    .entityAction(TALPANAS_PECK_ACTION)
+                    .build();
+
+    @Override
+    public ImmutableMap<String, StateHelper> getStates() {
+        return ImmutableMap.of(
+                TALPANAS_SHAKE_STATE.getName(), TALPANAS_SHAKE_STATE,
+                TALPANAS_LOOKOUT_STATE.getName(), TALPANAS_LOOKOUT_STATE,
+                TALPANAS_PECK_STATE.getName(), TALPANAS_PECK_STATE
+        );
+    }
+
+    @Override
+    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
+        return ImmutableList.of(
+                WeightedState.of(TALPANAS_SHAKE_STATE, 8),
+                WeightedState.of(TALPANAS_LOOKOUT_STATE, 9),
+                WeightedState.of(TALPANAS_PECK_STATE, 7)
+        );
+    }
 
     // Body control / navigation
     @Override
     protected @NotNull BodyRotationControl createBodyControl() {
         SmartBodyHelper helper = new SmartBodyHelper(this);
-        helper.bodyLagMoving = 0.45F;
+        helper.bodyLagMoving = 0.5F;
         helper.bodyLagStill = 0.3F;
         return helper;
     }
@@ -99,13 +181,12 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.15D);
     }
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, getTemptationItems(), false));
@@ -117,12 +198,45 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        // Flap
+        this.oFlap = this.flap;
+        this.oFlapSpeed = this.flapSpeed;
+        this.flapSpeed += (this.onGround() ? -1.0F : 4.0F) * 0.3F;
+        this.flapSpeed = Mth.clamp(this.flapSpeed, 0.0F, 1.0F);
+        if (!this.onGround() && this.flapping < 1.0F) {
+            this.flapping = 1.0F;
+        }
+
+        this.flapping *= 0.9F;
+        Vec3 vec3 = this.getDeltaMovement();
+        if (!this.onGround() && vec3.y < 0.0) {
+            this.setDeltaMovement(vec3.multiply(1.0, 0.6, 1.0));
+        }
+
+        this.flap += this.flapping * 2.0F;
+    }
+
+    protected boolean isFlapping() {
+        return this.flyDist > this.nextFlap;
+    }
+
+    protected void onFlap() {
+        this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
+    }
+
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        return false;
+    }
+
     private Ingredient getTemptationItems() {
         if (temptationItems == null)
             temptationItems = Ingredient.merge(Lists.newArrayList(
                     Ingredient.of(ItemTags.LEAVES)
             ));
-
         return temptationItems;
     }
 
@@ -144,8 +258,8 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(@NotNull ServerLevel pLevel, @NotNull AgeableMob pOtherParent) {
-        return null;
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob p_146744_) {
+        return UPEntities.TALPANAS.get().create(serverLevel);
     }
 
     public int getFeedingTime() {
@@ -156,8 +270,10 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
         super.defineSynchedData();
         this.entityData.define(FEEDING_TIME, 0);
         this.entityData.define(FEEDING_POS, Optional.empty());
+        this.entityData.define(SHAKE, false);
+        this.entityData.define(LOOKOUT, false);
+        this.entityData.define(PECK, false);
     }
-
 
     public void setFeedingTime(int feedingTime) {
         this.entityData.set(FEEDING_TIME, feedingTime);
@@ -202,7 +318,6 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
         }
     }
 
-
     @Override
     public void die(DamageSource pDamageSource) {
         this.stopRiding();
@@ -221,7 +336,7 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
             //this.yHeadRot = ((LivingEntity) player).yHeadRot;
             //this.yRotO = ((LivingEntity) player).yHeadRot;
             float radius = 0F;
-            float angle = (0.01745329251F * (((LivingEntity) player).yBodyRot - 180F));
+            float angle = (0.01745329251F * (player.yBodyRot - 180F));
             double extraX = radius * Mth.sin((float) (Math.PI + angle));
             double extraZ = radius * Mth.cos(angle);
             playPanicSound();
@@ -259,16 +374,6 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
             }
         }
         return super.mobInteract(player, hand);
-    }
-
-    @Override
-    public ImmutableMap<String, StateHelper> getStates() {
-        return null;
-    }
-
-    @Override
-    public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-        return List.of();
     }
 
     private class DigRootedDirtGoal extends Goal {
@@ -395,18 +500,18 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
     }
 
     public Vec3 getDismountLocationForPassenger(LivingEntity pLivingEntity) {
-        Vec3 vec3 = getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)pLivingEntity.getBbWidth(), this.getYRot() + (pLivingEntity.getMainArm() == HumanoidArm.RIGHT ? 90.0F : -90.0F));
+        Vec3 vec3 = getCollisionHorizontalEscapeVector(this.getBbWidth(), pLivingEntity.getBbWidth(), this.getYRot() + (pLivingEntity.getMainArm() == HumanoidArm.RIGHT ? 90.0F : -90.0F));
         Vec3 vec31 = this.getDismountLocationInDirection(vec3, pLivingEntity);
         if (vec31 != null) {
             return vec31;
         } else {
-            Vec3 vec32 = getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)pLivingEntity.getBbWidth(), this.getYRot() + (pLivingEntity.getMainArm() == HumanoidArm.LEFT ? 90.0F : -90.0F));
+            Vec3 vec32 = getCollisionHorizontalEscapeVector(this.getBbWidth(), pLivingEntity.getBbWidth(), this.getYRot() + (pLivingEntity.getMainArm() == HumanoidArm.LEFT ? 90.0F : -90.0F));
             Vec3 vec33 = this.getDismountLocationInDirection(vec32, pLivingEntity);
             return vec33 != null ? vec33 : this.position();
         }
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     private Vec3 getDismountLocationInDirection(Vec3 pDirection, LivingEntity pPassenger) {
         double d0 = this.getX() + pDirection.x;
         double d1 = this.getBoundingBox().minY;
@@ -509,22 +614,29 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
                     return Vec3.atBottomCenterOf(lvt_4_1_);
                 }
             }
-
             return null;
         }
     }
 
+    // Animation control
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        AnimationController<TalpanasEntity> controller = new AnimationController<>(this, "controller", 5, this::predicate);
+        controllers.add(controller);
 
-    protected <E extends TalpanasEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        AnimationController<TalpanasEntity> idle = new AnimationController<>(this, "idleController", 5, this::idlePredicate);
+        controllers.add(idle);
 
-        if (this.isFromBook()) {
-            return event.setAndContinue(TALPANAS_IDLE);
-        }
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()&& !this.isSwimming()) {
+        AnimationController<TalpanasEntity> flap = new AnimationController<>(this, "flapController", 5, this::flapPredicate);
+        controllers.add(flap);
+    }
+
+    protected <E extends TalpanasEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 && !this.isPassenger()&& !this.isInWater()) {
             event.setAndContinue(TALPANAS_WALK);
             return PlayState.CONTINUE;
         }
-        if (this.isPassenger()&& !this.isSwimming()) {
+        if (this.isPassenger() && !this.isInWater()) {
             event.setAndContinue(TALPANAS_SIT);
             return PlayState.CONTINUE;
         }
@@ -539,24 +651,34 @@ public class TalpanasEntity extends PrehistoricEntity implements IVariantEntity 
         return PlayState.CONTINUE;
     }
 
-
-    protected <E extends TalpanasEntity> PlayState digController(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-        if (this.getFeedingTime() > 0) {
-            event.setAndContinue(TALPANAS_FORGE);
-            return PlayState.CONTINUE;
+    // Idle animations
+    protected <E extends TalpanasEntity> PlayState idlePredicate(final AnimationState<E> event) {
+        if (!this.isRunning() || !this.onGround()) {
+            if (getBooleanState(SHAKE)) {
+                event.getController().setAnimation(TALPANAS_SHAKE);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(LOOKOUT)) {
+                event.getController().setAnimation(TALPANAS_LOOKOUT);
+                return PlayState.CONTINUE;
+            }
+            if (getBooleanState(PECK)) {
+                event.getController().setAnimation(TALPANAS_PECK);
+                return PlayState.CONTINUE;
+            }
         }
         event.getController().forceAnimationReset();
         return PlayState.STOP;
     }
 
-    @Override
-    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Normal", 10, this::Controller));
-        controllers.add(new AnimationController<>(this, "Attack", 0, this::digController));
-    }
-
-    @Override
-    public double getTick(Object o) {
-        return tickCount;
+    // Falling animation
+    protected <E extends TalpanasEntity> PlayState flapPredicate(final AnimationState<E> event) {
+        if (!this.onGround() && !this.isInWater()) {
+            event.getController().setAnimation(TALPANAS_FALL);
+            event.getController().setAnimationSpeed(1.0F);
+            return PlayState.CONTINUE;
+        }
+        event.getController().forceAnimationReset();
+        return PlayState.STOP;
     }
 }

@@ -62,7 +62,7 @@ public class UPItems {
     public static final RegistryObject<Item> TRIKE_SHIELD = translatedItem("triceratops_shield", () -> new TriceratopsShieldItem(new Item.Properties().durability(1300).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> TYRANNO_SCALE = translatedItem("tyrannosaurus_scale", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TYRANNO_TOOTH = translatedItem("tyrannosaurus_tooth", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VELOCI_FEATHERS = translatedItem("velociraptor_feathers", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> VELOCI_FEATHER = translatedItem("velociraptor_feather", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VELOCI_SHIELD = item("veloci_shield", () -> new VelociraptorShieldItem(new Item.Properties().durability(800).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> MAJUNGA_SCUTE = translatedItem("majungasaurus_scute", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADORNED_STAFF = translatedItem("adorned_staff", () -> new Item(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON)));

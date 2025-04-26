@@ -126,7 +126,7 @@ public class UPTabs {
                         entries.accept(UPItems.SHELL_SHARD.get());
                         entries.accept(UPBlocks.AMMONITE_SHELL.get());
                         entries.accept(UPItems.AUSTRO_FEATHER.get());
-                        entries.accept(UPItems.VELOCI_FEATHERS.get());
+                        entries.accept(UPItems.VELOCI_FEATHER.get());
                         entries.accept(UPItems.ANTARCTO_PLATE.get());
                         entries.accept(UPItems.MAJUNGA_SCUTE.get());
                         entries.accept(UPItems.PSITTACOSAURUS_QUILL.get());

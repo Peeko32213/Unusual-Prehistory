@@ -35,11 +35,6 @@ public class VelociraptorShieldItem extends Item implements Equipable {
         return 12;
     }
 
-//    @Override
-//    public boolean canPerformAction(@NotNull ItemStack stack, net.minecraftforge.common.@NotNull ToolAction toolAction) {
-//        return net.minecraftforge.common.ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
-//    }
-
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player livingEntity, @NotNull InteractionHand hand) {
         ItemStack itemstack = livingEntity.getItemInHand(hand);
