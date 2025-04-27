@@ -193,7 +193,7 @@ public class UPItems {
     public static final RegistryObject<Item> HWACHA_SPAWN_EGG = spawnEgg("hwachavenator", UPEntities.HWACHA , 0x2b554a, 0xffed18);
     public static final RegistryObject<Item> HYNERIA_SPAWN_EGG =spawnEgg("hyneria", UPEntities.HYNERIA , 0x1a2121, 0xbd2e2e);
     public static final RegistryObject<Item> HYNERPETON_SPAWN_EGG = spawnEgg("hynerpeton", UPEntities.HYNERPETON , 0x1c1614, 0xb6a339);
-    public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = spawnEgg("jawless_fish", UPEntities.JAWLESS_FISH , 0x9a32af, 0xe7cd39);
+    public static final RegistryObject<Item> JAWLESS_FISH_SPAWN_EGG = spawnEgg("jawless_fish", UPEntities.JAWLESS_FISH , 0x438174, 0xcb6415);
     public static final RegistryObject<Item> KAPROSUCUHS_SPAWN_EGG = spawnEgg("kaprosuchus", UPEntities.KAPROSUCHUS , 0x3a2523, 0xf18f4d);
     public static final RegistryObject<Item> KENTRO_SPAWN_EGG = spawnEgg("kentrosaurus", UPEntities.KENTRO , 0x657341, 0x181a14);
     public static final RegistryObject<Item> KIMMER_SPAWN_EGG = spawnEgg("kimmeridgebrachypteraeschnidium", UPEntities.KIMMER , 0xf77efc, 0x44b0ef);

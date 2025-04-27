@@ -5,8 +5,7 @@ import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelpe
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.AquaticJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.PrehistoricPanicGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.stethacanthus.StethacanthusAttackGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.SchoolingAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
@@ -18,7 +17,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -33,7 +31,6 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -43,9 +40,10 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.List;
 
-public class StethacanthusEntity extends PrehistoricAquaticEntity implements Bucketable {
+public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(StethacanthusEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -78,7 +76,7 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return helper;
     }
 
-    public StethacanthusEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
+    public StethacanthusEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -86,19 +84,24 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .add(Attributes.MOVEMENT_SPEED, 0.9F)
                 .add(Attributes.FOLLOW_RANGE, 16.0F);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D, 1.0D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.5D, 1.0D, entity -> entity.getType().is(UPEntityTypeTags.STETHA_AVOIDS)));
-        this.goalSelector.addGoal(1, new StethacanthusAttackGoal(this));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D, 1.0D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, LivingEntity.class, 8.0F, 1.5D, 1.0D, entity -> entity.getType().is(UPEntityTypeTags.STETHA_AVOIDS)));
+        this.goalSelector.addGoal(1, new StethacanthusAttackGoal());
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(4, new AquaticJumpGoal(this, 20));
-        this.goalSelector.addGoal(6, new StethacanthusEntity.StethacanthusFleeGoal());
+        this.goalSelector.addGoal(6, new StethacanthusFleeGoal());
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 180, true, true, entity -> entity.getType().is(UPEntityTypeTags.STETHA_TARGETS)));
+    }
+
+    // Schooling
+    public int getMaxSchoolSize() {
+        return 3;
     }
 
     @Override
@@ -227,16 +230,6 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {
-            this.setPersistenceRequired();
-        }
-        return p_28137_;
-    }
-
-    @Nullable
     @Override
     public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
         return UPEntities.STETHACANTHUS.get().create(serverLevel);
@@ -288,8 +281,68 @@ public class StethacanthusEntity extends PrehistoricAquaticEntity implements Buc
         else return PlayState.CONTINUE;
     }
 
-    class StethacanthusFleeGoal extends PrehistoricPanicGoal {
+    // Goals
+    class StethacanthusAttackGoal extends Goal {
+        private int attackTime = 0;
 
+        public StethacanthusAttackGoal() {
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity target = StethacanthusEntity.this.getTarget();
+            return target != null && target.isAlive() && target.isInWater() && !target.getType().is(UPEntityTypeTags.STETHA_AVOIDS) && !(target instanceof Player);
+        }
+
+        public void start() {
+            StethacanthusEntity.this.setAnimationState(0);
+            this.attackTime = 0;
+        }
+
+        public void stop() {
+            StethacanthusEntity.this.setAnimationState(0);
+        }
+
+        public void tick() {
+            LivingEntity target = StethacanthusEntity.this.getTarget();
+            if (target != null && target.isInWater()) {
+                StethacanthusEntity.this.lookAt(StethacanthusEntity.this.getTarget(), 30F, 30F);
+                StethacanthusEntity.this.getLookControl().setLookAt(StethacanthusEntity.this.getTarget(), 30F, 30F);
+
+                double distance = StethacanthusEntity.this.distanceToSqr(target.getX(), target.getY(), target.getZ());
+                int animState = StethacanthusEntity.this.getAnimationState();
+
+                if (animState == 21) {
+                    tickBiteAttack();
+                    StethacanthusEntity.this.getNavigation().moveTo(target, 0.75D);
+                } else {
+                    StethacanthusEntity.this.getNavigation().moveTo(target, 1.4D);
+                    this.checkForCloseRangeAttack(distance);
+                }
+            }
+        }
+
+        protected void checkForCloseRangeAttack (double distance){
+            if (distance <= 4) {
+                StethacanthusEntity.this.setAnimationState(21);
+            }
+        }
+
+        protected void tickBiteAttack() {
+            attackTime++;
+            if (attackTime ==9) {
+                if (StethacanthusEntity.this.distanceTo(StethacanthusEntity.this.getTarget()) < 1.5F) {
+                    StethacanthusEntity.this.doHurtTarget(StethacanthusEntity.this.getTarget());
+                }
+            }
+            if (attackTime >=15) {
+                attackTime =0;
+                StethacanthusEntity.this.setAnimationState(0);
+            }
+        }
+    }
+
+    class StethacanthusFleeGoal extends PrehistoricPanicGoal {
         public StethacanthusFleeGoal() {
             super(StethacanthusEntity.this, 1.4D);
         }

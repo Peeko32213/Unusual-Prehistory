@@ -3,7 +3,8 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquati
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FollowVariantLeaderGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.SchoolingAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
@@ -14,7 +15,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,7 +27,6 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -37,8 +36,9 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.stream.Stream;
 
-public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucketable {
+public class ScaumenaciaEntity extends SchoolingAquaticEntity implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ScaumenaciaEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -64,19 +64,28 @@ public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucke
         return helper;
     }
 
-    public ScaumenaciaEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
+    public ScaumenaciaEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 5.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.7F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 6.0D).add(Attributes.MOVEMENT_SPEED, 0.8F);
     }
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
+    }
+
+    // Schooling
+    public int getMaxSchoolSize() {
+        return 6;
+    }
+
+    @Override
+    public void addFollowers(Stream<? extends SchoolingAquaticEntity> entity) {
+        entity.limit(this.getMaxSchoolSize() - this.schoolSize).filter((entity1) -> entity1 != this).forEach((entity2) -> entity2.startFollowing(this));
     }
 
     // Flop
@@ -160,7 +169,6 @@ public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucke
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
-
     public boolean removeWhenFarAway(double p_213397_1_) {
         return !this.fromBucket() && !this.hasCustomName();
     }
@@ -168,7 +176,6 @@ public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucke
     private boolean isFromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
-
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
@@ -212,17 +219,6 @@ public class ScaumenaciaEntity extends PrehistoricAquaticEntity implements Bucke
         else {
             this.setVariant(0);
         }
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-        p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
-        Level level = p_28134_.getLevel();
-        if (level instanceof ServerLevel) {{
-            this.setPersistenceRequired();
-        }
-        }
-        return p_28137_;
     }
 
     @Override

@@ -3,8 +3,8 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquati
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricAquaticEntity;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FollowVariantLeaderGoal;
+import com.peeko32213.unusualprehistory.common.entity.custom.base.SchoolingAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SmartBodyHelper;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
@@ -23,17 +23,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,10 +41,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-// TODO: make them school again and be bucketable
-// Maybe variant schooling like rainbow reef?
-
-public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucketable, GeoAnimatable, IBookEntity {
+public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketable, GeoAnimatable, IBookEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JawlessFishEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -75,21 +67,25 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
         return helper;
     }
 
-    public JawlessFishEntity(EntityType<? extends PrehistoricAquaticEntity> entityType, Level level) {
+    public JawlessFishEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     // Attributes
     public static AttributeSupplier.@NotNull Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.5F);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.9F);
     }
 
     // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
+        this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
+    }
+
+    // Schooling
+    public int getMaxSchoolSize() {
+        return 16;
     }
 
     // Flop
@@ -121,11 +117,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return pSize.height * 0.4F;
     }
-
-//    @Override
-//    public int getMaxSchoolSize() {
-//        return 15;
-//    }
 
     public @NotNull InteractionResult mobInteract(@NotNull Player p_27477_, @NotNull InteractionHand p_27478_) {
         return Bucketable.bucketMobPickup(p_27477_, p_27478_, this).orElse(super.mobInteract(p_27477_, p_27478_));
@@ -240,11 +231,6 @@ public class JawlessFishEntity extends PrehistoricAquaticEntity implements Bucke
 
     // Animation control
     protected <E extends JawlessFishEntity> PlayState Controller(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-
-        if (this.isFromBook()) {
-            return event.setAndContinue(JAWLESS_FISH_SWIM);
-        }
-
         if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
             event.setAndContinue(JAWLESS_FISH_SWIM);
             event.getController().setAnimationSpeed(1.0F);
