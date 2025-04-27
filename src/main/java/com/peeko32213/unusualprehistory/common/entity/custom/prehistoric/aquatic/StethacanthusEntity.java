@@ -331,7 +331,7 @@ public class StethacanthusEntity extends SchoolingAquaticEntity implements Bucke
         protected void tickBiteAttack() {
             attackTime++;
             if (attackTime ==9) {
-                if (StethacanthusEntity.this.distanceTo(StethacanthusEntity.this.getTarget()) < 1.5F) {
+                if (StethacanthusEntity.this.distanceTo(StethacanthusEntity.this.getTarget()) < 2F) {
                     StethacanthusEntity.this.doHurtTarget(StethacanthusEntity.this.getTarget());
                 }
             }
