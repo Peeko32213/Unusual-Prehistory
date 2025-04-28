@@ -30,5 +30,4 @@ UPTallPlantBlock extends DoublePlantBlock {
         Vec3 offset = state.getOffset(level, pos);
         return state.getValue(HALF) == DoubleBlockHalf.LOWER ? LOWER_SHAPE.move(offset.x, offset.y, offset.z) : UPPER_SHAPE.move(offset.x, offset.y, offset.z);
     }
-
 }

@@ -13,15 +13,15 @@
 			"bones": [
 				{
 					"name": "root",
-					"pivot": [0.25, 0, -1]
+					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "swim_control",
 					"parent": "root",
-					"pivot": [0.25, 0, -1]
+					"pivot": [0.25, 3, -1.5]
 				},
 				{
-					"name": "Body",
+					"name": "body",
 					"parent": "swim_control",
 					"pivot": [0.25, 4, -3],
 					"cubes": [
@@ -30,19 +30,19 @@
 					]
 				},
 				{
-					"name": "TailPart",
-					"parent": "Body",
+					"name": "tail1",
+					"parent": "body",
 					"pivot": [-0.25, 3, 0],
 					"cubes": [
-						{"origin": [0, 0, 0], "size": [0, 6, 5], "inflate": 0.02, "uv": [0, 5]}
+						{"origin": [0, 0, 0], "size": [0, 6, 5], "uv": [0, 5]}
 					]
 				},
 				{
-					"name": "Tail",
-					"parent": "TailPart",
+					"name": "tail2",
+					"parent": "tail1",
 					"pivot": [0, 3, 1],
 					"cubes": [
-						{"origin": [0, 1, 1], "size": [0, 4, 4], "inflate": 0.01, "uv": [10, 6]}
+						{"origin": [0, 1, 1], "size": [0, 4, 4], "uv": [10, 6]}
 					]
 				}
 			]

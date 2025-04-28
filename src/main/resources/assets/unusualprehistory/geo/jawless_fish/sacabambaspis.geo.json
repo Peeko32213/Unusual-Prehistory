@@ -18,32 +18,32 @@
 				{
 					"name": "swim_control",
 					"parent": "root",
-					"pivot": [0, 0, 0]
+					"pivot": [0, 2, -2.5]
 				},
 				{
-					"name": "Body_Sideways",
+					"name": "body_sideways",
 					"parent": "swim_control",
 					"pivot": [0, 2, -3]
 				},
 				{
-					"name": "Body",
-					"parent": "Body_Sideways",
+					"name": "body",
+					"parent": "body_sideways",
 					"pivot": [0, 2, -3],
 					"cubes": [
 						{"origin": [-3, 0, -6], "size": [6, 4, 7], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "TailPart",
-					"parent": "Body",
+					"name": "tail1",
+					"parent": "body",
 					"pivot": [0, 2.5, 1],
 					"cubes": [
 						{"origin": [0, 1, 1], "size": [0, 3, 6], "inflate": 0.001, "uv": [3, 14]}
 					]
 				},
 				{
-					"name": "Tail",
-					"parent": "TailPart",
+					"name": "tail2",
+					"parent": "tail1",
 					"pivot": [0, 2, 7],
 					"cubes": [
 						{"origin": [0, 0, 7], "size": [0, 5, 6], "inflate": 0.001, "uv": [0, 9]}

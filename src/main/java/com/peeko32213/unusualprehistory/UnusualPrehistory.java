@@ -342,7 +342,6 @@ public class UnusualPrehistory {
         MolangParser.INSTANCE.register(new LazyVariable(string, val));
     }
 
-
     public static void registerMolangFunction(String string, Class<? extends Function> val) {
         MolangParser.INSTANCE.functions.put(string, val);
     }
