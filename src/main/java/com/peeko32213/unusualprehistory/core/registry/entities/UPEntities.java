@@ -257,9 +257,9 @@ public class UPEntities {
             () -> EntityType.Builder.of(MegatheriumEntity::new, MobCategory.CREATURE).sized(3.0F, 4.25F)
                     .build(modPrefix("megatherium").toString()));
 
-    public static final RegistryObject<EntityType<OphiodonEntity>> OPHIODON = ENTITIES.register("ophiodon",
+    public static final RegistryObject<EntityType<OphiodonEntity>> OPHIODON = ENTITIES.register("ophiodon_ozymandias",
             () -> EntityType.Builder.of(OphiodonEntity::new, MobCategory.WATER_CREATURE).sized(1.4f, 0.8f)
-                    .build(modPrefix("ophiodon").toString()));
+                    .build(modPrefix("ophiodon_ozymandias").toString()));
 
     public static final RegistryObject<EntityType<PalaeophisEntity>> PALAEOPHIS = ENTITIES.register("palaeophis",
             () -> EntityType.Builder.of(PalaeophisEntity::new, MobCategory.WATER_CREATURE).sized(0.8F, 0.8F)

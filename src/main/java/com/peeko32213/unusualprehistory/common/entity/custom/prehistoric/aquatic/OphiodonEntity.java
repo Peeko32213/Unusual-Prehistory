@@ -1,6 +1,9 @@
  package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquatic;
 
+ import com.google.common.collect.ImmutableList;
  import com.google.common.collect.ImmutableMap;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.EntityAction;
+ import com.peeko32213.unusualprehistory.common.entity.animation.state.RandomStateGoal;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
  import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
  import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.GroundseekingRandomSwimGoal;
@@ -11,6 +14,9 @@
  import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
  import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
  import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.syncher.EntityDataAccessor;
+ import net.minecraft.network.syncher.EntityDataSerializers;
+ import net.minecraft.network.syncher.SynchedEntityData;
  import net.minecraft.server.level.ServerLevel;
  import net.minecraft.sounds.SoundEvent;
  import net.minecraft.sounds.SoundEvents;
@@ -33,7 +39,9 @@
  import software.bernie.geckolib.core.object.PlayState;
 
  import javax.annotation.Nullable;
+ import java.util.EnumSet;
  import java.util.List;
+ import java.util.function.Predicate;
 
  public class OphiodonEntity extends PrehistoricAquaticEntity {
 
@@ -50,14 +58,62 @@
      // Attack animations
      private static final RawAnimation OPHIODON_ATTACK = RawAnimation.begin().thenPlay("animation.ophiodon.attack");
 
+     // Idle accesors
+     public static final EntityDataAccessor<Boolean> PATROL = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.BOOLEAN);
+     public static final EntityDataAccessor<Boolean> SIEVE = SynchedEntityData.defineId(OphiodonEntity.class, EntityDataSerializers.BOOLEAN);
+
+     // Starting predicates
+     private static final Predicate<LivingEntity> OPHIODON_STARTING_PREDICATE = (e -> {
+         if(e instanceof OphiodonEntity entity) {
+             return !entity.isRunning() && !entity.isSprinting() && entity.isInWater() && !entity.onGround();
+         }
+         return false;
+     });
+
+     private static final Predicate<LivingEntity> OPHIODON_SIEVE_PREDICATE = (e -> {
+         if(e instanceof OphiodonEntity entity) {
+             return !entity.isRunning() && !entity.isSprinting() && entity.isInWater() && entity.onGround();
+         }
+         return false;
+     });
+
+     // Idle actions
+     private static final EntityAction OPHIODON_PATROL_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper OPHIODON_PATROL_STATE =
+             StateHelper.Builder.state(PATROL, "ophiodon_patrol")
+                     .playTime(80)
+                     .stopTime(250)
+                     .startingPredicate(OPHIODON_STARTING_PREDICATE)
+                     .affectsAI(true)
+                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                     .entityAction(OPHIODON_PATROL_ACTION)
+                     .build();
+
+     private static final EntityAction OPHIODON_SIEVE_ACTION = new EntityAction(0, (e) -> {}, 1);
+     private static final StateHelper OPHIODON_SIEVE_STATE =
+             StateHelper.Builder.state(SIEVE, "ophiodon_patrol")
+                     .playTime(80)
+                     .stopTime(300)
+                     .startingPredicate(OPHIODON_SIEVE_PREDICATE)
+                     .affectsAI(true)
+                     .affectedFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK))
+                     .entityAction(OPHIODON_SIEVE_ACTION)
+                     .build();
+
      @Override
      public ImmutableMap<String, StateHelper> getStates() {
-         return null;
+         return ImmutableMap.of(
+                 OPHIODON_PATROL_STATE.getName(), OPHIODON_PATROL_STATE,
+                 OPHIODON_SIEVE_STATE.getName(), OPHIODON_SIEVE_STATE
+         );
      }
 
      @Override
      public List<WeightedState<StateHelper>> getWeightedStatesToPerform() {
-         return List.of();
+         return ImmutableList.of(
+                 WeightedState.of(OPHIODON_PATROL_STATE, 10),
+                 WeightedState.of(OPHIODON_SIEVE_STATE, 10)
+         );
      }
 
      // Body control / navigation
@@ -75,13 +131,14 @@
 
      public static AttributeSupplier.Builder createAttributes() {
          return Mob.createMobAttributes()
-                 .add(Attributes.MAX_HEALTH, 12.0D)
-                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
+                 .add(Attributes.MAX_HEALTH, 24.0D)
+                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                  .add(Attributes.MOVEMENT_SPEED, 1.0F)
                  .add(Attributes.FOLLOW_RANGE, 16.0D);
      }
 
      protected void registerGoals() {
+         this.goalSelector.addGoal(0, new RandomStateGoal<>(this));
          this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
          this.goalSelector.addGoal(1, new OphiodonAttackGoal(this));
          this.goalSelector.addGoal(1, new GroundseekingRandomSwimGoal(this, 1.0D, 100, 12, 12, 0.01));
@@ -145,6 +202,8 @@
 
      protected void defineSynchedData() {
          super.defineSynchedData();
+         this.entityData.define(PATROL, false);
+         this.entityData.define(SIEVE, false);
      }
 
      public void addAdditionalSaveData(CompoundTag compound) {
@@ -166,17 +225,28 @@
      }
 
      protected <E extends OphiodonEntity> PlayState predicate(final software.bernie.geckolib.core.animation.AnimationState<E> event) {
-         if (!(this.getAnimationState() > 0)) {
+         if (this.isInWater() && !(this.getAnimationState() > 0)) {
+             if (getBooleanState(PATROL)) {
+                 event.getController().setAnimation(OPHIODON_PATROL);
+                 return PlayState.CONTINUE;
+             }
+             if (getBooleanState(SIEVE)) {
+                 event.getController().setAnimation(OPHIODON_SIEVE);
+                 return PlayState.CONTINUE;
+             }
+         }
+         if (!(this.getAnimationState() > 0) && !getBooleanState(PATROL) && !getBooleanState(SIEVE)) {
              if (!(event.getLimbSwingAmount() > -0.06F && event.getLimbSwingAmount() < 0.06F) && this.isInWater()) {
                  event.setAndContinue(OPHIODON_SWIM);
-                 event.getController().setAnimationSpeed(0.7F);
+                 event.getController().setAnimationSpeed(1.0F);
                  return PlayState.CONTINUE;
              }
              if (!this.isInWater()) {
                  event.setAndContinue(OPHIODON_FLOP);
-                 event.getController().setAnimationSpeed(2.0F);
+                 event.getController().setAnimationSpeed(1.0F);
                  return PlayState.CONTINUE;
-             } else {
+             }
+             else {
                  event.setAndContinue(OPHIODON_IDLE);
              }
          }
@@ -197,32 +267,26 @@
          else return PlayState.CONTINUE;
      }
 
-     public boolean requiresCustomPersistence() {
-         return super.requiresCustomPersistence() || this.hasCustomName();
-     }
-
-     public boolean removeWhenFarAway(double d) {
-         return !this.hasCustomName();
-     }
-
-     public void killed() {
-         this.heal(15);
-     }
-
      @Nullable
-     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28134_, DifficultyInstance p_28135_, MobSpawnType p_28136_, @Nullable SpawnGroupData p_28137_, @Nullable CompoundTag p_28138_) {
-         p_28137_ = super.finalizeSpawn(p_28134_, p_28135_, p_28136_, p_28137_, p_28138_);
+     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+     }
 
-         Level level = p_28134_.getLevel();
-         if (level instanceof ServerLevel) {
-             this.setPersistenceRequired();
+     // Variants
+     public void determineVariant(int variantChange){
+         if (variantChange <= 50) {
+             this.setVariant(1);
          }
-         return p_28137_;
+         else {
+             this.setVariant(0);
+         }
      }
 
      @Nullable
      @Override
      public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
-         return UPEntities.OPHIODON.get().create(serverLevel);
+         OphiodonEntity ophiodon = UPEntities.OPHIODON.get().create(serverLevel);
+         ophiodon.setVariant(this.getVariant());
+         return ophiodon;
      }
  }

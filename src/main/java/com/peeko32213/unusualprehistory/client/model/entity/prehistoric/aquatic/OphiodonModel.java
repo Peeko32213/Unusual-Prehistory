@@ -18,7 +18,10 @@ public class OphiodonModel extends GeoModel<OphiodonEntity> {
 
     @Override
     public ResourceLocation getTextureResource(OphiodonEntity object) {
-        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ophiodon.png");
+        if (object.getVariant() == 1) {
+            return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ophiodon/ophiodon_blue.png");
+        }
+        return new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/ophiodon/ophiodon.png");
     }
 
     @Override
@@ -31,7 +34,7 @@ public class OphiodonModel extends GeoModel<OphiodonEntity> {
         super.setCustomAnimations(animatable, instanceId, animationState);
         EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         CoreGeoBone swimControl = this.getAnimationProcessor().getBone("swim_control");
-        CoreGeoBone head = this.getAnimationProcessor().getBone("Head");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (animatable.isBaby()) {
             head.setScaleX(1.4F);
