@@ -36,10 +36,3 @@ A Mod that adds a variety of prehistoric creatures and a way to revive them!
 	versionRange="[4.2,)"
 	ordering="BEFORE"
 	side="BOTH"
-
-[[dependencies.unusualprehistory]]
-    modId = "blueprint"
-    mandatory = true
-    versionRange = "[7.0.0,)"
-    ordering = "BEFORE"
-    side = "BOTH"

@@ -58,12 +58,4 @@ public class UPDatagenUtils {
     public static ResourceLocation vanillaItemLocation(String path) {
         return new ResourceLocation(ModelProvider.ITEM_FOLDER + "/" + path);
     }
-
-    public static ResourceLocation blueprintBlockLocation(String path) {
-        return UnusualPrehistory.blueprintPrefix(ModelProvider.BLOCK_FOLDER + "/" + path);
-    }
-
-    public static ResourceLocation blueprintItemLocation(String path) {
-        return UnusualPrehistory.blueprintPrefix(ModelProvider.ITEM_FOLDER + "/" + path);
-    }
 }

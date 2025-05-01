@@ -1,6 +1,8 @@
 package com.peeko32213.unusualprehistory.core.registry.entities;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
+import com.peeko32213.unusualprehistory.common.entity.UPBoat;
+import com.peeko32213.unusualprehistory.common.entity.UPChestBoat;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggSize;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.EggVariant;
 import com.peeko32213.unusualprehistory.common.entity.custom.eggs.PrehistoricEggEntity;
@@ -22,15 +24,20 @@ import com.peeko32213.unusualprehistory.common.entity.custom.skeleton.UnicornSke
 import com.peeko32213.unusualprehistory.common.entity.projectile.*;
 import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PlayMessages;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 import static com.peeko32213.unusualprehistory.UnusualPrehistory.modPrefix;
@@ -352,8 +359,21 @@ public class UPEntities {
                     .sized(1.0F, 1.0F)
                     .build(modPrefix("prehistoric_egg").toString()));
 
+    // Boats
+    public static final RegistryObject<EntityType<UPBoat>> BOAT = createEntity("boat", UPBoat::new, UPBoat::new, MobCategory.MISC, 1.375F, 0.5625F);;
+    public static final RegistryObject<EntityType<UPChestBoat>> CHEST_BOAT = createEntity("chest_boat", UPChestBoat::new, UPChestBoat::new, MobCategory.MISC, 1.375F, 0.5625F);;
+
     private static EntityType registerEntity(EntityType.Builder builder, String entityName) {
         return builder.build(entityName);
+    }
+
+    private static <E extends Entity> RegistryObject<EntityType<E>> createEntity(String name, EntityType.EntityFactory<E> factory, BiFunction<PlayMessages.SpawnEntity, Level, E> clientFactory, MobCategory entityClassification, float width, float height) {
+        return ENTITIES.register(name, () -> createEntity(factory, clientFactory, entityClassification, name, width, height));
+    }
+
+    private static <E extends Entity> EntityType<E> createEntity(EntityType.EntityFactory<E> factory, BiFunction<PlayMessages.SpawnEntity, Level, E> clientFactory, MobCategory entityClassification, String name, float width, float height) {
+        ResourceLocation location = UnusualPrehistory.modPrefix(name);
+        return EntityType.Builder.of(factory, entityClassification).sized(width, height).setTrackingRange(64).setShouldReceiveVelocityUpdates(true).setUpdateInterval(3).setCustomClientFactory(clientFactory).build(location.toString());
     }
 
     private static <T extends EntityType<?>> RegistryObject<T> registerPrehistoricCreatureWithEgg(String name, Supplier<? extends T> entity, EggSize eggSize, EggVariant variant,  int hatchTime ,int eggBaseColor, int eggSpotColor) {

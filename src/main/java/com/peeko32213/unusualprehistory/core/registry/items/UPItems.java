@@ -11,11 +11,13 @@ import com.peeko32213.unusualprehistory.core.other.tags.UPInstrumentTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.entities.UPBoatTypes;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
-import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.common.Mod;
@@ -31,7 +33,6 @@ import java.util.function.Supplier;
 public class UPItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnusualPrehistory.MODID);
-    public static final ItemSubRegistryHelper HELPER = UnusualPrehistory.REGISTRY_HELPER.getItemSubHelper();
     public static List<RegistryObject<? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
 
     public static final RegistryObject<Item> ENCYLOPEDIA = translatedItem("encyclopedia", () -> new EncyclopediaItem(new Item.Properties().stacksTo(1)));
@@ -245,9 +246,9 @@ public class UPItems {
     public static final RegistryObject<Item> DEFROSTED_FROZEN_FOSSIL = translatedItem("defrosted_meat", () -> new Item(new Item.Properties().food(UPFood.DEFROSTED_FOSSIL)));
 
     // Boats
-    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> DRYO_BOAT = HELPER.createBoatAndChestBoatItem("dryophyllum", UPBlocks.DRYO_PLANKS);
-    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> FOXII_BOAT = HELPER.createBoatAndChestBoatItem("foxii", UPBlocks.FOXII_PLANKS);
-    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> GINKGO_BOAT = HELPER.createBoatAndChestBoatItem("ginkgo", UPBlocks.GINKGO_PLANKS);
+    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> DRYO_BOAT = createBoatAndChestBoatItem("dryophyllum", UPBlocks.DRYO_PLANKS);
+    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> FOXII_BOAT = createBoatAndChestBoatItem("foxii", UPBlocks.FOXII_PLANKS);
+    public static final Pair<RegistryObject<Item>, RegistryObject<Item>> GINKGO_BOAT = createBoatAndChestBoatItem("ginkgo", UPBlocks.GINKGO_PLANKS);
 
     public static final RegistryObject<Item> CROCARINA = translatedItem("crocarina", () -> new MusicalTameItem(new Item.Properties().stacksTo(1), UPEntities.BARINASUCHUS, UPInstrumentTags.OCARINA_WHISTLE));
 
@@ -296,14 +297,26 @@ public class UPItems {
         return item(name + "_dna_bottle", () -> new Item(new Item.Properties()));
     }
 
-    public static <I extends Item> RegistryObject<I> translatedItem(String name, Supplier<? extends I> supplier) {
+    private static <I extends Item> RegistryObject<I> translatedItem(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);
         AUTO_TRANSLATE.add(item);
         return item;
     }
 
-    public static <I extends Item> RegistryObject<I> item(String name, Supplier<? extends I> supplier) {
+    private static <I extends Item> RegistryObject<I> item(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);
         return item;
+    }
+
+    private static Pair<RegistryObject<Item>, RegistryObject<Item>> createBoatAndChestBoatItem(String wood, RegistryObject<Block> block, boolean raft) {
+        ResourceLocation name = new ResourceLocation(UnusualPrehistory.MODID, wood);
+        RegistryObject<Item> boat = ITEMS.register(wood + "_boat", () -> new UPBoatItem(false, name, (new Item.Properties()).stacksTo(1)));
+        RegistryObject<Item> chestBoat = ITEMS.register(wood + "_chest_boat", () -> new UPBoatItem(true, name, (new Item.Properties()).stacksTo(1)));
+        UPBoatTypes.registerType(name, boat, chestBoat, block, raft);
+        return Pair.of(boat, chestBoat);
+    }
+
+    private static Pair<RegistryObject<Item>, RegistryObject<Item>> createBoatAndChestBoatItem(String wood, RegistryObject<Block> block) {
+        return createBoatAndChestBoatItem(wood, block, false);
     }
 }

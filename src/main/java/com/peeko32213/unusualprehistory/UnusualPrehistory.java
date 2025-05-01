@@ -13,7 +13,6 @@ import com.peeko32213.unusualprehistory.common.data.PrehistoricEgg;
 import com.peeko32213.unusualprehistory.common.message.MultipartEntityMessage;
 import com.peeko32213.unusualprehistory.core.other.UPTabs;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockSubRegistryHelper;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.*;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
@@ -30,8 +29,6 @@ import com.peeko32213.unusualprehistory.data.server.loot.UPGlobalLootModifiersPr
 import com.peeko32213.unusualprehistory.data.server.loot.UPLootProvider;
 import com.peeko32213.unusualprehistory.data.server.recipes.UPRecipeGenerator;
 import com.peeko32213.unusualprehistory.data.server.tags.*;
-import com.teamabnormals.blueprint.core.Blueprint;
-import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.HolderLookup;
@@ -59,10 +56,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DataPackRegistryEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -82,14 +76,9 @@ public class UnusualPrehistory {
 
     public static final String MODID = "unusualprehistory";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final RegistryHelper REGISTRY_HELPER = RegistryHelper.create(MODID, helper -> helper.putSubHelper(ForgeRegistries.BLOCKS, new UPBlockSubRegistryHelper(helper)));
 
     public static ResourceLocation modPrefix(String name) {
         return new ResourceLocation(UnusualPrehistory.MODID, name.toLowerCase(Locale.ROOT));
-    }
-
-    public static ResourceLocation blueprintPrefix(String name) {
-        return new ResourceLocation(Blueprint.MOD_ID, name.toLowerCase(Locale.ROOT));
     }
 
     public UnusualPrehistory() {
@@ -109,8 +98,6 @@ public class UnusualPrehistory {
         bus.addListener(this::packSetup);
 
         context.registerConfig(ModConfig.Type.COMMON, UnusualPrehistoryConfig.COMMON);
-
-        REGISTRY_HELPER.register(bus);
 
         // Register stuff
         UPItems.ITEMS.register(bus);
