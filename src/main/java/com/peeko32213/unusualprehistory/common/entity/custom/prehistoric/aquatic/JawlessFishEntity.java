@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity.custom.prehistoric.aquati
 import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
+import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.CustomizableRandomSwimGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FollowVariantLeaderGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.SchoolingAquaticEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.IBookEntity;
@@ -23,7 +24,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -69,6 +71,8 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
 
     public JawlessFishEntity(EntityType<? extends SchoolingAquaticEntity> entityType, Level level) {
         super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 6, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     // Attributes
@@ -79,13 +83,18 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
     // Goals
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
-        this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
+        this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
     }
 
     // Schooling
     public int getMaxSchoolSize() {
-        return 16;
+        return 20;
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
     }
 
     // Flop
@@ -100,6 +109,7 @@ public class JawlessFishEntity extends SchoolingAquaticEntity implements Bucketa
         }
     }
 
+    @Override
     public void travel(Vec3 pTravelVector) {
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), pTravelVector);

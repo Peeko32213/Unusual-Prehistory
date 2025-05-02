@@ -17,8 +17,8 @@ public class PrehistoricAquaticRenderer<T extends PrehistoricAquaticEntity> exte
     @Override
     protected void applyRotations(T animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
         super.applyRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
-        if (animatable.isInWater()){
-            poseStack.mulPose(Axis.ZP.rotationDegrees(animatable.currentRoll * 360 / 4));
-        }
+//        if (animatable.isInWater()){
+//            poseStack.mulPose(Axis.ZP.rotationDegrees(animatable.currentRoll * 360 / 4));
+//        }
     }
 }

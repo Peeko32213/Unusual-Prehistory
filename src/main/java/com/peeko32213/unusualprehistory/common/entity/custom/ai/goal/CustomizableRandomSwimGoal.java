@@ -26,26 +26,13 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && entity.isInWater();
+        return super.canUse();
     }
 
     @Override
     public boolean canContinueToUse() {
         wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        return super.canContinueToUse() && entity.isInWater() && !(this.wantedPos.distanceTo(this.entity.position()) <= this.entity.getBbWidth() * prox);
-        //second part cancels the goal if the animal gets close enough
-    }
-
-    public void tick() {}
-
-    @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
+        return super.canContinueToUse() && !(this.wantedPos.distanceTo(this.entity.position()) <= this.entity.getBbWidth() * prox);
     }
 
     @Nullable

@@ -54,7 +54,6 @@
 
          EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-         swimControl.setRotX(((entityData.headPitch() * ((float) Math.PI / 180F))));
-         swimControl.setRotZ(-((entityData.netHeadYaw() * ((float) Math.PI / 180F))/2));
+         swimControl.setRotX(entityData.headPitch() * (Mth.DEG_TO_RAD));
      }
  }

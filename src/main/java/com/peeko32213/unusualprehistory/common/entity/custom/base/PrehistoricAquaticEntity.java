@@ -42,11 +42,6 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
     }
 
     @Override
-    protected void registerGoals() {
-        super.registerGoals();
-    }
-
-    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
@@ -138,7 +133,7 @@ public abstract class PrehistoricAquaticEntity extends PrehistoricEntity {
 
     @Override
     public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
-        return 0.0F;
+        return pLevel.getFluidState(pPos).is(FluidTags.WATER) ? 10.0F + pLevel.getPathfindingCostFromLightLevels(pPos) : super.getWalkTargetValue(pPos, pLevel);
     }
 
     @Nullable
