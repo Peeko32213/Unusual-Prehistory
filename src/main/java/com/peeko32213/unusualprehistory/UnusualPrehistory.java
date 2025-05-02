@@ -197,6 +197,7 @@ public class UnusualPrehistory {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             UPEntityPlacement.entityPlacement();
+            UPBlockEntities.expandVanillaDefinitions();
         });
         UPMessages.register();
     }

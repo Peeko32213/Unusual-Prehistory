@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.core.other.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.teamabnormals.blueprint.core.util.TagUtil;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
@@ -41,6 +42,6 @@ public class UPBlockTags {
     public static final TagKey<Block> CALAMOPHYTON_PLACEABLE = blockTag("calamophyton_placeable");
 
     private static TagKey<Block> blockTag(String name) {
-        return TagUtil.blockTag(UnusualPrehistory.MODID, name);
+        return TagKey.create(Registries.BLOCK, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 }

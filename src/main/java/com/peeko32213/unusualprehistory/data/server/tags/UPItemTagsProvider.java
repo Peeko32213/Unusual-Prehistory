@@ -3,10 +3,10 @@ package com.peeko32213.unusualprehistory.data.server.tags;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.teamabnormals.blueprint.core.data.server.tags.BlueprintItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -19,10 +19,10 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.peeko32213.unusualprehistory.core.registry.items.UPItems.*;
 
-public class UPItemTagsProvider extends BlueprintItemTagsProvider {
+public class UPItemTagsProvider extends ItemTagsProvider {
 
     public UPItemTagsProvider(PackOutput output, CompletableFuture<Provider> provider, CompletableFuture<TagsProvider.TagLookup<Block>> lookup, ExistingFileHelper helper) {
-        super(UnusualPrehistory.MODID, output, provider, lookup, helper);
+        super(output, provider, lookup, UnusualPrehistory.MODID, helper);
     }
 
     @Override
@@ -251,24 +251,20 @@ public class UPItemTagsProvider extends BlueprintItemTagsProvider {
 
     }
 
-    @Override
     public void copyWoodsetTags() {
         this.copyWoodenTags();
         this.copyLeavesTags();
     }
 
-    @Override
     public void copyLeavesTags() {
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
     }
 
-    @Override
     public void copyWoodenTags() {
         this.copyWoodenTags(true);
     }
 
-    @Override
     public void copyWoodenTags(boolean flammable) {
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copy(!flammable ? BlockTags.LOGS : BlockTags.LOGS_THAT_BURN, !flammable ? ItemTags.LOGS : ItemTags.LOGS_THAT_BURN);

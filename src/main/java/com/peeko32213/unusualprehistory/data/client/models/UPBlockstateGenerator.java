@@ -3,15 +3,7 @@ package com.peeko32213.unusualprehistory.data.client.models;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.common.block.sign.UPCeilingHangingSignBlock;
-import com.peeko32213.unusualprehistory.common.block.sign.UPStandingSignBlock;
-import com.peeko32213.unusualprehistory.common.block.sign.UPWallHangingSignBlock;
-import com.peeko32213.unusualprehistory.common.block.sign.UPWallSignBlock;
 import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.teamabnormals.blueprint.common.block.sign.BlueprintCeilingHangingSignBlock;
-import com.teamabnormals.blueprint.common.block.sign.BlueprintStandingSignBlock;
-import com.teamabnormals.blueprint.common.block.sign.BlueprintWallHangingSignBlock;
-import com.teamabnormals.blueprint.common.block.sign.BlueprintWallSignBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -261,10 +253,10 @@ public class UPBlockstateGenerator extends BlockStateProvider {
         trapdoorBlockWithRenderType((TrapDoorBlock)block.get(), modBlockLocation(name(block.get())), true, renderType);
     }
 
-    private void modSignBlock(Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> pair, Supplier<? extends Block> blockForTexture) {
+    private void modSignBlock(Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> pair, Supplier<? extends Block> blockForTexture) {
         signBlock(pair.getFirst().get(), pair.getSecond().get(), modBlockLocation(name(blockForTexture.get())));
     }
-    private void modHangingSignBlock(Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> pair, Supplier<? extends Block> blockForTexture) {
+    private void modHangingSignBlock(Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> pair, Supplier<? extends Block> blockForTexture) {
         ModelFile sign = models().sign(name(pair.getFirst().get()), modBlockLocation(name(blockForTexture.get())));
         simpleBlock(pair.getFirst().get(), sign);
         simpleBlock(pair.getSecond().get(), sign);

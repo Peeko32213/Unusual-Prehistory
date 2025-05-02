@@ -6,10 +6,6 @@ import com.peeko32213.unusualprehistory.common.block.custom.*;
 import com.peeko32213.unusualprehistory.common.block.custom.decorations.FossilDecorationBlock;
 import com.peeko32213.unusualprehistory.common.block.custom.decorations.RexHeadBlock;
 import com.peeko32213.unusualprehistory.common.block.custom.plant.*;
-import com.peeko32213.unusualprehistory.common.block.sign.UPCeilingHangingSignBlock;
-import com.peeko32213.unusualprehistory.common.block.sign.UPStandingSignBlock;
-import com.peeko32213.unusualprehistory.common.block.sign.UPWallHangingSignBlock;
-import com.peeko32213.unusualprehistory.common.block.sign.UPWallSignBlock;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.DryoTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiTreeGrower;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoTreeGrower;
@@ -49,10 +45,13 @@ public class UPBlocks {
     public static final BlockBehaviour.Properties GINKGO_PLANKS_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).strength(2.0F, 5.0F).sound(SoundType.CHERRY_WOOD).instrument(NoteBlockInstrument.BASS);
     public static final BlockBehaviour.Properties PETRIFIED_LOG_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).strength(3.0F, 6.0F).sound(SoundType.DRIPSTONE_BLOCK).instrument(NoteBlockInstrument.BASS);
     public static final BlockBehaviour.Properties PETRIFIED_PLANKS_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).strength(3.0F, 6.0F).sound(SoundType.DRIPSTONE_BLOCK).instrument(NoteBlockInstrument.BASS);
+    public static final BlockBehaviour.Properties ZULOAGAE_PLANKS_PROPERTIES = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLACK).strength(2.0F, 3.0F).sound(SoundType.BAMBOO_WOOD).instrument(NoteBlockInstrument.BASS);
 
     public static final WoodType DRYO_WOOD_TYPE = WoodType.register(new WoodType("unusualprehistory:dryophyllum", BlockSetType.CHERRY));
     public static final WoodType FOXII_WOOD_TYPE = WoodType.register(new WoodType("unusualprehistory:foxii", BlockSetType.CHERRY));
     public static final WoodType GINKGO_WOOD_TYPE = WoodType.register(new WoodType("unusualprehistory:ginkgo", BlockSetType.CHERRY));
+    public static final WoodType PETRIFIED_WOOD_TYPE = WoodType.register(new WoodType("unusualprehistory:petrified", BlockSetType.CHERRY));
+    public static final WoodType ZULOAGAE_WOOD_TYPE = WoodType.register(new WoodType("unusualprehistory:zuloagae", BlockSetType.BAMBOO));
 
     // Fossil ores
     public static final RegistryObject<Block> STONE_FOSSIL = registerBlock("stone_fossil", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
@@ -181,7 +180,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> TALL_SARACENIA = registerBlock("tall_sarracenia", () -> new UPTallPlantBlock(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS)));
     public static final RegistryObject<Block> ISOETES_BEESTONII = createBlock("isoetes_beestonii", () -> new IsoetesBeestoniiBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
     public static final RegistryObject<Block> CLADOPHLEBIS = createBlock("cladophlebis", () -> new CladophlebisBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
-    public static final RegistryObject<Block> CALAMOPHYTON = createBlock("calamophyton", () -> new CalamophytonBlock(UPProperties.Blocks.CALAMOPHYTON));
+    public static final RegistryObject<Block> CALAMOPHYTON = createBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
     // Prehistoric corals
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
@@ -217,16 +216,16 @@ public class UPBlocks {
     public static final RegistryObject<Block> DRYO_PLANKS = createBlockNoLang("dryo_planks", () -> new Block(DRYO_PLANKS_PROPERTIES));
     public static final RegistryObject<Block> DRYO_STAIRS = createBlockNoLang("dryo_stairs", () -> new StairBlock(() -> DRYO_PLANKS.get().defaultBlockState(), DRYO_PLANKS_PROPERTIES));
     public static final RegistryObject<Block> DRYO_SLAB = createBlockNoLang("dryo_slab", () -> new SlabBlock(DRYO_PLANKS_PROPERTIES));
-    public static final RegistryObject<Block> DRYO_PRESSURE_PLATE = createBlockNoLang("dryo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, DRYO_PLANKS_PROPERTIES.noCollission().strength(0.5F).sound(SoundType.CHERRY_WOOD), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> DRYO_BUTTON = createBlockNoLang("dryo_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(0.5F).sound(SoundType.CHERRY_WOOD), BlockSetType.CHERRY, 30, true));
-
     public static final RegistryObject<Block> DRYO_FENCE = createBlockNoLang("dryo_fence", () -> new FenceBlock(DRYO_PLANKS_PROPERTIES));
-    public static final RegistryObject<Block> DRYO_FENCE_GATE = createBlockNoLang("dryo_fence_gate", () -> new FenceGateBlock(DRYO_PLANKS_PROPERTIES.strength(2.0F, 3.0F).sound(SoundType.CHERRY_WOOD).forceSolidOn(), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
-    public static final RegistryObject<Block> DRYO_DOOR = createBlockNoLang("dryo_door", () -> new DoorBlock(DRYO_PLANKS_PROPERTIES.strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
-    public static final RegistryObject<Block> DRYO_TRAPDOOR = createBlockNoLang("dryo_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
 
-    public static final Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> DRYO_SIGN = createSignBlock("dryophyllum", DRYO_WOOD_TYPE, DRYO_PLANKS_PROPERTIES.sound(SoundType.CHERRY_WOOD));
-    public static final Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> DRYO_HANGING_SIGN = createHangingSignBlock("dryophyllum", DRYO_WOOD_TYPE, DRYO_PLANKS_PROPERTIES.sound(SoundType.CHERRY_WOOD));
+    public static final Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> DRYO_SIGN = createSignBlock("dryophyllum", DRYO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_PINK).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD));
+    public static final Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> DRYO_HANGING_SIGN = createHangingSignBlock("dryophyllum", DRYO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_PINK).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F));
+
+    public static final RegistryObject<Block> DRYO_PRESSURE_PLATE = createBlockNoLang("dryo_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(DRYO_PLANKS.get()).noCollission().strength(0.5F).sound(SoundType.CHERRY_WOOD), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYO_TRAPDOOR = createBlockNoLang("dryo_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> DRYO_BUTTON = createBlockNoLang("dryo_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(0.5F).sound(SoundType.CHERRY_WOOD), BlockSetType.CHERRY, 30, true));
+    public static final RegistryObject<Block> DRYO_FENCE_GATE = createBlockNoLang("dryo_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(DRYO_PLANKS.get()).strength(2.0F, 3.0F).sound(SoundType.CHERRY_WOOD).forceSolidOn(), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> DRYO_DOOR = createBlockNoLang("dryo_door", () -> new DoorBlock(BlockBehaviour.Properties.copy(DRYO_PLANKS.get()).strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
 
     public static final RegistryObject<Block> DRYO_LEAVES = createBlockNoLang("dryo_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).sound(SoundType.AZALEA_LEAVES)));
     public static final RegistryObject<Block> DRYO_SAPLING = createBlockNoLang("dryo_sapling", () -> new SaplingBlock(new DryoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -248,8 +247,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> FOXII_DOOR = createBlockNoLang("foxxi_door", () -> new DoorBlock(FOXII_PLANKS_PROPERTIES.strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
     public static final RegistryObject<Block> FOXII_TRAPDOOR = createBlockNoLang("foxxi_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
 
-    public static final Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> FOXII_SIGN = createSignBlock("foxii", FOXII_WOOD_TYPE, FOXII_PLANKS_PROPERTIES.sound(SoundType.CHERRY_WOOD));
-    public static final Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> FOXII_HANGING_SIGN = createHangingSignBlock("foxii", FOXII_WOOD_TYPE, FOXII_PLANKS_PROPERTIES.sound(SoundType.CHERRY_WOOD));
+    public static final Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> FOXII_SIGN = createSignBlock("foxii", FOXII_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD));
+    public static final Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> FOXII_HANGING_SIGN = createHangingSignBlock("foxii", FOXII_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F));
 
     public static final RegistryObject<Block> FOXII_LEAVES = createBlockNoLang("foxxi_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).sound(SoundType.AZALEA_LEAVES)));
     public static final RegistryObject<Block> FOXII_SAPLING = createBlockNoLang("foxii_sapling", () -> new DoubleSaplingBlock(new FoxiiTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
@@ -270,56 +269,57 @@ public class UPBlocks {
     public static final RegistryObject<Block> GINKGO_DOOR = createBlock("ginkgo_door", () -> new DoorBlock(GINKGO_PLANKS_PROPERTIES.strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
     public static final RegistryObject<Block> GINKGO_TRAPDOOR = createBlock("ginkgo_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion(), BlockSetType.CHERRY));
 
-    public static final Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> GINKGO_SIGN = createSignBlock("ginkgo", GINKGO_WOOD_TYPE, GINKGO_PLANKS_PROPERTIES.sound(SoundType.CHERRY_WOOD));
-    public static final Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> GINKGO_HANGING_SIGN = createHangingSignBlock("ginkgo", GINKGO_WOOD_TYPE, GINKGO_PLANKS_PROPERTIES.sound(SoundType.CHERRY_WOOD));
+    public static final Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> GINKGO_SIGN = createSignBlock("ginkgo", GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).noCollission().strength(1.0F).sound(SoundType.CHERRY_WOOD));
+    public static final Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> GINKGO_HANGING_SIGN = createHangingSignBlock("ginkgo", GINKGO_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F));
 
     public static final RegistryObject<Block> GINKGO_LEAVES = createBlock("ginkgo_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).sound(SoundType.AZALEA_LEAVES)));
     public static final RegistryObject<Block> GINKGO_SAPLING = createBlock("ginkgo_sapling", () -> new SaplingBlock(new GinkgoTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> POTTED_GINKGO_SAPLING = createBlockNoItem("potted_ginkgo_sapling", () -> new FlowerPotBlock(GINKGO_SAPLING.get(), flowerPot()));
 
     // Petrified
-    public static final RegistryObject<Block> PETRIFIED_LOG = createBlockNoLang("petrified_wood_log", () -> new UPWoodBlocks(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> PETRIFIED_WOOD = createBlock("petrified_wood", () -> new UPWoodBlocks(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> STRIPPED_PETRIFIED_LOG = createBlockNoLang("stripped_petrified_wood_log", () -> new UPWoodBlocks(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> STRIPPED_PETRIFIED_WOOD = createBlock("stripped_petrified_wood", () -> new UPWoodBlocks(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> PETRIFIED_PLANKS = createBlock("petrified_planks", () -> new Block(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> PETRIFIED_STAIRS = createBlockNoLang("petrified_wood_stairs", () -> new StairBlock(() -> PETRIFIED_PLANKS.get().defaultBlockState(), UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> PETRIFIED_SLAB = createBlockNoLang("petrified_wood_slab", () -> new SlabBlock(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> PETRIFIED_FENCE = createBlockNoLang("petrified_wood_fence", () -> new FenceBlock(UPProperties.Blocks.petrified()));
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = createBlock("polished_petrified_wood", () -> new Block(PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_STAIRS = createBlock("polished_petrified_wood_stairs", () -> new StairBlock(() -> POLISHED_PETRIFIED_WOOD.get().defaultBlockState(), PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_SLAB = createBlock("polished_petrified_wood_slab", () -> new SlabBlock(PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_WALL = createBlock("polished_petrified_wood_wall", () -> new WallBlock(PETRIFIED_PLANKS_PROPERTIES));
 
-    public static final RegistryObject<Block> PETRIFIED_FENCE_GATE = createBlockNoLang("petrified_wood_fence_gate", () -> new FenceGateBlock(UPProperties.Blocks.petrified(), UPBlockSetType.PETRIFIED_WOOD_TYPE.get()));
-    public static final RegistryObject<Block> PETRIFIED_DOOR = createBlockNoLang("petrified_wood_door", () -> new DoorBlock(UPProperties.Blocks.petrified().noOcclusion(), UPBlockSetType.PETRIFIED_BLOCKSET.get()));
-    public static final RegistryObject<Block> PETRIFIED_TRAPDOOR = createBlockNoLang("petrified_wood_trapdoor", () -> new TrapDoorBlock(UPProperties.Blocks.PETRIFIED_TRAPDOOR, UPBlockSetType.PETRIFIED_BLOCKSET.get()));
-    public static final RegistryObject<Block> PETRIFIED_PRESSURE_PLATE = createBlockNoLang("petrified_wood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UPProperties.Blocks.PETRIFIED_PRESSURE_PLATE, UPBlockSetType.PETRIFIED_BLOCKSET.get()));
-    public static final RegistryObject<Block> PETRIFIED_BUTTON = createBlockNoLang("petrified_wood_button", () -> new ButtonBlock(UPProperties.Blocks.PETRIFIED_BUTTON, UPBlockSetType.PETRIFIED_BLOCKSET.get(), 20, false));
+    public static final RegistryObject<Block> PETRIFIED_LOG = createBlockNoLang("petrified_wood_log", () -> new UPWoodBlocks(PETRIFIED_LOG_PROPERTIES));
+    public static final RegistryObject<Block> PETRIFIED_WOOD = createBlock("petrified_wood", () -> new UPWoodBlocks(PETRIFIED_LOG_PROPERTIES));
+    public static final RegistryObject<Block> STRIPPED_PETRIFIED_LOG = createBlockNoLang("stripped_petrified_wood_log", () -> new RotatedPillarBlock(PETRIFIED_LOG_PROPERTIES));
+    public static final RegistryObject<Block> STRIPPED_PETRIFIED_WOOD = createBlock("stripped_petrified_wood", () -> new RotatedPillarBlock(PETRIFIED_LOG_PROPERTIES));
+    public static final RegistryObject<Block> PETRIFIED_PLANKS = createBlock("petrified_planks", () -> new Block(PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> PETRIFIED_STAIRS = createBlockNoLang("petrified_wood_stairs", () -> new StairBlock(() -> PETRIFIED_PLANKS.get().defaultBlockState(), PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> PETRIFIED_SLAB = createBlockNoLang("petrified_wood_slab", () -> new SlabBlock(PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> PETRIFIED_PRESSURE_PLATE = createBlockNoLang("petrified_wood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, PETRIFIED_PLANKS_PROPERTIES.noCollission().strength(0.5F).sound(SoundType.DRIPSTONE_BLOCK), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> PETRIFIED_BUTTON = createBlockNoLang("petrified_wood_button", () -> new ButtonBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).noCollission().strength(0.5F).sound(SoundType.DRIPSTONE_BLOCK), BlockSetType.CHERRY, 30, false));
 
-    public static final Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> PETRIFIED_SIGN = createSignBlock("petrified", UPBlockSetType.PETRIFIED_WOOD_TYPE.get(), UPProperties.Blocks.PETRIFIED_SIGNS);
-    public static final Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> PETRIFIED_HANGING_SIGN = createHangingSignBlock("petrified", UPBlockSetType.PETRIFIED_WOOD_TYPE.get(), UPProperties.Blocks.PETRIFIED_SIGNS);
+    public static final RegistryObject<Block> PETRIFIED_FENCE = createBlockNoLang("petrified_wood_fence", () -> new FenceBlock(PETRIFIED_PLANKS_PROPERTIES));
+    public static final RegistryObject<Block> PETRIFIED_FENCE_GATE = createBlockNoLang("petrified_wood_fence_gate", () -> new FenceGateBlock(PETRIFIED_PLANKS_PROPERTIES.strength(2.0F, 3.0F).sound(SoundType.DRIPSTONE_BLOCK).forceSolidOn(), SoundEvents.FENCE_GATE_OPEN, SoundEvents.FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> PETRIFIED_DOOR = createBlockNoLang("petrified_wood_door", () -> new DoorBlock(PETRIFIED_PLANKS_PROPERTIES.strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK).noOcclusion(), BlockSetType.CHERRY));
+    public static final RegistryObject<Block> PETRIFIED_TRAPDOOR = createBlockNoLang("petrified_wood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F).sound(SoundType.DRIPSTONE_BLOCK).noOcclusion(), BlockSetType.CHERRY));
 
-    public static final RegistryObject<Block> PETRIFIED_BUSH = createBlock("petrified_bush", () -> new DeadBushBlock(UPProperties.Blocks.PETRIFIED_BUSH));
+    public static final Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> PETRIFIED_SIGN = createSignBlock("petrified", PETRIFIED_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).noCollission().strength(1.0F).sound(SoundType.DRIPSTONE_BLOCK));
+    public static final Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> PETRIFIED_HANGING_SIGN = createHangingSignBlock("petrified", PETRIFIED_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F));
+
+    public static final RegistryObject<Block> PETRIFIED_BUSH = createBlock("petrified_bush", () -> new DeadBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).noCollission().instabreak().sound(SoundType.STONE).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> POTTED_PETRIFIED_BUSH = createBlockNoItem("potted_petrified_bush", () -> new FlowerPotBlock(PETRIFIED_BUSH.get(), flowerPot()));
 
-    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD = createBlock("polished_petrified_wood", () -> new Block(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_STAIRS = createBlock("polished_petrified_wood_stairs", () -> new StairBlock(() -> POLISHED_PETRIFIED_WOOD.get().defaultBlockState(), UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_SLAB = createBlock("polished_petrified_wood_slab", () -> new SlabBlock(UPProperties.Blocks.petrified()));
-    public static final RegistryObject<Block> POLISHED_PETRIFIED_WOOD_WALL = createBlock("polished_petrified_wood_wall", () -> new WallBlock(UPProperties.Blocks.petrified()));
-
     // Zuloagae
-    public static final RegistryObject<Block> ZULOAGAE_BLOCK = createBlock("zuloagae_block", () -> new UPWoodBlocks(UPProperties.Blocks.zuloagae()));
-    public static final RegistryObject<Block> STRIPPED_ZULOAGAE_BLOCK = createBlock("stripped_zuloagae_block", () -> new UPWoodBlocks(UPProperties.Blocks.zuloagae()));
-    public static final RegistryObject<Block> ZULOAGAE_PLANKS = createBlock("zuloagae_planks", () -> new Block(UPProperties.Blocks.zuloagae()));
-    public static final RegistryObject<Block> ZULOAGAE_STAIRS = createBlock("zuloagae_stairs", () -> new StairBlock(() -> ZULOAGAE_PLANKS.get().defaultBlockState(), UPProperties.Blocks.zuloagae()));
-    public static final RegistryObject<Block> ZULOAGAE_SLAB = createBlock("zuloagae_slab", () -> new SlabBlock(UPProperties.Blocks.zuloagae()));
-    public static final RegistryObject<Block> ZULOAGAE_FENCE = createBlock("zuloagae_fence", () -> new FenceBlock(UPProperties.Blocks.zuloagae()));
+    public static final RegistryObject<Block> ZULOAGAE_BLOCK = createBlock("zuloagae_block", () -> new UPWoodBlocks(ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD)));
+    public static final RegistryObject<Block> STRIPPED_ZULOAGAE_BLOCK = createBlock("stripped_zuloagae_block", () -> new UPWoodBlocks(ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD)));
+    public static final RegistryObject<Block> ZULOAGAE_PLANKS = createBlock("zuloagae_planks", () -> new Block(ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD)));
+    public static final RegistryObject<Block> ZULOAGAE_STAIRS = createBlock("zuloagae_stairs", () -> new StairBlock(() -> ZULOAGAE_PLANKS.get().defaultBlockState(), ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD)));
+    public static final RegistryObject<Block> ZULOAGAE_SLAB = createBlock("zuloagae_slab", () -> new SlabBlock(ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD)));
 
-    public static final RegistryObject<Block> ZULOAGAE_FENCE_GATE = createBlock("zuloagae_fence_gate", () -> new FenceGateBlock(UPProperties.Blocks.zuloagae(), UPBlockSetType.ZULOAGAE_WOOD_TYPE.get()));
-    public static final RegistryObject<Block> ZULOAGAE_DOOR = createBlock("zuloagae_door", () -> new DoorBlock(UPProperties.Blocks.zuloagae().noOcclusion(), UPBlockSetType.ZULOAGAE_BLOCKSET.get()));
-    public static final RegistryObject<Block> ZULOAGAE_TRAPDOOR = createBlock("zuloagae_trapdoor", () -> new TrapDoorBlock(UPProperties.Blocks.ZULOAGAE_TRAPDOOR, UPBlockSetType.ZULOAGAE_BLOCKSET.get()));
-    public static final RegistryObject<Block> ZULOAGAE_PRESSURE_PLATE = createBlock("zuloagae_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, UPProperties.Blocks.ZULOAGAE_PRESSURE_PLATE, UPBlockSetType.ZULOAGAE_BLOCKSET.get()));
-    public static final RegistryObject<Block> ZULOAGAE_BUTTON = createBlock("zuloagae_button", () -> new ButtonBlock(UPProperties.Blocks.ZULOAGAE_BUTTON, UPBlockSetType.ZULOAGAE_BLOCKSET.get(), 30, true));
+    public static final RegistryObject<Block> ZULOAGAE_FENCE = createBlockNoLang("zuloagae_fence", () -> new FenceBlock(ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD)));
+    public static final RegistryObject<Block> ZULOAGAE_FENCE_GATE = createBlockNoLang("zuloagae_fence_gate", () -> new FenceGateBlock(ZULOAGAE_PLANKS_PROPERTIES.strength(2.0F, 3.0F).sound(SoundType.BAMBOO_WOOD).forceSolidOn(), SoundEvents.BAMBOO_WOOD_FENCE_GATE_OPEN, SoundEvents.BAMBOO_WOOD_FENCE_GATE_CLOSE));
+    public static final RegistryObject<Block> ZULOAGAE_PRESSURE_PLATE = createBlock("zuloagae_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, ZULOAGAE_PLANKS_PROPERTIES.sound(SoundType.BAMBOO_WOOD), BlockSetType.BAMBOO));
+    public static final RegistryObject<Block> ZULOAGAE_BUTTON = createBlock("zuloagae_button", () -> new ButtonBlock(ZULOAGAE_PLANKS_PROPERTIES, BlockSetType.BAMBOO, 30, true));
 
-    public static final Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> ZULOAGAE_SIGN = createSignBlock("zuloagae", UPBlockSetType.ZULOAGAE_WOOD_TYPE.get(), UPProperties.Blocks.ZULOAGAE_SIGNS);
-    public static final Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> ZULOAGAE_HANGING_SIGN = createHangingSignBlock("zuloagae", UPBlockSetType.ZULOAGAE_WOOD_TYPE.get(), UPProperties.Blocks.ZULOAGAE_SIGNS);
+    public static final RegistryObject<Block> ZULOAGAE_DOOR = createBlock("zuloagae_door", () -> new DoorBlock(ZULOAGAE_PLANKS_PROPERTIES.strength(3.0F).sound(SoundType.BAMBOO_WOOD).noOcclusion(), BlockSetType.BAMBOO));
+    public static final RegistryObject<Block> ZULOAGAE_TRAPDOOR = createBlock("zuloagae_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F).sound(SoundType.BAMBOO_WOOD).noOcclusion(), BlockSetType.BAMBOO));
+
+    public static final Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> ZULOAGAE_SIGN = createSignBlock("zuloagae", ZULOAGAE_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLACK).noCollission().strength(1.0F).sound(SoundType.BAMBOO_WOOD));
+    public static final Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> ZULOAGAE_HANGING_SIGN = createHangingSignBlock("zuloagae", ZULOAGAE_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLACK).forceSolidOn().instrument(NoteBlockInstrument.BASS).sound(SoundType.BAMBOO_WOOD_HANGING_SIGN).noCollission().strength(1.0F));
 
     public static final RegistryObject<Block> ZULOAGAE_SAPLING = registerBlockWithoutBlockItem("zuloagae_sapling", () -> new ZuloagaeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_SAPLING).randomTicks().instabreak().noCollission().strength(1.0F).sound(SoundType.BAMBOO_SAPLING).offsetType(BlockBehaviour.OffsetType.XZ)));
     public static final RegistryObject<Block> POTTED_ZULOAGAE_SAPLING = createBlockNoItem("potted_zuloagae_sapling", () -> new FlowerPotBlock(ZULOAGAE_SAPLING.get(), flowerPot()));
@@ -364,16 +364,16 @@ public class UPBlocks {
         return block;
     }
 
-    public static Pair<RegistryObject<UPStandingSignBlock>, RegistryObject<UPWallSignBlock>> createSignBlock(String name, WoodType woodType, Block.Properties properties) {
-        RegistryObject<UPStandingSignBlock> standing = createBlockNoItem(name + "_sign", () -> new UPStandingSignBlock(properties, woodType));
-        RegistryObject<UPWallSignBlock> wall = createBlockNoItemNoLang(name + "_wall_sign", () -> new UPWallSignBlock(properties.lootFrom(standing), woodType));
+    public static Pair<RegistryObject<StandingSignBlock>, RegistryObject<WallSignBlock>> createSignBlock(String name, WoodType woodType, Block.Properties properties) {
+        RegistryObject<StandingSignBlock> standing = createBlockNoItem(name + "_sign", () -> new StandingSignBlock(properties, woodType));
+        RegistryObject<WallSignBlock> wall = createBlockNoItemNoLang(name + "_wall_sign", () -> new WallSignBlock(properties.lootFrom(standing), woodType));
         UPItems.ITEMS.register(name + "_sign", () -> new SignItem(new Item.Properties(), standing.get(), wall.get()));
         return Pair.of(standing, wall);
     }
 
-    public static Pair<RegistryObject<UPCeilingHangingSignBlock>, RegistryObject<UPWallHangingSignBlock>> createHangingSignBlock(String name, WoodType woodType, Block.Properties properties) {
-        RegistryObject<UPCeilingHangingSignBlock> ceiling = createBlockNoItem(name + "_hanging_sign", () -> new UPCeilingHangingSignBlock(properties, woodType));
-        RegistryObject<UPWallHangingSignBlock> wall = createBlockNoItemNoLang(name + "_wall_hanging_sign", () -> new UPWallHangingSignBlock(properties.lootFrom(ceiling), woodType));
+    public static Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> createHangingSignBlock(String name, WoodType woodType, Block.Properties properties) {
+        RegistryObject<CeilingHangingSignBlock> ceiling = createBlockNoItem(name + "_hanging_sign", () -> new CeilingHangingSignBlock(properties, woodType));
+        RegistryObject<WallHangingSignBlock> wall = createBlockNoItemNoLang(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(properties.lootFrom(ceiling), woodType));
         UPItems.ITEMS.register(name + "_hanging_sign", () -> new HangingSignItem(ceiling.get(), wall.get(), new Item.Properties()));
         return Pair.of(ceiling, wall);
     }

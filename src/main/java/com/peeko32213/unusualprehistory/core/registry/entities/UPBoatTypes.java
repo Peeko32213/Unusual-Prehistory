@@ -30,6 +30,7 @@ public final class UPBoatTypes {
     private static final Map<ResourceLocation, UPBoatType> BOATS = new HashMap();
 
     public UPBoatTypes() {
+
     }
 
     public static synchronized void registerType(ResourceLocation name, Supplier<Item> boat, Supplier<Item> chestBoat, Supplier<Block> plank, boolean raft) {

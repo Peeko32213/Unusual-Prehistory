@@ -3,6 +3,7 @@ package com.peeko32213.unusualprehistory.common.entity;
 import com.peeko32213.unusualprehistory.client.render.HasUPBoatType;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPBoatTypes;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -10,11 +11,15 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
@@ -66,35 +71,36 @@ public class UPChestBoat extends ChestBoat implements HasUPBoatType {
 
     }
 
-//    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-//        this.lastYd = this.getDeltaMovement().y;
-//        if (!this.isPassenger()) {
-//            if (onGroundIn) {
-//                if (this.fallDistance > 3.0F) {
-//                    if (this.status != Status.ON_LAND) {
-//                        this.fallDistance = 0.0F;
-//                        return;
-//                    }
-//                    this.causeFallDamage(this.fallDistance, 1.0F, this.damageSources().fall());
-//                    if (!this.level().isClientSide && this.isAlive()) {
-//                        this.kill();
-//                        if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-//                            for(int i = 0; i < 3; ++i) {
-//                                this.spawnAtLocation(this.getBoatType().getPlankItem());
-//                            }
-//
-//                            for(int j = 0; j < 2; ++j) {
-//                                this.spawnAtLocation(Items.STICK);
-//                            }
-//                        }
-//                    }
-//                }
-//                this.fallDistance = 0.0F;
-//            } else if (!this.level().getFluidState(this.blockPosition().below()).is(FluidTags.WATER) && y < (double)0.0F) {
-//                this.fallDistance = (float)((double)this.fallDistance - y);
-//            }
-//        }
-//    }
+    @Override
+    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+        this.lastYd = this.getDeltaMovement().y;
+        if (!this.isPassenger()) {
+            if (onGroundIn) {
+                if (this.fallDistance > 3.0F) {
+                    if (this.status != Status.ON_LAND) {
+                        this.fallDistance = 0.0F;
+                        return;
+                    }
+                    this.causeFallDamage(this.fallDistance, 1.0F, this.damageSources().fall());
+                    if (!this.level().isClientSide && this.isAlive()) {
+                        this.kill();
+                        if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+                            for(int i = 0; i < 3; ++i) {
+                                this.spawnAtLocation(this.getBoatType().getPlankItem());
+                            }
+
+                            for(int j = 0; j < 2; ++j) {
+                                this.spawnAtLocation(Items.STICK);
+                            }
+                        }
+                    }
+                }
+                this.fallDistance = 0.0F;
+            } else if (!this.level().getFluidState(this.blockPosition().below()).is(FluidTags.WATER) && y < (double)0.0F) {
+                this.fallDistance = (float)((double)this.fallDistance - y);
+            }
+        }
+    }
 
     public Item getDropItem() {
         return this.getBoatType().getChestBoatItem();

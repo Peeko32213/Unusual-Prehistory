@@ -37,6 +37,15 @@ public class UPWoodBlocks extends RotatedPillarBlock {
             if (this == UPBlocks.GINKGO_WOOD.get()) {
                 return UPBlocks.STRIPPED_GINKGO_WOOD.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
             }
+            if (this == UPBlocks.PETRIFIED_LOG.get()) {
+                return UPBlocks.STRIPPED_PETRIFIED_LOG.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
+            if (this == UPBlocks.PETRIFIED_WOOD.get()) {
+                return UPBlocks.STRIPPED_PETRIFIED_WOOD.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
+            if (this == UPBlocks.ZULOAGAE_BLOCK.get()) {
+                return UPBlocks.STRIPPED_ZULOAGAE_BLOCK.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS));
+            }
         }
         return super.getToolModifiedState(state, context, toolAction, simulate);
     }

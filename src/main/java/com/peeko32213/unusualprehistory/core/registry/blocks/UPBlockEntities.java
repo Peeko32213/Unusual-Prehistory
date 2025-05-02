@@ -1,5 +1,6 @@
 package com.peeko32213.unusualprehistory.core.registry.blocks;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.entity.*;
@@ -43,20 +44,39 @@ public class UPBlockEntities {
                     BlockEntityType.Builder.of(FruitLootBoxEntity::new,
                             UPBlocks.FRUIT_LOOT_BOX.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<UPSignBlockEntity>> SIGN =
-            createSign("sign", UPSignBlockEntity::new,
-                    () -> UPSignBlockEntity.VALID_BLOCKS);
-
-    public static final RegistryObject<BlockEntityType<UPHangingSignBlockEntity>> HANGING_SIGN =
-            createSign("sign", UPHangingSignBlockEntity::new,
-                    () -> UPHangingSignBlockEntity.VALID_BLOCKS);
 
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
 
-    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> createSign(String name, BlockEntityType.BlockEntitySupplier<? extends T> blockEntity, Supplier<Set<Block>> validBlocks) {
-        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>(blockEntity, validBlocks.get(), null));
+    public static void expandVanillaDefinitions() {
+        ImmutableSet.Builder<Block> validSignBlocks = new ImmutableSet.Builder<>();
+        validSignBlocks.addAll(BlockEntityType.SIGN.validBlocks);
+        validSignBlocks.add(UPBlocks.DRYO_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.DRYO_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.FOXII_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.FOXII_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.GINKGO_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.GINKGO_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.PETRIFIED_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.PETRIFIED_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.ZULOAGAE_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.ZULOAGAE_SIGN.getSecond().get());
+        BlockEntityType.SIGN.validBlocks = validSignBlocks.build();
+
+        ImmutableSet.Builder<Block> validHangingSignBlocks = new ImmutableSet.Builder<>();
+        validHangingSignBlocks.addAll(BlockEntityType.HANGING_SIGN.validBlocks);
+        validSignBlocks.add(UPBlocks.DRYO_HANGING_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.DRYO_HANGING_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.FOXII_HANGING_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.FOXII_HANGING_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.GINKGO_HANGING_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.GINKGO_HANGING_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.PETRIFIED_HANGING_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.PETRIFIED_HANGING_SIGN.getSecond().get());
+        validSignBlocks.add(UPBlocks.ZULOAGAE_HANGING_SIGN.getFirst().get());
+        validSignBlocks.add(UPBlocks.ZULOAGAE_HANGING_SIGN.getSecond().get());
+        BlockEntityType.HANGING_SIGN.validBlocks = validHangingSignBlocks.build();
     }
 }

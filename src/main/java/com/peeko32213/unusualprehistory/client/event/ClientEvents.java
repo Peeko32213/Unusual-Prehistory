@@ -16,6 +16,7 @@ import com.peeko32213.unusualprehistory.client.overlay.AmberProtectionOverlay;
 import com.peeko32213.unusualprehistory.client.particles.ElectricAttackParticle;
 import com.peeko32213.unusualprehistory.client.particles.ElectricOrbitParticle;
 import com.peeko32213.unusualprehistory.client.particles.TarBubbleParticle;
+import com.peeko32213.unusualprehistory.client.render.UPBoatRenderer;
 import com.peeko32213.unusualprehistory.client.render.base.*;
 import com.peeko32213.unusualprehistory.client.render.block.CultivatorBlockEntityRenderer;
 import com.peeko32213.unusualprehistory.client.render.block.IncubatorBlockEntityRenderer;
@@ -35,11 +36,16 @@ import com.peeko32213.unusualprehistory.core.registry.items.UPItemProperties;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -54,6 +60,11 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(UPItemProperties::addItemProperties);
+        Sheets.addWoodType(UPBlocks.DRYO_WOOD_TYPE);
+        Sheets.addWoodType(UPBlocks.FOXII_WOOD_TYPE);
+        Sheets.addWoodType(UPBlocks.GINKGO_WOOD_TYPE);
+        Sheets.addWoodType(UPBlocks.PETRIFIED_WOOD_TYPE);
+        Sheets.addWoodType(UPBlocks.ZULOAGAE_WOOD_TYPE);
     }
 
     @SubscribeEvent
@@ -158,6 +169,10 @@ public final class ClientEvents {
         // Eggs
         event.registerEntityRenderer(UPEntities.PREHISTORIC_EGG.get(), e -> new PrehistoricEggRenderer(e, new PrehistoricEggModel()));
 
+        // Boats
+//        event.registerEntityRenderer(UPEntities.BOAT.get(), context -> new UPBoatRenderer(context, false));
+//        event.registerEntityRenderer(UPEntities.CHEST_BOAT.get(), context -> new UPBoatRenderer(context, true));
+
         try {
             ItemProperties.register(UPItems.TRIKE_SHIELD.get(), new ResourceLocation("blocking"), (stack, clientLevel, livingEntity, j) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
             ItemProperties.register(UPItems.VELOCI_SHIELD.get(), new ResourceLocation("blocking"), (stack, clientLevel, livingEntity, j) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == stack ? 1.0F : 0.0F);
@@ -165,7 +180,6 @@ public final class ClientEvents {
             UnusualPrehistory.LOGGER.warn("Could not load item models for weapons");
         }
     }
-
 
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {

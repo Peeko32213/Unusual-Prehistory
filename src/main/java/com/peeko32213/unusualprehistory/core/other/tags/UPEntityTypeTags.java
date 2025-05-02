@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.core.other.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.teamabnormals.blueprint.core.util.TagUtil;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
@@ -53,6 +54,6 @@ public class UPEntityTypeTags {
     public static final TagKey<EntityType<?>> STETHA_AVOIDS = entityTypeTag("stethacanthus_avoids");
 
     private static TagKey<EntityType<?>> entityTypeTag(String name) {
-        return TagUtil.entityTypeTag(UnusualPrehistory.MODID, name);
+        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 }

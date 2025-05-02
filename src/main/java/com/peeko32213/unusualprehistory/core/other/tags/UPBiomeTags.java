@@ -1,7 +1,8 @@
 package com.peeko32213.unusualprehistory.core.other.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.teamabnormals.blueprint.core.util.TagUtil;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
@@ -18,6 +19,6 @@ public class UPBiomeTags {
     public static final TagKey<Biome> HAS_UNDERGROUND_DIG_SITES = biomeTag("has_structure/underground_dig_sites");
 
     private static TagKey<Biome> biomeTag(String name) {
-        return TagUtil.biomeTag(UnusualPrehistory.MODID, name);
+        return TagKey.create(Registries.BIOME, new ResourceLocation(UnusualPrehistory.MODID, name));
     }
 }
