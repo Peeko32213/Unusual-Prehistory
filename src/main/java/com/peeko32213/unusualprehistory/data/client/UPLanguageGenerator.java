@@ -931,7 +931,7 @@ public class UPLanguageGenerator extends LanguageProvider {
         addEffect(UPEffects.BRACHI_PROTECTION, "Brachi's Protection");
         addEffect(UPEffects.PREVENT_CLICK, "Debilitating Toxin");
         addEffect(UPEffects.PACHYS_MIGHT, "Pachy's Might");
-        addEffect(UPEffects.HEALTH_REDUCTION, "Draining Venom");
+        addEffect(UPEffects.DRAINING_VENOM, "Draining Venom");
 
         // Block entities
         addBETranslatable("analyzer", "                          Analyzer");

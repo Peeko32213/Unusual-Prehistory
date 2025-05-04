@@ -37,7 +37,7 @@ public enum DrainingVenomHeartType {
 
     public static DrainingVenomHeartType getType(Player player) {
         DrainingVenomHeartType type = null;
-        if (player.hasEffect(UPEffects.HEALTH_REDUCTION.get())) {
+        if (player.hasEffect(UPEffects.DRAINING_VENOM.get())) {
             type = DrainingVenomHeartType.DRAINING_VENOM;
         }
         return type;

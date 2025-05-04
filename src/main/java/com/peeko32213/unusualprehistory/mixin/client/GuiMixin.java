@@ -23,7 +23,7 @@ public class GuiMixin {
     }
 
     private static boolean hasAnyCustomHearts(Player player) {
-        if (player.hasEffect(UPEffects.HEALTH_REDUCTION.get())) {
+        if (player.hasEffect(UPEffects.DRAINING_VENOM.get())) {
             return true;
         }
         return player.hasEffect(UPEffects.PREVENT_CLICK.get());

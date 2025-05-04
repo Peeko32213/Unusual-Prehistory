@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 */
 
 public class SmartBodyHelper extends BodyRotationControl {
+
     private static final int HISTORY_SIZE = 10;
     private static final double MOVE_THRESHOLD = 2.5e-7;
 

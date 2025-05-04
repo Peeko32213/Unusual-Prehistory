@@ -3,165 +3,199 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.megalania",
 				"texture_width": 256,
 				"texture_height": 256,
-				"visible_bounds_width": 12,
+				"visible_bounds_width": 13,
 				"visible_bounds_height": 2.5,
 				"visible_bounds_offset": [0, 0.75, 0]
 			},
 			"bones": [
 				{
-					"name": "Megalania",
-					"pivot": [0, -1, 0]
+					"name": "root",
+					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "Varanus_Upper_Body",
-					"parent": "Megalania",
-					"pivot": [0, -1, 0]
+					"name": "body_main",
+					"parent": "root",
+					"pivot": [0, 13.5, 0]
 				},
 				{
-					"name": "Varanus_Arm_Left",
-					"parent": "Varanus_Upper_Body",
-					"pivot": [9.5, 10, -10],
-					"rotation": [-20, 20, -30],
+					"name": "body_upper",
+					"parent": "body_main",
+					"pivot": [0, 10, 9.5]
+				},
+				{
+					"name": "body_overlay",
+					"parent": "body_upper",
+					"pivot": [0, 13.5, 0]
+				},
+				{
+					"name": "body",
+					"parent": "body_overlay",
+					"pivot": [0, 13.5, 0],
 					"cubes": [
-						{"origin": [6.5, 0, -13], "size": [6, 12, 6], "uv": [100, 0]}
+						{"origin": [-9.5, 6, -15.5], "size": [19, 15, 31], "uv": [0, 0]}
 					]
 				},
 				{
-					"name": "Varanus_Hand_Left",
-					"parent": "Varanus_Arm_Left",
-					"pivot": [10, 1, -11],
-					"rotation": [7.5, -50, 20],
+					"name": "tail1_overlay",
+					"parent": "body",
+					"pivot": [0, 11, 15.5]
+				},
+				{
+					"name": "tail1",
+					"parent": "tail1_overlay",
+					"pivot": [0, 11, 15.5],
 					"cubes": [
-						{"origin": [6.5, -2, -16], "size": [8, 3, 7], "uv": [100, 36]}
+						{"origin": [-5.5, 8, 11.5], "size": [11, 7, 33], "uv": [0, 46]}
 					]
 				},
 				{
-					"name": "Varanus_Arm_Right",
-					"parent": "Varanus_Upper_Body",
-					"pivot": [-9.5, 10, -10],
-					"rotation": [-20, -20, 30],
+					"name": "tail2_overlay",
+					"parent": "tail1",
+					"pivot": [0, 10.5, 44.5]
+				},
+				{
+					"name": "tail2",
+					"parent": "tail2_overlay",
+					"pivot": [0, 10.5, 44.5],
 					"cubes": [
-						{"origin": [-12.5, 0, -13], "size": [6, 12, 6], "uv": [100, 0], "mirror": true}
+						{"origin": [-4, 8, 44.5], "size": [8, 5, 20], "uv": [60, 86]}
 					]
 				},
 				{
-					"name": "Varanus_Hand_Right",
-					"parent": "Varanus_Arm_Right",
-					"pivot": [-10, 1, -11],
-					"rotation": [7.5, 50, -20],
+					"name": "tail3_overlay",
+					"parent": "tail2",
+					"pivot": [0, 10, 64.5]
+				},
+				{
+					"name": "tail3",
+					"parent": "tail3_overlay",
+					"pivot": [0, 10, 64.5],
 					"cubes": [
-						{"origin": [-14.5, -2, -16], "size": [8, 3, 7], "uv": [100, 36], "mirror": true}
+						{"origin": [-3, 8, 64.5], "size": [6, 4, 24], "uv": [0, 86]}
 					]
 				},
 				{
-					"name": "Varanus_Body",
-					"parent": "Varanus_Upper_Body",
-					"pivot": [0, 10, -10],
-					"rotation": [-10, 0, 0],
+					"name": "neck_control",
+					"parent": "body",
+					"pivot": [0, 20, -15.5]
+				},
+				{
+					"name": "neck_overlay",
+					"parent": "neck_control",
+					"pivot": [0, 20, -15.5]
+				},
+				{
+					"name": "neck",
+					"parent": "neck_overlay",
+					"pivot": [0, 20, -15.5],
 					"cubes": [
-						{"origin": [-9.5, 6, -16], "size": [19, 15, 31], "uv": [0, 0]}
+						{"origin": [-3, 9, -28.5], "size": [6, 11, 13], "uv": [89, 46]}
 					]
 				},
 				{
-					"name": "Varanus_Neck",
-					"parent": "Varanus_Body",
-					"pivot": [0, 20, -16],
-					"rotation": [20, 0, 0],
+					"name": "head_overlay",
+					"parent": "neck",
+					"pivot": [0, 20, -20.5]
+				},
+				{
+					"name": "head",
+					"parent": "head_overlay",
+					"pivot": [0, 20, -20.5],
 					"cubes": [
-						{"origin": [-3, 9, -29], "size": [6, 11, 13], "uv": [89, 46]}
+						{"origin": [-3.5, 17, -36.5], "size": [7, 3, 8], "uv": [90, 111]},
+						{"origin": [-4.5, 17, -28.5], "size": [9, 3, 8], "inflate": 0.01, "uv": [88, 70]},
+						{"origin": [-2.5, 16.5, -35.5], "size": [5, 1, 8], "uv": [102, 96]},
+						{"origin": [-4.5, 13, -24.5], "size": [9, 4, 4], "uv": [28, 114]}
 					]
 				},
 				{
-					"name": "Varanus_Head",
-					"parent": "Varanus_Neck",
-					"pivot": [0, 20, -21],
-					"rotation": [-10, 0, 0],
+					"name": "jaw_overlay",
+					"parent": "head",
+					"pivot": [0, 17, -24.5]
+				},
+				{
+					"name": "jaw",
+					"parent": "jaw_overlay",
+					"pivot": [0, 17, -24.5],
 					"cubes": [
-						{"origin": [-3.5, 17, -37], "size": [7, 3, 8], "uv": [90, 111]},
-						{"origin": [-4.5, 17, -29], "size": [9, 3, 8], "inflate": 0.01, "uv": [88, 70]},
-						{"origin": [-4.5, 13, -25], "size": [9, 4, 4], "uv": [28, 114]}
+						{"origin": [-3.5, 13, -36.5], "size": [7, 4, 8], "inflate": 0.01, "uv": [60, 111]},
+						{"origin": [-2.5, 16.5, -35.5], "size": [5, 1, 8], "uv": [112, 114]},
+						{"origin": [-4.5, 13, -28.5], "size": [9, 4, 4], "inflate": 0.01, "uv": [116, 81]}
 					]
 				},
 				{
-					"name": "Varanus_Jaw",
-					"parent": "Varanus_Head",
-					"pivot": [0, 17, -25],
+					"name": "tongue",
+					"parent": "jaw",
+					"pivot": [0, 17, -25.5],
 					"cubes": [
-						{"origin": [-3.5, 13, -37], "size": [7, 4, 8], "inflate": 0.01, "uv": [60, 111]},
-						{"origin": [-4.5, 13, -29], "size": [9, 4, 4], "inflate": 0.01, "uv": [116, 81]}
+						{"origin": [-1.5, 17.01, -34.5], "size": [3, 0, 9], "inflate": 0.0025, "uv": [11, 54]}
 					]
 				},
 				{
-					"name": "Varanus_Tongue",
-					"parent": "Varanus_Jaw",
-					"pivot": [0, 17, -26],
+					"name": "left_arm1",
+					"parent": "body_upper",
+					"pivot": [9.5, 10, -9.5],
 					"cubes": [
-						{"origin": [-1.5, 17.01, -35], "size": [3, 0, 9], "uv": [11, 54]}
+						{"origin": [6.5, 0, -12.5], "size": [6, 12, 6], "uv": [100, 0]}
 					]
 				},
 				{
-					"name": "Varanus_Tail_Base",
-					"parent": "Varanus_Body",
-					"pivot": [-1, 11, 15],
-					"rotation": [3, 0, 0],
+					"name": "left_arm2",
+					"parent": "left_arm1",
+					"pivot": [10, 1, -10.5],
 					"cubes": [
-						{"origin": [-5.5, 8, 11], "size": [11, 7, 33], "uv": [0, 46]}
+						{"origin": [6.5, -2, -15.5], "size": [8, 3, 7], "uv": [100, 36]}
 					]
 				},
 				{
-					"name": "Varanus_Tail",
-					"parent": "Varanus_Tail_Base",
-					"pivot": [0, 10.5, 44],
-					"rotation": [6.5, 0, 0],
+					"name": "right_arm1",
+					"parent": "body_upper",
+					"pivot": [-9.5, 10, -9.5],
 					"cubes": [
-						{"origin": [-4, 8, 44], "size": [8, 5, 20], "uv": [60, 86]}
+						{"origin": [-12.5, 0, -12.5], "size": [6, 12, 6], "uv": [100, 0], "mirror": true}
 					]
 				},
 				{
-					"name": "Varanus_Tail_Tip",
-					"parent": "Varanus_Tail",
-					"pivot": [0, 10, 64],
+					"name": "right_arm2",
+					"parent": "right_arm1",
+					"pivot": [-10, 1, -10.5],
 					"cubes": [
-						{"origin": [-3, 8, 64], "size": [6, 4, 24], "uv": [0, 86]}
+						{"origin": [-14.5, -2, -15.5], "size": [8, 3, 7], "uv": [100, 36], "mirror": true}
 					]
 				},
 				{
-					"name": "Varanus_Leg_Left",
-					"parent": "Megalania",
-					"pivot": [9.5, 10, 9],
-					"rotation": [20, -20, -30],
+					"name": "left_leg1",
+					"parent": "body_main",
+					"pivot": [9.5, 10, 9.5],
 					"cubes": [
-						{"origin": [6.5, 0, 6], "size": [6, 12, 6], "uv": [100, 18]}
+						{"origin": [6.5, 0, 6.5], "size": [6, 12, 6], "uv": [100, 18]}
 					]
 				},
 				{
-					"name": "Varanus_Foot_Left",
-					"parent": "Varanus_Leg_Left",
-					"pivot": [9.5, 1, 8],
-					"rotation": [-15, -30, 30],
+					"name": "left_leg2",
+					"parent": "left_leg1",
+					"pivot": [9.5, 1, 8.5],
 					"cubes": [
-						{"origin": [5.5, -2, 3], "size": [8, 3, 7], "pivot": [9.5, 1, 8], "rotation": [-7.5, 0, 2.5], "uv": [0, 115]}
+						{"origin": [5.5, -2, 3.5], "size": [8, 3, 7], "uv": [0, 115]}
 					]
 				},
 				{
-					"name": "Varanus_Leg_Right",
-					"parent": "Megalania",
-					"pivot": [-9.5, 10, 9],
-					"rotation": [20, 20, 30],
+					"name": "right_leg1",
+					"parent": "body_main",
+					"pivot": [-9.5, 10, 9.5],
 					"cubes": [
-						{"origin": [-12.5, 0, 6], "size": [6, 12, 6], "uv": [100, 18], "mirror": true}
+						{"origin": [-12.5, 0, 6.5], "size": [6, 12, 6], "uv": [100, 18], "mirror": true}
 					]
 				},
 				{
-					"name": "Varanus_Foot_Right",
-					"parent": "Varanus_Leg_Right",
-					"pivot": [-9.5, 1, 8],
-					"rotation": [-15, 30, -30],
+					"name": "right_leg2",
+					"parent": "right_leg1",
+					"pivot": [-9.5, 1, 8.5],
 					"cubes": [
-						{"origin": [-13.5, -2, 3], "size": [8, 3, 7], "pivot": [-9.5, 1, 8], "rotation": [-7.5, 0, -2.5], "uv": [0, 115], "mirror": true}
+						{"origin": [-13.5, -2, 3.5], "size": [8, 3, 7], "uv": [0, 115], "mirror": true}
 					]
 				}
 			]
