@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.data.server.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;

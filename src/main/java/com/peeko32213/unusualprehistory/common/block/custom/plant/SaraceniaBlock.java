@@ -1,22 +1,21 @@
 package com.peeko32213.unusualprehistory.common.block.custom.plant;
 
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SaraceniaBlock extends BushBlock implements BonemealableBlock {
+public class SaraceniaBlock extends BushBlock implements BonemealableBlock, SuspiciousEffectHolder {
 
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
@@ -46,5 +45,13 @@ public class SaraceniaBlock extends BushBlock implements BonemealableBlock {
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
         return SHAPE.move(offset.x, offset.y, offset.z);
+    }
+
+    public MobEffect getSuspiciousEffect() {
+        return MobEffects.HARM;
+    }
+
+    public int getEffectDuration() {
+        return 1;
     }
 }

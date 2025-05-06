@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.data.analyzer.AnalyzerRecipeJsonManager;
 import com.peeko32213.unusualprehistory.common.screen.AnalyzerMenu;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

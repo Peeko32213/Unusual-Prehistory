@@ -4,7 +4,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.block.custom.FruitLootBoxBlock;
 import com.peeko32213.unusualprehistory.common.item.CaptureBottleItem;
 import com.peeko32213.unusualprehistory.common.item.UPFishBucketItem;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

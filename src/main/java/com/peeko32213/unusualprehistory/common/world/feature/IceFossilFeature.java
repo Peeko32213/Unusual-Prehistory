@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.world.feature;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.WorldSpawnableEntity;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.other.util.FastNoiseLite;
 import net.minecraft.core.BlockPos;

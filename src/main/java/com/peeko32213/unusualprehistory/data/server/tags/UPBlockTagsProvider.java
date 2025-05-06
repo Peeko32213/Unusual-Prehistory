@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.data.server.tags;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.other.tags.UPBlockTags;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks.*;
+import static com.peeko32213.unusualprehistory.core.registry.UPBlocks.*;
 
 public class UPBlockTagsProvider extends BlockTagsProvider {
 
@@ -125,6 +125,10 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.TALL_FLOWERS).add(
                 TALL_SARACENIA.get(),
                 RAIGUENRAYUN.get()
+        );
+
+        this.tag(BlockTags.DIRT).add(
+                MOSSY_DIRT.get()
         );
 
         // Wooden
@@ -343,6 +347,17 @@ public class UPBlockTagsProvider extends BlockTagsProvider {
         this.tag(UPBlockTags.CALAMOPHYTON_PLACEABLE)
                 .addTag(BlockTags.SAND)
                 .addTag(BlockTags.DIRT)
+                .add(Blocks.GRAVEL);
+
+        this.tag(UPBlockTags.COOKSONIA_PLACEABLE)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .add(Blocks.GRAVEL);
+
+        this.tag(UPBlockTags.RHYNIA_PLACEABLE)
+                .addTag(BlockTags.SAND)
+                .addTag(BlockTags.DIRT)
+                .addTag(Tags.Blocks.STONE)
                 .add(Blocks.GRAVEL);
 
         this.tag(UPBlockTags.DINO_NATURAL_SPAWNABLE);

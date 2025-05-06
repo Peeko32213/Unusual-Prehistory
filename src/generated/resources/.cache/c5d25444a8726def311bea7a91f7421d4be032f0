@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-29T20:43:22.0132434	Item Models: unusualprehistory
+// 1.20.1	2025-05-05T21:41:34.017009	Item Models: unusualprehistory
 d59024cc150895caef16ca23064bdcd28b78f807 assets/unusualprehistory/models/item/adorned_staff.json
 fa55f567c295cf4dd68b82024d508fa7c97626f4 assets/unusualprehistory/models/item/amber.json
 728259086070ef1e799652ab2b9ca4701f9f0104 assets/unusualprehistory/models/item/amber_block.json
@@ -47,6 +47,7 @@ a6330a9dfee93f5944e6c7832145bf25e38ae479 assets/unusualprehistory/models/item/br
 0c025c5c83a4e283888e8efbd88b650bfa55883c assets/unusualprehistory/models/item/cladophlebis.json
 27aba98c7cff43d591626a41dafc7e3fd5500234 assets/unusualprehistory/models/item/clathrodictyon_dna_bottle.json
 70cb129cee892b4cb6d452f58578b54070841483 assets/unusualprehistory/models/item/cooked_ginkgo_seeds.json
+e6e8ad40b907a7fa67ce78e5b603417cd5b0466e assets/unusualprehistory/models/item/cooksonia.json
 3acf9bbf7cf1739dfce17d2b645dcb18c4428c96 assets/unusualprehistory/models/item/cotylorhynchus_dna_bottle.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/unusualprehistory/models/item/cotylorhynchus_spawn_egg.json
 cd900501d526334841484bf2c785ae0d2bfc99ff assets/unusualprehistory/models/item/coty_egg.json

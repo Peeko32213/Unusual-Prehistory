@@ -10,7 +10,7 @@ import com.peeko32213.unusualprehistory.common.item.PrehistoricEggItem;
 import com.peeko32213.unusualprehistory.core.other.tags.UPInstrumentTags;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.UPEnchantments;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -327,6 +327,7 @@ public class UPTabs {
                         entries.accept(UPBlocks.ARCHAEOSIGILARIA.get());
                         entries.accept(UPBlocks.BENNETTITALES.get());
                         entries.accept(UPBlocks.CALAMOPHYTON.get());
+                        entries.accept(UPBlocks.COOKSONIA.get());
                         entries.accept(UPBlocks.CLADOPHLEBIS.get());
                         entries.accept(UPBlocks.HORSETAIL.get());
                         entries.accept(UPBlocks.TALL_HORSETAIL.get());
@@ -336,6 +337,7 @@ public class UPTabs {
                         entries.accept(UPBlocks.QUEREUXIA.get());
                         entries.accept(UPBlocks.QUEREUXIA_TOP.get());
                         entries.accept(UPBlocks.RAIGUENRAYUN.get());
+                        entries.accept(UPBlocks.RHYNIA.get());
                         entries.accept(UPBlocks.SARACENIA.get());
                         entries.accept(UPBlocks.TALL_SARACENIA.get());
                         entries.accept(UPBlocks.DRYO_SAPLING.get());
@@ -343,6 +345,7 @@ public class UPTabs {
                         entries.accept(UPBlocks.GINKGO_SAPLING.get());
                         entries.accept(UPBlocks.PETRIFIED_BUSH.get());
                         entries.accept(UPBlocks.ZULOAGAE.get());
+                        entries.accept(UPBlocks.MOSSY_DIRT.get());
                         entries.accept(UPBlocks.ANOSTYLOSTROMA_BLOCK.get());
                         entries.accept(UPBlocks.CLATHRODICTYON_BLOCK.get());
                         entries.accept(UPBlocks.CLATHRODICTYON.get());

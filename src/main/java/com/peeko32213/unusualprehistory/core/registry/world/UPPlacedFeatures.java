@@ -2,7 +2,7 @@ package com.peeko32213.unusualprehistory.core.registry.world;
 
 import com.google.common.collect.ImmutableList;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;

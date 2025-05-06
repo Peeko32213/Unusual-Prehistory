@@ -1,8 +1,7 @@
 package com.peeko32213.unusualprehistory.data.server.recipes;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;

@@ -10,7 +10,7 @@ import com.peeko32213.unusualprehistory.common.item.tool.*;
 import com.peeko32213.unusualprehistory.core.other.tags.UPInstrumentTags;
 import com.peeko32213.unusualprehistory.core.registry.UPSounds;
 import com.peeko32213.unusualprehistory.core.other.tags.UPEntityTypeTags;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPBoatTypes;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import net.minecraft.core.Direction;

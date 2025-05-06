@@ -1,6 +1,6 @@
 //package com.peeko32213.unusualprehistory.datagen.advancements;
 //
-//import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+//import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 //import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 //import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 //import com.peeko32213.unusualprehistory.core.registry.util.BarinaTameTrigger;

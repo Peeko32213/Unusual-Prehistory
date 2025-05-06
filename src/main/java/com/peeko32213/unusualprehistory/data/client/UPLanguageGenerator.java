@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.core.other.UPTabs;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPPaintings;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;

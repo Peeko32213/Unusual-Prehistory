@@ -11,6 +11,7 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
+
     private static final ResourceLocation REX = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex.png");
     private static final ResourceLocation REX_ENRAGED = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_enraged.png");
     private static final ResourceLocation REX_EEPY = new ResourceLocation(UnusualPrehistory.MODID, "textures/entity/tyrannosaurus/tyrannosaurus_rex_eepy.png");
@@ -27,10 +28,8 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
     private static final ResourceLocation MODEL_MCRAEENSIS = new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_mcraeensis.geo.json");
     private static final ResourceLocation MODEL_SKELETON = new ResourceLocation(UnusualPrehistory.MODID, "geo/tyrannosaurus/tyrannosaurus_skeleton.geo.json");
 
-
     private static final ResourceLocation ANIM_REX = new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_rex.animation.json");
     private static final ResourceLocation ANIM_MCRAEENSIS = new ResourceLocation(UnusualPrehistory.MODID, "animations/tyrannosaurus/tyrannosaurus_mcraeensis.animation.json");
-
 
     @Override
     public ResourceLocation getModelResource(TyrannosaurusEntity tyranno) {
@@ -44,8 +43,6 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
     public ResourceLocation getAnimationResource(TyrannosaurusEntity tyranno) {
         return tyranno.getVariant() == 1 ? ANIM_MCRAEENSIS : ANIM_REX;
     }
-
-
 
     @Override
     public ResourceLocation getTextureResource(TyrannosaurusEntity tyranno) {
@@ -69,6 +66,7 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
         EntityModelData extraDataOfType = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
+        CoreGeoBone neck = this.getAnimationProcessor().getBone("neck_control");
 
         if (entity.isBaby()) {
             head.setScaleX(1.5F);
@@ -80,9 +78,8 @@ public class TyrannosaurusModel extends GeoModel<TyrannosaurusEntity> {
             head.setScaleZ(1.0F);
         }
 
-        if (!entity.isSprinting()) {
-            head.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
-        }
+        neck.setRotY(extraDataOfType.netHeadYaw() * Mth.DEG_TO_RAD);
+        neck.setRotX(extraDataOfType.headPitch() * Mth.DEG_TO_RAD);
     }
 }
 

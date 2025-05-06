@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.data.client.models;
 
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.entities.UPEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -143,6 +143,7 @@ public class UPItemModelGenerator extends ItemModelProvider {
         itemFromBlockTexture(UPBlocks.ISOETES_BEESTONII);
         itemFromBlockTexture(UPBlocks.CLADOPHLEBIS);
         itemFromBlockTexture(UPBlocks.ARCHAEFRUCTUS);
+        itemFromBlockTexture(UPBlocks.COOKSONIA);
 
         // Fossils
         fossilItem(UPItems.PALEO_FOSSIL);

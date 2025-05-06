@@ -6,7 +6,7 @@ import com.peeko32213.unusualprehistory.common.recipe.CultivatorRecipe;
 import com.peeko32213.unusualprehistory.common.screen.CultivatorMenu;
 import com.peeko32213.unusualprehistory.core.other.tags.UPItemTags;
 import com.peeko32213.unusualprehistory.core.registry.*;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlockEntities;
+import com.peeko32213.unusualprehistory.core.registry.UPBlockEntities;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import com.peeko32213.unusualprehistory.core.registry.items.UPRecipes;
 import net.minecraft.core.BlockPos;

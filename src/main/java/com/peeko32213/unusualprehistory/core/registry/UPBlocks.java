@@ -1,4 +1,4 @@
-package com.peeko32213.unusualprehistory.core.registry.blocks;
+package com.peeko32213.unusualprehistory.core.registry;
 
 import com.mojang.datafixers.util.Pair;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
@@ -165,6 +165,7 @@ public class UPBlocks {
     public static final RegistryObject<Block> HWACHA_FOSSIL = registerBlock("hwacha_fossil", () -> new FossilDecorationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1.0F).noOcclusion().requiresCorrectToolForDrops()));
 
     // Prehistoric plants
+    public static final RegistryObject<Block> MOSSY_DIRT = createBlock("mossy_dirt", () -> new MossyDirt(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.5F).sound(SoundType.GRAVEL)));
     public static final RegistryObject<Block> ARCHAEFRUCTUS = registerBlock("archaefructus", () -> new ArchaefructusBlock(BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
     public static final RegistryObject<Block> ARCHAEOSIGILARIA = registerBlock("archaeos", () -> new FlowerBlock(MobEffects.CONFUSION, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
     public static final RegistryObject<Block> BENNETTITALES = registerBlock("bennett", () -> new FlowerBlock(MobEffects.DIG_SPEED, 8, BlockBehaviour.Properties.copy(Blocks.DANDELION).noOcclusion()));
@@ -181,6 +182,9 @@ public class UPBlocks {
     public static final RegistryObject<Block> ISOETES_BEESTONII = createBlock("isoetes_beestonii", () -> new IsoetesBeestoniiBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
     public static final RegistryObject<Block> CLADOPHLEBIS = createBlock("cladophlebis", () -> new CladophlebisBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
     public static final RegistryObject<Block> CALAMOPHYTON = createBlock("calamophyton", () -> new CalamophytonBlock(BlockBehaviour.Properties.of().noCollission().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> COOKSONIA = createBlock("cooksonia", () -> new CooksoniaBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).noOcclusion()));
+    public static final RegistryObject<Block> RHYNIA = createBlock("rhynia", () -> new RhyniaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
     // Prehistoric corals
     public static final RegistryObject<Block> ANOSTYLOSTROMA_BLOCK = registerBlock("anostylostroma_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.GRASS)));
     public static final RegistryObject<Block> DEAD_CLATHRODICTYON_BLOCK = registerBlock("dead_clathrodictyon_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
@@ -200,6 +204,8 @@ public class UPBlocks {
     public static final RegistryObject<Block> POTTED_SARACENIA = registerBlockWithoutBlockItem("potted_sarracenia", () -> new FlowerPotBlock(UPBlocks.SARACENIA.get(), flowerPot()));
     public static final RegistryObject<Block> POTTED_ISOETES_BEESTONII = registerBlockWithoutBlockItem("potted_isoetes_beestonii", () -> new FlowerPotBlock(UPBlocks.ISOETES_BEESTONII.get(), flowerPot()));
     public static final RegistryObject<Block> POTTED_CLADOPHLEBIS = registerBlockWithoutBlockItem("potted_cladophlebis", () -> new FlowerPotBlock(UPBlocks.CLADOPHLEBIS.get(), flowerPot()));
+    public static final RegistryObject<Block> POTTED_COOKSONIA = registerBlockWithoutBlockItem("potted_cooksonia", () -> new FlowerPotBlock(UPBlocks.COOKSONIA.get(), flowerPot()));
+    public static final RegistryObject<Block> POTTED_RHYNIA = registerBlockWithoutBlockItem("potted_rhynia", () -> new FlowerPotBlock(UPBlocks.RHYNIA.get(), flowerPot()));
 
     // Amber blocks
     public static final RegistryObject<Block> AMBER_BLOCK = createBlock("amber_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(0.5F).speedFactor(0.4F).sound(SoundType.HONEY_BLOCK)));
@@ -251,7 +257,7 @@ public class UPBlocks {
     public static final Pair<RegistryObject<CeilingHangingSignBlock>, RegistryObject<WallHangingSignBlock>> FOXII_HANGING_SIGN = createHangingSignBlock("foxii", FOXII_WOOD_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F));
 
     public static final RegistryObject<Block> FOXII_LEAVES = createBlockNoLang("foxxi_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).sound(SoundType.AZALEA_LEAVES)));
-    public static final RegistryObject<Block> FOXII_SAPLING = createBlockNoLang("foxii_sapling", () -> new DoubleSaplingBlock(new FoxiiTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> FOXII_SAPLING = createBlock("foxii_sapling", () -> new DoubleSaplingBlock(new FoxiiTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     // Ginkgo
     public static final RegistryObject<Block> GINKGO_LOG = createBlock("ginkgo_log", () -> new UPWoodBlocks(GINKGO_LOG_PROPERTIES));

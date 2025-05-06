@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.common.world.feature.tree.trunkplacer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.world.UPTrunkPlacerType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;

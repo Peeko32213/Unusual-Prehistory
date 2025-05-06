@@ -101,8 +101,8 @@ public class MegalaniaEntity extends PrehistoricEntity {
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D, 50));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, false, entity -> entity.getType().is(UPEntityTypeTags.MEGALANIA_TARGETS)));
-        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 100, true, true, entity -> entity.getType().is(UPEntityTypeTags.MEGALANIA_TARGETS)));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Player.class, 100, true, true, this::isAngryAt));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)));
     }
 
@@ -212,6 +212,20 @@ public class MegalaniaEntity extends PrehistoricEntity {
         this.entityData.define(ROAR, false);
     }
 
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Asleep", this.isAsleep());
+        compound.putBoolean("Aggro", this.isAggro());
+        compound.putInt("StunTick", this.stunnedTick);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setAsleep(compound.getBoolean("Asleep"));
+        this.setAggro(compound.getBoolean("Aggro"));
+        this.stunnedTick = compound.getInt("StunTick");
+    }
+
     public boolean isAsleep() {
         return this.entityData.get(ASLEEP);
     }
@@ -226,20 +240,6 @@ public class MegalaniaEntity extends PrehistoricEntity {
 
     public void setAggro(boolean isAggro) {
         this.entityData.set(AGGRO, isAggro);
-    }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Asleep", this.isAsleep());
-        compound.putBoolean("Aggro", this.isAggro());
-        compound.putInt("StunTick", this.stunnedTick);
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setAsleep(compound.getBoolean("Asleep"));
-        this.setAggro(compound.getBoolean("Aggro"));
-        this.stunnedTick = compound.getInt("StunTick");
     }
 
     @Override

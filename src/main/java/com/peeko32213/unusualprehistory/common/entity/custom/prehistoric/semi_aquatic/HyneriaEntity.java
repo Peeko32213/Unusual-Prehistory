@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.StateHelper;
 import com.peeko32213.unusualprehistory.common.entity.animation.state.WeightedState;
 import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.FindWaterGoal;
-import com.peeko32213.unusualprehistory.common.entity.custom.ai.goal.HyneriaJumpGoal;
 import com.peeko32213.unusualprehistory.common.entity.custom.base.PrehistoricEntity;
 import com.peeko32213.unusualprehistory.common.entity.util.interfaces.ISemiAquatic;
 import com.peeko32213.unusualprehistory.common.entity.util.navigator.SemiAquaticPathNavigation;
@@ -99,9 +98,6 @@ public class HyneriaEntity extends PrehistoricEntity implements GeoEntity, ISemi
         this.goalSelector.addGoal(2, new FindWaterGoal(this));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        if(!this.isBaby()) {
-            this.goalSelector.addGoal(2, new HyneriaJumpGoal(this, 200));
-        }
         if(!this.isBaby()) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 50, true, true, entity -> entity.getType().is(UPEntityTypeTags.HYNERIA_TARGETS)));
         }

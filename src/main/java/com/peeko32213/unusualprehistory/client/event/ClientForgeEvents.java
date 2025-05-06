@@ -2,15 +2,12 @@ package com.peeko32213.unusualprehistory.client.event;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.UnusualPrehistoryConfig;
 import com.peeko32213.unusualprehistory.client.ClientUtils;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
-import com.peeko32213.unusualprehistory.core.registry.UPEffects;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,8 +18,6 @@ import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = UnusualPrehistory.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public final class ClientForgeEvents {

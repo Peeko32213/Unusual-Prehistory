@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "unusualprehistory:block/rhynia/rhynia",
+        "weight": 10
+      },
+      {
+        "model": "unusualprehistory:block/rhynia/rhynia_offset_1",
+        "weight": 10
+      },
+      {
+        "model": "unusualprehistory:block/rhynia/rhynia_offset_2",
+        "weight": 10
+      },
+      {
+        "model": "unusualprehistory:block/rhynia/rhynia_offset_3",
+        "weight": 10
+      },
+      {
+        "model": "unusualprehistory:block/rhynia/rhynia_offset_4",
+        "weight": 10
+      }
+    ]
+  }
+}

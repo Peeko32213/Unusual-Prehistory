@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.data.server.loot;
 
 import com.peeko32213.unusualprehistory.common.block.custom.DinosaurWaterEggBlock;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.items.UPItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;

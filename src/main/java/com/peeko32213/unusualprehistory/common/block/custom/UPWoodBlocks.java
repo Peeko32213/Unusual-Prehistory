@@ -1,6 +1,6 @@
 package com.peeko32213.unusualprehistory.common.block.custom;
 
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.RotatedPillarBlock;

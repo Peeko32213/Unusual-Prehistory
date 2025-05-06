@@ -1,7 +1,7 @@
 package com.peeko32213.unusualprehistory.common.world.structure.processor;
 
 import com.mojang.serialization.Codec;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import com.peeko32213.unusualprehistory.core.registry.world.UPStructureProcessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;

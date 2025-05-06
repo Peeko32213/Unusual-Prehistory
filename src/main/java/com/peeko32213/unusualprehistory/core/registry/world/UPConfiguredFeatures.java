@@ -5,7 +5,7 @@ import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.FoxiiFoliagePlacer;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.GinkgoFoliagePlacer;
 import com.peeko32213.unusualprehistory.common.world.feature.tree.trunkplacer.GiantTrunkPlacerWithRoots;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;

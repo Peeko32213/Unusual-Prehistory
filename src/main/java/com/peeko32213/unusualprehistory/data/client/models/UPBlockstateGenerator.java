@@ -3,7 +3,7 @@ package com.peeko32213.unusualprehistory.data.client.models;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
-import com.peeko32213.unusualprehistory.core.registry.blocks.UPBlocks;
+import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -202,6 +202,7 @@ public class UPBlockstateGenerator extends BlockStateProvider {
         plantWithPottedBlock(UPBlocks.SARACENIA, UPBlocks.POTTED_SARACENIA);
         plantWithPottedBlock(UPBlocks.ISOETES_BEESTONII, UPBlocks.POTTED_ISOETES_BEESTONII);
         plantWithPottedBlock(UPBlocks.CLADOPHLEBIS, UPBlocks.POTTED_CLADOPHLEBIS);
+        plantWithPottedBlock(UPBlocks.COOKSONIA, UPBlocks.POTTED_COOKSONIA);
     }
 
     private void basicBlock(Supplier<? extends Block> block) {
