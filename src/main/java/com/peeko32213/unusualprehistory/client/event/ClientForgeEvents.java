@@ -1,18 +1,27 @@
 package com.peeko32213.unusualprehistory.client.event;
 
 import com.mojang.blaze3d.shaders.FogShape;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.peeko32213.unusualprehistory.UnusualPrehistory;
 import com.peeko32213.unusualprehistory.client.ClientUtils;
+import com.peeko32213.unusualprehistory.common.item.tool.VelociraptorShieldItem;
 import com.peeko32213.unusualprehistory.core.registry.UPBlocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ComputeFovModifierEvent;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,24 +87,6 @@ public final class ClientForgeEvents {
             event.setBlue(0.1F);
         }
     }
-
-//    @SubscribeEvent
-//    public static void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
-//        if (Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get()) != null && !Minecraft.getInstance().isPaused() && UnusualPrehistoryConfig.SCREEN_SHAKE.get()) {
-//            int duration = Objects.requireNonNull(Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get())).getDuration();
-//            if(!(duration > 0)){
-//                Minecraft.getInstance().player.removeEffect(UPEffects.SCREEN_SHAKE.get());
-//                return;
-//            }
-//
-//            int amplifier = Objects.requireNonNull(Minecraft.getInstance().player.getEffect(UPEffects.SCREEN_SHAKE.get())).getAmplifier();
-//            float f = (Math.min(10, duration) + Minecraft.getInstance().getFrameTime()) * 0.1F;
-//            double intensity = f * Minecraft.getInstance().options.screenEffectScale().get();
-//            RandomSource rng = Minecraft.getInstance().player.getRandom();
-//            double totalAmp = (0.1 + 0.1 * amplifier);
-//            event.getCamera().move(rng.nextFloat() * 0.4F * intensity * totalAmp, rng.nextFloat() * 0.2F * intensity * totalAmp, rng.nextFloat() * 0.4F * intensity * totalAmp);
-//        }
-//    }
 
     @SubscribeEvent
     public static void preRenderLiving(RenderLivingEvent.Pre event) {

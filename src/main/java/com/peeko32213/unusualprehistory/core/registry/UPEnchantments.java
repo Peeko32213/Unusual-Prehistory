@@ -22,14 +22,10 @@ public class UPEnchantments {
 
     // Unusual Prehistory categories
     public static final RegistryObject<Enchantment> LONG_DASH = ENCHANTMENTS.register("long_dash", () -> new UPWeaponEnchantment("long_dash", Enchantment.Rarity.UNCOMMON, VELOCI_SHIELD, 3, 20, EquipmentSlot.MAINHAND));
-    public static final RegistryObject<Enchantment> SHORT_DASH = ENCHANTMENTS.register("short_dash", () -> new UPWeaponEnchantment("short_dash", Enchantment.Rarity.UNCOMMON, VELOCI_SHIELD, 3, 20, EquipmentSlot.MAINHAND));
 
     // Vanilla categories
 
     public static boolean areCompatible(UPWeaponEnchantment enchantment1, Enchantment enchantment2) {
-        if (enchantment1 == LONG_DASH.get() && enchantment2 == SHORT_DASH.get()) {
-            return false;
-        }
         return true;
     }
 
